@@ -11,8 +11,9 @@ namespace PowerUp
     }
     public abstract class ShotType : MonoBehaviour
     {
-        public abstract void Spawn(Vector3 origin, Vector3 direction);
-        protected void OnCollisionEnter(Collision collision) { }
+        protected static Vector2 maxDist = new Vector2(20, 20);
+        protected static Vector2 minDist = new Vector2(-20, -20);
+        protected virtual void OnTriggerEnter(Collider other) { }
     }
 }
 

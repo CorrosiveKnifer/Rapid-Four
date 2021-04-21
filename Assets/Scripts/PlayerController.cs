@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody>();
-        projectileSpawnLoc[0].AddComponent<BasicShotType>();
-        projectileSpawnLoc[1].AddComponent<BasicShotType>();
+        projectileSpawnLoc[0].AddComponent<BasicGunType>();
+        projectileSpawnLoc[1].AddComponent<BasicGunType>();
     }
 
     // Update is called once per frame
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                projectileSpawnLoc[i].GetComponent<BasicShotType>().Fire();
+                projectileSpawnLoc[i].GetComponent<BasicGunType>().Fire();
             }
         }
     }

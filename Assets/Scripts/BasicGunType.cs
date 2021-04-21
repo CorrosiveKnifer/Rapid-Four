@@ -4,7 +4,7 @@ using UnityEngine;
 
 using PowerUp;
 
-public class BasicShotType : GunType
+public class BasicGunType : GunType
 {
     private GameObject proj;
 
