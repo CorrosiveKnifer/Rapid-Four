@@ -18,6 +18,7 @@ public class BasicLaserType : GunType
         laser.AddComponent(type.GetType());
         laser.transform.localScale = new Vector3(1.0f, 5.0f, 1.0f);
         laser.transform.up = transform.up;
+        laser.GetComponent<ShotType>().damage = 50.0f * Time.deltaTime;
     }
 
     public override void UnFire()

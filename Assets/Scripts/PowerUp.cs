@@ -13,6 +13,7 @@ namespace PowerUp
     public abstract class ShotType : MonoBehaviour
     {
         public float lifetime = 15.0f;
+        public float damage = 0.0f;
         protected virtual void Start() { }
         protected void Update()
         {

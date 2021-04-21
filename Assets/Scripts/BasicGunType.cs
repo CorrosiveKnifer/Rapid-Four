@@ -7,6 +7,7 @@ public class BasicGunType : GunType
 {
     private GameObject proj;
     private float force = 50.0f;
+    private float damage = 30.0f;
 
     public void Start()
     {
@@ -19,6 +20,7 @@ public class BasicGunType : GunType
         gObject.AddComponent(type.GetType());
         gObject.transform.up = transform.up;
         gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
+        gObject.GetComponent<ShotType>().damage = 50.0f;
     }
 
     public override void UnFire()

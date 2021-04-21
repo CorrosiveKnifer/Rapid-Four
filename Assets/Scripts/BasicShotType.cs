@@ -9,6 +9,7 @@ public class BasicShotType : ShotType
     {
         
     }
+
     private void Update()
     {
         lifetime -= Time.deltaTime;
@@ -21,7 +22,7 @@ public class BasicShotType : ShotType
     {
         if(other.gameObject.tag == "Asteroid")
         {
-            Destroy(gameObject);
+            other.gameObject.GetComponent<Astroid>().DealDamage(damage);
         }
     }
 }
