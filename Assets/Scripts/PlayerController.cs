@@ -60,16 +60,16 @@ public class PlayerController : MonoBehaviour
 
         if (InputManager.instance.GetPlayerShoot(ID))
         {
-            for (int i = 0; i < 2; i++)
+            foreach (var gameObject in projectileSpawnLoc)
             {
-                projectileSpawnLoc[i].GetComponent<GunType>().Fire(type);
+                gameObject.GetComponent<GunType>().Fire(type);
             }
         }
         else if(InputManager.instance.GetPlayerUnshoot(ID))
         {
-            for (int i = 0; i < 2; i++)
+            foreach (var gameObject in projectileSpawnLoc)
             {
-                projectileSpawnLoc[i].GetComponent<GunType>().UnFire();
+                gameObject.GetComponent<GunType>().UnFire();
             }
         }
     }
@@ -89,9 +89,11 @@ public class PlayerController : MonoBehaviour
     }
     private void ApplyGun(GunType type)
     {
-        Destroy(projectileSpawnLoc[0].GetComponent<GunType>());
-        Destroy(projectileSpawnLoc[1].GetComponent<GunType>());
-        projectileSpawnLoc[0].AddComponent(type.GetType());
-        projectileSpawnLoc[1].AddComponent(type.GetType());
+        foreach (var gameObject in projectileSpawnLoc)
+        {
+            Destroy(gameObject.GetComponent<GunType>());
+            gameObject.AddComponent(type.GetType());
+        }
+        
     }
 }
