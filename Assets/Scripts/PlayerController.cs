@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody body;
     private float speed = 0.0f;
+    private float maxSpeed = 10.0f;
+    private float acceleration = 5.0f;
+    private float deceleration = 8.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +26,17 @@ public class PlayerController : MonoBehaviour
         
         transform.Rotate(new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * 10.0f * horizontalAxis), Space.Self);
         
-        if(verticalAxis > 1.0f)
+        if(verticalAxis > 0.0f)
         {
-            speed += 5.0f * Time.deltaTime;
+            speed += acceleration * Time.deltaTime;
         }
-        else
+        else if (verticalAxis < 0.0f)
         {
-            speed -= 8.0f * Time.deltaTime;
+            speed -= deceleration * Time.deltaTime;
         }
+
+        speed = Mathf.Clamp(speed, 0.0f, maxSpeed);
+
+        transform.position += transform.up * speed * Time.deltaTime;
     }
 }
