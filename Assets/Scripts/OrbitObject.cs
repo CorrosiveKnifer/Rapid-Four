@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class OrbitObject : MonoBehaviour
 {
-    public float m_GravityMult = 10.0f;
+    const float m_GravityMult = 0.1f;
     public Rigidbody m_Rigidbody;
 
     // Start is called before the first frame update
