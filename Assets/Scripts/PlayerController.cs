@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
         float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         
-        transform.Rotate(new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * 10.0f * horizontalAxis), Space.Self);
+        transform.Rotate(new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -10.0f * horizontalAxis), Space.Self);
         
         if(verticalAxis > 0.0f)
         {
