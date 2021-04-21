@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody body;
     private float speed = 0.0f;
+    private float acceleration = 5.0f;
+    private float deceleration = 8.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +27,13 @@ public class PlayerController : MonoBehaviour
         
         if(verticalAxis > 1.0f)
         {
-            speed += 5.0f * Time.deltaTime;
+            speed += acceleration * Time.deltaTime;
         }
         else
         {
-            speed -= 8.0f * Time.deltaTime;
+            speed -= deceleration * Time.deltaTime;
         }
+
+        transform.position += transform.up * speed * Time.deltaTime;
     }
 }
