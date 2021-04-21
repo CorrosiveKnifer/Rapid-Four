@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 4409862675478639236}
   - component: {fileID: 4409862675478639237}
   - component: {fileID: 3730540413838816999}
-  m_Layer: 0
+  - component: {fileID: 1241522522266422238}
+  m_Layer: 8
   m_Name: AstroidSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4409862675478639242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -107,12 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddbc47f695983342b513fbb3651664b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Endurance: 2
-  ChildNum: 1
+  Endurance: 1
+  ChildNum: 3
+  Health: 0
   isDestroyed: 0
   AstroidPrefab: {fileID: 4409862675478639242}
   angle: 45
-  target: {fileID: 0}
 --- !u!54 &3730540413838816999
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,3 +130,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1241522522266422238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4409862675478639242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993f4acf55bf98247a9e7fd11bd78445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Rigidbody: {fileID: 0}

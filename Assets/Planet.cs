@@ -7,12 +7,6 @@ public class Planet : MonoBehaviour
     float m_fHealth = 1000.0f;
     public float m_fRotationSpeedMult = 1.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

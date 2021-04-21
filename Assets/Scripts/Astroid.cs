@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Rachael
+/// Rachael, William
 /// </summary>
 public class Astroid : MonoBehaviour
 {
     public int Endurance = 1;
     public int ChildNum = 1;
+
+    public float Health = 100.0f;
 
     public bool isDestroyed = false;
     public GameObject AstroidPrefab;
@@ -23,6 +25,16 @@ public class Astroid : MonoBehaviour
     {
         isDestroyed = false;
         
+        if (Endurance != 0)
+        {
+            Health = 100.0f;
+        }
+        else
+        {
+            Health = 30.0f;
+        }
+
+        Physics.IgnoreLayerCollision(8, 8);
         //GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.up);
     }
     private void Awake()
@@ -46,7 +58,7 @@ public class Astroid : MonoBehaviour
 
 
         //if astroiud is destroyed
-        if (isDestroyed)
+        if (Health <= 0.0f)
         {
             //if its the parent astroid
             if (Endurance != 0)
@@ -91,8 +103,8 @@ public class Astroid : MonoBehaviour
     {
         ChildNum = num;
     }
-    public void DealDamage()
+    public void DealDamage(float _damage)
     {
-        isDestroyed = true;
+        Health -= _damage;
     }
 }
