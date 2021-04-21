@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LaserLink : MonoBehaviour
 {
-    GameObject Player1;
-    GameObject Player2;
+    public GameObject Player1;
+    public GameObject Player2;
 
     public LineRenderer laser;
     float m_fMaxPlayerDistance = 20.0f;
@@ -19,16 +19,28 @@ public class LaserLink : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = (Player2.transform.position - Player1.transform.position).normalized;
-        Debug.DrawRay(Player1.transform.position, direction * m_fMaxPlayerDistance, Color.magenta, 0.1f);
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, m_fMaxPlayerDistance);
-
-        if (hits.Length == 0)
+        if (LaserFire())
         {
-            return;
+            laser.enabled = true;
         }
+        else
+        {
+            laser.enabled = false;
+        }
+    }
 
-        RaycastHit closestHit = hits[0];
+    bool LaserFire()
+    {
+        Vector3 direction = (Player2.transform.position - Player1.transform.position).normalized;
+        float distance = (Player2.transform.position - Player1.transform.position).magnitude;
+        if (distance > m_fMaxPlayerDistance)
+            return false;
+
+        //Debug.DrawRay(Player1.transform.position, direction * distance, Color.magenta, 0.1f);
+        laser.SetPosition(0, Player1.transform.position);
+        laser.SetPosition(1, Player2.transform.position);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, distance);
+
 
         foreach (RaycastHit hit in hits)
         {
@@ -38,5 +50,6 @@ public class LaserLink : MonoBehaviour
 
             }
         }
+        return true;
     }
 }
