@@ -6,14 +6,23 @@ namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour
     {
-        //public abstract void Fire(ShotType type);
-        public abstract void Fire();
+        public abstract void Fire(ShotType type);
+        public abstract void UnFire();
     }
+
     public abstract class ShotType : MonoBehaviour
     {
-        protected static Vector2 maxDist = new Vector2(20, 20);
-        protected static Vector2 minDist = new Vector2(-20, -20);
+        public float lifetime = 15.0f;
+        protected virtual void Start() { }
+        protected void Update()
+        {
+            lifetime -= Time.deltaTime;
+            if (lifetime <= 0)
+            {
+                Destroy(this);
+            }
+        }
         protected virtual void OnTriggerEnter(Collider other) { }
+
     }
 }
-

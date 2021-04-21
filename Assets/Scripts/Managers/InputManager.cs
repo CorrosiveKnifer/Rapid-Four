@@ -126,4 +126,18 @@ public class InputManager : MonoBehaviour
                 return Input.GetKeyDown(playerBShoot);
         }
     }
+    public bool GetPlayerUnshoot(int playerID)
+    {
+        if (playerID > 1 || playerID < 0)
+            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
+
+        switch (playerID)
+        {
+            default:
+            case 0:
+                return !Input.GetKey(playerAShoot);
+            case 1:
+                return !Input.GetKey(playerBShoot);
+        }
+    }
 }

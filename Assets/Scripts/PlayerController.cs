@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PowerUp;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 maxDist;
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
-
+    public ShotType type;
     private Rigidbody body;
     
     private float speed = 100.0f;
@@ -18,8 +19,16 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody>();
-        projectileSpawnLoc[0].AddComponent<BasicGunType>();
-        projectileSpawnLoc[1].AddComponent<BasicGunType>();
+        type = new BasicShotType();
+
+        if (ID == 1)
+        {
+            ApplyGun(new BasicLaserType());
+        }
+        else
+        {
+            ApplyGun(new BasicGunType());
+        }        
     }
 
     // Update is called once per frame
@@ -53,7 +62,14 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                projectileSpawnLoc[i].GetComponent<BasicGunType>().Fire();
+                projectileSpawnLoc[i].GetComponent<GunType>().Fire(type);
+            }
+        }
+        else if(InputManager.instance.GetPlayerUnshoot(ID))
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                projectileSpawnLoc[i].GetComponent<GunType>().UnFire();
             }
         }
     }
@@ -70,5 +86,12 @@ public class PlayerController : MonoBehaviour
 
         body.rotation = Quaternion.Euler(body.rotation.eulerAngles + new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -rotationSpeed * horizontalAxis));
 
+    }
+    private void ApplyGun(GunType type)
+    {
+        Destroy(projectileSpawnLoc[0].GetComponent<GunType>());
+        Destroy(projectileSpawnLoc[1].GetComponent<GunType>());
+        projectileSpawnLoc[0].AddComponent(type.GetType());
+        projectileSpawnLoc[1].AddComponent(type.GetType());
     }
 }

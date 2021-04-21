@@ -97,6 +97,26 @@ PrefabInstance:
       propertyPath: ID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: maxDist.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: maxDist.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: minDist.x
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: minDist.y
+      value: -200
+      objectReference: {fileID: 0}
     - target: {fileID: 6753091704441865658, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
