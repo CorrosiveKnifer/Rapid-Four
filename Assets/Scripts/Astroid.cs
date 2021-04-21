@@ -9,12 +9,12 @@ public class Astroid : MonoBehaviour
 {
     public int Endurance = 1;
     public int ChildNum = 1;
+
     public bool isDestroyed = false;
     public GameObject AstroidPrefab;
     Vector3 Astroiddirection;
 
     public int angle = 90;
-    public Transform target;
 
     Vector3 FirstDir;
     Vector3 SecondDir;
@@ -39,24 +39,28 @@ public class Astroid : MonoBehaviour
         //Pontential direction
         Debug.DrawRay(transform.position, (Quaternion.AngleAxis(angle, Vector3.forward) * Astroiddirection) * 10.0f, Color.blue);
         Debug.DrawRay(transform.position, (Quaternion.AngleAxis(-angle, Vector3.forward) * Astroiddirection) * 10.0f, Color.green);
+
+        //Set thoseponteial directions
         FirstDir = Quaternion.AngleAxis(angle, Vector3.forward) * Astroiddirection;
         SecondDir = Quaternion.AngleAxis(-angle, Vector3.forward) * Astroiddirection;
 
 
-
+        //if astroiud is destroyed
         if (isDestroyed)
         {
+            //if its the parent astroid
             if (Endurance != 0)
             {
                 SpawnChild();
             }
 
+            //destroy itself;
             Destroy(gameObject);
         }
     }
     void SpawnChild()
     {
-        
+        //for the amount of children the astroid parents will spawn
         for (int i = 0; i < ChildNum; i++)
         {
             
@@ -64,16 +68,31 @@ public class Astroid : MonoBehaviour
             //float randomFloatFromNumbers = numbers[randomIndex];
             randomIndex = randomIndex / 10.0f;
 
+            //between the first and second direction
             Vector3 interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, randomIndex);
+
+            //create child
             GameObject childAstroid = Instantiate(AstroidPrefab);
+
+            //set speed
             childAstroid.GetComponent<Rigidbody>().velocity = transform.TransformDirection(interpolatedPosition * 10);
+
+            //apply that direction onto child
             childAstroid.GetComponent<Astroid>().Astroiddirection = interpolatedPosition;
+            //scale it down
+            childAstroid.transform.localScale = transform.localScale*0.5f;
+
+            //make it known it is a child in that script
             childAstroid.GetComponent<Astroid>().Endurance--;
             
         }
     }
-    void SetNumberofAstroids(int num)
+    public void SetNumberofAstroids(int num)
     {
         ChildNum = num;
+    }
+    public void DealDamage()
+    {
+        isDestroyed = true;
     }
 }
