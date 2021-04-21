@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Cursor.lockState = CursorLockMode.Confined;
         }
         else
         {
@@ -40,17 +39,23 @@ public class GameManager : MonoBehaviour
     public static float SoundEffectVolume { get; set; } = 1.0f;
     public static float BackGroundVolume { get; set; } = 1.0f;
 
+    public int[] Score;
+    public int TotalScore;
+
     public double GameTime = 0.0;
 
     private void Start()
     {
-        
+        Score = new int[2];
+        Score[0] = 0;
+        Score[1] = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         GameTime += Time.deltaTime;
+        //TotalScore = Score[0] + Score[1];
     }
 }
 
