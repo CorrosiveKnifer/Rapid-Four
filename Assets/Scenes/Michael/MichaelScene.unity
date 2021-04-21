@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1569178057849436562, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 2276507623308536240, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -622,6 +627,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1569178057849436562, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 2276507623308536240, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -631,6 +641,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player A
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: maxDist.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: maxDist.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: minDist.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: minDist.y
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6753091704441865658, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
