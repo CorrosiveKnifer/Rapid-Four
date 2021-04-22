@@ -20,6 +20,8 @@ public class Astroid : MonoBehaviour
 
     Vector3 FirstDir;
     Vector3 SecondDir;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,9 +59,11 @@ public class Astroid : MonoBehaviour
         SecondDir = Quaternion.AngleAxis(-angle, Vector3.forward) * Astroiddirection;
 
 
-        //if astroiud is destroyed
+        //if astroid is destroyed
         if (Health <= 0.0f)
         {
+            GameManager.instance.AddToScore(0, transform.localScale.x);
+
             //if its the parent astroid
             if (Endurance != 0)
             {
