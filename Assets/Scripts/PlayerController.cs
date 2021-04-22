@@ -94,6 +94,5 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject.GetComponent<GunType>());
             gameObject.AddComponent(type.GetType());
         }
-        
     }
 }

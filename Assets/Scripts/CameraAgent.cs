@@ -15,6 +15,6 @@ public class CameraAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = target.transform.position + new Vector3(0, 0, -30);
+        transform.position = target.transform.position + new Vector3(0, 0, -45);
     }
 }

@@ -18,6 +18,7 @@ public class BasicShotType : ShotType
             Destroy(this);
         }
     }
+
     protected override void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Asteroid")
