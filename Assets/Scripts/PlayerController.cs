@@ -20,15 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         type = new BasicShotType();
-
-        if (ID == 1)
-        {
-            ApplyGun(new BasicLaserType());
-        }
-        else
-        {
-            ApplyGun(new BasicGunType());
-        }        
+        ApplyGun(new BasicGunType());      
     }
 
     // Update is called once per frame
