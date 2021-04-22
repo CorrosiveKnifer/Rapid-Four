@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// Michael Jordan
+/// Michael Jordan, William de Beer
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -42,7 +42,13 @@ public class GameManager : MonoBehaviour
     public int[] Score;
     public int TotalScore;
 
+    public int AsteroidDestroyScore = 10;
+
     public double GameTime = 0.0;
+
+    [Header("UI Objects")]
+    public Text scoreText;
+    public Image planetHealth;
 
     private void Start()
     {
@@ -56,6 +62,17 @@ public class GameManager : MonoBehaviour
     {
         GameTime += Time.deltaTime;
         //TotalScore = Score[0] + Score[1];
+
+        scoreText.text = TotalScore.ToString();
+    }
+
+    public void AddToScore(int _playerIndex, float _asteroidScale)
+    {
+        Score[_playerIndex] += (int)(AsteroidDestroyScore * _asteroidScale);
+    }
+    public void SetPlanetHealthBar(float _health)
+    {
+        planetHealth.fillAmount = _health;
     }
 }
 
