@@ -58,6 +58,7 @@ public class HomingGunType : GunType
         if (laser != null)
             Destroy(laser);
     }
+
     /*
     //CURRENTLY STILL WORKING ON IT
     void homingBullet()
