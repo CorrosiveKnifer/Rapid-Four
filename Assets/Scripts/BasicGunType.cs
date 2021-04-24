@@ -45,6 +45,7 @@ public class BasicGunType : GunType
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laserObject.GetComponent<ShotType>().IsLaser = true;
                 }
                 break;
         }

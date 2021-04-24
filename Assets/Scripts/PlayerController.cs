@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public ShotType type;
     private Rigidbody body;
     
-    private float speed = 250.0f;
+    public float speed = 350.0f;
     private float rotationSpeed = 120.0f;
 
     // Start is called before the first frame update
