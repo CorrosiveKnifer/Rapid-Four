@@ -216,6 +216,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2594306418802600820, guid: 099c3e0b3ec24814f9432ff0262fc47a,
+        type: 3}
+      propertyPath: spinSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594306418802600820, guid: 099c3e0b3ec24814f9432ff0262fc47a,
+        type: 3}
+      propertyPath: spinDirect.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3730540413838816999, guid: 099c3e0b3ec24814f9432ff0262fc47a,
         type: 3}
       propertyPath: m_IsKinematic
