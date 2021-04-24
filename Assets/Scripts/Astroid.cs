@@ -15,6 +15,7 @@ public class Astroid : MonoBehaviour
     public bool isDestroyed = false;
     public GameObject AstroidPrefab;
     Vector3 Astroiddirection;
+    public GameObject minimapSprite;
 
     public int angle = 90;
     Rigidbody rigidBody;
@@ -79,6 +80,8 @@ public class Astroid : MonoBehaviour
             Destroy(gameObject);
         }
         ClampSpeed();
+
+        minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
     }
 
     void ClampSpeed()

@@ -7,6 +7,7 @@ public class Planet : MonoBehaviour
     float m_fMaxHealth = 1000.0f;
     float m_fHealth;
     public float m_fRotationSpeedMult = 1.0f;
+    public GameObject minimapSprite;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class Planet : MonoBehaviour
     {
         transform.Rotate(new Vector3(0.0f, m_fRotationSpeedMult * Time.deltaTime, 0.0f));
         GameManager.instance.SetPlanetHealthBar(m_fHealth / m_fMaxHealth);
+        minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
     }
 
     public void DealDamage(float _damage)
