@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 199728746733950666, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.52
+      objectReference: {fileID: 0}
     - target: {fileID: 8695306752015050473, guid: f517c8a68134b0b459eebf0f6125ff90,
         type: 3}
       propertyPath: m_Name
@@ -216,21 +221,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2594306418802600820, guid: 099c3e0b3ec24814f9432ff0262fc47a,
-        type: 3}
-      propertyPath: spinSpeed
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 2594306418802600820, guid: 099c3e0b3ec24814f9432ff0262fc47a,
-        type: 3}
-      propertyPath: spinDirect.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3730540413838816999, guid: 099c3e0b3ec24814f9432ff0262fc47a,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4409862675478639233, guid: 099c3e0b3ec24814f9432ff0262fc47a,
         type: 3}
       propertyPath: m_RootOrder
@@ -291,8 +281,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: AstroidSphere
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2594306418802600820, guid: 099c3e0b3ec24814f9432ff0262fc47a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 099c3e0b3ec24814f9432ff0262fc47a, type: 3}
 --- !u!1001 &492133715
 PrefabInstance:
@@ -781,26 +770,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1279209154 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4409862675478639242, guid: 099c3e0b3ec24814f9432ff0262fc47a,
-    type: 3}
-  m_PrefabInstance: {fileID: 468145474}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1279209158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279209154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fdd3dd213e435b49bf1175c3b3f9274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpinSpeed: 0
-  minSpinSpeed: 0
 --- !u!1 &1354972152
 GameObject:
   m_ObjectHideFlags: 0
