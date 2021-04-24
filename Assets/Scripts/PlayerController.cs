@@ -6,6 +6,9 @@ using PowerUp;
 public class PlayerController : MonoBehaviour
 {
     public int ID;
+    public int maxAmmo = 10;
+    public int Ammo;
+
     public Vector2 maxDist;
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
@@ -20,7 +23,8 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponentInChildren<Rigidbody>();
         type = new BasicShotType();
-        ApplyGun(new BasicGunType());      
+        ApplyGun(new BasicGunType());
+        Ammo = maxAmmo;
     }
 
     // Update is called once per frame
@@ -52,10 +56,16 @@ public class PlayerController : MonoBehaviour
 
         if (InputManager.instance.GetPlayerShoot(ID))
         {
-            foreach (var gameObject in projectileSpawnLoc)
+            if (Ammo > 0 || maxAmmo < 0)
             {
-                gameObject.GetComponent<GunType>().Fire(type);
+                foreach (var gameObject in projectileSpawnLoc)
+                {
+                    gameObject.GetComponent<GunType>().Fire(type);
+                }
+                Ammo = Mathf.Clamp(Ammo -1, 0, 100);
             }
+            else Debug.Log("You are out of ammo!");
+            
         }
         else if(InputManager.instance.GetPlayerUnshoot(ID))
         {

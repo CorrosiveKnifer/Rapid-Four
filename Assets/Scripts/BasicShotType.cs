@@ -10,15 +10,6 @@ public class BasicShotType : ShotType
         
     }
 
-    private void Update()
-    {
-        lifetime -= Time.deltaTime;
-        if(lifetime <= 0)
-        {
-            Destroy(this);
-        }
-    }
-
     protected override void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Asteroid")

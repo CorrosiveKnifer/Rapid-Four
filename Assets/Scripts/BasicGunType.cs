@@ -37,14 +37,14 @@ public class BasicGunType : GunType
                 break;
 
             case 1: //Sucker Ship
-                if(laser != null)
+                if(laserObject != null)
                 {
                     //Create Laser, which is parented by us
-                    laser = Instantiate(laser, transform) as GameObject;
-                    laser.AddComponent(type.GetType());
-                    laser.transform.localScale = new Vector3(1.0f, 5.0f, 1.0f);
-                    laser.transform.up = transform.up;
-                    laser.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laserObject = Instantiate(laser, transform) as GameObject;
+                    laserObject.AddComponent(type.GetType());
+                    laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
+                    laserObject.transform.up = transform.up;
+                    laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                 }
                 break;
         }

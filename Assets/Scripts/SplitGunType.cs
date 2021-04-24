@@ -37,11 +37,11 @@ public class SplitGunType : GunType
                 if (laser != null)
                 {
                     //Create Laser, which is parented by us
-                    laser = Instantiate(laser, transform) as GameObject;
-                    laser.AddComponent(type.GetType());
-                    laser.transform.localScale = new Vector3(1.0f, 5.0f, 1.0f);
-                    laser.transform.up = transform.up;
-                    laser.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laserObject = Instantiate(laser, transform) as GameObject;
+                    laserObject.AddComponent(type.GetType());
+                    laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
+                    laserObject.transform.up = transform.up;
+                    laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                 }
                 break;
         }
@@ -49,23 +49,22 @@ public class SplitGunType : GunType
 
     public override void UnFire()
     {
-        if (laser != null)
-            Destroy(laser);
+        if (laserObject != null)
+            Destroy(laserObject);
     }
 
     void SpawnChild(ShotType type)
     {
         //Set thoseponteial directions
-        Vector3 FirstDir = Quaternion.AngleAxis(45, Vector3.forward) * transform.up;
-        Vector3 SecondDir = Quaternion.AngleAxis(-45, Vector3.forward) * transform.up;
+        Vector3 FirstDir = Quaternion.AngleAxis(15, Vector3.forward) * transform.up;
+        Vector3 SecondDir = Quaternion.AngleAxis(-15, Vector3.forward) * transform.up;
 
         //first bullet---------------------------------------
-
 
         //Create projectile
         GameObject bullet1 = Instantiate(proj, transform.position, Quaternion.AngleAxis(45, Vector3.forward));
         bullet1.AddComponent(type.GetType());
-        bullet1.transform.up = transform.up;
+        bullet1.transform.up = FirstDir;
 
         //left direction
         Vector3 interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 0);
@@ -92,7 +91,7 @@ public class SplitGunType : GunType
         //Create projectile
         GameObject bullet3 = Instantiate(proj, transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
         bullet3.AddComponent(type.GetType());
-        bullet3.transform.up = transform.up;
+        bullet3.transform.up = SecondDir;
 
         //right direction
         interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 1);

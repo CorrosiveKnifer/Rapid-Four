@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerUpPickUp : MonoBehaviour
 {
-    public enum PickUpType { SHOT_BASIC, GUN_BASIC};
+    public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT, SHOT_HOMING};
     
     public PickUpType myType;
 
@@ -39,6 +39,12 @@ public class PowerUpPickUp : MonoBehaviour
                 break;
             case PickUpType.GUN_BASIC:
                 player.ApplyGun(new BasicGunType());
+                break;
+            case PickUpType.GUN_SPLIT:
+                player.ApplyGun(new SplitGunType());
+                break;
+            case PickUpType.SHOT_HOMING:
+                player.type = new HomingShotType();
                 break;
             default:
                 break;
