@@ -109,7 +109,7 @@ public class Astroid : MonoBehaviour
             GameObject childAstroid = Instantiate(AstroidPrefab);
 
             //set speed
-            childAstroid.GetComponent<Rigidbody>().velocity = transform.TransformDirection(interpolatedPosition * 10);
+            childAstroid.GetComponent<Rigidbody>().AddForce(interpolatedPosition.normalized * 300.0f, ForceMode.Impulse);
 
             //apply that direction onto child
             childAstroid.GetComponent<Astroid>().Astroiddirection = interpolatedPosition;
@@ -118,7 +118,6 @@ public class Astroid : MonoBehaviour
 
             //make it known it is a child in that script
             childAstroid.GetComponent<Astroid>().Endurance--;
-            
         }
     }
     public void SetNumberofAstroids(int num)
