@@ -62,6 +62,8 @@ MonoBehaviour:
   Player1: {fileID: 1214859132203251925}
   Player2: {fileID: 7749337600512700394}
   laser: {fileID: 6151658612271353895}
+  m_fLaserDamage: 1000
+  m_fMaxPlayerDistance: 40
 --- !u!120 &6151658612271353895
 LineRenderer:
   m_ObjectHideFlags: 0

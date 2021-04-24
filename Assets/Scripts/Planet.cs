@@ -34,7 +34,7 @@ public class Planet : MonoBehaviour
             Astroid asteroid = other.gameObject.GetComponentInParent<Astroid>();
             if (asteroid != null)
             {
-                m_fHealth -= (int)(asteroid.transform.localScale.x * 5.0f);
+                m_fHealth -= (int)(asteroid.transform.localScale.x * 15.0f);
 
                 Destroy(other.gameObject);
             }
