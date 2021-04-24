@@ -52,7 +52,7 @@ public class BasicGunType : GunType
 
     public override void UnFire()
     {
-        if (laser != null)
-            Destroy(laser);
+        if (laserObject != null)
+            Destroy(laserObject);
     }
 }

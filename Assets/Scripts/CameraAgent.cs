@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraAgent : MonoBehaviour
 {
-    public GameObject target;
+    public GameObject[] targets;
+    public Vector2 size;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,12 @@ public class CameraAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = target.transform.position + new Vector3(0, 0, -45);
+        Vector3 pos = new Vector3();
+        foreach (var target in targets)
+        {
+            pos += target.transform.position;
+        }
+
+        transform.position = pos / targets.Length + new Vector3(0, 0, -45);
     }
 }
