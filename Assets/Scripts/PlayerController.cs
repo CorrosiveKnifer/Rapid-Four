@@ -101,12 +101,17 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    public void ApplyGun(GunType type)
+    public void ApplyGun(GunType gType)
     {
         foreach (var gameObject in projectileSpawnLoc)
         {
             Destroy(gameObject.GetComponent<GunType>());
-            gameObject.AddComponent(type.GetType());
+            gameObject.AddComponent(gType.GetType());
+
+            if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
+            {
+                gameObject.GetComponent<GunType>().Fire(type);
+            }
         }
     }
 }
