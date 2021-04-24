@@ -31,7 +31,7 @@ public class Planet : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
-            Astroid asteroid = other.gameObject.GetComponent<Astroid>();
+            Astroid asteroid = other.gameObject.GetComponentInParent<Astroid>();
             if (asteroid != null)
             {
                 m_fHealth -= (int)(asteroid.transform.localScale.x * 5.0f);
