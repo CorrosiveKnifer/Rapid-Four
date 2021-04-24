@@ -74,5 +74,10 @@ public class GameManager : MonoBehaviour
     {
         planetHealth.fillAmount = _health;
     }
+
+    public void PlayPowerUp()
+    {
+        GetComponent<AudioAgent>().PlaySoundEffect("PowerUp");
+    }
 }
 

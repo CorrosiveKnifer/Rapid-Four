@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    private void ApplyGun(GunType type)
+    public void ApplyGun(GunType type)
     {
         foreach (var gameObject in projectileSpawnLoc)
         {
