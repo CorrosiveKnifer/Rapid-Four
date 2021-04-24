@@ -114,6 +114,7 @@ MonoBehaviour:
   isDestroyed: 0
   AstroidPrefab: {fileID: 4409862675478639242}
   angle: 45
+  maxSpeed: 5
 --- !u!54 &3730540413838816999
 Rigidbody:
   m_ObjectHideFlags: 0

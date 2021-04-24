@@ -8,7 +8,8 @@ public class LaserLink : MonoBehaviour
     public GameObject Player2;
 
     public LineRenderer laser;
-    float m_fMaxPlayerDistance = 20.0f;
+    public float m_fLaserDamage = 10.0f;
+    public float m_fMaxPlayerDistance = 30.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,15 +40,19 @@ public class LaserLink : MonoBehaviour
         //Debug.DrawRay(Player1.transform.position, direction * distance, Color.magenta, 0.1f);
         laser.SetPosition(0, Player1.transform.position);
         laser.SetPosition(1, Player2.transform.position);
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, distance);
+        RaycastHit[] hits = Physics.RaycastAll(Player1.transform.position, direction, distance);
 
 
         foreach (RaycastHit hit in hits)
         {
+            if (hit.collider.tag == "Planet")
+            {
+                return false;
+            }
             if (hit.collider.tag == "Asteroid")
             {
-                Debug.Log("HIT ASTEROID");
-
+                // Asteroid damage here.
+                hit.collider.gameObject.GetComponent<Astroid>().DealDamage(m_fLaserDamage * Time.deltaTime);
             }
         }
         return true;

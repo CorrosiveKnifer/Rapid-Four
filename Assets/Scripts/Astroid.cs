@@ -17,6 +17,8 @@ public class Astroid : MonoBehaviour
     Vector3 Astroiddirection;
 
     public int angle = 90;
+    Rigidbody rigidBody;
+    public float maxSpeed = 8.0f;
 
     Vector3 FirstDir;
     Vector3 SecondDir;
@@ -25,6 +27,7 @@ public class Astroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rigidBody = GetComponent<Rigidbody>();
         isDestroyed = false;
         
         if (Endurance != 0)
@@ -35,6 +38,8 @@ public class Astroid : MonoBehaviour
         {
             Health = 30.0f;
         }
+
+        transform.localScale = transform.localScale * Random.Range(0.8f, 1.2f);
 
         Physics.IgnoreLayerCollision(8, 8);
         //GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.up);
@@ -73,7 +78,17 @@ public class Astroid : MonoBehaviour
             //destroy itself;
             Destroy(gameObject);
         }
+        ClampSpeed();
     }
+
+    void ClampSpeed()
+    {
+        if (rigidBody.velocity.magnitude > maxSpeed)
+        {
+            rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+        }
+    }
+
     void SpawnChild()
     {
         //for the amount of children the astroid parents will spawn
