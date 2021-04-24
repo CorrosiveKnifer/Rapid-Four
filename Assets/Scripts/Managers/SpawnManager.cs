@@ -39,6 +39,5 @@ public class SpawnManager : MonoBehaviour
         }
 
         m_fSpawnInterval = (m_fMaxInterval / (1 + m_fChangeSpeed * GameManager.instance.TotalScore)) + m_fMinInterval;
-        Debug.Log(m_fSpawnInterval);
     }
 }
