@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody body;
     
     public float speed = 350.0f;
-    private float rotationSpeed = 120.0f;
+    public float rotationSpeed = 120.0f;
 
     // Start is called before the first frame update
     void Start()

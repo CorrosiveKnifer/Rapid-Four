@@ -415,6 +415,11 @@ PrefabInstance:
       propertyPath: m_Rigidbody
       value: 
       objectReference: {fileID: 1796440530}
+    - target: {fileID: 6326795402525821423, guid: 1017a188a453f4a47aa41b7b9844d5ff,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6406906251876782699, guid: 1017a188a453f4a47aa41b7b9844d5ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -424,6 +429,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916638322075704835, guid: 1017a188a453f4a47aa41b7b9844d5ff,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 9059469056337111486, guid: 1017a188a453f4a47aa41b7b9844d5ff,
         type: 3}
