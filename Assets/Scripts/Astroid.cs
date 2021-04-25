@@ -41,9 +41,6 @@ public class Astroid : MonoBehaviour
         }
 
         transform.localScale = transform.localScale * Random.Range(0.8f, 1.2f);
-
-        //Physics.IgnoreLayerCollision(8, 8);
-        //GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.up);
     }
     private void Awake()
     {
