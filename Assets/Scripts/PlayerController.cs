@@ -18,6 +18,14 @@ public class PlayerController : MonoBehaviour
     public float speed = 350.0f;
     public float rotationSpeed = 120.0f;
 
+    // Death stuff
+    bool isAlive = true;
+    float m_fRespawnTime = 5.0f;
+    float m_DeathTimer = 0.0f;
+    bool isInvincible = false;
+    float m_fInvincibilityTime = 2.0f;
+    float m_InvincibilityTimer = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,12 +82,19 @@ public class PlayerController : MonoBehaviour
                 gameObject.GetComponent<GunType>().UnFire();
             }
         }
+        DeathUpdate();
     }
 
     private void FixedUpdate()
     {
         float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+
+        if (!isAlive)
+        {
+            verticalAxis = 0;
+            horizontalAxis = 0;
+        }
 
         switch (ID)
         {
@@ -99,6 +114,59 @@ public class PlayerController : MonoBehaviour
                     body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.15f);
                 }
                 break;
+        }
+    }
+
+    private void DeathUpdate()
+    {
+        if (m_DeathTimer <= 0.0f && !isAlive)
+        {
+            isAlive = true;
+            m_DeathTimer = 0;
+            m_InvincibilityTimer = m_fInvincibilityTime;
+            isInvincible = true;
+        }
+        else
+        {
+            m_DeathTimer -= Time.deltaTime;
+        }
+
+        if (m_InvincibilityTimer <= 0)
+        {
+            isInvincible = false;
+            m_InvincibilityTimer = 0;
+        }
+        else
+        {
+            m_InvincibilityTimer -= Time.deltaTime;
+        }
+        /* This unfreezes rotation when collided which looks good with the miner ship but not the gunner ship as the gunner does not restore their rotation :( */
+        //if (!isAlive)
+        //{
+        //    body.freezeRotation = false;
+        //}
+        //else
+        //{
+        //    body.freezeRotation = true;
+        //}
+    }
+    private void PlayerHit()
+    {
+        if (!isInvincible && isAlive)
+        {
+            isAlive = false;
+            m_DeathTimer = m_fRespawnTime;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (isAlive)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
+            {
+                PlayerHit();
+            }
         }
     }
     public void ApplyGun(GunType gType)
