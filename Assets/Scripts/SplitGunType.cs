@@ -44,7 +44,7 @@ public class SplitGunType : GunType
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
-                    //laserObject.GetComponent<ShotType>().IsLaser = true;
+                    laserObject.GetComponent<ShotType>().IsLaser = true;
                     SpawnLaserChild(type);
 
                 }
@@ -78,7 +78,7 @@ public class SplitGunType : GunType
 
         //set direction to the left
         laser1.transform.up = FirstDir;
-        //laser1.GetComponent<ShotType>().IsLaser = true;
+        laser1.GetComponent<ShotType>().IsLaser = true;
 
 
         //second laser---------------------------------------
@@ -91,7 +91,7 @@ public class SplitGunType : GunType
 
         //set direction to the right
         laser2.transform.up = SecondDir;
-        //laser2.GetComponent<ShotType>().IsLaser = true;
+        laser2.GetComponent<ShotType>().IsLaser = true;
 
     }
     void SpawnChild(ShotType type)
