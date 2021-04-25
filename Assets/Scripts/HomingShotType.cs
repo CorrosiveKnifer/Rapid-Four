@@ -18,6 +18,7 @@ public class HomingShotType : ShotType
 
     private void Update()
     {
+
         homingBullet();
 
         lifetime -= Time.deltaTime;
@@ -32,6 +33,11 @@ public class HomingShotType : ShotType
         if (other.gameObject.tag == "Asteroid")
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
+
+            if (!IsLaser)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -48,10 +54,19 @@ public class HomingShotType : ShotType
     {
         if (target != null)
         {
-            transform.LookAt(target.transform);
-            Vector3 direction = target.transform.position - transform.position;
 
-            GetComponent<Rigidbody>().velocity = direction.normalized * 10.0f;
+            if (!IsLaser)
+            {
+                transform.LookAt(target.transform);
+                Vector3 direction = target.transform.position - transform.position;
+                GetComponent<Rigidbody>().velocity = direction.normalized * 10.0f;
+            }
+            else
+            {
+                transform.up= target.transform.position - transform.position;
+                Debug.Log("homing");
+            }
+            
         }
 
     }
