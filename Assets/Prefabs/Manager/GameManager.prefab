@@ -807,7 +807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Score: 
   TotalScore: 0
-  AsteroidDestroyScore: 10
+  AsteroidDestroyScore: 20
   GameTime: 0
   scoreText: {fileID: 8906190533012149608}
   planetHealth: {fileID: 4303405505572610604}

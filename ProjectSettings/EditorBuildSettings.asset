@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/MenuScreen.unity
+    guid: 6e69c841d4310cd449edeb3c04771560
   - enabled: 1
     path: Assets/Scenes/Michael/MichaelScene.unity
     guid: a4b93becfe85ebb45bc2faadfa2ef63d
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: 89e1e7923b0dbbb4499b25c605b71624
   m_configObjects: {}

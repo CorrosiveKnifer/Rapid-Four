@@ -64,7 +64,7 @@ public class Astroid : MonoBehaviour
         //if astroid is destroyed
         if (Health <= 0.0f)
         {
-            GameManager.instance.AddToScore(0, transform.localScale.x);
+            GameManager.instance.AddToScore(transform.localScale.x);
 
             //if its the parent astroid
             if (Endurance != 0)
