@@ -6,6 +6,7 @@ namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour
     {
+        public string powerUpIcon;
         public abstract void Fire(ShotType type);
         public abstract void UnFire();
     }
@@ -14,7 +15,7 @@ namespace PowerUp
     {
         public float lifetime = 15.0f;
         public float damage = 0.0f;
-
+        public string powerUpIcon;
         public bool IsLaser = false;
 
         protected virtual void Start() { }

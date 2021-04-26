@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using PowerUp;
 
 public class PlayerController : MonoBehaviour
@@ -12,7 +13,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 maxDist;
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
-    public ShotType type;
+    public GameObject shieldObject;
+
+    private ShotType effectType;
+    private System.Type gunType;
     private Rigidbody body;
     
     public float speed = 350.0f;
@@ -30,8 +34,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         body = GetComponentInChildren<Rigidbody>();
-        type = new BasicShotType();
+        effectType = new BasicShotType();
         ApplyGun(new BasicGunType());
+        gunType = typeof(BasicGunType);
         Ammo = maxAmmo;
     }
 
@@ -68,7 +73,7 @@ public class PlayerController : MonoBehaviour
             {
                 foreach (var gameObject in projectileSpawnLoc)
                 {
-                    gameObject.GetComponent<GunType>().Fire(type);
+                    gameObject.GetComponent<GunType>().Fire(effectType);
                 }
                 Ammo = Mathf.Clamp(Ammo -1, 0, 100);
             }
@@ -178,8 +183,19 @@ public class PlayerController : MonoBehaviour
 
             if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
             {
-                gameObject.GetComponent<GunType>().Fire(type);
+                gameObject.GetComponent<GunType>().Fire(effectType);
             }
         }
+        gunType = gType.GetType();
+    }
+    public void ApplyEffect(ShotType type)
+    {
+        effectType = type;
+    }
+    
+    public void GetPowerUps(out System.Type gun, out System.Type shot)
+    {
+        gun = gunType;
+        shot = effectType.GetType();
     }
 }

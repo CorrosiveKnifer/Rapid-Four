@@ -5,13 +5,28 @@ using UnityEngine;
 public class PowerUpPickUp : MonoBehaviour
 {
     public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT, SHOT_HOMING};
-    
+    public GameObject imagePlane;
     public PickUpType myType;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        switch (myType)
+        {
+            case PickUpType.SHOT_BASIC:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/BasicShot");
+                break;
+            case PickUpType.GUN_BASIC:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/BasicGun");
+                break;
+            case PickUpType.GUN_SPLIT:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/SplitGun");
+                break;
+            case PickUpType.SHOT_HOMING:
+                break;
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -35,7 +50,7 @@ public class PowerUpPickUp : MonoBehaviour
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
-                player.type = new BasicShotType();
+                player.ApplyEffect(new BasicShotType());
                 break;
             case PickUpType.GUN_BASIC:
                 player.ApplyGun(new BasicGunType());
@@ -44,7 +59,7 @@ public class PowerUpPickUp : MonoBehaviour
                 player.ApplyGun(new SplitGunType());
                 break;
             case PickUpType.SHOT_HOMING:
-                player.type = new HomingShotType();
+                player.ApplyEffect(new HomingShotType());
                 break;
             default:
                 break;
