@@ -7,13 +7,18 @@ public class PowerUpPickUp : MonoBehaviour
     public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, SHOT_PIERCE, SHOT_FROST };
     public GameObject imagePlane;
     public PickUpType myType;
+    private Rigidbody body;
+    private float maxSpeed = 4.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        body = GetComponent<Rigidbody>();
         transform.up = -Vector3.forward;
         myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.SHOT_FROST + 1);
 
+        body.AddRelativeTorque(new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized * 0.5f, ForceMode.Impulse);
+        
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
@@ -50,6 +55,18 @@ public class PowerUpPickUp : MonoBehaviour
             GivePlayerPowerUp(other.gameObject.GetComponentInParent<PlayerController>());
             GameManager.instance.PlayPowerUp();
             Destroy(gameObject);
+        }
+    }
+    private void FixedUpdate()
+    {
+        ClampSpeed();
+    }
+
+    void ClampSpeed()
+    {
+        if (body.velocity.magnitude > maxSpeed)
+        {
+            body.velocity = body.velocity.normalized * maxSpeed;
         }
     }
 

@@ -57,5 +57,10 @@ public class Planet : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+
+        if (other.gameObject.tag == "PowerUp")
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

@@ -78,7 +78,7 @@ public class Astroid : MonoBehaviour
                 SpawnChild();
             }
 
-            if (Random.Range(0.0f, 100.0f) < probability)
+            if (Random.Range(0.0f, 100.0f) < probability * Endurance)
             {
                 Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
             }
