@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    public PlayerController player;
     public float shieldRepulsion = 100.0f;
     public float reachargeTime = 5.0f;
+    public float invincibilityTime = 0.5f;
     public bool IsActive = true;
     private MeshCollider meshCollider;
     public ParticleSystem system;
@@ -22,6 +24,7 @@ public class Shield : MonoBehaviour
     void Update()
     {
         meshCollider.enabled = IsActive;
+        SetShieldVisuals(IsActive);
 
         if (!IsActive)
         {
@@ -29,7 +32,7 @@ public class Shield : MonoBehaviour
             if(timer <= 0)
             {
                 IsActive = true;
-                system.Play();
+                SetShieldVisuals(IsActive);
             }
         }
     }
@@ -41,11 +44,24 @@ public class Shield : MonoBehaviour
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
+            player.SetInvincibilityTimer(invincibilityTime);
             IsActive = false;
-            system.Stop();
             Vector3 direct = (other.transform.position - transform.position).normalized;
-            other.GetComponent<Rigidbody>().AddForce(direct * shieldRepulsion, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().velocity = direct * other.GetComponent<Astroid>().maxSpeed;
             timer = reachargeTime;
         }
+    }
+
+    public void SetShieldVisuals(bool _active)
+    {
+        if (!player.CheckAlive())
+        {
+            system.gameObject.SetActive(false);
+            return;
+        }
+
+        system.gameObject.SetActive(_active);
+        if (_active)
+            system.Play();
     }
 }

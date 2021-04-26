@@ -43,8 +43,8 @@ public class LaserLink : MonoBehaviour
             return false;
 
         //Debug.DrawRay(Player1.transform.position, direction * distance, Color.magenta, 0.1f);
-        laser.SetPosition(0, Player1.transform.position);
-        laser.SetPosition(1, Player2.transform.position);
+        laser.SetPosition(0, Player1.transform.position + Vector3.forward * 0.5f);
+        laser.SetPosition(1, Player2.transform.position + Vector3.forward * 0.5f);
         RaycastHit[] hits = Physics.RaycastAll(Player1.transform.position, direction, distance);
 
 

@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
                     body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
-                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.15f);
+                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.05f);
                     engineParticles.Play();
                     engineTrail.Play();
                 }
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
     }
     private void PlayerHit()
     {
-        if (!isInvincible && isAlive)
+        if (!isInvincible && isAlive && !shieldObject.IsActive)
         {
             isAlive = false;
             GetComponentInChildren<MeshRenderer>().enabled = false;
@@ -243,5 +243,10 @@ public class PlayerController : MonoBehaviour
     public bool CheckAlive()
     {
         return isAlive;
+    }
+    public void SetInvincibilityTimer(float _time)
+    {
+        m_InvincibilityTimer = _time;
+        isInvincible = true;
     }
 }
