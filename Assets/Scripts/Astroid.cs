@@ -11,6 +11,7 @@ public class Astroid : MonoBehaviour
     public int ChildNum = 1;
 
     public float Health = 100.0f;
+    public float probability = 50.0f;
 
     public bool isDestroyed = false;
     public GameObject AstroidPrefab;
@@ -82,6 +83,7 @@ public class Astroid : MonoBehaviour
 
         minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
     }
+
     private void OnApplicationQuit()
     {
         isQuitting = true;
@@ -91,7 +93,11 @@ public class Astroid : MonoBehaviour
     {
         if(!isQuitting)
         {
-
+            if(Random.Range(0.0f, 100.0f) < probability)
+            {
+                Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+            }
+            
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;
         }
