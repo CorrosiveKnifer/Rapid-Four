@@ -6,7 +6,6 @@ namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour
     {
-        public string powerUpIcon;
         public abstract void Fire(ShotType type);
         public abstract void UnFire();
     }

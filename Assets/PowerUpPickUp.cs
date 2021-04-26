@@ -25,7 +25,8 @@ public class PowerUpPickUp : MonoBehaviour
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/SplitGun");
                 break;
             case PickUpType.SHOT_HOMING:
-                break;
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/HomingShot");
+                break; 
             default:
                 break;
         }
