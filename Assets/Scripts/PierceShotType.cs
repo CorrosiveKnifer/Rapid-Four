@@ -13,7 +13,10 @@ public class PierceShotType : ShotType
 
     protected override void Start()
     {
-
+        if(IsLaser)
+        {
+            transform.localScale = new Vector3(1.5f, 15.0f, 1.0f);
+        }
     }
 
     protected override void OnTriggerEnter(Collider other)

@@ -29,6 +29,8 @@ public class PlayerDisplay : MonoBehaviour
         Icons.Add(typeof(SplitGunType), Resources.Load<Material>("Materials/SplitGun"));
         Icons.Add(typeof(BasicGunType), Resources.Load<Material>("Materials/BasicGun"));
         Icons.Add(typeof(HomingShotType), Resources.Load<Material>("Materials/HomingShot"));
+        Icons.Add(typeof(PierceShotType), Resources.Load<Material>("Materials/PercingShot"));
+        Icons.Add(typeof(SplitTwoGunType), Resources.Load<Material>("Materials/DoubleGun"));
         Icons.Add(typeof(BasicShotType), Resources.Load<Material>("Materials/BasicShot"));
     }
 

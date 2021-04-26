@@ -22,6 +22,7 @@ public class Astroid : MonoBehaviour
     public float maxSpeed = 8.0f;
 
     public GameObject particlePrefab;
+    public GameObject powerUpPrefab;
 
     Vector3 FirstDir;
     Vector3 SecondDir;
@@ -90,6 +91,7 @@ public class Astroid : MonoBehaviour
     {
         if(!isQuitting)
         {
+
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;
         }

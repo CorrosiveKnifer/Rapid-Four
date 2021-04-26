@@ -45,7 +45,6 @@ public class BasicGunType : GunType
             case 1: //Sucker Ship
                 if(laserObject == null)
                 {
-                    Debug.Log("here");
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
                     laserObject.AddComponent(type.GetType());

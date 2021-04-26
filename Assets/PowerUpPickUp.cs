@@ -26,7 +26,13 @@ public class PowerUpPickUp : MonoBehaviour
                 break;
             case PickUpType.SHOT_HOMING:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/HomingShot");
-                break; 
+                break;
+            case PickUpType.GUN_SPLIT_TWO:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/DoubleGun");
+                break;
+            case PickUpType.SHOT_PIERCE:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/PercingShot");
+                break;
             default:
                 break;
         }
@@ -66,9 +72,6 @@ public class PowerUpPickUp : MonoBehaviour
                 break;
             case PickUpType.SHOT_HOMING:
                 player.ApplyEffect(new HomingShotType());
-                break;
-            case PickUpType.GUN_PIERCE:
-                player.ApplyGun(new PierceGunType());
                 break;
             case PickUpType.SHOT_PIERCE:
                 player.ApplyEffect(new PierceShotType());
