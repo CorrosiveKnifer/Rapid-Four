@@ -4,7 +4,7 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// z
+/// rachael
 /// </summary>
 public class PierceGunType : GunType
 {
@@ -21,6 +21,11 @@ public class PierceGunType : GunType
         laser = Resources.Load<GameObject>("Prefabs/BasicLaser");
 
         playerID = GetComponentInParent<PlayerController>().ID;
+    }
+    protected void OnDestroy()
+    {
+        if (laserObject != null)
+            Destroy(laserObject);
     }
 
     public override void Fire(ShotType type)
@@ -40,7 +45,7 @@ public class PierceGunType : GunType
                 break;
 
             case 1: //Sucker Ship
-                if (laser != null)
+                if (laserObject == null)
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;

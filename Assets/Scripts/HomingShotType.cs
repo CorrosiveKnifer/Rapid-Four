@@ -10,6 +10,8 @@ public class HomingShotType : ShotType
 {
     public GameObject target;
     public GameObject[] enemies;
+    private float force = 100.0f;
+    private Vector3 original;
 
     protected override void Start()
     {
@@ -20,12 +22,13 @@ public class HomingShotType : ShotType
     {
 
         homingBullet();
-
+        /*
         lifetime -= Time.deltaTime;
         if (lifetime <= 0)
         {
             Destroy(this);
         }
+        */
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -37,6 +40,11 @@ public class HomingShotType : ShotType
             if (!IsLaser)
             {
                 Destroy(gameObject);
+            }
+            else
+            {
+
+                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             }
         }
     }
@@ -57,16 +65,27 @@ public class HomingShotType : ShotType
 
             if (!IsLaser)
             {
-                transform.LookAt(target.transform);
-                Vector3 direction = target.transform.position - transform.position;
-                GetComponent<Rigidbody>().velocity = direction.normalized * 10.0f;
+                //transform.LookAt(target.transform);
+                
+                Vector3 direction = (target.transform.position - transform.position).normalized;
+                transform.up = direction;
+                GetComponent<Rigidbody>().velocity = direction * 10.0f;
             }
             else
             {
-                transform.up= target.transform.position - transform.position;
-                Debug.Log("homing");
+                
+                transform.up= (target.transform.position - transform.position).normalized;
+
             }
             
+        }
+        else
+        {
+            if (IsLaser)
+            {
+                transform.up = transform.parent.up;
+            }
+
         }
 
     }

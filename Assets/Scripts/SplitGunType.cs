@@ -24,7 +24,15 @@ public class SplitGunType : GunType
 
         playerID = GetComponentInParent<PlayerController>().ID;
     }
-
+    protected void OnDestroy()
+    {
+        if (laserObject != null)
+            Destroy(laserObject);
+        if (laser1 != null)
+            Destroy(laser1);
+        if (laser2 != null)
+            Destroy(laser2);
+    }
     public override void Fire(ShotType type)
     {
         switch (playerID)
@@ -36,7 +44,7 @@ public class SplitGunType : GunType
                 break;
 
             case 1: //Sucker Ship
-                if (laser != null)
+                if (laserObject == null)
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
