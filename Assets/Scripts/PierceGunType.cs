@@ -4,9 +4,9 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// RACHAEL
+/// z
 /// </summary>
-public class HomingGunType : GunType
+public class PierceGunType : GunType
 {
     private GameObject proj;
     private GameObject laser;
@@ -45,7 +45,7 @@ public class HomingGunType : GunType
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
                     laserObject.AddComponent(type.GetType());
-                    laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
+                    laserObject.transform.localScale = new Vector3(1.5f, 20.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
@@ -56,49 +56,7 @@ public class HomingGunType : GunType
 
     public override void UnFire()
     {
-        if (laser != null)
-            Destroy(laser);
+        if (laserObject != null)
+            Destroy(laserObject);
     }
-
-    /*
-    //CURRENTLY STILL WORKING ON IT
-    void homingBullet()
-    {
-        //finding all enemies constantly
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        TargetCloset();
-
-    }
-    void bulletUpdateMovement()
-    {
-        if (target != null)
-        {
-            transform.LookAt(target.transform);
-            Vector3 direction = target.transform.position - transform.position;
-
-            GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
-        }
-    }
-    private void TargetCloset()
-    {
-        target = null;
-        float tempRadius = 50.0f;
-        //checking each enemy
-        foreach (GameObject enemy in enemies)
-        {
-            //calculate distance
-            float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
-            //if its in tower range
-            if (enemydist < tempRadius)
-            {
-                //marking this as the closet enemy
-                tempRadius = enemydist;
-                target = enemy;
-
-            }
-
-        }
-
-    }
-    */
 }

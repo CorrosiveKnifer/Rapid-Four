@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
 
-/// <summary>
-/// RACHAEL
-/// </summary>
-public class SplitGunType : GunType
+public class SplitTwoGunType : GunType
 {
     private GameObject proj;
     private GameObject laser;
@@ -32,19 +29,13 @@ public class SplitGunType : GunType
             default:
             case 0: // ship
 
-                 SpawnChild(type);
+                SpawnChild(type);
                 break;
 
             case 1: //Sucker Ship
                 if (laser != null)
                 {
-                    //Create Laser, which is parented by us
-                    laserObject = Instantiate(laser, transform) as GameObject;
-                    laserObject.AddComponent(type.GetType());
-                    laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
-                    laserObject.transform.up = transform.up;
-                    laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
-                    laserObject.GetComponent<ShotType>().IsLaser = true;
+                   
                     SpawnLaserChild(type);
 
                 }
@@ -54,8 +45,7 @@ public class SplitGunType : GunType
 
     public override void UnFire()
     {
-        if (laserObject != null)
-            Destroy(laserObject);
+
         if (laser1 != null)
             Destroy(laser1);
         if (laser2 != null)
@@ -115,19 +105,6 @@ public class SplitGunType : GunType
 
 
         //second bullet---------------------------------------
-
-        //Create projectile
-        GameObject bullet2 = Instantiate(proj, transform.position, Quaternion.AngleAxis(0, Vector3.forward));
-        bullet2.AddComponent(type.GetType());
-        bullet2.transform.up = transform.up;
-
-        //up direction
-        interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 0.5f);
-        bullet2.GetComponent<ShotType>().damage = damage;
-        //set force
-        bullet2.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
-
-        //third bullet---------------------------------------
 
         //Create projectile
         GameObject bullet3 = Instantiate(proj, transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
