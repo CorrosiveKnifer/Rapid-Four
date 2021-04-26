@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
 
+/// <summary>
+/// z
+/// </summary>
 public class PierceGunType : GunType
 {
     private GameObject proj;

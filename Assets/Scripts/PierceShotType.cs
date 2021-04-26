@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
 
+/// <summary>
+/// Rachael
+/// </summary>
 public class PierceShotType : ShotType
 {
     int endurance = 1;
