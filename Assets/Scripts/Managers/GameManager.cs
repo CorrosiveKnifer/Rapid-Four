@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Image planetHealth;
 
+    public RespawnTimer respawnTimer;
+
     private void Start()
     {
         Score = new int[2];
@@ -78,6 +80,11 @@ public class GameManager : MonoBehaviour
     public void PlayPowerUp()
     {
         GetComponent<AudioAgent>().PlaySoundEffect("PowerUp");
+    }
+
+    public RespawnTimer GetRespawnTimer()
+    {
+        return respawnTimer;
     }
 }
 

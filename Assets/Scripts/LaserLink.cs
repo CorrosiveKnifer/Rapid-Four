@@ -32,6 +32,11 @@ public class LaserLink : MonoBehaviour
 
     bool LaserFire()
     {
+        if (!Player1.GetComponent<PlayerController>().CheckAlive() || !Player2.GetComponent<PlayerController>().CheckAlive())
+        {
+            return false;
+        }
+
         Vector3 direction = (Player2.transform.position - Player1.transform.position).normalized;
         float distance = (Player2.transform.position - Player1.transform.position).magnitude;
         if (distance > m_fMaxPlayerDistance)

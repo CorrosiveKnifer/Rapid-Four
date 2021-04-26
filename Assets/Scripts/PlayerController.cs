@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     // Death stuff
     bool isAlive = true;
-    float m_fRespawnTime = 5.0f;
+    float m_fRespawnTime = 10.0f;
     float m_DeathTimer = 0.0f;
     bool isInvincible = false;
     float m_fInvincibilityTime = 2.0f;
@@ -67,20 +67,23 @@ public class PlayerController : MonoBehaviour
             transform.position = targetLoc;
         }
 
-        if (InputManager.instance.GetPlayerShoot(ID))
+        if (isAlive)
         {
-            if (Ammo > 0 || maxAmmo < 0)
+            if (InputManager.instance.GetPlayerShoot(ID))
             {
-                foreach (var gameObject in projectileSpawnLoc)
+                if (Ammo > 0 || maxAmmo < 0)
                 {
-                    gameObject.GetComponent<GunType>().Fire(effectType);
+                    foreach (var gameObject in projectileSpawnLoc)
+                    {
+                        gameObject.GetComponent<GunType>().Fire(effectType);
+                    }
+                    Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
                 }
-                Ammo = Mathf.Clamp(Ammo -1, 0, 100);
+                else Debug.Log("You are out of ammo!");
+
             }
-            else Debug.Log("You are out of ammo!");
-            
         }
-        else if(InputManager.instance.GetPlayerUnshoot(ID))
+        if(InputManager.instance.GetPlayerUnshoot(ID))
         {
             foreach (var gameObject in projectileSpawnLoc)
             {
@@ -124,16 +127,27 @@ public class PlayerController : MonoBehaviour
 
     private void DeathUpdate()
     {
+        GameManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
+
         if (m_DeathTimer <= 0.0f && !isAlive)
         {
             isAlive = true;
             m_DeathTimer = 0;
             m_InvincibilityTimer = m_fInvincibilityTime;
             isInvincible = true;
+            GetComponentInChildren<MeshRenderer>().enabled = true;
+            GetComponentInChildren<MeshCollider>().enabled = true;
+
+            Vector3 spawnPos = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
+            spawnPos = spawnPos.normalized * 25.0f;
+            transform.position = spawnPos;
+            transform.rotation = Quaternion.Euler(0.0f, 0.0f, (transform.position.x < 0 ? 90.0f : -90.0f) + Mathf.Atan(spawnPos.y / spawnPos.x) * Mathf.Rad2Deg);
+            body.velocity = Vector3.zero;
         }
         else
         {
             m_DeathTimer -= Time.deltaTime;
+            GameManager.instance.GetRespawnTimer().UpdateTimer(ID, m_DeathTimer);
         }
 
         if (m_InvincibilityTimer <= 0)
@@ -160,7 +174,18 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive)
         {
             isAlive = false;
+            GetComponentInChildren<MeshRenderer>().enabled = false;
+            GetComponentInChildren<MeshCollider>().enabled = false;
             m_DeathTimer = m_fRespawnTime;
+
+            // Force player to stop shooting
+            if (InputManager.instance.GetPlayerUnshoot(ID))
+            {
+                foreach (var gameObject in projectileSpawnLoc)
+                {
+                    gameObject.GetComponent<GunType>().UnFire();
+                }
+            }
         }
     }
 
@@ -197,5 +222,9 @@ public class PlayerController : MonoBehaviour
     {
         gun = gunType;
         shot = effectType.GetType();
+    }
+    public bool CheckAlive()
+    {
+        return isAlive;
     }
 }
