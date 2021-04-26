@@ -19,9 +19,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: 538
-    y: -427
-    width: 1439
-    height: 1675
+    y: -214
+    width: 1208
+    height: 1463
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36,7 +36,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 0}
   m_Children:
-  - {fileID: 8926484042661614749}
   - {fileID: 8926484042661615050}
   - {fileID: 8926484042661615053}
   - {fileID: 8926484042661615080}
