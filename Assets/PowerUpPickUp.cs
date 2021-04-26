@@ -11,6 +11,8 @@ public class PowerUpPickUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT, (int)PickUpType.SHOT_HOMING + 1);
+        
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:

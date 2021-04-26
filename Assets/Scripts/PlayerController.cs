@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     public Vector2 maxDist;
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
-    public GameObject shieldObject;
+    public Shield shieldObject;
+    public ParticleSystem engineParticles;
+    public ParticleSystem engineTrail;
 
     private ShotType effectType;
     private System.Type gunType;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
         effectType = new BasicShotType();
         ApplyGun(new BasicGunType());
@@ -111,6 +114,13 @@ public class PlayerController : MonoBehaviour
                 if (verticalAxis > 0.0f)
                 {
                     body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
+                    engineParticles.Play();
+                    engineTrail.Play();
+                }
+                else
+                {
+                    engineParticles.Stop();
+                    engineTrail.Stop();
                 }
                 body.rotation = Quaternion.Euler(body.rotation.eulerAngles + new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -rotationSpeed * horizontalAxis));
                 break;
@@ -120,6 +130,13 @@ public class PlayerController : MonoBehaviour
                     Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
                     body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
                     body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.15f);
+                    engineParticles.Play();
+                    engineTrail.Play();
+                }
+                else
+                {
+                    engineParticles.Stop();
+                    engineTrail.Stop();
                 }
                 break;
         }
@@ -191,7 +208,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (isAlive)
+        if (isAlive && !shieldObject.IsActive)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
             {

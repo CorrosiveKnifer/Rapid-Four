@@ -21,9 +21,12 @@ public class Astroid : MonoBehaviour
     Rigidbody rigidBody;
     public float maxSpeed = 8.0f;
 
+    public GameObject particlePrefab;
+
     Vector3 FirstDir;
     Vector3 SecondDir;
 
+    private bool isQuitting = false;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +80,19 @@ public class Astroid : MonoBehaviour
         }
 
         minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    }
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
+    private void OnDestroy()
+    {
+        if(!isQuitting)
+        {
+            GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            explode.transform.localScale = transform.localScale;
+        }
     }
 
     private void FixedUpdate()
