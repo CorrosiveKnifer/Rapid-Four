@@ -97,7 +97,7 @@ public class Astroid : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(!isQuitting)
+        if(!isQuitting  && !LevelLoader.loadingNextArea)
         {
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;

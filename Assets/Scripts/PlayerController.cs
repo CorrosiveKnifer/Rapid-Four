@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
     public Shield shieldObject;
-    public ParticleSystem engineParticles;
-    public ParticleSystem engineTrail;
+    public Animator[] engine;
+    public Animator immune;
 
-    private ShotType effectType;
+    private System.Type effectType;
     private System.Type gunType;
     private Rigidbody body;
     
@@ -37,9 +37,9 @@ public class PlayerController : MonoBehaviour
     {
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
-        effectType = new BasicShotType();
-        ApplyGun(new BasicGunType());
-        gunType = typeof(BasicGunType);
+        effectType = typeof(BasicShotType);
+        ApplyGun(typeof(BasicGunType));
+        
         Ammo = maxAmmo;
     }
 
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
                 {
                     foreach (var gameObject in projectileSpawnLoc)
                     {
-                        gameObject.GetComponent<GunType>().Fire(effectType);
+                        gameObject.GetComponent<GunType>().Fire();
                     }
                     Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
                 }
@@ -114,13 +114,11 @@ public class PlayerController : MonoBehaviour
                 if (verticalAxis > 0.0f)
                 {
                     body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
-                    engineParticles.Play();
-                    engineTrail.Play();
+                    SetMovement(true);
                 }
                 else
                 {
-                    engineParticles.Stop();
-                    engineTrail.Stop();
+                    SetMovement(false);
                 }
                 body.rotation = Quaternion.Euler(body.rotation.eulerAngles + new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -rotationSpeed * horizontalAxis));
                 break;
@@ -130,13 +128,11 @@ public class PlayerController : MonoBehaviour
                     Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
                     body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
                     body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.05f);
-                    engineParticles.Play();
-                    engineTrail.Play();
+                    SetMovement(true);
                 }
                 else
                 {
-                    engineParticles.Stop();
-                    engineTrail.Stop();
+                    SetMovement(false);
                 }
                 break;
         }
@@ -146,6 +142,8 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
 
+        immune.SetBool("IsImmune", isInvincible);
+
         if (m_DeathTimer <= 0.0f && !isAlive)
         {
             isAlive = true;
@@ -154,6 +152,10 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             GetComponentInChildren<MeshRenderer>().enabled = true;
             GetComponentInChildren<MeshCollider>().enabled = true;
+
+            //New Guns
+            ApplyGun(typeof(BasicGunType));
+            ApplyEffect(typeof(BasicShotType));
 
             Vector3 spawnPos = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
             spawnPos = spawnPos.normalized * 25.0f;
@@ -175,6 +177,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_InvincibilityTimer -= Time.deltaTime;
+
         }
         /* This unfreezes rotation when collided which looks good with the miner ship but not the gunner ship as the gunner does not restore their rotation :( */
         //if (!isAlive)
@@ -216,29 +219,39 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    public void ApplyGun(GunType gType)
+    public void ApplyGun(System.Type gType)
     {
+        if(gType.IsSubclassOf(typeof(GunType)))
+        {
+            foreach (var gameObject in projectileSpawnLoc)
+            {
+                Destroy(gameObject.GetComponent<GunType>());
+                gameObject.AddComponent(gType);
+                gameObject.GetComponent<GunType>().LoadEffect(effectType);
+                if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
+                {
+                    gameObject.GetComponent<GunType>().Fire();
+                }
+            }
+            gunType = gType;
+        }
+    }
+    public void ApplyEffect(System.Type etype)
+    {
+        if (etype.IsSubclassOf(typeof(ShotType)))
+        {
+            effectType = etype;
+        }
         foreach (var gameObject in projectileSpawnLoc)
         {
-            Destroy(gameObject.GetComponent<GunType>());
-            gameObject.AddComponent(gType.GetType());
-
-            if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
-            {
-                gameObject.GetComponent<GunType>().Fire(effectType);
-            }
+            gameObject.GetComponent<GunType>().LoadEffect(effectType);
         }
-        gunType = gType.GetType();
-    }
-    public void ApplyEffect(ShotType type)
-    {
-        effectType = type;
     }
     
     public void GetPowerUps(out System.Type gun, out System.Type shot)
     {
         gun = gunType;
-        shot = effectType.GetType();
+        shot = effectType;
     }
     public bool CheckAlive()
     {
@@ -248,5 +261,13 @@ public class PlayerController : MonoBehaviour
     {
         m_InvincibilityTimer = _time;
         isInvincible = true;
+    }
+
+    private void SetMovement(bool isMoving)
+    {
+        foreach (var item in engine)
+        {
+            item.SetBool("IsMoving", isMoving);
+        }
     }
 }

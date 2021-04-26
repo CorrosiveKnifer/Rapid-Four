@@ -620,6 +620,11 @@ PrefabInstance:
       propertyPath: minDist.y
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 8539368536160837639, guid: 1017a188a453f4a47aa41b7b9844d5ff,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8891411706307263819, guid: 1017a188a453f4a47aa41b7b9844d5ff,
         type: 3}
       propertyPath: m_Enabled

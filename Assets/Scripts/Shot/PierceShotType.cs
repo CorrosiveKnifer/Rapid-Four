@@ -6,11 +6,21 @@ using PowerUp;
 /// <summary>
 /// Rachael
 /// </summary>
-public class FrostShotType : ShotType
+public class PierceShotType : ShotType
 {
+    int endurance = 1;
+    // Start is called before the first frame update
+
     protected override void Start()
     {
-
+        if(IsLaser)
+        {
+            transform.localScale = new Vector3(1.5f, 15.0f, 1.0f);
+        }
+        else
+        {
+            Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -24,10 +34,14 @@ public class FrostShotType : ShotType
         if (other.gameObject.tag == "Asteroid")
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
-            other.gameObject.GetComponent<Astroid>().maxSpeed *= 0.5f;
+
             if (!IsLaser)
             {
-                Destroy(gameObject);
+                if (endurance == -1)
+                {
+                    Destroy(gameObject);
+                }
+                endurance--;
             }
         }
     }

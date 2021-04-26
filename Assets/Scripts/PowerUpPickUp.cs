@@ -34,7 +34,11 @@ public class PowerUpPickUp : MonoBehaviour
             case PickUpType.SHOT_PIERCE:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/PercingShot");
                 break;
+            case PickUpType.SHOT_FROST:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/FreezeShot");
+                break;
             default:
+                Debug.LogError($"Random Power up got: {(int)myType}");
                 break;
         }
     }
@@ -54,25 +58,25 @@ public class PowerUpPickUp : MonoBehaviour
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
-                player.ApplyEffect(new BasicShotType());
+                player.ApplyEffect(typeof(BasicShotType));
                 break;
             case PickUpType.GUN_BASIC:
-                player.ApplyGun(new BasicGunType());
+                player.ApplyGun(typeof( BasicGunType));
                 break;
             case PickUpType.GUN_SPLIT_THREE:
-                player.ApplyGun(new SplitGunType());
+                player.ApplyGun(typeof( SplitGunType));
                 break;
             case PickUpType.GUN_SPLIT_TWO:
-                player.ApplyGun(new SplitTwoGunType());
+                player.ApplyGun(typeof( SplitTwoGunType));
                 break;
             case PickUpType.SHOT_HOMING:
-                player.ApplyEffect(new HomingShotType());
+                player.ApplyEffect(typeof( HomingShotType));
                 break;
             case PickUpType.SHOT_PIERCE:
-                player.ApplyEffect(new PierceShotType());
+                player.ApplyEffect(typeof( PierceShotType));
                 break;
             case PickUpType.SHOT_FROST:
-                player.ApplyEffect(new FrostShotType());
+                player.ApplyEffect(typeof( FrostShotType));
                 break;
             default:
                 break;

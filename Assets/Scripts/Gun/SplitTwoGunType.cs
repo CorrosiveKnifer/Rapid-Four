@@ -14,6 +14,7 @@ public class SplitTwoGunType : GunType
     private GameObject laserObject;
     private GameObject laser1;
     private GameObject laser2;
+
     public void Start()
     {
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
@@ -25,25 +26,24 @@ public class SplitTwoGunType : GunType
     {
         if (laser1 != null)
             Destroy(laser1);
+
         if (laser2 != null)
             Destroy(laser2);
     }
-    public override void Fire(ShotType type)
+    public override void Fire()
     {
         switch (playerID)
         {
             default:
             case 0: // ship
 
-                SpawnChild(type);
+                SpawnChild(effectType);
                 break;
 
             case 1: //Sucker Ship
                 if (laserObject == null)
                 {
-                   
-                    SpawnLaserChild(type);
-
+                    SpawnLaserChild(effectType);
                 }
                 break;
         }
@@ -57,7 +57,7 @@ public class SplitTwoGunType : GunType
             Destroy(laser2);
     }
 
-    void SpawnLaserChild(ShotType type)
+    void SpawnLaserChild(System.Type type)
     {
         //Set thoseponteial directions
         Vector3 FirstDir = Quaternion.AngleAxis(15, Vector3.forward) * transform.up;
@@ -67,7 +67,7 @@ public class SplitTwoGunType : GunType
 
         //Create laser 1
         laser1 = Instantiate(laser, transform) as GameObject;
-        laser1.AddComponent(type.GetType());
+        laser1.AddComponent(type);
         laser1.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
         laser1.GetComponent<ShotType>().damage = damage * Time.deltaTime;
 
@@ -80,7 +80,7 @@ public class SplitTwoGunType : GunType
 
         //Create laser 2
         laser2 = Instantiate(laser, transform) as GameObject;
-        laser2.AddComponent(type.GetType());
+        laser2.AddComponent(type);
         laser2.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
         laser2.GetComponent<ShotType>().damage = damage * Time.deltaTime;
 
@@ -89,7 +89,7 @@ public class SplitTwoGunType : GunType
         laser2.GetComponent<ShotType>().IsLaser = true;
 
     }
-    void SpawnChild(ShotType type)
+    void SpawnChild(System.Type type)
     {
         //Set thoseponteial directions
         Vector3 FirstDir = Quaternion.AngleAxis(15, Vector3.forward) * transform.up;
@@ -99,7 +99,7 @@ public class SplitTwoGunType : GunType
 
         //Create projectile
         GameObject bullet1 = Instantiate(proj, transform.position, Quaternion.AngleAxis(45, Vector3.forward));
-        bullet1.AddComponent(type.GetType());
+        bullet1.AddComponent(type);
         bullet1.transform.up = FirstDir;
 
         //left direction
@@ -113,7 +113,7 @@ public class SplitTwoGunType : GunType
 
         //Create projectile
         GameObject bullet3 = Instantiate(proj, transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
-        bullet3.AddComponent(type.GetType());
+        bullet3.AddComponent(type);
         bullet3.transform.up = SecondDir;
 
         //right direction

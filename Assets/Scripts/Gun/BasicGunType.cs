@@ -12,6 +12,7 @@ public class BasicGunType : GunType
 
     private int playerID;
     private GameObject laserObject;
+
     public void Start()
     {
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
@@ -26,7 +27,7 @@ public class BasicGunType : GunType
             Destroy(laserObject);
     }
 
-    public override void Fire(ShotType type)
+    public override void Fire()
     {
         switch (playerID)
         {
@@ -35,7 +36,7 @@ public class BasicGunType : GunType
 
                 //Create projectile
                 GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
-                gObject.AddComponent(type.GetType());
+                gObject.AddComponent(effectType);
                 gObject.transform.up = transform.up;
                 //Send projectile
                 gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
@@ -47,7 +48,7 @@ public class BasicGunType : GunType
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
-                    laserObject.AddComponent(type.GetType());
+                    laserObject.AddComponent(effectType);
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;

@@ -14,7 +14,8 @@ public class HomingShotType : ShotType
 
     protected override void Start()
     {
-
+        if(!IsLaser)
+            Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
     }
 
     private void Update()
