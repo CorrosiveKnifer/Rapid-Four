@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 maxDist;
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
-    public GameObject shieldObject;
+    public Shield shieldObject;
 
     private ShotType effectType;
     private System.Type gunType;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 120.0f;
 
     // Death stuff
+    bool isShielded = true;
     bool isAlive = true;
     float m_fRespawnTime = 5.0f;
     float m_DeathTimer = 0.0f;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
         effectType = new BasicShotType();
         ApplyGun(new BasicGunType());
@@ -166,7 +168,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (isAlive)
+        if (isAlive && !shieldObject.IsActive)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
             {

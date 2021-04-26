@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 3824052255644688003}
   - component: {fileID: 9221431950700075303}
   - component: {fileID: 5069573500134879219}
+  - component: {fileID: 5068050685750367105}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -219,6 +220,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5068050685750367105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3663745578232540308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1408620dbf01d46a8abcf6eeca2d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reachargeTime: 5
 --- !u!1 &4151113069280778653
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +264,19 @@ Transform:
   m_Father: {fileID: 988245037824720795}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
+--- !u!114 &4363055573871219252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527306846686331418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993f4acf55bf98247a9e7fd11bd78445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Rigidbody: {fileID: 1457066966285818264}
 --- !u!1 &6445019333847264406
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,9 +520,21 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 60468186ed539064b9e1f8d939970b0b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24fe2c2eff015c945978649b6ffc8934, type: 3}
+--- !u!1 &4527306846686331418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4551560434329657872, guid: 24fe2c2eff015c945978649b6ffc8934,
+    type: 3}
+  m_PrefabInstance: {fileID: 143655105476943882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &988245037824720795 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 885148841828573073, guid: 24fe2c2eff015c945978649b6ffc8934,
+    type: 3}
+  m_PrefabInstance: {fileID: 143655105476943882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1457066966285818264 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1569178057849436562, guid: 24fe2c2eff015c945978649b6ffc8934,
     type: 3}
   m_PrefabInstance: {fileID: 143655105476943882}
   m_PrefabAsset: {fileID: 0}
