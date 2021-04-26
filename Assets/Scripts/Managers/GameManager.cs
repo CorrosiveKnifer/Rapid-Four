@@ -66,9 +66,9 @@ public class GameManager : MonoBehaviour
         scoreText.text = TotalScore.ToString();
     }
 
-    public void AddToScore(int _playerIndex, float _asteroidScale)
+    public void AddToScore(float _asteroidScale)
     {
-        Score[_playerIndex] += (int)(AsteroidDestroyScore * _asteroidScale);
+        TotalScore += (int)(AsteroidDestroyScore * _asteroidScale);
     }
     public void SetPlanetHealthBar(float _health)
     {

@@ -14,7 +14,7 @@ namespace PowerUp
     {
         public float lifetime = 15.0f;
         public float damage = 0.0f;
-
+        public string powerUpIcon;
         public bool IsLaser = false;
 
         protected virtual void Start() { }

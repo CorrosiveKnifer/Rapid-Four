@@ -15,6 +15,8 @@ public class SplitGunType : GunType
 
     private int playerID;
     private GameObject laserObject;
+    private GameObject laser1;
+    private GameObject laser2;
     public void Start()
     {
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
@@ -42,6 +44,7 @@ public class SplitGunType : GunType
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laserObject.GetComponent<ShotType>().IsLaser = true;
                     SpawnLaserChild(type);
 
                 }
@@ -53,6 +56,10 @@ public class SplitGunType : GunType
     {
         if (laserObject != null)
             Destroy(laserObject);
+        if (laser1 != null)
+            Destroy(laser1);
+        if (laser2 != null)
+            Destroy(laser2);
     }
 
     void SpawnLaserChild(ShotType type)
@@ -63,28 +70,28 @@ public class SplitGunType : GunType
 
         //first laser from the left---------------------------------------
 
-        //Create laser 
-        GameObject laser1 = Instantiate(laser, transform) as GameObject;
+        //Create laser 1
+        laser1 = Instantiate(laser, transform) as GameObject;
         laser1.AddComponent(type.GetType());
         laser1.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
         laser1.GetComponent<ShotType>().damage = damage * Time.deltaTime;
 
         //set direction to the left
         laser1.transform.up = FirstDir;
-        //laser1.GetComponent<ShotType>().IsLaser = true;
+        laser1.GetComponent<ShotType>().IsLaser = true;
 
 
         //second laser---------------------------------------
 
-        //Create laser 
-        GameObject laser2 = Instantiate(laser, transform) as GameObject;
+        //Create laser 2
+        laser2 = Instantiate(laser, transform) as GameObject;
         laser2.AddComponent(type.GetType());
         laser2.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
         laser2.GetComponent<ShotType>().damage = damage * Time.deltaTime;
 
         //set direction to the right
         laser2.transform.up = SecondDir;
-        //laser2.GetComponent<ShotType>().IsLaser = true;
+        laser2.GetComponent<ShotType>().IsLaser = true;
 
     }
     void SpawnChild(ShotType type)
