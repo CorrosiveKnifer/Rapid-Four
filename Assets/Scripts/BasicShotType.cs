@@ -5,10 +5,17 @@ using PowerUp;
 
 public class BasicShotType : ShotType
 {
-    private float force = 100.0f;
     protected override void Start()
     {
         
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        {
+            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+        }
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -21,11 +28,7 @@ public class BasicShotType : ShotType
             {
                 Destroy(gameObject);
             }
-            else
-            {
-                
-                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
-            }
+            
         }
     }
 }

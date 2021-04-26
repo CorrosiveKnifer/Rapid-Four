@@ -51,6 +51,7 @@ public class Astroid : MonoBehaviour
     {
         Astroiddirection = transform.up;
     }
+
     // Update is called once per frame
     void Update()
     {

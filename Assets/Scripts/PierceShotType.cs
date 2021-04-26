@@ -10,7 +10,6 @@ public class PierceShotType : ShotType
 {
     int endurance = 1;
     // Start is called before the first frame update
-    private float force = 100.0f;
 
     protected override void Start()
     {
@@ -19,7 +18,13 @@ public class PierceShotType : ShotType
             transform.localScale = new Vector3(1.5f, 15.0f, 1.0f);
         }
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        {
+            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+        }
+    }
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Asteroid")
@@ -33,11 +38,6 @@ public class PierceShotType : ShotType
                     Destroy(gameObject);
                 }
                 endurance--;
-            }
-            else
-            {
-
-                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             }
         }
     }

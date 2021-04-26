@@ -10,7 +10,6 @@ public class HomingShotType : ShotType
 {
     public GameObject target;
     public GameObject[] enemies;
-    private float force = 100.0f;
     private Vector3 original;
 
     protected override void Start()
@@ -31,6 +30,14 @@ public class HomingShotType : ShotType
         */
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        {
+            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+        }
+    }
+
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Asteroid")
@@ -40,11 +47,6 @@ public class HomingShotType : ShotType
             if (!IsLaser)
             {
                 Destroy(gameObject);
-            }
-            else
-            {
-
-                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             }
         }
     }
@@ -62,20 +64,15 @@ public class HomingShotType : ShotType
     {
         if (target != null)
         {
-
             if (!IsLaser)
-            {
-                //transform.LookAt(target.transform);
-                
+            {                
                 Vector3 direction = (target.transform.position - transform.position).normalized;
                 transform.up = direction;
                 GetComponent<Rigidbody>().velocity = direction * 10.0f;
             }
             else
             {
-                
-                transform.up= (target.transform.position - transform.position).normalized;
-
+                transform.up = (target.transform.position - transform.position).normalized;
             }
             
         }
@@ -85,10 +82,9 @@ public class HomingShotType : ShotType
             {
                 transform.up = transform.parent.up;
             }
-
         }
-
     }
+
     private void TargetCloset()
     {
         target = null;

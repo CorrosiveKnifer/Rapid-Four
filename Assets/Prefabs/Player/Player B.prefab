@@ -4722,7 +4722,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0f01833c79e4a9e4b864463da423976f, type: 2}
+  - {fileID: 2100000, guid: 30f5875e5dcdded4cb57d6258f3645ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4960,8 +4960,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1408620dbf01d46a8abcf6eeca2d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   shieldRepulsion: 100
   reachargeTime: 5
+  invincibilityTime: 0.5
   IsActive: 1
   system: {fileID: 3693359261523350420}
 --- !u!64 &5447556005760384628
@@ -5199,6 +5201,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ID
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: speed
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}

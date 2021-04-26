@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
+
 /// <summary>
 /// Rachael
 /// </summary>
@@ -12,7 +13,13 @@ public class FrostShotType : ShotType
     {
 
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        {
+            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+        }
+    }
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Asteroid")
@@ -22,11 +29,6 @@ public class FrostShotType : ShotType
             if (!IsLaser)
             {
                 Destroy(gameObject);
-            }
-            else
-            {
-
-                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             }
         }
     }
