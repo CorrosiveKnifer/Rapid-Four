@@ -42,7 +42,7 @@ public class Astroid : MonoBehaviour
 
         transform.localScale = transform.localScale * Random.Range(0.8f, 1.2f);
 
-        Physics.IgnoreLayerCollision(8, 8);
+        //Physics.IgnoreLayerCollision(8, 8);
         //GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.up);
     }
     private void Awake()
@@ -52,7 +52,6 @@ public class Astroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         //The direction it moves
         Debug.DrawRay(transform.position, Astroiddirection*10, Color.red);
 
@@ -79,9 +78,13 @@ public class Astroid : MonoBehaviour
             //destroy itself;
             Destroy(gameObject);
         }
-        ClampSpeed();
 
         minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    }
+
+    private void FixedUpdate()
+    {
+        ClampSpeed();
     }
 
     void ClampSpeed()
@@ -109,7 +112,7 @@ public class Astroid : MonoBehaviour
             GameObject childAstroid = Instantiate(AstroidPrefab);
 
             //set speed
-            childAstroid.GetComponent<Rigidbody>().velocity = transform.TransformDirection(interpolatedPosition * 10);
+            childAstroid.GetComponent<Rigidbody>().AddForce(interpolatedPosition.normalized * 300.0f, ForceMode.Impulse);
 
             //apply that direction onto child
             childAstroid.GetComponent<Astroid>().Astroiddirection = interpolatedPosition;
@@ -118,7 +121,6 @@ public class Astroid : MonoBehaviour
 
             //make it known it is a child in that script
             childAstroid.GetComponent<Astroid>().Endurance--;
-            
         }
     }
     public void SetNumberofAstroids(int num)

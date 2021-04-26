@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     public ShotType type;
     private Rigidbody body;
     
-    private float speed = 250.0f;
-    private float rotationSpeed = 120.0f;
+    public float speed = 350.0f;
+    public float rotationSpeed = 120.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -101,12 +101,17 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    public void ApplyGun(GunType type)
+    public void ApplyGun(GunType gType)
     {
         foreach (var gameObject in projectileSpawnLoc)
         {
             Destroy(gameObject.GetComponent<GunType>());
-            gameObject.AddComponent(type.GetType());
+            gameObject.AddComponent(gType.GetType());
+
+            if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
+            {
+                gameObject.GetComponent<GunType>().Fire(type);
+            }
         }
     }
 }

@@ -15,6 +15,11 @@ public class BasicShotType : ShotType
         if(other.gameObject.tag == "Asteroid")
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
+
+            if(!IsLaser)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
