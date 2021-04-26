@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PowerUpPickUp : MonoBehaviour
 {
-    public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, GUN_PIERCE, SHOT_PIERCE };
+    public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, SHOT_PIERCE, SHOT_FROST };
     public GameObject imagePlane;
     public PickUpType myType;
 
     // Start is called before the first frame update
     void Start()
     {
-        myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.SHOT_PIERCE + 1);
+        myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.SHOT_FROST + 1);
         
         switch (myType)
         {
@@ -67,11 +67,11 @@ public class PowerUpPickUp : MonoBehaviour
             case PickUpType.SHOT_HOMING:
                 player.ApplyEffect(new HomingShotType());
                 break;
-            case PickUpType.GUN_PIERCE:
-                player.ApplyGun(new PierceGunType());
-                break;
             case PickUpType.SHOT_PIERCE:
                 player.ApplyEffect(new PierceShotType());
+                break;
+            case PickUpType.SHOT_FROST:
+                player.ApplyEffect(new FrostShotType());
                 break;
             default:
                 break;

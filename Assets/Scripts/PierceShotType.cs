@@ -10,6 +10,7 @@ public class PierceShotType : ShotType
 {
     int endurance = 1;
     // Start is called before the first frame update
+    private float force = 100.0f;
 
     protected override void Start()
     {
@@ -29,6 +30,11 @@ public class PierceShotType : ShotType
                     Destroy(gameObject);
                 }
                 endurance--;
+            }
+            else
+            {
+
+                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             }
         }
     }

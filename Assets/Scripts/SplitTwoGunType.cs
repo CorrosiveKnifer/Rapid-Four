@@ -21,7 +21,13 @@ public class SplitTwoGunType : GunType
 
         playerID = GetComponentInParent<PlayerController>().ID;
     }
-
+    protected void OnDestroy()
+    {
+        if (laser1 != null)
+            Destroy(laser1);
+        if (laser2 != null)
+            Destroy(laser2);
+    }
     public override void Fire(ShotType type)
     {
         switch (playerID)
@@ -33,7 +39,7 @@ public class SplitTwoGunType : GunType
                 break;
 
             case 1: //Sucker Ship
-                if (laser != null)
+                if (laserObject == null)
                 {
                    
                     SpawnLaserChild(type);
@@ -45,7 +51,6 @@ public class SplitTwoGunType : GunType
 
     public override void UnFire()
     {
-
         if (laser1 != null)
             Destroy(laser1);
         if (laser2 != null)
@@ -55,8 +60,8 @@ public class SplitTwoGunType : GunType
     void SpawnLaserChild(ShotType type)
     {
         //Set thoseponteial directions
-        Vector3 FirstDir = Quaternion.AngleAxis(45, Vector3.forward) * transform.up;
-        Vector3 SecondDir = Quaternion.AngleAxis(-45, Vector3.forward) * transform.up;
+        Vector3 FirstDir = Quaternion.AngleAxis(15, Vector3.forward) * transform.up;
+        Vector3 SecondDir = Quaternion.AngleAxis(-15, Vector3.forward) * transform.up;
 
         //first laser from the left---------------------------------------
 
