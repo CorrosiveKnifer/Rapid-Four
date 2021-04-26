@@ -54,7 +54,6 @@ public class Planet : MonoBehaviour
             if (asteroid != null)
             {
                 m_fHealth -= (int)(asteroid.transform.localScale.x * 15.0f);
-
                 Destroy(other.gameObject);
             }
         }

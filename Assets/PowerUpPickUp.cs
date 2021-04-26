@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerUpPickUp : MonoBehaviour
 {
-    public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, GUN_PIERCE, SHOT_PIERCE };
+    public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, SHOT_PIERCE };
     public GameObject imagePlane;
     public PickUpType myType;
 
@@ -12,7 +12,9 @@ public class PowerUpPickUp : MonoBehaviour
     void Start()
     {
         myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.SHOT_PIERCE + 1);
-        
+
+        transform.up = -Vector3.forward;
+
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
@@ -36,12 +38,6 @@ public class PowerUpPickUp : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider other)

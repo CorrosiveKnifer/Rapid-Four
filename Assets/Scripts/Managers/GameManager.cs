@@ -48,15 +48,28 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Objects")]
     public Text scoreText;
+    public Text playerAmmo;
     public Image planetHealth;
 
     public RespawnTimer respawnTimer;
+
+    private PlayerController player1;
 
     private void Start()
     {
         Score = new int[2];
         Score[0] = 0;
         Score[1] = 0;
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in players)
+        {
+            if (player.GetComponentInParent<PlayerController>()?.ID == 0)
+            {
+                player1 = player.GetComponentInParent<PlayerController>();
+                break;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -66,6 +79,8 @@ public class GameManager : MonoBehaviour
         //TotalScore = Score[0] + Score[1];
 
         scoreText.text = TotalScore.ToString();
+
+        playerAmmo.text = player1.Ammo.ToString();
     }
 
     public void AddToScore(float _asteroidScale)

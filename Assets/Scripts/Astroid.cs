@@ -77,6 +77,11 @@ public class Astroid : MonoBehaviour
                 SpawnChild();
             }
 
+            if (Random.Range(0.0f, 100.0f) < probability)
+            {
+                Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+            }
+
             //destroy itself;
             Destroy(gameObject);
         }
@@ -93,11 +98,6 @@ public class Astroid : MonoBehaviour
     {
         if(!isQuitting)
         {
-            if(Random.Range(0.0f, 100.0f) < probability)
-            {
-                Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
-            }
-            
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;
         }
