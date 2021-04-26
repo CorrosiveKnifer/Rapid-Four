@@ -215,6 +215,8 @@ MonoBehaviour:
   minimapSprite: {fileID: 2548773295693940808}
   angle: 45
   maxSpeed: 5
+  particlePrefab: {fileID: 4987899189918581230, guid: cb437294288a6a645aa5d23566eb7249,
+    type: 3}
 --- !u!54 &3730540413838816999
 Rigidbody:
   m_ObjectHideFlags: 0

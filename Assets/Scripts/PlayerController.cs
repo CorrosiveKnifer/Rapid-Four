@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 minDist;
     public GameObject[] projectileSpawnLoc;
     public Shield shieldObject;
+    public ParticleSystem engineParticles;
+    public ParticleSystem engineTrail;
 
     private ShotType effectType;
     private System.Type gunType;
@@ -23,7 +25,6 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 120.0f;
 
     // Death stuff
-    bool isShielded = true;
     bool isAlive = true;
     float m_fRespawnTime = 5.0f;
     float m_DeathTimer = 0.0f;
@@ -110,6 +111,13 @@ public class PlayerController : MonoBehaviour
                 if (verticalAxis > 0.0f)
                 {
                     body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
+                    engineParticles.Play();
+                    engineTrail.Play();
+                }
+                else
+                {
+                    engineParticles.Stop();
+                    engineTrail.Stop();
                 }
                 body.rotation = Quaternion.Euler(body.rotation.eulerAngles + new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -rotationSpeed * horizontalAxis));
                 break;
@@ -119,6 +127,13 @@ public class PlayerController : MonoBehaviour
                     Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
                     body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
                     body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.15f);
+                    engineParticles.Play();
+                    engineTrail.Play();
+                }
+                else
+                {
+                    engineParticles.Stop();
+                    engineTrail.Stop();
                 }
                 break;
         }
