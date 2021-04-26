@@ -8,7 +8,6 @@ using PowerUp;
 /// </summary>
 public class FrostShotType : ShotType
 {
-    private float force = 100.0f;
     protected override void Start()
     {
 
