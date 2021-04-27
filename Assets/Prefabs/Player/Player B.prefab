@@ -13,6 +13,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Rigidbody: {fileID: 1457066966285818264}
+--- !u!114 &6409668183061122607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527306846686331418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 2283d1c472e377a4ea55286607191e8c, type: 3}
+  - {fileID: 8300000, guid: 51ae30b002a300a48a6d457a7fa5926d, type: 3}
+  - {fileID: 8300000, guid: 22d038fbae222f64ca31b7bda90815d2, type: 3}
+  - {fileID: 8300000, guid: 763e999985067854c859f20f3487692f, type: 3}
+  - {fileID: 8300000, guid: fc925dbeb39877e42adc7d3f582897af, type: 3}
+  - {fileID: 8300000, guid: 31a1cc8fc69c18643970c6d3251afd05, type: 3}
+  - {fileID: 8300000, guid: e73cfe93be8f4274584e77bc8ef17d88, type: 3}
+  - {fileID: 8300000, guid: 76418d0440051c7489304b1bb6b8b859, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &1259558484233838626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4961,8 +4984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  shieldRepulsion: 100
-  reachargeTime: 5
+  shieldRepulsion: 120
+  reachargeTime: 3
   invincibilityTime: 0.5
   IsActive: 1
   system: {fileID: 3693359261523350420}
@@ -5347,12 +5370,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 60468186ed539064b9e1f8d939970b0b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24fe2c2eff015c945978649b6ffc8934, type: 3}
---- !u!54 &1457066966285818264 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1569178057849436562, guid: 24fe2c2eff015c945978649b6ffc8934,
-    type: 3}
-  m_PrefabInstance: {fileID: 143655105476943882}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4527306846686331418 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4551560434329657872, guid: 24fe2c2eff015c945978649b6ffc8934,
@@ -5362,6 +5379,12 @@ GameObject:
 --- !u!4 &988245037824720795 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 885148841828573073, guid: 24fe2c2eff015c945978649b6ffc8934,
+    type: 3}
+  m_PrefabInstance: {fileID: 143655105476943882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1457066966285818264 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1569178057849436562, guid: 24fe2c2eff015c945978649b6ffc8934,
     type: 3}
   m_PrefabInstance: {fileID: 143655105476943882}
   m_PrefabAsset: {fileID: 0}

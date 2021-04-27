@@ -9,7 +9,6 @@ public class Planet : MonoBehaviour
 
     public CameraAgent[] playerCamera;
 
-    private bool isQuitting = false;
     float m_fMaxHealth = 1000.0f;
     public float m_fHealth;
     public float m_fRotationSpeedMult = 1.0f;

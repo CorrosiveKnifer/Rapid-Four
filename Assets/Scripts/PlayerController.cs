@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             if (InputManager.instance.GetPlayerShoot(ID))
             {
-                audioAgent.PlaySoundEffect("ShootPew");
+                bool hasShot = false;
                 foreach (var gameObject in projectileSpawnLoc)
                 {
                     if (Ammo > 0 || maxAmmo < 0)
@@ -67,16 +67,24 @@ public class PlayerController : MonoBehaviour
                         {
                             cost = Ammo;
                         }
-                        else Debug.Log("You are out of ammo!");
-
+                        hasShot = true;
                         gameObject.GetComponent<GunType>().Fire(effectType, cost);
                         
                         if (maxAmmo > 0)
                             Ammo = Mathf.Clamp(Ammo - cost, 0, 100);
 
                     }
-
                 }
+
+                if(hasShot && ID == 0)
+                {
+                    audioAgent.PlaySoundEffect("ShootPew");
+                }
+                else if (ID == 0)
+                {
+                    audioAgent.PlaySoundEffect("Empty");
+                }
+                
             }
         }
 
@@ -167,7 +175,8 @@ public class PlayerController : MonoBehaviour
             m_DeathTimer = 0;
             m_InvincibilityTimer = m_fInvincibilityTime;
             isInvincible = true;
-
+            shieldObject.gameObject.SetActive(true);
+            shieldObject.timer = 0.0f;
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = true;
@@ -222,7 +231,7 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive && !shieldObject.IsActive)
         {
             isAlive = false;
-
+            shieldObject.gameObject.SetActive(false);
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = false;
@@ -266,6 +275,8 @@ public class PlayerController : MonoBehaviour
     {
         if(gType.IsSubclassOf(typeof(GunType)))
         {
+            audioAgent.PlaySoundEffect("Pickup" + Random.Range(1, 5));
+
             int ammoCount = 0;
             foreach (var gameObject in projectileSpawnLoc)
             {
@@ -293,6 +304,7 @@ public class PlayerController : MonoBehaviour
     {
         if (etype.IsSubclassOf(typeof(ShotType)))
         {
+            audioAgent.PlaySoundEffect("Pickup" + Random.Range(1, 5));
             effectType = etype;
         }
     }
