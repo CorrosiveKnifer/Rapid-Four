@@ -9,6 +9,7 @@ using PowerUp;
 public class PierceShotType : ShotType
 {
     int endurance = 1;
+    private float probability = 50.0f;
     // Start is called before the first frame update
 
     protected override void Start()
@@ -42,6 +43,17 @@ public class PierceShotType : ShotType
                     Destroy(gameObject);
                 }
                 endurance--;
+            }
+            else
+            {
+                //spawning ammo
+                if (Random.Range(0.0f, 100.0f) < probability)
+                {
+                    GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
+                    AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+
+                }
+
             }
         }
     }
