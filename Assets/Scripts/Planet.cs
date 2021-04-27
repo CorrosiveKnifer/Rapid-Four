@@ -51,11 +51,26 @@ public class Planet : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
             Astroid asteroid = other.gameObject.GetComponentInParent<Astroid>();
+            float size = asteroid.Endurance;
             if (asteroid != null)
             {
                 m_fHealth -= (int)(asteroid.transform.localScale.x * 15.0f);
                 Destroy(other.gameObject);
             }
+
+            foreach (var item in GameObject.FindGameObjectsWithTag("Camera"))
+            {
+                item.GetComponent<CameraAgent>().Shake(2.0f * ((size + 1f) / 2f));
+            }
+        }
+
+        if (other.gameObject.tag == "PowerUp")
+        {
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.tag == "Projectile")
+        {
+            Destroy(other.gameObject);
         }
     }
 }

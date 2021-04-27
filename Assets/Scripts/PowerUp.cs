@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour
     {
-        public abstract void Fire(ShotType type);
+        public abstract void Fire(System.Type effectType);
         public abstract void UnFire();
     }
 

@@ -32,6 +32,7 @@ public class PlayerDisplay : MonoBehaviour
         Icons.Add(typeof(PierceShotType), Resources.Load<Material>("Materials/PercingShot"));
         Icons.Add(typeof(SplitTwoGunType), Resources.Load<Material>("Materials/DoubleGun"));
         Icons.Add(typeof(BasicShotType), Resources.Load<Material>("Materials/BasicShot"));
+        Icons.Add(typeof(FrostShotType), Resources.Load<Material>("Materials/FreezeShot"));
     }
 
     // Update is called once per frame
