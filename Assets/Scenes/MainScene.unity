@@ -510,6 +510,12 @@ PrefabInstance:
       propertyPath: minDist.y
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 1624297604582934844, guid: 1017a188a453f4a47aa41b7b9844d5ff,
+        type: 3}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 1122727014799318186, guid: 90938d58b0d0c3a459f98378efccb750,
+        type: 3}
     - target: {fileID: 2575709095942571348, guid: 1017a188a453f4a47aa41b7b9844d5ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -909,6 +915,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2131637876, guid: 491e71fcc61688944aa1752986940134, type: 3}
+      propertyPath: AgentBGVolume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131637876, guid: 491e71fcc61688944aa1752986940134, type: 3}
+      propertyPath: AgentSEVolume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131637876, guid: 491e71fcc61688944aa1752986940134, type: 3}
+      propertyPath: AudioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 34a10f74ded90534a944616250c5b5fa, type: 3}
     - target: {fileID: 1883930740532025160, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: m_Sprite
@@ -1171,7 +1189,7 @@ PrefabInstance:
     - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 311
+      value: 1335
       objectReference: {fileID: 0}
     - target: {fileID: 3358980167320245192, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
@@ -1241,7 +1259,7 @@ PrefabInstance:
     - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 311
+      value: 1335
       objectReference: {fileID: 0}
     - target: {fileID: 3358980167695252337, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
