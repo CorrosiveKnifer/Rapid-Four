@@ -12,6 +12,8 @@ public class HomingShotType : ShotType
     public GameObject[] enemies;
     private Vector3 original;
 
+    private float probability = 50.0f;
+
     protected override void Start()
     {
         if(!IsLaser)
@@ -48,6 +50,17 @@ public class HomingShotType : ShotType
             if (!IsLaser)
             {
                 Destroy(gameObject);
+            }
+            else
+            {
+                //spawning ammo
+                if (Random.Range(0.0f, 100.0f) < probability)
+                {
+                    GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
+                    AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+ 
+                }
+
             }
         }
     }
