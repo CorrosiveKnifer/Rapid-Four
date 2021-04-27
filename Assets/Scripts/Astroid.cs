@@ -25,11 +25,14 @@ public class Astroid : MonoBehaviour
     public GameObject particlePrefab;
     public GameObject powerUpPrefab;
 
+    public Material baseMat;
+    public Material slowMat;
+
     Vector3 FirstDir;
     Vector3 SecondDir;
 
     private bool isQuitting = false;
-
+    private float slowTime = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -152,5 +155,36 @@ public class Astroid : MonoBehaviour
     public void DealDamage(float _damage)
     {
         Health -= _damage;
+    }
+
+    public void Slow(float time)
+    {
+        StartCoroutine(SlowEffect(time));
+    }
+
+    private IEnumerator SlowEffect(float time)
+    {
+        if (slowTime > 0)
+        {
+            //Only if additional slowEffect is called.
+            slowTime += time;
+            yield return null;
+        }
+
+        slowTime += time;
+        //Slow effect
+        maxSpeed = 2.0f;
+
+        GetComponent<MeshRenderer>().material = slowMat;
+        do
+        {
+            yield return new WaitForEndOfFrame();
+            slowTime -= Time.deltaTime;
+        } while (slowTime > 0.0f);
+
+        //Return to normal effect
+        maxSpeed = 8.0f;
+        GetComponent<MeshRenderer>().material = baseMat;
+        yield return null;
     }
 }

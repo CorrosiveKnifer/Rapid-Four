@@ -358,8 +358,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePlane: {fileID: 964187458049193473}
   myType: 1
+  isAmmoDrop: 0
   gunCrate: {fileID: 2100000, guid: 93635ff8f5fd4a948967f076669d61d0, type: 2}
   shotCrate: {fileID: 2100000, guid: fd142b578ef0af944b195e89136026b0, type: 2}
+  ammoCrate: {fileID: 2100000, guid: 384ac97d802f3cf4d926fc4d110a18b8, type: 2}
   crate: {fileID: 5485371078615361903}
 --- !u!1 &5966074024115206710
 GameObject:

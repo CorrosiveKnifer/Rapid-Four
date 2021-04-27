@@ -18,6 +18,7 @@ public class FrostShotType : ShotType
         if (other.gameObject.tag == "Asteroid" && IsLaser)
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+            other.gameObject.GetComponent<Astroid>().Slow(30.0f * Time.deltaTime);
         }
     }
     protected override void OnTriggerEnter(Collider other)
@@ -25,10 +26,10 @@ public class FrostShotType : ShotType
         if (other.gameObject.tag == "Asteroid")
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
-            other.gameObject.GetComponent<Astroid>().maxSpeed *= 0.5f;
 
             if (!IsLaser)
             {
+                other.gameObject.GetComponent<Astroid>().Slow(3.0f); //3 second
                 Destroy(gameObject);
             }
         }

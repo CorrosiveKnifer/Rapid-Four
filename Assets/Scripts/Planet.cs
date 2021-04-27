@@ -62,5 +62,9 @@ public class Planet : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+        if (other.gameObject.tag == "Projectile")
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

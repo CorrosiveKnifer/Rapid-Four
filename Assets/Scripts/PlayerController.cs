@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
         
-        Ammo = maxAmmo;
+        Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
 
     // Update is called once per frame

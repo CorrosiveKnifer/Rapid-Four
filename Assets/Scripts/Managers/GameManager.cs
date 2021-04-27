@@ -48,13 +48,14 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Objects")]
     public Text scoreText;
-    public Text playerAmmo;
+    public Text player1Ammo;
+    public Text player2Ammo;
     public Image planetHealth;
 
     public RespawnTimer respawnTimer;
 
     private PlayerController player1;
-
+    private PlayerController player2;
     private void Start()
     {
         Score = new int[2];
@@ -67,7 +68,10 @@ public class GameManager : MonoBehaviour
             if (player.GetComponentInParent<PlayerController>()?.ID == 0)
             {
                 player1 = player.GetComponentInParent<PlayerController>();
-                break;
+            }
+            else if(player.GetComponentInParent<PlayerController>()?.ID == 1)
+            {
+                player2 = player.GetComponentInParent<PlayerController>();
             }
         }
     }
@@ -80,7 +84,8 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = TotalScore.ToString();
 
-        playerAmmo.text = player1.Ammo.ToString();
+        player1Ammo.text = player1.Ammo.ToString();
+        player2Ammo.text = player2.Ammo.ToString();
     }
 
     public void AddToScore(float _asteroidScale)

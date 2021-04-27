@@ -233,6 +233,8 @@ MonoBehaviour:
     type: 3}
   powerUpPrefab: {fileID: 5647113592237918559, guid: 5afe5b640a10dec458718bc4f2a3a8bd,
     type: 3}
+  baseMat: {fileID: 2100000, guid: a6c0fd743ccad3441811564f2b75df1a, type: 2}
+  slowMat: {fileID: 2100000, guid: 205b6b7f7d0dc8c4ba9db18ae87be6c6, type: 2}
 --- !u!54 &3730540413838816999
 Rigidbody:
   m_ObjectHideFlags: 0
