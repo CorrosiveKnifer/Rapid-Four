@@ -11,10 +11,13 @@ public class LaserLink : MonoBehaviour
     public float m_fLaserDamage = 10.0f;
     public float m_fMaxPlayerDistance = 30.0f;
 
+    public float m_fTransferRate = 0.2f;
+    float m_fTransferTimer = 0.2f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_fTransferTimer = m_fTransferRate;
     }
 
     // Update is called once per frame
@@ -23,10 +26,12 @@ public class LaserLink : MonoBehaviour
         if (LaserFire())
         {
             laser.enabled = true;
+            AmmoTransfer();
         }
         else
         {
             laser.enabled = false;
+            m_fTransferTimer = m_fTransferRate;
         }
     }
 
@@ -61,5 +66,22 @@ public class LaserLink : MonoBehaviour
             }
         }
         return true;
+    }
+
+    void AmmoTransfer()
+    {
+        m_fTransferTimer -= Time.deltaTime;
+        if (m_fTransferTimer <= 0)
+        {
+            if (Player1.GetComponent<PlayerController>().maxAmmo > Player1.GetComponent<PlayerController>().Ammo && 
+                0 < Player2.GetComponent<PlayerController>().Ammo)
+            {
+                Player1.GetComponent<PlayerController>().Ammo++;
+                Player2.GetComponent<PlayerController>().Ammo--;
+
+                Debug.Log("P1: " + Player1.GetComponent<PlayerController>().Ammo + ", P2: " + Player2.GetComponent<PlayerController>().Ammo);
+                m_fTransferTimer = m_fTransferRate;
+            }
+        }
     }
 }
