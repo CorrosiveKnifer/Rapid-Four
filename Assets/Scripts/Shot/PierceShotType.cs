@@ -15,7 +15,7 @@ public class PierceShotType : ShotType
 
     protected override void Start()
     {
-        if(IsLaser)
+        if (gameObject.GetComponentInParent<PlayerController>() != null)
         {
             transform.localScale = new Vector3(1.5f, 15.0f, 1.0f);
         }
@@ -31,7 +31,7 @@ public class PierceShotType : ShotType
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        if (other.gameObject.tag == "Asteroid" && gameObject.GetComponentInParent<PlayerController>() != null)
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             //spawning ammo
@@ -51,7 +51,7 @@ public class PierceShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 if (endurance == -1)
                 {

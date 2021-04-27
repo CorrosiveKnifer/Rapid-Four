@@ -315,6 +315,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 4583483543120572800, guid: f7403eb4d134f354a9c0a0b57159bf51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4583483543120572802, guid: f7403eb4d134f354a9c0a0b57159bf51,
         type: 3}
       propertyPath: m_RootOrder
@@ -1084,6 +1089,16 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 1335
       objectReference: {fileID: 0}
+    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
+        type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.935
+      objectReference: {fileID: 0}
     - target: {fileID: 3358980167320245192, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1153,6 +1168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 1335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.935
       objectReference: {fileID: 0}
     - target: {fileID: 3358980167695252337, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}

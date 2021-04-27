@@ -52,7 +52,7 @@ public class HomingShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 Destroy(gameObject);
             }
@@ -71,7 +71,7 @@ public class HomingShotType : ShotType
     {
         if (target != null)
         {
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {                
                 Vector3 direction = (target.transform.position - transform.position).normalized;
                 transform.up = direction;

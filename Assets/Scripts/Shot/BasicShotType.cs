@@ -21,7 +21,7 @@ public class BasicShotType : ShotType
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        if (other.gameObject.tag == "Asteroid" && (gameObject.GetComponentInParent<PlayerController>() != null))
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             //spawning ammo
@@ -43,7 +43,7 @@ public class BasicShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if(!IsLaser)
+            if((gameObject.GetComponentInParent<PlayerController>() == null))
             {
                 Destroy(gameObject);
             }            
