@@ -7,7 +7,7 @@ public class PowerUpPickUp : MonoBehaviour
     public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, SHOT_PIERCE, SHOT_FROST, AMMO };
     public GameObject imagePlane;
     public PickUpType myType;
-    public bool isAmmoDrop;
+    public bool isAmmoDrop = false;
     public Material gunCrate;
     public Material shotCrate;
     public Material ammoCrate;

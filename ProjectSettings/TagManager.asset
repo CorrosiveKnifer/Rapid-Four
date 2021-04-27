@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Planet
   - PowerUp
+  - Camera
   layers:
   - Default
   - TransparentFX

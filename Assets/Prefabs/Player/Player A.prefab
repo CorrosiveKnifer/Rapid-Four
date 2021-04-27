@@ -105,6 +105,7 @@ MonoBehaviour:
   invincibilityTime: 0.5
   IsActive: 1
   system: {fileID: 904470099067687854}
+  timer: 0
 --- !u!1 &2354532859981588820
 GameObject:
   m_ObjectHideFlags: 0
@@ -5486,6 +5487,12 @@ PrefabInstance:
       propertyPath: shieldObject
       value: 
       objectReference: {fileID: 378793742193635344}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 2638363246194272870, guid: d78aacae714650c41ae1f06eff0bda0f,
+        type: 3}
     - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
       propertyPath: engineParticles

@@ -4966,6 +4966,7 @@ MonoBehaviour:
   invincibilityTime: 0.5
   IsActive: 1
   system: {fileID: 3693359261523350420}
+  timer: 0
 --- !u!64 &5447556005760384628
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5293,6 +5294,12 @@ PrefabInstance:
       propertyPath: shieldObject
       value: 
       objectReference: {fileID: 5068050685750367105}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 4798658287420953693, guid: 8fc9b0c05a961de49a6bc629d3adc7a3,
+        type: 3}
     - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
       propertyPath: engineParticles

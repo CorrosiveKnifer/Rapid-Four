@@ -80,6 +80,7 @@ public class AudioAgent : MonoBehaviour
         }
         return false;
     }
+
     public bool PlayBackground(string title, bool isLooping = false, int priority = 255)
     {
         AudioPlayer player;

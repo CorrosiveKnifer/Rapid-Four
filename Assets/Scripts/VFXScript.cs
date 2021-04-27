@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidDeadScript : MonoBehaviour
+public class VFXScript : MonoBehaviour
 {
     public float lifetime = 1.0f;
 

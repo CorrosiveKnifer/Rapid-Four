@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 350.0f;
     public float rotationSpeed = 120.0f;
 
+    public GameObject particlePrefab;
+
     // Death stuff
     bool isAlive = true;
     float m_fRespawnTime = 10.0f;
@@ -151,8 +153,19 @@ public class PlayerController : MonoBehaviour
             m_DeathTimer = 0;
             m_InvincibilityTimer = m_fInvincibilityTime;
             isInvincible = true;
-            GetComponentInChildren<MeshRenderer>().enabled = true;
+
+            foreach (var item in GetComponentsInChildren<MeshRenderer>())
+            {
+                item.enabled = true;
+            }
+
             GetComponentInChildren<MeshCollider>().enabled = true;
+
+            foreach (var item in GetComponentsInChildren<ParticleSystem>())
+            {
+                item.gameObject.SetActive(true);
+            }
+
             myCamera.ResetCamera();
             //New Guns
             ApplyGun(typeof(BasicGunType));
@@ -195,10 +208,25 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive && !shieldObject.IsActive)
         {
             isAlive = false;
-            GetComponentInChildren<MeshRenderer>().enabled = false;
+
+            foreach (var item in GetComponentsInChildren<MeshRenderer>())
+            {
+                item.enabled = false;
+            }
+
             GetComponentInChildren<MeshCollider>().enabled = false;
+
+            foreach (var item in GetComponentsInChildren<ParticleSystem>())
+            {
+                item.gameObject.SetActive(false);
+            }
+
             m_DeathTimer = m_fRespawnTime;
             myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, 0.0f));
+
+            GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            explode.transform.localScale = transform.localScale;
+
             // Force player to stop shooting
             if (InputManager.instance.GetPlayerUnshoot(ID))
             {
