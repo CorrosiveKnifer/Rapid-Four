@@ -7,13 +7,18 @@ public class PowerUpPickUp : MonoBehaviour
     public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, SHOT_PIERCE, SHOT_FROST };
     public GameObject imagePlane;
     public PickUpType myType;
+    private Rigidbody body;
+    private float maxSpeed = 4.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        body = GetComponent<Rigidbody>();
         transform.up = -Vector3.forward;
         myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.SHOT_FROST + 1);
 
+        body.AddRelativeTorque(new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized * 0.5f, ForceMode.Impulse);
+        
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
@@ -34,7 +39,11 @@ public class PowerUpPickUp : MonoBehaviour
             case PickUpType.SHOT_PIERCE:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/PercingShot");
                 break;
+            case PickUpType.SHOT_FROST:
+                imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/FreezeShot");
+                break;
             default:
+                Debug.LogError($"Random Power up got: {(int)myType}");
                 break;
         }
     }
@@ -48,31 +57,43 @@ public class PowerUpPickUp : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void FixedUpdate()
+    {
+        ClampSpeed();
+    }
+
+    void ClampSpeed()
+    {
+        if (body.velocity.magnitude > maxSpeed)
+        {
+            body.velocity = body.velocity.normalized * maxSpeed;
+        }
+    }
 
     private void GivePlayerPowerUp(PlayerController player)
     {
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
-                player.ApplyEffect(new BasicShotType());
+                player.ApplyEffect(typeof(BasicShotType));
                 break;
             case PickUpType.GUN_BASIC:
-                player.ApplyGun(new BasicGunType());
+                player.ApplyGun(typeof( BasicGunType));
                 break;
             case PickUpType.GUN_SPLIT_THREE:
-                player.ApplyGun(new SplitGunType());
+                player.ApplyGun(typeof( SplitGunType));
                 break;
             case PickUpType.GUN_SPLIT_TWO:
-                player.ApplyGun(new SplitTwoGunType());
+                player.ApplyGun(typeof( SplitTwoGunType));
                 break;
             case PickUpType.SHOT_HOMING:
-                player.ApplyEffect(new HomingShotType());
+                player.ApplyEffect(typeof( HomingShotType));
                 break;
             case PickUpType.SHOT_PIERCE:
-                player.ApplyEffect(new PierceShotType());
+                player.ApplyEffect(typeof( PierceShotType));
                 break;
             case PickUpType.SHOT_FROST:
-                player.ApplyEffect(new FrostShotType());
+                player.ApplyEffect(typeof( FrostShotType));
                 break;
             default:
                 break;

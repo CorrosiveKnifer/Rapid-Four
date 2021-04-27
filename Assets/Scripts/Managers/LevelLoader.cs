@@ -10,12 +10,18 @@ using UnityEngine.UI;
 public class LevelLoader : MonoBehaviour
 {
     public static bool cheatsEnabled = false;
+    public static bool loadingNextArea = false;
 
     public Toggle cheatToggle;
 
     public Animator transition;
 
     public float transitionTime = 1.0f;
+
+    private void Start()
+    {
+        loadingNextArea = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -47,6 +53,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        loadingNextArea = true;
         if (SceneManager.sceneCountInBuildSettings <= SceneManager.GetActiveScene().buildIndex + 1) // Check if index exceeds scene count
         {
             StartCoroutine(LoadLevel(0)); // Load menu
@@ -58,11 +65,13 @@ public class LevelLoader : MonoBehaviour
     }
     public void ResetScene()
     {
+        loadingNextArea = true;
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }
 
     IEnumerator LoadLevel(int levelIndex)
     {
+        loadingNextArea = true;
         // Play Animation
         transition.SetTrigger("Start");
 
