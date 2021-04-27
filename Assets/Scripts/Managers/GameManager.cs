@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     public static float MasterVolume { get; set; } = 1.0f;
     public static float SoundEffectVolume { get; set; } = 1.0f;
     public static float BackGroundVolume { get; set; } = 1.0f;
+    public static float HighScore { get; set; } = 0.0f;
 
     public int[] Score;
     public int TotalScore;
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour
                 player2 = player.GetComponentInParent<PlayerController>();
             }
         }
+
+        GetComponent<AudioAgent>().PlayBackground("InGameMusic", true, 10);
     }
 
     // Update is called once per frame
@@ -86,8 +89,13 @@ public class GameManager : MonoBehaviour
 
         player1Ammo.text = player1.Ammo.ToString();
         player2Ammo.text = player2.Ammo.ToString();
-    }
 
+        if(TotalScore > HighScore)
+        {
+            HighScore = TotalScore;
+            scoreText.color = new Color(255/255f * 0.8f,215/255f * 0.8f,0);
+        }
+    }
     public void AddToScore(float _asteroidScale)
     {
         TotalScore += (int)(AsteroidDestroyScore * _asteroidScale);
@@ -95,11 +103,6 @@ public class GameManager : MonoBehaviour
     public void SetPlanetHealthBar(float _health)
     {
         planetHealth.fillAmount = _health;
-    }
-
-    public void PlayPowerUp()
-    {
-        GetComponent<AudioAgent>().PlaySoundEffect("PowerUp");
     }
 
     public RespawnTimer GetRespawnTimer()

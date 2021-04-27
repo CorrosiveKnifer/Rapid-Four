@@ -92,7 +92,6 @@ public class PowerUpPickUp : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             GivePlayerPowerUp(other.gameObject.GetComponentInParent<PlayerController>());
-            GameManager.instance.PlayPowerUp();
             Destroy(gameObject);
         }
     }
