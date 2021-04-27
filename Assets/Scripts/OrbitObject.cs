@@ -14,7 +14,8 @@ public class OrbitObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        if(m_Rigidbody == null)
+            m_Rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

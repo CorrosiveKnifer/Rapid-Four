@@ -32,14 +32,19 @@ public class LaserLink : MonoBehaviour
 
     bool LaserFire()
     {
+        if (!Player1.GetComponent<PlayerController>().CheckAlive() || !Player2.GetComponent<PlayerController>().CheckAlive())
+        {
+            return false;
+        }
+
         Vector3 direction = (Player2.transform.position - Player1.transform.position).normalized;
         float distance = (Player2.transform.position - Player1.transform.position).magnitude;
         if (distance > m_fMaxPlayerDistance)
             return false;
 
         //Debug.DrawRay(Player1.transform.position, direction * distance, Color.magenta, 0.1f);
-        laser.SetPosition(0, Player1.transform.position);
-        laser.SetPosition(1, Player2.transform.position);
+        laser.SetPosition(0, Player1.transform.position + Vector3.forward * 0.5f);
+        laser.SetPosition(1, Player2.transform.position + Vector3.forward * 0.5f);
         RaycastHit[] hits = Physics.RaycastAll(Player1.transform.position, direction, distance);
 
 

@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1776017823826701807}
   - component: {fileID: 4622977126128792455}
   - component: {fileID: 59692357013069991}
+  - component: {fileID: 5654953200912971731}
   m_Layer: 9
   m_Name: MinimapSprite
   m_TagString: Asteroid
@@ -110,6 +111,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5654953200912971731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997568599866652033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929e66fbf7275b249a4042186de5d365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4409862675478639242
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,11 +223,16 @@ MonoBehaviour:
   Endurance: 1
   ChildNum: 3
   Health: 0
+  probability: 50
   isDestroyed: 0
   AstroidPrefab: {fileID: 4409862675478639242}
   minimapSprite: {fileID: 2548773295693940808}
   angle: 45
   maxSpeed: 5
+  particlePrefab: {fileID: 4987899189918581230, guid: cb437294288a6a645aa5d23566eb7249,
+    type: 3}
+  powerUpPrefab: {fileID: 5647113592237918559, guid: 5afe5b640a10dec458718bc4f2a3a8bd,
+    type: 3}
 --- !u!54 &3730540413838816999
 Rigidbody:
   m_ObjectHideFlags: 0

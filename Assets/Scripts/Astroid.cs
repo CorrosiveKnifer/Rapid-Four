@@ -11,6 +11,7 @@ public class Astroid : MonoBehaviour
     public int ChildNum = 1;
 
     public float Health = 100.0f;
+    public float probability = 50.0f;
 
     public bool isDestroyed = false;
     public GameObject AstroidPrefab;
@@ -21,9 +22,13 @@ public class Astroid : MonoBehaviour
     Rigidbody rigidBody;
     public float maxSpeed = 8.0f;
 
+    public GameObject particlePrefab;
+    public GameObject powerUpPrefab;
+
     Vector3 FirstDir;
     Vector3 SecondDir;
 
+    private bool isQuitting = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +46,12 @@ public class Astroid : MonoBehaviour
         }
 
         transform.localScale = transform.localScale * Random.Range(0.8f, 1.2f);
-
-        //Physics.IgnoreLayerCollision(8, 8);
-        //GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.up);
     }
     private void Awake()
     {
         Astroiddirection = transform.up;
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -67,7 +70,7 @@ public class Astroid : MonoBehaviour
         //if astroid is destroyed
         if (Health <= 0.0f)
         {
-            GameManager.instance.AddToScore(0, transform.localScale.x);
+            GameManager.instance.AddToScore(transform.localScale.x);
 
             //if its the parent astroid
             if (Endurance != 0)
@@ -75,11 +78,30 @@ public class Astroid : MonoBehaviour
                 SpawnChild();
             }
 
+            if (Random.Range(0.0f, 100.0f) < probability * Endurance)
+            {
+                Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+            }
+
             //destroy itself;
             Destroy(gameObject);
         }
 
         minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    }
+
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
+    private void OnDestroy()
+    {
+        if(!isQuitting  && !LevelLoader.loadingNextArea)
+        {
+            GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            explode.transform.localScale = transform.localScale;
+        }
     }
 
     private void FixedUpdate()
