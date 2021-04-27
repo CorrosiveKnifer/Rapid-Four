@@ -60,7 +60,9 @@ public class PlayerController : MonoBehaviour
                     {
                         gameObject.GetComponent<GunType>().Fire(effectType);
                     }
-                    Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
+
+                    if(maxAmmo > 0)
+                        Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
                 }
                 else Debug.Log("You are out of ammo!");
 
