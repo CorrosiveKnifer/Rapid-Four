@@ -142,7 +142,7 @@ public class SplitGunType : GunType
 
         //Create projectile
         GameObject bullet3 = Instantiate(proj, transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
-        bullet3.AddComponent(type.GetType());
+        bullet3.AddComponent(type);
         bullet3.transform.up = SecondDir;
 
         //right direction
