@@ -927,6 +927,11 @@ PrefabInstance:
       propertyPath: AudioClips.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 34a10f74ded90534a944616250c5b5fa, type: 3}
+    - target: {fileID: 779286793218354228, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1883930740532025160, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: m_Sprite
@@ -936,6 +941,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747489552049531508, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 6924505459536459328, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
@@ -1007,6 +1017,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'GameManager '
       objectReference: {fileID: 0}
+    - target: {fileID: 8089829704448273942, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8410056606721571628, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1016,6 +1031,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8998323065312717075, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 491e71fcc61688944aa1752986940134, type: 3}
