@@ -7,6 +7,13 @@ public class CameraAgent : MonoBehaviour
     public GameObject[] targets;
     public Vector2 size;
 
+    private Vector3 targetLoc;
+    private bool isFollowingTarget = true;
+
+    private float shakeTime;
+    private float shakeTotal;
+    private Vector3 shakeVector;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,12 +23,74 @@ public class CameraAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = new Vector3();
-        foreach (var target in targets)
+        if(isFollowingTarget)
         {
-            pos += target.transform.position;
+            Vector3 pos = new Vector3();
+            foreach (var target in targets)
+            {
+                pos += target.transform.position;
+            }
+
+            targetLoc = pos / targets.Length + new Vector3(0, 0, -45);
         }
 
-        transform.position = pos / targets.Length + new Vector3(0, 0, -45);
+        targetLoc += shakeVector;
+
+        transform.position = Vector3.Lerp(transform.position, targetLoc, (isFollowingTarget) ? 1.0f : 0.005f );
+
+        if(transform.position + new Vector3(0.05f, 0.05f, 0.05f) == targetLoc && transform.position == targetLoc + new Vector3(0.05f, 0.05f, 0.05f))
+        {
+            transform.position = targetLoc;
+        }
+
+        targetLoc -= shakeVector;
+    }
+
+    public void SetTargetLoc(Vector3 loc)
+    {
+        isFollowingTarget = false;
+        targetLoc = loc;
+        targetLoc = new Vector3(targetLoc.x, targetLoc.y, -45);
+    }
+
+    public void ResetCamera()
+    {
+        isFollowingTarget = true;
+    }
+
+    public void Shake(float mag)
+    {
+        StartCoroutine(ShakeCam(1.0f, mag));
+    }
+
+    private IEnumerator ShakeCam(float time, float mag)
+    {
+        if(shakeTime > 0)
+        {
+            shakeTime += time;
+            shakeTotal = mag;
+            yield return null;
+        }
+
+        shakeTime += time;
+        shakeTotal = mag;
+
+        float dampenOverTime = 5.0f;
+        
+        do
+        {
+            if (shakeTotal <= 0)
+                break;
+
+            float dist = Vector2.Distance(transform.position, new Vector2(0.0f, 0.0f));
+            float ratio = Mathf.Clamp(1.0f - dist / 100f, 0.0f, 1.0f);
+
+            shakeVector = new Vector3(Random.Range(-0.5f, 0.5f) * shakeTotal * ratio, Random.Range(-0.5f, 0.5f) * shakeTotal * ratio, 0);
+            shakeTotal -= dampenOverTime * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            shakeTime -= Time.deltaTime;
+        } while (shakeTime > 0);
+
+        yield return null;
     }
 }

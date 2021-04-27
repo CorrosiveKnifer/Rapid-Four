@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     public static float MasterVolume { get; set; } = 1.0f;
     public static float SoundEffectVolume { get; set; } = 1.0f;
     public static float BackGroundVolume { get; set; } = 1.0f;
+    public static float HighScore { get; set; } = 0.0f;
 
     public int[] Score;
     public int TotalScore;
@@ -48,15 +49,19 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Objects")]
     public Text scoreText;
-    public Text playerAmmo;
+    public Text player1Ammo;
+    public Text player2Ammo;
     public Image planetHealth;
 
     public RespawnTimer respawnTimer;
 
     private PlayerController player1;
+    private PlayerController player2;
 
     private void Start()
     {
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Asteroid"), LayerMask.NameToLayer("PowerUp")); 
+
         Score = new int[2];
         Score[0] = 0;
         Score[1] = 0;
@@ -67,9 +72,14 @@ public class GameManager : MonoBehaviour
             if (player.GetComponentInParent<PlayerController>()?.ID == 0)
             {
                 player1 = player.GetComponentInParent<PlayerController>();
-                break;
+            }
+            else if(player.GetComponentInParent<PlayerController>()?.ID == 1)
+            {
+                player2 = player.GetComponentInParent<PlayerController>();
             }
         }
+
+        GetComponent<AudioAgent>().PlayBackground("InGameMusic", true, 10);
     }
 
     // Update is called once per frame
@@ -80,9 +90,15 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = TotalScore.ToString();
 
-        playerAmmo.text = player1.Ammo.ToString();
-    }
+        player1Ammo.text = player1.Ammo.ToString();
+        player2Ammo.text = player2.Ammo.ToString();
 
+        if(TotalScore > HighScore)
+        {
+            HighScore = TotalScore;
+            scoreText.color = new Color(255/255f * 0.8f,215/255f * 0.8f,0);
+        }
+    }
     public void AddToScore(float _asteroidScale)
     {
         TotalScore += (int)(AsteroidDestroyScore * _asteroidScale);
@@ -90,11 +106,6 @@ public class GameManager : MonoBehaviour
     public void SetPlanetHealthBar(float _health)
     {
         planetHealth.fillAmount = _health;
-    }
-
-    public void PlayPowerUp()
-    {
-        GetComponent<AudioAgent>().PlaySoundEffect("PowerUp");
     }
 
     public RespawnTimer GetRespawnTimer()

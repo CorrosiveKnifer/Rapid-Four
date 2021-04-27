@@ -7,15 +7,17 @@ using PowerUp;
 public class PlayerController : MonoBehaviour
 {
     public int ID;
-    public int maxAmmo = 10;
+    public int maxAmmo = 20;
     public int Ammo;
 
     public Vector2 maxDist;
     public Vector2 minDist;
+
     public GameObject[] projectileSpawnLoc;
     public Shield shieldObject;
     public Animator[] engine;
     public Animator immune;
+    public CameraAgent myCamera;
 
     private System.Type effectType;
     private System.Type gunType;
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
     
     public float speed = 350.0f;
     public float rotationSpeed = 120.0f;
+
+    public GameObject particlePrefab;
 
     // Death stuff
     bool isAlive = true;
@@ -40,52 +44,38 @@ public class PlayerController : MonoBehaviour
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
         
-        Ammo = maxAmmo;
+        Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetLoc = transform.position;
-
-        if (transform.position.x < minDist.x)
-        {
-            targetLoc.x = maxDist.x;
-        }
-        if (transform.position.x > maxDist.x)
-        {
-            targetLoc.x = minDist.x;
-        }
-        if (transform.position.y < minDist.y)
-        {
-            targetLoc.y = maxDist.y;
-        }
-        if (transform.position.y > maxDist.y)
-        {
-            targetLoc.y = minDist.y;
-        }
-
-        if (targetLoc != transform.position)
-        {
-            transform.position = targetLoc;
-        }
-
         if (isAlive)
         {
             if (InputManager.instance.GetPlayerShoot(ID))
             {
-                if (Ammo > 0 || maxAmmo < 0)
+                foreach (var gameObject in projectileSpawnLoc)
                 {
-                    foreach (var gameObject in projectileSpawnLoc)
+                    if (Ammo > 0 || maxAmmo < 0)
                     {
-                        gameObject.GetComponent<GunType>().Fire();
-                    }
-                    Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
-                }
-                else Debug.Log("You are out of ammo!");
+                        int cost = gameObject.GetComponent<GunType>().ammoCost;
+                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost)
+                        {
+                            cost = Ammo;
+                        }
+                        else Debug.Log("You are out of ammo!");
 
+                        gameObject.GetComponent<GunType>().Fire(effectType, cost);
+                        
+                        if (maxAmmo > 0)
+                            Ammo = Mathf.Clamp(Ammo - cost, 0, 100);
+
+                    }
+
+                }
             }
         }
+
         if(InputManager.instance.GetPlayerUnshoot(ID))
         {
             foreach (var gameObject in projectileSpawnLoc)
@@ -100,6 +90,29 @@ public class PlayerController : MonoBehaviour
     {
         float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+
+        Vector3 force = new Vector3();
+        if (transform.position.x < minDist.x)
+        {
+            force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x + minDist.x); //-x
+        }
+        if (transform.position.x > maxDist.x)
+        {
+            force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x - maxDist.x); //x
+        }
+        if (transform.position.y < minDist.y)
+        {
+            force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
+        }
+        if (transform.position.y > maxDist.y)
+        {
+            force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
+        }
+
+        if (force != new Vector3())
+        {
+            body.AddForce(force, ForceMode.Acceleration);//transform.position = targetLoc;
+        }
 
         if (!isAlive)
         {
@@ -150,9 +163,20 @@ public class PlayerController : MonoBehaviour
             m_DeathTimer = 0;
             m_InvincibilityTimer = m_fInvincibilityTime;
             isInvincible = true;
-            GetComponentInChildren<MeshRenderer>().enabled = true;
+
+            foreach (var item in GetComponentsInChildren<MeshRenderer>())
+            {
+                item.enabled = true;
+            }
+
             GetComponentInChildren<MeshCollider>().enabled = true;
 
+            foreach (var item in GetComponentsInChildren<ParticleSystem>())
+            {
+                item.gameObject.SetActive(true);
+            }
+
+            myCamera.ResetCamera();
             //New Guns
             ApplyGun(typeof(BasicGunType));
             ApplyEffect(typeof(BasicShotType));
@@ -194,9 +218,24 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive && !shieldObject.IsActive)
         {
             isAlive = false;
-            GetComponentInChildren<MeshRenderer>().enabled = false;
+
+            foreach (var item in GetComponentsInChildren<MeshRenderer>())
+            {
+                item.enabled = false;
+            }
+
             GetComponentInChildren<MeshCollider>().enabled = false;
+
+            foreach (var item in GetComponentsInChildren<ParticleSystem>())
+            {
+                item.gameObject.SetActive(false);
+            }
+
             m_DeathTimer = m_fRespawnTime;
+            myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, 0.0f));
+
+            GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            explode.transform.localScale = transform.localScale;
 
             // Force player to stop shooting
             if (InputManager.instance.GetPlayerUnshoot(ID))
@@ -223,16 +262,26 @@ public class PlayerController : MonoBehaviour
     {
         if(gType.IsSubclassOf(typeof(GunType)))
         {
+            int ammoCount = 0;
             foreach (var gameObject in projectileSpawnLoc)
             {
                 Destroy(gameObject.GetComponent<GunType>());
-                gameObject.AddComponent(gType);
-                gameObject.GetComponent<GunType>().LoadEffect(effectType);
+                GunType temp = gameObject.AddComponent(gType) as GunType;
                 if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
                 {
-                    gameObject.GetComponent<GunType>().Fire();
+                    gameObject.GetComponent<GunType>().Fire(effectType, 0);
+                }
+                else
+                {
+                    ammoCount += temp.AmmoCount();
                 }
             }
+
+            if(ID == 0)
+            {
+                maxAmmo = ammoCount;
+            }
+
             gunType = gType;
         }
     }
@@ -241,10 +290,6 @@ public class PlayerController : MonoBehaviour
         if (etype.IsSubclassOf(typeof(ShotType)))
         {
             effectType = etype;
-        }
-        foreach (var gameObject in projectileSpawnLoc)
-        {
-            gameObject.GetComponent<GunType>().LoadEffect(effectType);
         }
     }
     

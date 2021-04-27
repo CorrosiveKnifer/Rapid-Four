@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
+using System;
 
 /// <summary>
 /// RACHAEL
@@ -19,6 +20,7 @@ public class SplitGunType : GunType
     private GameObject laser2;
     public void Start()
     {
+        ammoCost = 3;
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
         laser = Resources.Load<GameObject>("Prefabs/BasicLaser");
 
@@ -33,13 +35,16 @@ public class SplitGunType : GunType
         if (laser2 != null)
             Destroy(laser2);
     }
-    public override void Fire()
+    public override void Fire(System.Type etype, int costPayed)
     {
+        if (!etype.IsSubclassOf(typeof(ShotType)))
+            return;
+
         switch (playerID)
         {
             default:
             case 0: // ship
-                 SpawnChild(effectType);
+                 SpawnChild(etype, costPayed);
                 break;
 
             case 1: //Sucker Ship
@@ -47,12 +52,12 @@ public class SplitGunType : GunType
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
-                    laserObject.AddComponent(effectType);
+                    laserObject.AddComponent(etype);
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
-                    SpawnLaserChild(effectType);
+                    SpawnLaserChild(etype);
 
                 }
                 break;
@@ -101,51 +106,63 @@ public class SplitGunType : GunType
         laser2.GetComponent<ShotType>().IsLaser = true;
 
     }
-    void SpawnChild(System.Type type)
+    void SpawnChild(System.Type type, int costPayed)
     {
         //Set thoseponteial directions
         Vector3 FirstDir = Quaternion.AngleAxis(15, Vector3.forward) * transform.up;
         Vector3 SecondDir = Quaternion.AngleAxis(-15, Vector3.forward) * transform.up;
+        Vector3 interpolatedPosition;
 
         //first bullet---------------------------------------
+        if (costPayed >= 2)
+        {
+            //Create projectile
+            GameObject bullet1 = Instantiate(proj, transform.position, Quaternion.AngleAxis(45, Vector3.forward));
+            bullet1.AddComponent(type);
+            bullet1.transform.up = FirstDir;
 
-        //Create projectile
-        GameObject bullet1 = Instantiate(proj, transform.position, Quaternion.AngleAxis(45, Vector3.forward));
-        bullet1.AddComponent(type);
-        bullet1.transform.up = FirstDir;
+            //left direction
+            interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 0);
+            bullet1.GetComponent<ShotType>().damage = damage;
+            //set force
+            bullet1.GetComponent<Rigidbody>().AddForce(FirstDir * force, ForceMode.Impulse);
+        }
 
-        //left direction
-        Vector3 interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 0);
-        bullet1.GetComponent<ShotType>().damage = damage;
-        //set force
-        bullet1.GetComponent<Rigidbody>().AddForce(FirstDir * force, ForceMode.Impulse);
 
 
         //second bullet---------------------------------------
+        if (costPayed >= 1)
+        {
+            //Create projectile
+            GameObject bullet2 = Instantiate(proj, transform.position, Quaternion.AngleAxis(0, Vector3.forward));
+            bullet2.AddComponent(type);
+            bullet2.transform.up = transform.up;
 
-        //Create projectile
-        GameObject bullet2 = Instantiate(proj, transform.position, Quaternion.AngleAxis(0, Vector3.forward));
-        bullet2.AddComponent(type);
-        bullet2.transform.up = transform.up;
-
-        //up direction
-        interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 0.5f);
-        bullet2.GetComponent<ShotType>().damage = damage;
-        //set force
-        bullet2.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
+            //up direction
+            interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 0.5f);
+            bullet2.GetComponent<ShotType>().damage = damage;
+            //set force
+            bullet2.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
+        }
 
         //third bullet---------------------------------------
+        if (costPayed >= 3)
+        {
+            //Create projectile
+            GameObject bullet3 = Instantiate(proj, transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
+            bullet3.AddComponent(type);
+            bullet3.transform.up = SecondDir;
 
-        //Create projectile
-        GameObject bullet3 = Instantiate(proj, transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
-        bullet3.AddComponent(type.GetType());
-        bullet3.transform.up = SecondDir;
+            //right direction
+            interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 1);
+            bullet3.GetComponent<ShotType>().damage = damage;
+            //set force
+            bullet3.GetComponent<Rigidbody>().AddForce(SecondDir * force, ForceMode.Impulse);
+        }
+    }
 
-        //right direction
-        interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, 1);
-        bullet3.GetComponent<ShotType>().damage = damage;
-        //set force
-        bullet3.GetComponent<Rigidbody>().AddForce(SecondDir * force, ForceMode.Impulse);
-
+    public override int AmmoCount()
+    {
+        return 18;
     }
 }

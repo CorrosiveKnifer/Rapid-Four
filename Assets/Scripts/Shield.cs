@@ -11,7 +11,7 @@ public class Shield : MonoBehaviour
     public bool IsActive = true;
     private MeshCollider meshCollider;
     public ParticleSystem system;
-    private float timer;
+    public float timer;
 
     // Start is called before the first frame update
     void Start()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
+using System;
 
 public class BasicGunType : GunType
 {
@@ -15,6 +16,7 @@ public class BasicGunType : GunType
 
     public void Start()
     {
+        ammoCost = 1;
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
         laser = Resources.Load<GameObject>("Prefabs/BasicLaser");
 
@@ -27,20 +29,25 @@ public class BasicGunType : GunType
             Destroy(laserObject);
     }
 
-    public override void Fire()
+    public override void Fire(System.Type etype, int costPayed)
     {
+        if(!etype.IsSubclassOf(typeof(ShotType)))
+            return;
+
         switch (playerID)
         {
             default:
             case 0: //Projectile ship
-
-                //Create projectile
-                GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
-                gObject.AddComponent(effectType);
-                gObject.transform.up = transform.up;
-                //Send projectile
-                gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
-                gObject.GetComponent<ShotType>().damage = damage;
+                if(costPayed >= ammoCost)
+                {
+                    //Create projectile
+                    GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
+                    gObject.AddComponent(etype);
+                    gObject.transform.up = transform.up;
+                    //Send projectile
+                    gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
+                    gObject.GetComponent<ShotType>().damage = damage;
+                }
                 break;
 
             case 1: //Sucker Ship
@@ -48,7 +55,7 @@ public class BasicGunType : GunType
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
-                    laserObject.AddComponent(effectType);
+                    laserObject.AddComponent(etype);
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
@@ -62,5 +69,10 @@ public class BasicGunType : GunType
     {
         if (laserObject != null)
             Destroy(laserObject);
+    }
+
+    public override int AmmoCount()
+    {
+        return 10;
     }
 }

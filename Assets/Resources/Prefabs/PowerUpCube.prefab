@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 523420750280050117}
   - component: {fileID: 3944611061987467956}
   - component: {fileID: 2129519450058641457}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IconPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,9 +91,9 @@ GameObject:
   - component: {fileID: 2558816490760386585}
   - component: {fileID: 5485371078615361903}
   - component: {fileID: 2234856048558962663}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 5647113592237918562}
   - component: {fileID: 5647113592237918564}
   - component: {fileID: 5647113592237918567}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PowerUpCube
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
@@ -358,6 +358,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePlane: {fileID: 964187458049193473}
   myType: 1
+  isAmmoDrop: 0
+  gunCrate: {fileID: 2100000, guid: 93635ff8f5fd4a948967f076669d61d0, type: 2}
+  shotCrate: {fileID: 2100000, guid: fd142b578ef0af944b195e89136026b0, type: 2}
+  ammoCrate: {fileID: 2100000, guid: 384ac97d802f3cf4d926fc4d110a18b8, type: 2}
+  crate: {fileID: 5485371078615361903}
 --- !u!1 &5966074024115206710
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +374,7 @@ GameObject:
   - component: {fileID: 3315531419072053743}
   - component: {fileID: 6317842526114053956}
   - component: {fileID: 7801438830300599190}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DisplayPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
