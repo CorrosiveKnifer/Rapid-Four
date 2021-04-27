@@ -10,13 +10,14 @@ public class VFXScript : MonoBehaviour
     private void Start()
     {
         audioAgent = GetComponent<AudioAgent>();
+        if (audioAgent != null)
+            audioAgent.PlaySoundEffect(audioAgent.AudioClips[0].name);
     }
 
     // Update is called once per frame
     void Update()
     {
         lifetime -= Time.deltaTime;
-        audioAgent.PlaySoundEffect(audioAgent.AudioClips[0].name);
         if (lifetime <= 0)
         {
             Destroy(gameObject);
