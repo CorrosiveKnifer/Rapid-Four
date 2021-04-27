@@ -57,8 +57,11 @@ public class GameManager : MonoBehaviour
 
     private PlayerController player1;
     private PlayerController player2;
+
     private void Start()
     {
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Asteroid"), LayerMask.NameToLayer("PowerUp")); 
+
         Score = new int[2];
         Score[0] = 0;
         Score[1] = 0;

@@ -7,7 +7,7 @@ using PowerUp;
 public class PlayerController : MonoBehaviour
 {
     public int ID;
-    public int maxAmmo = 10;
+    public int maxAmmo = 20;
     public int Ammo;
 
     public Vector2 maxDist;
@@ -54,20 +54,28 @@ public class PlayerController : MonoBehaviour
         {
             if (InputManager.instance.GetPlayerShoot(ID))
             {
-                if (Ammo > 0 || maxAmmo < 0)
+                foreach (var gameObject in projectileSpawnLoc)
                 {
-                    foreach (var gameObject in projectileSpawnLoc)
+                    if (Ammo > 0 || maxAmmo < 0)
                     {
-                        gameObject.GetComponent<GunType>().Fire(effectType);
+                        int cost = gameObject.GetComponent<GunType>().ammoCost;
+                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost)
+                        {
+                            cost = Ammo;
+                        }
+                        else Debug.Log("You are out of ammo!");
+
+                        gameObject.GetComponent<GunType>().Fire(effectType, cost);
+                        
+                        if (maxAmmo > 0)
+                            Ammo = Mathf.Clamp(Ammo - cost, 0, 100);
+
                     }
 
-                    if(maxAmmo > 0)
-                        Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
                 }
-                else Debug.Log("You are out of ammo!");
-
             }
         }
+
         if(InputManager.instance.GetPlayerUnshoot(ID))
         {
             foreach (var gameObject in projectileSpawnLoc)
@@ -86,19 +94,19 @@ public class PlayerController : MonoBehaviour
         Vector3 force = new Vector3();
         if (transform.position.x < minDist.x)
         {
-            force += new Vector3(-1f, 0f, 0f) * 2 * (transform.position.x + minDist.x); //-x
+            force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x + minDist.x); //-x
         }
         if (transform.position.x > maxDist.x)
         {
-            force += new Vector3(-1f, 0f, 0f) * 2 * (transform.position.x - maxDist.x); //x
+            force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x - maxDist.x); //x
         }
         if (transform.position.y < minDist.y)
         {
-            force += new Vector3(0f, -1f, 0f) * 2 * (transform.position.y - maxDist.y); //x
+            force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
         }
         if (transform.position.y > maxDist.y)
         {
-            force += new Vector3(0f, -1f, 0f) * 2 * (transform.position.y - maxDist.y); //x
+            force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
         }
 
         if (force != new Vector3())
@@ -254,16 +262,26 @@ public class PlayerController : MonoBehaviour
     {
         if(gType.IsSubclassOf(typeof(GunType)))
         {
+            int ammoCount = 0;
             foreach (var gameObject in projectileSpawnLoc)
             {
                 Destroy(gameObject.GetComponent<GunType>());
-                gameObject.AddComponent(gType);
+                GunType temp = gameObject.AddComponent(gType) as GunType;
                 if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
                 {
-                    gameObject.GetComponent<GunType>().Fire(effectType);
+                    gameObject.GetComponent<GunType>().Fire(effectType, 0);
                 }
-                
+                else
+                {
+                    ammoCount += temp.AmmoCount();
+                }
             }
+
+            if(ID == 0)
+            {
+                maxAmmo = ammoCount;
+            }
+
             gunType = gType;
         }
     }

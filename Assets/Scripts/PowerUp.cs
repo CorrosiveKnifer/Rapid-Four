@@ -7,8 +7,10 @@ namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour
     {
-        public abstract void Fire(System.Type effectType);
+        public int ammoCost = 0;
+        public abstract void Fire(System.Type effectType, int costPayed);
         public abstract void UnFire();
+        public abstract int AmmoCount();
     }
 
     public abstract class ShotType : MonoBehaviour
