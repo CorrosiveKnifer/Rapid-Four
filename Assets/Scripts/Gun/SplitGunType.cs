@@ -18,6 +18,7 @@ public class SplitGunType : GunType
     private GameObject laserObject;
     private GameObject laser1;
     private GameObject laser2;
+    private System.Type currentType;
     public void Start()
     {
         ammoCost = 3;
@@ -25,7 +26,20 @@ public class SplitGunType : GunType
         laser = Resources.Load<GameObject>("Prefabs/BasicLaser");
 
         playerID = GetComponentInParent<PlayerController>().ID;
+
+        currentType = typeof(BasicShotType);
+        laserObject = Instantiate(laser, transform) as GameObject;
+        laserObject.AddComponent(typeof(BasicShotType));
+        laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
+        laserObject.transform.up = transform.up;
+        laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+        laserObject.GetComponent<ShotType>().IsLaser = true;
+        SpawnLaserChild(typeof(BasicShotType));
+        laserObject.SetActive(false);
+        laser1.SetActive(false);
+        laser2.SetActive(false);
     }
+
     protected void OnDestroy()
     {
         if (laserObject != null)
@@ -34,6 +48,15 @@ public class SplitGunType : GunType
             Destroy(laser1);
         if (laser2 != null)
             Destroy(laser2);
+    }
+    private void Update()
+    {
+        if (playerID == 1)
+        {
+            laserObject.GetComponent<ShotType>().IsLaser = true;
+            laser1.GetComponent<ShotType>().IsLaser = true;
+            laser2.GetComponent<ShotType>().IsLaser = true;
+        }
     }
     public override void Fire(System.Type etype, int costPayed)
     {
@@ -48,18 +71,32 @@ public class SplitGunType : GunType
                 break;
 
             case 1: //Sucker Ship
-                if (laserObject == null)
+                if (currentType != etype)
                 {
-                    //Create Laser, which is parented by us
-                    laserObject = Instantiate(laser, transform) as GameObject;
+                    if (laserObject.GetComponent<ShotType>() != null)
+                        Destroy(laserObject.GetComponent<ShotType>());
+                    if (laser1.GetComponent<ShotType>() != null)
+                        Destroy(laser1.GetComponent<ShotType>());
+                    if (laser2.GetComponent<ShotType>() != null)
+                        Destroy(laser2.GetComponent<ShotType>());
+
                     laserObject.AddComponent(etype);
-                    laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
-                    laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
-                    SpawnLaserChild(etype);
 
+                    laser1.AddComponent(etype);
+                    laser1.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laser1.GetComponent<ShotType>().IsLaser = true;
+
+                    laser2.AddComponent(etype);
+                    laser2.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laser2.GetComponent<ShotType>().IsLaser = true;
                 }
+
+                //Create Laser, which is parented by us
+                laserObject.SetActive(true);
+                laser1.SetActive(true);
+                laser2.SetActive(true);
                 break;
         }
     }
@@ -67,11 +104,11 @@ public class SplitGunType : GunType
     public override void UnFire()
     {
         if (laserObject != null)
-            Destroy(laserObject);
-        if (laser1 != null)
-            Destroy(laser1);
-        if (laser2 != null)
-            Destroy(laser2);
+        {
+            laserObject.SetActive(false);
+            laser1.SetActive(false);
+            laser2.SetActive(false);
+        }
     }
 
     void SpawnLaserChild(System.Type type)

@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
                     if (Ammo > 0 || maxAmmo < 0)
                     {
                         int cost = gameObject.GetComponent<GunType>().ammoCost;
-                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost)
+                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost && maxAmmo > 0)
                         {
                             cost = Ammo;
                         }
@@ -141,6 +141,11 @@ public class PlayerController : MonoBehaviour
                     body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
                     SetMovement(true);
                 }
+                else if (verticalAxis < 0.0f)
+                {
+                    body.velocity = Vector3.zero;
+                    SetMovement(false);
+                }
                 else
                 {
                     SetMovement(false);
@@ -152,7 +157,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
                     body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
-                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.05f);
+                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
                     SetMovement(true);
                 }
                 else

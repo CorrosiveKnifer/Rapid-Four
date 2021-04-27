@@ -12,9 +12,9 @@ public class SplitTwoGunType : GunType
     private float damage = 30.0f;
 
     private int playerID;
-    private GameObject laserObject;
     private GameObject laser1;
     private GameObject laser2;
+    private System.Type currentType;
 
     public void Start()
     {
@@ -23,6 +23,10 @@ public class SplitTwoGunType : GunType
         laser = Resources.Load<GameObject>("Prefabs/BasicLaser");
 
         playerID = GetComponentInParent<PlayerController>().ID;
+        currentType = typeof(BasicShotType);
+        SpawnLaserChild(typeof(BasicShotType));
+        laser1.SetActive(false);
+        laser2.SetActive(false);
     }
 
     protected void OnDestroy()
@@ -32,6 +36,15 @@ public class SplitTwoGunType : GunType
 
         if (laser2 != null)
             Destroy(laser2);
+    }
+
+    private void Update()
+    {
+        if (playerID == 1)
+        {
+            laser1.GetComponent<ShotType>().IsLaser = true;
+            laser2.GetComponent<ShotType>().IsLaser = true;
+        }
     }
     public override void Fire(System.Type etype, int costPayed)
     {
@@ -47,10 +60,22 @@ public class SplitTwoGunType : GunType
                 break;
 
             case 1: //Sucker Ship
-                if (laserObject == null)
+                if (currentType != etype)
                 {
-                    SpawnLaserChild(etype);
+                    Destroy(laser1.GetComponent<ShotType>());
+                    Destroy(laser2.GetComponent<ShotType>());
+
+                    laser1.AddComponent(etype);
+                    laser1.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laser1.GetComponent<ShotType>().IsLaser = true;
+
+                    laser2.AddComponent(etype);
+                    laser2.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+                    laser2.GetComponent<ShotType>().IsLaser = true;
                 }
+
+                laser1.SetActive(true);
+                laser2.SetActive(true);
                 break;
         }
     }
@@ -58,9 +83,10 @@ public class SplitTwoGunType : GunType
     public override void UnFire()
     {
         if (laser1 != null)
-            Destroy(laser1);
-        if (laser2 != null)
-            Destroy(laser2);
+        {
+            laser1.SetActive(false);
+            laser2.SetActive(false);
+        }
     }
 
     void SpawnLaserChild(System.Type type)

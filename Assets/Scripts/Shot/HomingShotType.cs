@@ -65,7 +65,6 @@ public class HomingShotType : ShotType
         enemies = GameObject.FindGameObjectsWithTag("Asteroid");
         TargetCloset();
         bulletUpdateMovement();
-
     }
 
     void bulletUpdateMovement()
@@ -76,7 +75,7 @@ public class HomingShotType : ShotType
             {                
                 Vector3 direction = (target.transform.position - transform.position).normalized;
                 transform.up = direction;
-                GetComponent<Rigidbody>().velocity = direction * 10.0f;
+                GetComponent<Rigidbody>().velocity = direction * 50.0f;
             }
             else
             {
