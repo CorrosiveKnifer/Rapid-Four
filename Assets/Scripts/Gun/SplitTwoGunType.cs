@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
+using System;
 
 public class SplitTwoGunType : GunType
 {
@@ -22,6 +23,7 @@ public class SplitTwoGunType : GunType
 
         playerID = GetComponentInParent<PlayerController>().ID;
     }
+
     protected void OnDestroy()
     {
         if (laser1 != null)
@@ -30,20 +32,23 @@ public class SplitTwoGunType : GunType
         if (laser2 != null)
             Destroy(laser2);
     }
-    public override void Fire()
+    public override void Fire(System.Type etype)
     {
+        if (!etype.IsSubclassOf(typeof(ShotType)))
+            return;
+
         switch (playerID)
         {
             default:
             case 0: // ship
 
-                SpawnChild(effectType);
+                SpawnChild(etype);
                 break;
 
             case 1: //Sucker Ship
                 if (laserObject == null)
                 {
-                    SpawnLaserChild(effectType);
+                    SpawnLaserChild(etype);
                 }
                 break;
         }

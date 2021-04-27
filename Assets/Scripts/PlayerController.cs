@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 maxDist;
     public Vector2 minDist;
+
     public GameObject[] projectileSpawnLoc;
     public Shield shieldObject;
     public Animator[] engine;
     public Animator immune;
+    public CameraAgent myCamera;
 
     private System.Type effectType;
     private System.Type gunType;
@@ -46,30 +48,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetLoc = transform.position;
-
-        if (transform.position.x < minDist.x)
-        {
-            targetLoc.x = maxDist.x;
-        }
-        if (transform.position.x > maxDist.x)
-        {
-            targetLoc.x = minDist.x;
-        }
-        if (transform.position.y < minDist.y)
-        {
-            targetLoc.y = maxDist.y;
-        }
-        if (transform.position.y > maxDist.y)
-        {
-            targetLoc.y = minDist.y;
-        }
-
-        if (targetLoc != transform.position)
-        {
-            transform.position = targetLoc;
-        }
-
         if (isAlive)
         {
             if (InputManager.instance.GetPlayerShoot(ID))
@@ -78,7 +56,7 @@ public class PlayerController : MonoBehaviour
                 {
                     foreach (var gameObject in projectileSpawnLoc)
                     {
-                        gameObject.GetComponent<GunType>().Fire();
+                        gameObject.GetComponent<GunType>().Fire(effectType);
                     }
                     Ammo = Mathf.Clamp(Ammo - 1, 0, 100);
                 }
@@ -100,6 +78,29 @@ public class PlayerController : MonoBehaviour
     {
         float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+
+        Vector3 force = new Vector3();
+        if (transform.position.x < minDist.x)
+        {
+            force += new Vector3(-1f, 0f, 0f) * 2 * (transform.position.x + minDist.x); //-x
+        }
+        if (transform.position.x > maxDist.x)
+        {
+            force += new Vector3(-1f, 0f, 0f) * 2 * (transform.position.x - maxDist.x); //x
+        }
+        if (transform.position.y < minDist.y)
+        {
+            force += new Vector3(0f, -1f, 0f) * 2 * (transform.position.y - maxDist.y); //x
+        }
+        if (transform.position.y > maxDist.y)
+        {
+            force += new Vector3(0f, -1f, 0f) * 2 * (transform.position.y - maxDist.y); //x
+        }
+
+        if (force != new Vector3())
+        {
+            body.AddForce(force, ForceMode.Acceleration);//transform.position = targetLoc;
+        }
 
         if (!isAlive)
         {
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             GetComponentInChildren<MeshRenderer>().enabled = true;
             GetComponentInChildren<MeshCollider>().enabled = true;
-
+            myCamera.ResetCamera();
             //New Guns
             ApplyGun(typeof(BasicGunType));
             ApplyEffect(typeof(BasicShotType));
@@ -197,7 +198,7 @@ public class PlayerController : MonoBehaviour
             GetComponentInChildren<MeshRenderer>().enabled = false;
             GetComponentInChildren<MeshCollider>().enabled = false;
             m_DeathTimer = m_fRespawnTime;
-
+            myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, 0.0f));
             // Force player to stop shooting
             if (InputManager.instance.GetPlayerUnshoot(ID))
             {
@@ -227,11 +228,11 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(gameObject.GetComponent<GunType>());
                 gameObject.AddComponent(gType);
-                gameObject.GetComponent<GunType>().LoadEffect(effectType);
                 if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
                 {
-                    gameObject.GetComponent<GunType>().Fire();
+                    gameObject.GetComponent<GunType>().Fire(effectType);
                 }
+                
             }
             gunType = gType;
         }
@@ -241,10 +242,6 @@ public class PlayerController : MonoBehaviour
         if (etype.IsSubclassOf(typeof(ShotType)))
         {
             effectType = etype;
-        }
-        foreach (var gameObject in projectileSpawnLoc)
-        {
-            gameObject.GetComponent<GunType>().LoadEffect(effectType);
         }
     }
     

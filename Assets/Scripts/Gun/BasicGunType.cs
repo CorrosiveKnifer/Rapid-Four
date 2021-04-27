@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
+using System;
 
 public class BasicGunType : GunType
 {
@@ -27,8 +28,11 @@ public class BasicGunType : GunType
             Destroy(laserObject);
     }
 
-    public override void Fire()
+    public override void Fire(System.Type etype)
     {
+        if(!etype.IsSubclassOf(typeof(ShotType)))
+            return;
+
         switch (playerID)
         {
             default:
@@ -36,7 +40,7 @@ public class BasicGunType : GunType
 
                 //Create projectile
                 GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
-                gObject.AddComponent(effectType);
+                gObject.AddComponent(etype);
                 gObject.transform.up = transform.up;
                 //Send projectile
                 gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
@@ -48,7 +52,7 @@ public class BasicGunType : GunType
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
-                    laserObject.AddComponent(effectType);
+                    laserObject.AddComponent(etype);
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;

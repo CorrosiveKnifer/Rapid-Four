@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
+using System;
 
 /// <summary>
 /// RACHAEL
@@ -33,13 +34,16 @@ public class SplitGunType : GunType
         if (laser2 != null)
             Destroy(laser2);
     }
-    public override void Fire()
+    public override void Fire(System.Type etype)
     {
+        if (!etype.IsSubclassOf(typeof(ShotType)))
+            return;
+
         switch (playerID)
         {
             default:
             case 0: // ship
-                 SpawnChild(effectType);
+                 SpawnChild(etype);
                 break;
 
             case 1: //Sucker Ship
@@ -47,12 +51,12 @@ public class SplitGunType : GunType
                 {
                     //Create Laser, which is parented by us
                     laserObject = Instantiate(laser, transform) as GameObject;
-                    laserObject.AddComponent(effectType);
+                    laserObject.AddComponent(etype);
                     laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
                     laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
-                    SpawnLaserChild(effectType);
+                    SpawnLaserChild(etype);
 
                 }
                 break;

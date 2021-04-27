@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2234856048558962663}
   m_Layer: 0
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,6 +358,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePlane: {fileID: 964187458049193473}
   myType: 1
+  gunCrate: {fileID: 2100000, guid: 93635ff8f5fd4a948967f076669d61d0, type: 2}
+  shotCrate: {fileID: 2100000, guid: fd142b578ef0af944b195e89136026b0, type: 2}
+  crate: {fileID: 5485371078615361903}
 --- !u!1 &5966074024115206710
 GameObject:
   m_ObjectHideFlags: 0
