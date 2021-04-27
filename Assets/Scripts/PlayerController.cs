@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
             }
 
             m_DeathTimer = m_fRespawnTime;
-            myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, 0.0f));
+            myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, -45.0f));
 
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;

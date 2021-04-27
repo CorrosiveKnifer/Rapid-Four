@@ -5,14 +5,20 @@ using UnityEngine;
 public class Planet : MonoBehaviour
 {
     public LevelLoader levelLoader;
+    public GameObject vfx;
 
+    public CameraAgent[] playerCamera;
+
+    private bool isQuitting = false;
     float m_fMaxHealth = 1000.0f;
-    float m_fHealth;
+    public float m_fHealth;
     public float m_fRotationSpeedMult = 1.0f;
     public GameObject minimapSprite;
     float planetDeathDuration = 1.0f;
     float planetDeathTimer = 1.0f;
     Vector3 planetStartSize;
+
+    private GameObject explode;
 
     private void Start()
     {
@@ -30,11 +36,27 @@ public class Planet : MonoBehaviour
 
         if (m_fHealth <= 0.0f)
         {
-            planetDeathTimer -= Time.deltaTime;
+            foreach (var cam in playerCamera)
+            {
+                cam.SetTargetLoc(new Vector3(0.0f, 0.0f, -50.0f), true, 0.25f);
+            }
+            
+            planetDeathTimer -= Time.deltaTime * 2.0f;
             float scaleMult = planetDeathTimer / planetDeathDuration;
             transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), planetStartSize, scaleMult);
 
-            if (scaleMult <= 0.0f)
+            if(scaleMult <= 0.85f)
+            {
+                GetComponent<MeshRenderer>().enabled = scaleMult <= 0.8f;
+
+                if (explode == null)
+                {
+                    explode = Instantiate(vfx, minimapSprite.transform.position, Quaternion.identity);
+                    explode.transform.localScale = transform.localScale;
+                }
+            }
+
+            if (scaleMult <= -1.0f)
             {
                 levelLoader.LoadNextLevel();
             }

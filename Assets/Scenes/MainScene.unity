@@ -135,9 +135,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7678393852053213533, guid: f517c8a68134b0b459eebf0f6125ff90,
         type: 3}
+      propertyPath: vfx
+      value: 
+      objectReference: {fileID: 2791144410657647526, guid: 2198ab8e142d5ec46ba9f3ce122e1dfd,
+        type: 3}
+    - target: {fileID: 7678393852053213533, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
       propertyPath: levelLoader
       value: 
       objectReference: {fileID: 155295027}
+    - target: {fileID: 7678393852053213533, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
+      propertyPath: playerCamera.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7678393852053213533, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
+      propertyPath: playerCamera.Array.data[0]
+      value: 
+      objectReference: {fileID: 1115746056}
+    - target: {fileID: 7678393852053213533, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
+      propertyPath: playerCamera.Array.data[1]
+      value: 
+      objectReference: {fileID: 1115746055}
     - target: {fileID: 8695306752015050473, guid: f517c8a68134b0b459eebf0f6125ff90,
         type: 3}
       propertyPath: m_Name
