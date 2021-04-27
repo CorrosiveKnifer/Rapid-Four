@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject particlePrefab;
 
+    AudioAgent audioAgent;
+
     // Death stuff
     bool isAlive = true;
     float m_fRespawnTime = 10.0f;
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
         effectType = typeof(BasicShotType);
@@ -56,6 +59,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (Ammo > 0 || maxAmmo < 0)
                 {
+                    audioAgent.PlaySoundEffect("ShootPew");
                     foreach (var gameObject in projectileSpawnLoc)
                     {
                         gameObject.GetComponent<GunType>().Fire(effectType);
@@ -295,6 +299,14 @@ public class PlayerController : MonoBehaviour
         foreach (var item in engine)
         {
             item.SetBool("IsMoving", isMoving);
+        }
+        if (isMoving && audioAgent.IsAudioStopped("Thruster1"))
+        {
+            audioAgent.PlaySoundEffect("Thruster1", true);
+        }
+        else if (!isMoving && !audioAgent.IsAudioStopped("Thruster1"))
+        {
+            audioAgent.StopAudio("Thruster1");
         }
     }
 }

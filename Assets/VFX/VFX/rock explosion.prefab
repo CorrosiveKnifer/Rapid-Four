@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4987899189918581231}
   - component: {fileID: 5319545661929895278}
+  - component: {fileID: 8511745054696182004}
   m_Layer: 0
   m_Name: rock explosion
   m_TagString: Untagged
@@ -46,6 +47,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 2
+--- !u!114 &8511745054696182004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987899189918581230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: d9587678cd4089e499abf9149fa98d76, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &4987899190237013834
 GameObject:
   m_ObjectHideFlags: 0
