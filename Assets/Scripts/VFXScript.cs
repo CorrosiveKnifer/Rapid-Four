@@ -10,6 +10,7 @@ public class VFXScript : MonoBehaviour
     private void Start()
     {
         audioAgent = GetComponent<AudioAgent>();
+
         if (audioAgent != null)
             audioAgent.PlaySoundEffect(audioAgent.AudioClips[0].name);
     }

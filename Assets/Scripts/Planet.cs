@@ -50,7 +50,11 @@ public class Planet : MonoBehaviour
             
             planetDeathTimer -= Time.deltaTime * 2.0f;
             float scaleMult = planetDeathTimer / planetDeathDuration;
-            transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), planetStartSize, scaleMult);
+
+            if (scaleMult >= 0.00f)
+            {
+                transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), planetStartSize, scaleMult);
+            }
 
             if(scaleMult <= 0.85f)
             {
@@ -63,7 +67,7 @@ public class Planet : MonoBehaviour
                 }
             }
 
-            if (scaleMult <= -1.0f)
+            if (scaleMult <= -3.0f)
             {
                 levelLoader.LoadNextLevel();
             }
@@ -91,6 +95,7 @@ public class Planet : MonoBehaviour
             {
                 item.GetComponent<CameraAgent>().Shake(2.0f * ((size + 1f) / 2f));
             }
+            GetComponent<AudioAgent>().PlaySoundEffect("AsteroidPlanetColl");
         }
 
         if (other.gameObject.tag == "PowerUp")

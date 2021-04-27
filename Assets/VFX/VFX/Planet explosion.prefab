@@ -4820,6 +4820,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2791144410657647529}
+  - component: {fileID: 3374115265346692451}
+  - component: {fileID: 6197188844659917658}
   m_Layer: 0
   m_Name: Planet explosion
   m_TagString: Untagged
@@ -4847,6 +4849,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3374115265346692451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791144410657647526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dac9c53d4c04794889592eb86b09a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 5
+--- !u!114 &6197188844659917658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791144410657647526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 7c6a127a6bb25324890e121fdca353c1, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &2791144410872940338
 GameObject:
   m_ObjectHideFlags: 0
