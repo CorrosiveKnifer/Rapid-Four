@@ -5,8 +5,8 @@ using PowerUp;
 
 public class BasicShotType : ShotType
 {
-    private float probability = 35.0f;
     private float timer = 0.0f;
+
     protected override void Start()
     {
         if (!IsLaser)
@@ -23,7 +23,8 @@ public class BasicShotType : ShotType
     {
         if (other.gameObject.tag == "Asteroid" && (gameObject.GetComponentInParent<PlayerController>() != null))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+            if (other.GetComponent<Astroid>().Endurance != 5)
+                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             //spawning ammo
             if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
             {
@@ -32,7 +33,7 @@ public class BasicShotType : ShotType
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = !(Random.Range(0.0f, 100.0f) < 15.0f); //setting the ammodrop to true
                 AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-                timer = 1.0f;
+                timer = delay;
             }
         }
     }

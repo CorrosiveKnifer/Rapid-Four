@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
     private System.Type effectType;
     private System.Type gunType;
     private Rigidbody body;
-    
+    private int controlsID;
+
     public float speed = 350.0f;
     public float rotationSpeed = 120.0f;
 
@@ -41,6 +42,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (ID == 0)
+            controlsID = GameManager.player1Controls;
+        if (ID == 1)
+            controlsID = GameManager.player2Controls;
+
         audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
@@ -53,6 +59,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Ammo > maxAmmo && maxAmmo > 0)
+            Ammo = maxAmmo;
+
         if (isAlive)
         {
             if (InputManager.instance.GetPlayerShoot(ID))
@@ -132,7 +141,7 @@ public class PlayerController : MonoBehaviour
             horizontalAxis = 0;
         }
 
-        switch (ID)
+        switch (controlsID)
         {
             default:
             case 0:
@@ -144,7 +153,7 @@ public class PlayerController : MonoBehaviour
                 else if (verticalAxis < 0.0f)
                 {
                     body.velocity = Vector3.zero;
-                    SetMovement(false);
+                    SetMovement(false, 5.0f);
                 }
                 else
                 {
@@ -182,6 +191,8 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             shieldObject.gameObject.SetActive(true);
             shieldObject.timer = 0.0f;
+            Ammo = maxAmmo;
+
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = true;
@@ -329,11 +340,12 @@ public class PlayerController : MonoBehaviour
         isInvincible = true;
     }
 
-    private void SetMovement(bool isMoving)
+    private void SetMovement(bool isMoving, float speed = 1.0f)
     {
         foreach (var item in engine)
         {
             item.SetBool("IsMoving", isMoving);
+            item.SetFloat("Speed", speed);
         }
         if (isMoving && audioAgent.IsAudioStopped("Thruster1"))
         {

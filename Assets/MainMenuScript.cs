@@ -11,9 +11,17 @@ public class MainMenuScript : MonoBehaviour
 
     public GameObject Menu;
     public GameObject Settings;
+
+    public RadioBoxScript player1Box;
+    public RadioBoxScript player2Box;
+
+    public Text[] player1Controls;
+    public Text[] player2Controls;
+
     private bool isIgnore = true;
-    // Start is called before the first frame update
-    void Start()
+    private bool oneFrame = false;
+
+    private void Awake()
     {
         ApplicationManager.GetInstance();
 
@@ -22,6 +30,13 @@ public class MainMenuScript : MonoBehaviour
         SoundEffects.value = GameManager.SoundEffectVolume;
 
         isIgnore = false;
+        player1Box.SetSelected(GameManager.player1Controls);
+        player2Box.SetSelected(GameManager.player2Controls);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        ShowTitle();
     }
 
     // Update is called once per frame
@@ -32,9 +47,19 @@ public class MainMenuScript : MonoBehaviour
             GetComponent<AudioAgent>().PlayBackground("StartScreen", true, 10);
         }
 
+        player1Controls[0].enabled = false;
+        player1Controls[1].enabled = false;
+        player1Controls[player1Box.selected].enabled = true;
+        player2Controls[0].enabled = false;
+        player2Controls[1].enabled = false;
+        player2Controls[player2Box.selected].enabled = true;
+
         GameManager.MasterVolume = Master.value;
         GameManager.BackGroundVolume = Music.value;
         GameManager.SoundEffectVolume = SoundEffects.value;
+
+        GameManager.player1Controls = player1Box.selected;
+        GameManager.player2Controls = player2Box.selected;
     }
 
     public void ResetScore()
