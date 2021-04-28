@@ -14,7 +14,7 @@ public class Astroid : MonoBehaviour
     public float probability = 50.0f;
 
     public bool isDestroyed = false;
-    public GameObject AstroidPrefab;
+    public GameObject[] AstroidPrefab;
     Vector3 Astroiddirection;
     public GameObject minimapSprite;
 
@@ -136,7 +136,7 @@ public class Astroid : MonoBehaviour
             Vector3 interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, randomIndex);
 
             //create child
-            GameObject childAstroid = Instantiate(AstroidPrefab);
+            GameObject childAstroid = Instantiate(AstroidPrefab[Random.Range(0, AstroidPrefab.Length)]);
 
             //set speed
             childAstroid.GetComponent<Rigidbody>().AddForce(interpolatedPosition.normalized * 300.0f, ForceMode.Impulse);
