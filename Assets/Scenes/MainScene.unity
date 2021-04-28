@@ -480,6 +480,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6151658612271353893, guid: 1017a188a453f4a47aa41b7b9844d5ff,
+        type: 3}
+      propertyPath: m_fLaserDamage
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6151658612271353894, guid: 1017a188a453f4a47aa41b7b9844d5ff,
         type: 3}
       propertyPath: m_RootOrder
@@ -672,7 +677,8 @@ MonoBehaviour:
     type: 3}
   m_fSpawnDistance: 200
   m_fSpawnInterval: 10
-  m_fSpawnTimer: 0
+  m_fSpawningGraceDuration: 50
+  m_fBossSpawnDuration: 300
 --- !u!4 &816059525
 Transform:
   m_ObjectHideFlags: 0
