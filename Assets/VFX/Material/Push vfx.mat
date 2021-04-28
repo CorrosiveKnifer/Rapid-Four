@@ -29,4 +29,4 @@ Material:
     m_Colors:
     - Color_C314B9E3: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_48693AD6: {r: 1, g: 1, b: 1, a: 0}
-    - Vector2_897D61DE: {r: 0, g: -0.62, b: 0, a: 0}
+    - Vector2_897D61DE: {r: 0, g: -9, b: 0, a: 0}
