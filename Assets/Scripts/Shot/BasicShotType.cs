@@ -5,7 +5,6 @@ using PowerUp;
 
 public class BasicShotType : ShotType
 {
-    private float probability = 35.0f;
     private float timer = 0.0f;
 
     protected override void Start()
@@ -33,7 +32,7 @@ public class BasicShotType : ShotType
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = !(Random.Range(0.0f, 100.0f) < 15.0f); //setting the ammodrop to true
                 AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-                timer = 1.0f;
+                timer = delay;
             }
         }
     }

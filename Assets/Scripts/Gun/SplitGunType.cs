@@ -35,6 +35,12 @@ public class SplitGunType : GunType
         laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
         laserObject.GetComponent<ShotType>().IsLaser = true;
         SpawnLaserChild(typeof(BasicShotType));
+        laserObject.GetComponent<ShotType>().probability = 20.0f;
+        laserObject.GetComponent<ShotType>().delay = 1.45f;
+        laser1.GetComponent<ShotType>().probability = 20.0f;
+        laser1.GetComponent<ShotType>().delay = 1.45f;
+        laser2.GetComponent<ShotType>().probability = 20.0f;
+        laser2.GetComponent<ShotType>().delay = 1.45f;
         laserObject.SetActive(false);
         laser1.SetActive(false);
         laser2.SetActive(false);
