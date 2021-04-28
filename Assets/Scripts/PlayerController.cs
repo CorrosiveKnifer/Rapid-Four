@@ -191,7 +191,9 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             shieldObject.gameObject.SetActive(true);
             shieldObject.timer = 0.0f;
-            Ammo = maxAmmo;
+
+            if(ID == 0)
+                Ammo = maxAmmo;
 
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
