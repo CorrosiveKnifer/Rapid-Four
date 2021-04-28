@@ -13,6 +13,7 @@ public class PowerUpPickUp : MonoBehaviour
     public Material ammoCrate;
 
     public MeshRenderer crate;
+    public MeshRenderer miniMap;
 
     private Rigidbody body;
     private float maxSpeed = 4.0f;
@@ -40,31 +41,39 @@ public class PowerUpPickUp : MonoBehaviour
             case PickUpType.SHOT_BASIC:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/BasicShot");
                 isShot = true;
+                miniMap.material = Resources.Load<Material>("Materials/Powerup");
                 break;
             case PickUpType.GUN_BASIC:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/BasicGun");
+                miniMap.material = Resources.Load<Material>("Materials/Package");
                 break;
             case PickUpType.GUN_SPLIT_THREE:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/SplitGun");
+                miniMap.material = Resources.Load<Material>("Materials/Package");
                 break;
             case PickUpType.SHOT_HOMING:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/HomingShot");
                 isShot = true;
+                miniMap.material = Resources.Load<Material>("Materials/Powerup");
                 break;
             case PickUpType.GUN_SPLIT_TWO:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/DoubleGun");
+                miniMap.material = Resources.Load<Material>("Materials/Package");
                 break;
             case PickUpType.SHOT_PIERCE:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/PercingShot");
                 isShot = true;
+                miniMap.material = Resources.Load<Material>("Materials/Powerup");
                 break;
             case PickUpType.SHOT_FROST:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/FreezeShot");
                 isShot = true;
+                miniMap.material = Resources.Load<Material>("Materials/Powerup");
                 break;
             case PickUpType.AMMO:
                 imagePlane.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/Ammunition");
                 isShot = true;
+                miniMap.material = Resources.Load<Material>("Materials/Ammo");
                 break; 
             default:
                 Debug.LogError($"Random Power up got: {(int)myType}");
@@ -83,6 +92,7 @@ public class PowerUpPickUp : MonoBehaviour
         }
         else
         {
+            
             crate.material = gunCrate;
         }
     }

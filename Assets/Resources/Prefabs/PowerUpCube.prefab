@@ -363,6 +363,7 @@ MonoBehaviour:
   shotCrate: {fileID: 2100000, guid: fd142b578ef0af944b195e89136026b0, type: 2}
   ammoCrate: {fileID: 2100000, guid: 384ac97d802f3cf4d926fc4d110a18b8, type: 2}
   crate: {fileID: 5485371078615361903}
+  miniMap: {fileID: 5647113590641924665}
 --- !u!1 &5966074024115206710
 GameObject:
   m_ObjectHideFlags: 0
