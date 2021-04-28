@@ -9,7 +9,6 @@ using PowerUp;
 public class PierceShotType : ShotType
 {
     int endurance = 1;
-    private float probability = 35.0f;
     private float timer = 0.0f;
     // Start is called before the first frame update
 
