@@ -4,6 +4,9 @@ using UnityEngine;
 using PowerUp;
 using System;
 
+/// <summary>
+/// Rachael Colaco, Michael Jordan
+/// </summary>
 public class SplitTwoGunType : GunType
 {
     private GameObject proj;

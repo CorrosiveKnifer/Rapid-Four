@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
 
+/// <summary>
+/// Michael Jordan, Rachael Colaco
+/// </summary>
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;

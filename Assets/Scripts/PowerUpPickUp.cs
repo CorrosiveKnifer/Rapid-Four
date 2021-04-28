@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Michael Jordan, Rachael Colaco
+/// </summary>
 public class PowerUpPickUp : MonoBehaviour
 {
     public enum PickUpType { SHOT_BASIC, GUN_BASIC, GUN_SPLIT_THREE, GUN_SPLIT_TWO, SHOT_HOMING, SHOT_PIERCE, SHOT_FROST, AMMO };

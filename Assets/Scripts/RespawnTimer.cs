@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//William
+/// <summary>
+/// William de Beer
+/// </summary>
 public class RespawnTimer : MonoBehaviour
 {
     public GameObject[] Info;

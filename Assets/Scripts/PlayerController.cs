@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using PowerUp;
 
+/// <summary>
+/// Michael Jordan, William de Beer
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public int ID;

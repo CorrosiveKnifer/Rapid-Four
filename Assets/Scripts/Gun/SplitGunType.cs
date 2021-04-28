@@ -5,7 +5,7 @@ using PowerUp;
 using System;
 
 /// <summary>
-/// RACHAEL
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class SplitGunType : GunType
 {
