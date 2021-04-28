@@ -19,8 +19,9 @@ public class MainMenuScript : MonoBehaviour
     public Text[] player2Controls;
 
     private bool isIgnore = true;
-    // Start is called before the first frame update
-    void Start()
+    private bool oneFrame = false;
+
+    private void Awake()
     {
         ApplicationManager.GetInstance();
 
@@ -31,6 +32,11 @@ public class MainMenuScript : MonoBehaviour
         isIgnore = false;
         player1Box.SetSelected(GameManager.player1Controls);
         player2Box.SetSelected(GameManager.player2Controls);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        ShowTitle();
     }
 
     // Update is called once per frame
