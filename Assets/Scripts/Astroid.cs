@@ -49,6 +49,8 @@ public class Astroid : MonoBehaviour
         }
 
         transform.localScale = transform.localScale * Random.Range(0.8f, 1.2f);
+        rigidBody.mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
+        Health = Mathf.Sqrt(rigidBody.mass) * 100.0f;
     }
     private void Awake()
     {
@@ -145,7 +147,7 @@ public class Astroid : MonoBehaviour
             childAstroid.transform.localScale = transform.localScale*0.5f;
 
             //make it known it is a child in that script
-            childAstroid.GetComponent<Astroid>().Endurance--;
+            childAstroid.GetComponent<Astroid>().Endurance = Endurance - 1;
         }
     }
     public void SetNumberofAstroids(int num)

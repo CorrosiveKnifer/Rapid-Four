@@ -31,7 +31,7 @@ public class PowerUpPickUp : MonoBehaviour
         }
         else
         {
-            myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.AMMO + 1);
+            myType = (PickUpType)Random.Range((int)PickUpType.GUN_SPLIT_THREE, (int)PickUpType.SHOT_FROST + 1);
         }
         
         bool isShot = false;
@@ -121,6 +121,8 @@ public class PowerUpPickUp : MonoBehaviour
 
     private void GivePlayerPowerUp(PlayerController player)
     {
+        int ammoAdd = 1;
+
         switch (myType)
         {
             case PickUpType.SHOT_BASIC:
@@ -145,14 +147,16 @@ public class PowerUpPickUp : MonoBehaviour
                 player.ApplyEffect(typeof( FrostShotType));
                 break;
             case PickUpType.AMMO:
-                player.Ammo += 3;
-                if(player.Ammo > player.maxAmmo && player.maxAmmo >= 0)
-                {
-                    player.Ammo = player.maxAmmo;
-                }
+                ammoAdd = 3;
                 break;
             default:
                 break;
+        }
+
+        player.Ammo += ammoAdd;
+        if (player.Ammo > player.maxAmmo && player.maxAmmo >= 0)
+        {
+            player.Ammo = player.maxAmmo;
         }
     }
 }
