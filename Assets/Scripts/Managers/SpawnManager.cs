@@ -67,11 +67,12 @@ public class SpawnManager : MonoBehaviour
             m_fBossSpawnTimer += Time.deltaTime;
         }
         Debug.Log(m_fBossSpawnTimer);
-        if (m_fBossSpawnTimer > m_fBossSpawnDuration - 20.0f)
+        if (!m_bSpawningGrace && (m_fBossSpawnTimer > (m_fBossSpawnDuration - 20.0f)))
         {
             // Activate spawning grace (turns off spawning for the duration)
             m_bSpawningGrace = true;
             m_fSpawningGrace = 0.0f;
+            GameManager.instance.WarningText.SetActive(true);
         }
         if (m_fBossSpawnTimer >= m_fBossSpawnDuration)
         {
@@ -86,6 +87,11 @@ public class SpawnManager : MonoBehaviour
             {
                 m_bSpawningGrace = false;
                 m_fSpawningGrace = 0.0f;
+            }
+
+            if (bossteroid != null)
+            {
+                GameManager.instance.WarningText.SetActive(false);
             }
         }
     }
@@ -104,5 +110,6 @@ public class SpawnManager : MonoBehaviour
         bossteroid.GetComponent<Astroid>().Health = Mathf.Sqrt(bossteroid.GetComponent<Rigidbody>().mass) * 100.0f;
 
         bossteroid.GetComponent<Astroid>().Endurance = 5;
+        bossteroid.GetComponent<Astroid>().maxSpeed = 2.0f;
     }
 }

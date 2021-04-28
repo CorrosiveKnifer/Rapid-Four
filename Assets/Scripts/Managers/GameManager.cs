@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public double GameTime = 0.0;
 
     [Header("UI Objects")]
+    public GameObject WarningText;
     public GameObject ObjectiveText;
     float ObjectiveTextDecayTime = 10.0f;
 

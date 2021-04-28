@@ -175,6 +175,7 @@ public class Astroid : MonoBehaviour
 
         slowTime += time;
         //Slow effect
+        float oldSpeed = maxSpeed;
         maxSpeed = 2.0f;
 
         GetComponent<MeshRenderer>().material = slowMat;
@@ -185,7 +186,7 @@ public class Astroid : MonoBehaviour
         } while (slowTime > 0.0f);
 
         //Return to normal effect
-        maxSpeed = 8.0f;
+        maxSpeed = oldSpeed;
         GetComponent<MeshRenderer>().material = baseMat;
         yield return null;
     }
