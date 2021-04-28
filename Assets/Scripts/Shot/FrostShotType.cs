@@ -24,12 +24,12 @@ public class FrostShotType : ShotType
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        if (other.gameObject.tag == "Asteroid" && (gameObject.GetComponentInParent<PlayerController>() != null))
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             other.gameObject.GetComponent<Astroid>().Slow(30.0f * Time.deltaTime);
             //spawning ammo
-            if (Random.Range(0.0f, 100.0f) < probability && timer == 0.0f)
+            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
             {
                 GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
@@ -45,7 +45,7 @@ public class FrostShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 other.gameObject.GetComponent<Astroid>().Slow(3.0f); //3 second
                 Destroy(gameObject);

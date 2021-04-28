@@ -21,14 +21,15 @@ public class BasicShotType : ShotType
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        if (other.gameObject.tag == "Asteroid" && (gameObject.GetComponentInParent<PlayerController>() != null))
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             //spawning ammo
-            if (Random.Range(0.0f, 100.0f) < probability && timer == 0.0f)
+            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
             {
                 GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
-                AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+
+                AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = !(Random.Range(0.0f, 100.0f) < 15.0f); //setting the ammodrop to true
                 AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
                 timer = 1.0f;
@@ -42,7 +43,7 @@ public class BasicShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if(!IsLaser)
+            if((gameObject.GetComponentInParent<PlayerController>() == null))
             {
                 Destroy(gameObject);
             }            

@@ -65,6 +65,7 @@ MonoBehaviour:
   laser: {fileID: 6151658612271353895}
   m_fLaserDamage: 1000
   m_fMaxPlayerDistance: 40
+  m_fTransferRate: 0.2
 --- !u!120 &6151658612271353895
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -191,22 +192,22 @@ PrefabInstance:
     - target: {fileID: 4071984645703119311, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
       propertyPath: maxDist.x
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4071984645703119311, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
       propertyPath: maxDist.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4071984645703119311, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
       propertyPath: minDist.x
-      value: -200
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 4071984645703119311, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
       propertyPath: minDist.y
-      value: -200
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 4071984645703119311, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
@@ -218,10 +219,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player A
       objectReference: {fileID: 0}
+    - target: {fileID: 6271996436141860054, guid: f0685efad6e77184f8f3cf97d11e341b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271996436141860054, guid: f0685efad6e77184f8f3cf97d11e341b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217182441698818755, guid: f0685efad6e77184f8f3cf97d11e341b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8029825927266716827, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
       propertyPath: m_Drag
-      value: 0.6
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 8029825927266716827, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
@@ -236,7 +252,7 @@ PrefabInstance:
     - target: {fileID: 8566362354261813912, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.9
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 8566362354261813912, guid: f0685efad6e77184f8f3cf97d11e341b,
         type: 3}
@@ -324,7 +340,7 @@ PrefabInstance:
     - target: {fileID: 988245037824720795, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.9
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 988245037824720795, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
@@ -393,34 +409,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
-      propertyPath: speed
-      value: 450
-      objectReference: {fileID: 0}
-    - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
-        type: 3}
       propertyPath: maxAmmo
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
       propertyPath: maxDist.x
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
       propertyPath: maxDist.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
       propertyPath: minDist.x
-      value: -200
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
       propertyPath: minDist.y
-      value: -200
+      value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 4888022953819825356, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
+        type: 3}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 1122727014799318186, guid: 90938d58b0d0c3a459f98378efccb750,
+        type: 3}
     - target: {fileID: 5068050685750367105, guid: b54ce5ece90e5564aa4b6ec62d882fbe,
         type: 3}
       propertyPath: player

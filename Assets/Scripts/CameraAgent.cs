@@ -9,11 +9,12 @@ public class CameraAgent : MonoBehaviour
 
     private Vector3 targetLoc;
     private bool isFollowingTarget = true;
+    private bool isLocked = false;
 
     private float shakeTime;
     private float shakeTotal;
     private Vector3 shakeVector;
-
+    private float lerpToTargetVal = 0.005f;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +37,7 @@ public class CameraAgent : MonoBehaviour
 
         targetLoc += shakeVector;
 
-        transform.position = Vector3.Lerp(transform.position, targetLoc, (isFollowingTarget) ? 1.0f : 0.005f );
+        transform.position = Vector3.Lerp(transform.position, targetLoc, (isFollowingTarget) ? 1.0f : lerpToTargetVal);
 
         if(transform.position + new Vector3(0.05f, 0.05f, 0.05f) == targetLoc && transform.position == targetLoc + new Vector3(0.05f, 0.05f, 0.05f))
         {
@@ -46,16 +47,17 @@ public class CameraAgent : MonoBehaviour
         targetLoc -= shakeVector;
     }
 
-    public void SetTargetLoc(Vector3 loc)
+    public void SetTargetLoc(Vector3 loc, bool blockReset = false, float lerp = 0.005f)
     {
         isFollowingTarget = false;
         targetLoc = loc;
-        targetLoc = new Vector3(targetLoc.x, targetLoc.y, -45);
+        isLocked = blockReset;
+        lerpToTargetVal = lerp;
     }
 
     public void ResetCamera()
     {
-        isFollowingTarget = true;
+        isFollowingTarget = true && !isLocked;
     }
 
     public void Shake(float mag)

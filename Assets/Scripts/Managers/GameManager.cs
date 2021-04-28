@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     {
         if (instance == this)
             instance = null;
+
+        EndScreenScript.ScoreToDisplay = TotalScore;
     }
 
     #endregion
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     public static float BackGroundVolume { get; set; } = 1.0f;
     public static float HighScore { get; set; } = 0.0f;
 
-    public int[] Score;
+    public int[] Score; // Not used anyore
     public int TotalScore;
 
     public int AsteroidDestroyScore = 10;
@@ -48,6 +50,9 @@ public class GameManager : MonoBehaviour
     public double GameTime = 0.0;
 
     [Header("UI Objects")]
+    public GameObject ObjectiveText;
+    float ObjectiveTextDecayTime = 10.0f;
+
     public Text scoreText;
     public Text player1Ammo;
     public Text player2Ammo;
@@ -97,6 +102,16 @@ public class GameManager : MonoBehaviour
         {
             HighScore = TotalScore;
             scoreText.color = new Color(255/255f * 0.8f,215/255f * 0.8f,0);
+        }
+
+        if (GameTime < ObjectiveTextDecayTime)
+        {
+            ObjectiveText.GetComponentInChildren<Image>().color = new Color(1, 1, 1, ((ObjectiveTextDecayTime - (float)GameTime) / ObjectiveTextDecayTime));
+            ObjectiveText.GetComponentInChildren<Text>().color = new Color(1, 1, 1, ((ObjectiveTextDecayTime - (float)GameTime) / ObjectiveTextDecayTime));
+        }
+        else
+        {
+            ObjectiveText.SetActive(false);
         }
     }
     public void AddToScore(float _asteroidScale)
