@@ -4983,6 +4983,29 @@ Transform:
   m_Father: {fileID: 8566362354261813912}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3943063648283667940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008881414217045785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 2283d1c472e377a4ea55286607191e8c, type: 3}
+  - {fileID: 8300000, guid: 51ae30b002a300a48a6d457a7fa5926d, type: 3}
+  - {fileID: 8300000, guid: 22d038fbae222f64ca31b7bda90815d2, type: 3}
+  - {fileID: 8300000, guid: 763e999985067854c859f20f3487692f, type: 3}
+  - {fileID: 8300000, guid: fc925dbeb39877e42adc7d3f582897af, type: 3}
+  - {fileID: 8300000, guid: 31a1cc8fc69c18643970c6d3251afd05, type: 3}
+  - {fileID: 8300000, guid: e73cfe93be8f4274584e77bc8ef17d88, type: 3}
+  - {fileID: 8300000, guid: 76418d0440051c7489304b1bb6b8b859, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1001 &3919336384538522651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5459,6 +5482,11 @@ PrefabInstance:
       objectReference: {fileID: 4130316073205347928}
     - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
         type: 3}
+      propertyPath: maxAmmo
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768154718469686470, guid: 24fe2c2eff015c945978649b6ffc8934,
+        type: 3}
       propertyPath: maxDist.x
       value: 200
       objectReference: {fileID: 0}
@@ -5543,6 +5571,12 @@ PrefabInstance:
 --- !u!4 &8566362354261813912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 885148841828573073, guid: 24fe2c2eff015c945978649b6ffc8934,
+    type: 3}
+  m_PrefabInstance: {fileID: 8838730992841110793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5008881414217045785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4551560434329657872, guid: 24fe2c2eff015c945978649b6ffc8934,
     type: 3}
   m_PrefabInstance: {fileID: 8838730992841110793}
   m_PrefabAsset: {fileID: 0}

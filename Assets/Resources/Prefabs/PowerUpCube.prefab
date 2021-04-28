@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 523420750280050117}
   - component: {fileID: 3944611061987467956}
   - component: {fileID: 2129519450058641457}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IconPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 2558816490760386585}
   - component: {fileID: 5485371078615361903}
   - component: {fileID: 2234856048558962663}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 5647113592237918562}
   - component: {fileID: 5647113592237918564}
   - component: {fileID: 5647113592237918567}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PowerUpCube
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 3315531419072053743}
   - component: {fileID: 6317842526114053956}
   - component: {fileID: 7801438830300599190}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DisplayPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

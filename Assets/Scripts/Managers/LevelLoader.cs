@@ -20,6 +20,7 @@ public class LevelLoader : MonoBehaviour
 
     private void Start()
     {
+        ApplicationManager.GetInstance();
         loadingNextArea = false;
     }
 
@@ -43,6 +44,11 @@ public class LevelLoader : MonoBehaviour
         {
             ResetScene();
         }
+    }
+
+    private void OnDestroy()
+    {
+        ApplicationManager.DestroyInstance();
     }
 
     public void QuitGame()

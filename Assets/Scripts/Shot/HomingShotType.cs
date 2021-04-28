@@ -12,25 +12,20 @@ public class HomingShotType : ShotType
     public GameObject[] enemies;
     private Vector3 original;
 
-    private float probability = 50.0f;
-
+    private float probability = 35.0f;
+    private float timer = 0.0f;
     protected override void Start()
     {
         if(!IsLaser)
             Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
     }
 
-    private void Update()
+    protected override void Update()
     {
-
         homingBullet();
-        /*
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
-        {
-            Destroy(this);
-        }
-        */
+
+        if (timer > 0)
+            timer -= Time.deltaTime;
     }
 
     private void OnTriggerStay(Collider other)
@@ -38,6 +33,16 @@ public class HomingShotType : ShotType
         if (other.gameObject.tag == "Asteroid" && IsLaser)
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+
+            //spawning ammo
+            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
+            {
+                GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
+                AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+                AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
+                AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
+                timer = 1.0f;
+            }
         }
     }
 
@@ -47,20 +52,9 @@ public class HomingShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 Destroy(gameObject);
-            }
-            else
-            {
-                //spawning ammo
-                if (Random.Range(0.0f, 100.0f) < probability)
-                {
-                    GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
-                    AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
- 
-                }
-
             }
         }
     }
@@ -71,18 +65,17 @@ public class HomingShotType : ShotType
         enemies = GameObject.FindGameObjectsWithTag("Asteroid");
         TargetCloset();
         bulletUpdateMovement();
-
     }
 
     void bulletUpdateMovement()
     {
         if (target != null)
         {
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {                
                 Vector3 direction = (target.transform.position - transform.position).normalized;
                 transform.up = direction;
-                GetComponent<Rigidbody>().velocity = direction * 10.0f;
+                GetComponent<Rigidbody>().velocity = direction * 50.0f;
             }
             else
             {

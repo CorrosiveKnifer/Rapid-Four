@@ -48,8 +48,10 @@ MonoBehaviour:
   playerAForwards: 119
   playerABackwards: 115
   playerAShoot: 32
+  playerAShootSecond: 304
   playerBLeft: 276
   playerBRight: 275
   playerBForwards: 273
   playerBBackwards: 274
   playerBShoot: 256
+  playerBShootSecond: 303

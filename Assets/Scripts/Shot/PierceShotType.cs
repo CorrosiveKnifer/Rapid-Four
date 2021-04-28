@@ -9,12 +9,13 @@ using PowerUp;
 public class PierceShotType : ShotType
 {
     int endurance = 1;
-    private float probability = 50.0f;
+    private float probability = 35.0f;
+    private float timer = 0.0f;
     // Start is called before the first frame update
 
     protected override void Start()
     {
-        if(IsLaser)
+        if (gameObject.GetComponentInParent<PlayerController>() != null)
         {
             transform.localScale = new Vector3(1.5f, 15.0f, 1.0f);
         }
@@ -23,11 +24,25 @@ public class PierceShotType : ShotType
             Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
         }
     }
+    protected override void Update()
+    {
+        if (timer > 0)
+            timer -= Time.deltaTime;
+    }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        if (other.gameObject.tag == "Asteroid" && gameObject.GetComponentInParent<PlayerController>() != null)
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+            //spawning ammo
+            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
+            {
+                GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
+                AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+                AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
+                AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
+                timer = 1.0f;
+            }
         }
     }
     protected override void OnTriggerEnter(Collider other)
@@ -36,24 +51,13 @@ public class PierceShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 if (endurance == -1)
                 {
                     Destroy(gameObject);
                 }
                 endurance--;
-            }
-            else
-            {
-                //spawning ammo
-                if (Random.Range(0.0f, 100.0f) < probability)
-                {
-                    GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
-                    AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
-
-                }
-
             }
         }
     }

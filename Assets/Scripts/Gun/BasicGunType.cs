@@ -13,22 +13,42 @@ public class BasicGunType : GunType
 
     private int playerID;
     private GameObject laserObject;
-
+    private System.Type currentType;
     public void Start()
     {
+        ammoCost = 1;
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
         laser = Resources.Load<GameObject>("Prefabs/BasicLaser");
 
         playerID = GetComponentInParent<PlayerController>().ID;
-    }
 
+
+        //Spawn Laser
+        currentType = typeof(BasicShotType);
+        laserObject = Instantiate(laser, transform) as GameObject;
+        laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
+        laserObject.transform.up = transform.up;
+        laserObject.AddComponent(typeof(BasicShotType));
+        laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+        laserObject.GetComponent<ShotType>().IsLaser = true;
+        laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
+        laserObject.GetComponent<ShotType>().IsLaser = true;
+        laserObject.SetActive(false);
+    }
+    private void Update()
+    {
+        if(playerID == 1)
+        {
+            laserObject.GetComponent<ShotType>().IsLaser = true;
+        }
+    }
     protected void OnDestroy()
     {
         if (laserObject != null)
             Destroy(laserObject);
     }
 
-    public override void Fire(System.Type etype)
+    public override void Fire(System.Type etype, int costPayed)
     {
         if(!etype.IsSubclassOf(typeof(ShotType)))
             return;
@@ -37,27 +57,29 @@ public class BasicGunType : GunType
         {
             default:
             case 0: //Projectile ship
-
-                //Create projectile
-                GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
-                gObject.AddComponent(etype);
-                gObject.transform.up = transform.up;
-                //Send projectile
-                gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
-                gObject.GetComponent<ShotType>().damage = damage;
+                if(costPayed >= ammoCost)
+                {
+                    //Create projectile
+                    GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
+                    gObject.AddComponent(etype);
+                    gObject.transform.up = transform.up;
+                    //Send projectile
+                    gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
+                    gObject.GetComponent<ShotType>().damage = damage;
+                }
                 break;
 
             case 1: //Sucker Ship
-                if(laserObject == null)
+                if(currentType != etype)
                 {
-                    //Create Laser, which is parented by us
-                    laserObject = Instantiate(laser, transform) as GameObject;
+                    if(laserObject.GetComponent<ShotType>() != null)
+                        Destroy(laserObject.GetComponent<ShotType>());
                     laserObject.AddComponent(etype);
-                    laserObject.transform.localScale = new Vector3(1.5f, 10.0f, 1.0f);
-                    laserObject.transform.up = transform.up;
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
                 }
+
+                laserObject.SetActive(true);
                 break;
         }
     }
@@ -65,6 +87,11 @@ public class BasicGunType : GunType
     public override void UnFire()
     {
         if (laserObject != null)
-            Destroy(laserObject);
+            laserObject.SetActive(false);
+    }
+
+    public override int AmmoCount()
+    {
+        return 10;
     }
 }
