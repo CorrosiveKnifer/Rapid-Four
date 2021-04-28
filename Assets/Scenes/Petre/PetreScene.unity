@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5815,91 +5815,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: ShapeModule.angle
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startRotation.scalar
-      value: -6.283185
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.minScalar
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startRotation.minScalar
-      value: 6.283185
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startRotation.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startRotationX.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013813, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startRotationY.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013835, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987899190237013835, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 5351164730311675867, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.3000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5351164730311675867, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.77999973
-      objectReference: {fileID: 0}
-    - target: {fileID: 7381899122637593324, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7381899122637593324, guid: cb437294288a6a645aa5d23566eb7249,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb437294288a6a645aa5d23566eb7249, type: 3}
 --- !u!1001 &7205027764589338507
@@ -6290,5 +6205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 0}
+  vfx: {fileID: 0}
+  playerCamera: []
+  m_fHealth: 0
   m_fRotationSpeedMult: 2
   minimapSprite: {fileID: 0}
