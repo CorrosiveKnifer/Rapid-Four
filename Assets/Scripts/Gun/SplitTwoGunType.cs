@@ -25,6 +25,11 @@ public class SplitTwoGunType : GunType
         playerID = GetComponentInParent<PlayerController>().ID;
         currentType = typeof(BasicShotType);
         SpawnLaserChild(typeof(BasicShotType));
+
+        laser1.GetComponent<ShotType>().probability = 25.0f;
+        laser1.GetComponent<ShotType>().delay = 1.4f;
+        laser2.GetComponent<ShotType>().probability = 25.0f;
+        laser2.GetComponent<ShotType>().delay = 1.4f;
         laser1.SetActive(false);
         laser2.SetActive(false);
     }
@@ -68,10 +73,14 @@ public class SplitTwoGunType : GunType
                     laser1.AddComponent(etype);
                     laser1.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laser1.GetComponent<ShotType>().IsLaser = true;
+                    laser1.GetComponent<ShotType>().probability = 25.0f;
+                    laser1.GetComponent<ShotType>().delay = 1.4f;
 
                     laser2.AddComponent(etype);
                     laser2.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laser2.GetComponent<ShotType>().IsLaser = true;
+                    laser2.GetComponent<ShotType>().probability = 25.0f;
+                    laser2.GetComponent<ShotType>().delay = 1.4f;
                 }
 
                 laser1.SetActive(true);
@@ -160,6 +169,6 @@ public class SplitTwoGunType : GunType
 
     public override int AmmoCount()
     {
-        return 12;
+        return 16;
     }
 }

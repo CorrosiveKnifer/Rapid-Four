@@ -33,6 +33,8 @@ public class BasicGunType : GunType
         laserObject.GetComponent<ShotType>().IsLaser = true;
         laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
         laserObject.GetComponent<ShotType>().IsLaser = true;
+        laserObject.GetComponent<ShotType>().probability = 35.0f;
+        laserObject.GetComponent<ShotType>().delay = 1.0f;
         laserObject.SetActive(false);
     }
     private void Update()
@@ -66,6 +68,7 @@ public class BasicGunType : GunType
                     //Send projectile
                     gObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
                     gObject.GetComponent<ShotType>().damage = damage;
+
                 }
                 break;
 
@@ -77,6 +80,8 @@ public class BasicGunType : GunType
                     laserObject.AddComponent(etype);
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
+                    laserObject.GetComponent<ShotType>().probability = 35.0f;
+                    laserObject.GetComponent<ShotType>().delay = 1.0f;
                 }
 
                 laserObject.SetActive(true);
@@ -92,6 +97,6 @@ public class BasicGunType : GunType
 
     public override int AmmoCount()
     {
-        return 10;
+        return 14;
     }
 }
