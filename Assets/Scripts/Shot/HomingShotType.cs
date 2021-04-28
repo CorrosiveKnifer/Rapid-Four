@@ -12,7 +12,6 @@ public class HomingShotType : ShotType
     public GameObject[] enemies;
     private Vector3 original;
 
-    private float probability = 35.0f;
     private float timer = 0.0f;
     protected override void Start()
     {
