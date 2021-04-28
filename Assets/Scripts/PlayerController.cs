@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Ammo > maxAmmo)
+        if (Ammo > maxAmmo && maxAmmo > 0)
             Ammo = maxAmmo;
 
         if (isAlive)
