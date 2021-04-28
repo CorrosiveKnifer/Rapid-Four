@@ -542,6 +542,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7916638322075704835, guid: 1017a188a453f4a47aa41b7b9844d5ff,
         type: 3}
+      propertyPath: speed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916638322075704835, guid: 1017a188a453f4a47aa41b7b9844d5ff,
+        type: 3}
       propertyPath: myCamera
       value: 
       objectReference: {fileID: 1115746056}
@@ -581,6 +586,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &664427142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8566949946984051687, guid: d23cc367fa9a8f649baec426e313b36f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8566949947783325540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &664427145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664427142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: e8400c29e59c2ab4c8e662d42b091bbc, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &668219932
 GameObject:
   m_ObjectHideFlags: 0

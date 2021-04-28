@@ -76,6 +76,7 @@ public class SpawnManager : MonoBehaviour
             m_fSpawningGrace = 0.0f;
             GameManager.instance.WarningText.SetActive(true);
             animDanger.SetTrigger("Start");
+            GetComponent<AudioAgent>().PlaySoundEffect("Alarm", true);
         }
         if (m_fBossSpawnTimer >= m_fBossSpawnDuration)
         {
@@ -95,6 +96,7 @@ public class SpawnManager : MonoBehaviour
             if (bossteroid != null)
             {
                 GameManager.instance.WarningText.SetActive(false);
+                GetComponent<AudioAgent>().StopAudio("Alarm");
                 animDanger.SetTrigger("Reset");
             }
         }
