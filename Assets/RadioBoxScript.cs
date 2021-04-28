@@ -7,7 +7,7 @@ public class RadioBoxScript : MonoBehaviour
 {
     public int selected = 0;
 
-    private Toggle[] options;
+    public Toggle[] options;
     
     // Start is called before the first frame update
     void Start()
