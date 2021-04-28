@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     public static float BackGroundVolume { get; set; } = 1.0f;
     public static float HighScore { get; set; } = 0.0f;
 
+    public static int player1Controls = 0;
+    public static int player2Controls = 1;
+
     public int[] Score; // Not used anyore
     public int TotalScore;
 

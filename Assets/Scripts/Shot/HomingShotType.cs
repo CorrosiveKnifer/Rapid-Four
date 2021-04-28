@@ -12,7 +12,6 @@ public class HomingShotType : ShotType
     public GameObject[] enemies;
     private Vector3 original;
 
-    private float probability = 35.0f;
     private float timer = 0.0f;
     protected override void Start()
     {
@@ -42,7 +41,7 @@ public class HomingShotType : ShotType
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
                 AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-                timer = 1.0f;
+                timer = delay;
             }
         }
     }
