@@ -18,8 +18,9 @@ public class SpawnManager : MonoBehaviour
 
     public float m_fBossSpawnDuration = 120.0f;
     float m_fBossSpawnTimer;
-   // bool m_bSpawningGrace = false;
+    // bool m_bSpawningGrace = false;
 
+    Animator animDanger;
 
     float m_fMaxInterval = 10.0f;
     float m_fMinInterval = 0.3f;
@@ -31,6 +32,7 @@ public class SpawnManager : MonoBehaviour
         m_fSpawnTimer = 0.0f;
         m_fSpawningGrace = 0.0f;
         m_fBossSpawnTimer = 0.0f;
+        animDanger = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -73,6 +75,7 @@ public class SpawnManager : MonoBehaviour
             m_bSpawningGrace = true;
             m_fSpawningGrace = 0.0f;
             GameManager.instance.WarningText.SetActive(true);
+            animDanger.SetTrigger("Start");
         }
         if (m_fBossSpawnTimer >= m_fBossSpawnDuration)
         {
@@ -92,6 +95,7 @@ public class SpawnManager : MonoBehaviour
             if (bossteroid != null)
             {
                 GameManager.instance.WarningText.SetActive(false);
+                animDanger.SetTrigger("Reset");
             }
         }
     }
