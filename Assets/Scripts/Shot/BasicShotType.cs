@@ -6,7 +6,7 @@ using PowerUp;
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
-
+    private bool isQuitting = false;
     //private GameObject pushVFX;
 
     protected override void Start()
@@ -75,6 +75,18 @@ public class BasicShotType : ShotType
     //    
     //    return false;
     //}
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (!isQuitting && !LevelLoader.loadingNextArea)
+        {
+            GameObject explode = Instantiate(null, transform.position, Quaternion.identity);
+        }
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {
