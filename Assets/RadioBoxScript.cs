@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RadioBoxScript : MonoBehaviour
 {
-    public int selected = 0;
+    public int selected;
 
     public Toggle[] options;
     
@@ -16,7 +16,7 @@ public class RadioBoxScript : MonoBehaviour
         
         for (int i = 0; i < options.Length; i++)
         {
-            options[i].isOn = (i == 0);
+            options[i].isOn = (i == selected);
         }
     }
 

@@ -49,6 +49,11 @@ public class SplitTwoGunType : GunType
         {
             laser1.GetComponent<ShotType>().IsLaser = true;
             laser2.GetComponent<ShotType>().IsLaser = true;
+
+            laser1.GetComponent<ShotType>().probability = 25.0f;
+            laser1.GetComponent<ShotType>().delay = 1.4f;
+            laser2.GetComponent<ShotType>().probability = 25.0f;
+            laser2.GetComponent<ShotType>().delay = 1.4f;
         }
     }
     public override void Fire(System.Type etype, int costPayed)

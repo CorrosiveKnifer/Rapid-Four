@@ -42,6 +42,8 @@ public class BasicGunType : GunType
         if(playerID == 1)
         {
             laserObject.GetComponent<ShotType>().IsLaser = true;
+            laserObject.GetComponent<ShotType>().probability = 35.0f;
+            laserObject.GetComponent<ShotType>().delay = 1.0f;
         }
     }
     protected void OnDestroy()
@@ -80,8 +82,6 @@ public class BasicGunType : GunType
                     laserObject.AddComponent(etype);
                     laserObject.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laserObject.GetComponent<ShotType>().IsLaser = true;
-                    laserObject.GetComponent<ShotType>().probability = 35.0f;
-                    laserObject.GetComponent<ShotType>().delay = 1.0f;
                 }
 
                 laserObject.SetActive(true);
