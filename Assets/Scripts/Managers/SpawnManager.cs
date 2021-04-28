@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject asteroidPrefab;
+    GameObject bossteroid;
 
     public float m_fSpawnDistance = 160.0f;
 
@@ -35,7 +36,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_fSpawnTimer <= 0.0f && !m_bSpawningGrace)
+        if (m_fSpawnTimer <= 0.0f && !m_bSpawningGrace && bossteroid == null)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
             spawnPosition = spawnPosition.normalized * m_fSpawnDistance;
@@ -61,7 +62,10 @@ public class SpawnManager : MonoBehaviour
 
     private void BossSpawnUpdate()
     {
-        m_fBossSpawnTimer += Time.deltaTime;
+        if (bossteroid == null)
+        {
+            m_fBossSpawnTimer += Time.deltaTime;
+        }
         Debug.Log(m_fBossSpawnTimer);
         if (m_fBossSpawnTimer > m_fBossSpawnDuration - 20.0f)
         {
@@ -87,10 +91,13 @@ public class SpawnManager : MonoBehaviour
     }
     private void SpawnBossteroid()
     {
+        if (bossteroid != null)
+            return;
+        
         Vector3 spawnPosition = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
         spawnPosition = spawnPosition.normalized * m_fSpawnDistance;
 
-        GameObject bossteroid = Instantiate(asteroidPrefab, spawnPosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
+        bossteroid = Instantiate(asteroidPrefab, spawnPosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
 
         bossteroid.transform.localScale = new Vector3(3, 3, 3);
         bossteroid.GetComponent<Rigidbody>().mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
