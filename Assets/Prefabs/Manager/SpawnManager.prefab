@@ -149,7 +149,7 @@ MonoBehaviour:
   m_fSpawnDistance: 200
   m_fSpawnInterval: 10
   m_fSpawningGraceDuration: 50
-  m_fBossSpawnDuration: 30
+  m_fBossSpawnDuration: 180
 --- !u!1 &8566949947031557402
 GameObject:
   m_ObjectHideFlags: 0
