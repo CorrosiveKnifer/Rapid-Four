@@ -9,7 +9,7 @@ using PowerUp;
 public class FrostShotType : ShotType
 {
     private float timer = 0.0f;
-
+    private bool isQuitting;
     protected override void Start()
     {
         Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
@@ -19,6 +19,8 @@ public class FrostShotType : ShotType
             gameObject.GetComponentInParent<LineRenderer>().enabled = false;
             Instantiate(Resources.Load<GameObject>("Prefabs/BasicFrost"), transform);
         }
+
+        isQuitting = false;
     }
 
     protected override void Update()
@@ -43,6 +45,19 @@ public class FrostShotType : ShotType
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
                 timer = delay;
             }
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
+    private void OnDestroy()
+    {
+
+        if (!isQuitting && !LevelLoader.loadingNextArea && (gameObject.GetComponentInParent<PlayerController>() == null))
+        {
+            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
         }
     }
     protected override void OnTriggerEnter(Collider other)

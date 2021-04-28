@@ -6,21 +6,20 @@ using PowerUp;
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
-    private bool isQuitting = false;
+    private bool isQuitting;
     //private GameObject pushVFX;
 
     protected override void Start()
     {
         Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
-
         //if (gameObject.GetComponentInParent<PlayerController>() != null)
         //{
         //    pushVFX = Instantiate(Resources.Load<GameObject>("VFX/Push"), transform);
         //    pushVFX.SetActive(false);
         //}
-            
+        isQuitting = false;
     }
-
+    
     protected override void Update()
     {
         if(timer > 0)
@@ -82,9 +81,10 @@ public class BasicShotType : ShotType
 
     private void OnDestroy()
     {
-        if (!isQuitting && !LevelLoader.loadingNextArea)
+        
+        if (!isQuitting && !LevelLoader.loadingNextArea && (gameObject.GetComponentInParent<PlayerController>() == null))
         {
-            GameObject explode = Instantiate(null, transform.position, Quaternion.identity);
+            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
         }
     }
 
