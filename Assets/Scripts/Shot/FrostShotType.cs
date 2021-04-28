@@ -13,9 +13,15 @@ public class FrostShotType : ShotType
 
     protected override void Start()
     {
-        if (!IsLaser)
-            Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
+        Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
+
+        if (gameObject.GetComponentInParent<PlayerController>() != null)
+        {
+            gameObject.GetComponentInParent<LineRenderer>().enabled = false;
+            Instantiate(Resources.Load<GameObject>("Prefabs/BasicFrost"), transform);
+        }
     }
+
     protected override void Update()
     {
         if (timer > 0)
@@ -35,7 +41,7 @@ public class FrostShotType : ShotType
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
                 AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-                timer = 1.0f;
+                timer = delay;
             }
         }
     }

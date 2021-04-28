@@ -20,6 +20,8 @@ namespace PowerUp
         protected float force = 200.0f;
         public string powerUpIcon;
         public bool IsLaser = false;
+        public float probability;
+        public float delay;
 
         protected virtual void Start() { }
 
