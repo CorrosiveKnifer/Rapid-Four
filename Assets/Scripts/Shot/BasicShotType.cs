@@ -7,10 +7,18 @@ public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
 
+    //private GameObject pushVFX;
+
     protected override void Start()
     {
-        if (!IsLaser)
-            Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+        Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+
+        //if (gameObject.GetComponentInParent<PlayerController>() != null)
+        //{
+        //    pushVFX = Instantiate(Resources.Load<GameObject>("VFX/Push"), transform);
+        //    pushVFX.SetActive(false);
+        //}
+            
     }
 
     protected override void Update()
@@ -23,7 +31,8 @@ public class BasicShotType : ShotType
     {
         if (other.gameObject.tag == "Asteroid" && (gameObject.GetComponentInParent<PlayerController>() != null))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+            if (other.GetComponent<Astroid>().Endurance != 5)
+                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             //spawning ammo
             if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
             {
@@ -34,8 +43,38 @@ public class BasicShotType : ShotType
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
                 timer = delay;
             }
+            RaycastHit hit;
+
+            //if(RayCastToFirst(out hit))
+            //{
+            //    pushVFX.transform.up = -1 * hit.normal;
+            //    pushVFX.transform.position = hit.point;
+            //    pushVFX.SetActive(true);
+            //}
+            //else
+            //{
+            //    pushVFX.SetActive(false);
+            //}
         }
     }
+    //private bool RayCastToFirst(out RaycastHit closest)
+    //{
+    //    RaycastHit[] hits = Physics.RaycastAll(transform.position + transform.up, transform.up, transform.localScale.y);
+    //    closest = hits[0];
+    //    if (hits.Length > 0)
+    //    {
+    //        foreach (var hit in hits)
+    //        {
+    //            if(closest.distance > hit.distance)
+    //            {
+    //                closest = hit;
+    //            }
+    //        }
+    //        return true;
+    //    }
+    //    
+    //    return false;
+    //}
 
     protected override void OnTriggerEnter(Collider other)
     {

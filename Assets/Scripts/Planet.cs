@@ -86,7 +86,7 @@ public class Planet : MonoBehaviour
             float size = asteroid.Endurance;
             if (asteroid != null)
             {
-                m_fHealth -= (int)(asteroid.transform.localScale.x * 50.0f);
+                m_fHealth -= (int)(Mathf.Pow(asteroid.Endurance + 1, 2) * 20.0f);
                 Destroy(other.gameObject);
             }
 

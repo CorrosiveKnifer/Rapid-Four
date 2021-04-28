@@ -47,7 +47,8 @@ public class Shield : MonoBehaviour
             player.SetInvincibilityTimer(invincibilityTime);
             IsActive = false;
             Vector3 direct = (other.transform.position - transform.position).normalized;
-            other.GetComponent<Rigidbody>().velocity = direct * other.GetComponent<Astroid>().maxSpeed;
+            if (other.GetComponent<Astroid>().Endurance != 5)
+                other.GetComponent<Rigidbody>().velocity = direct * other.GetComponent<Astroid>().maxSpeed;
             timer = reachargeTime;
         }
     }

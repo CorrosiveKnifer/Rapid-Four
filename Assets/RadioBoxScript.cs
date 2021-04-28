@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class RadioBoxScript : MonoBehaviour
 {
-    public int selected = 0;
+    public int selected;
 
-    private Toggle[] options;
+    public Toggle[] options;
     
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class RadioBoxScript : MonoBehaviour
         
         for (int i = 0; i < options.Length; i++)
         {
-            options[i].isOn = (i == 0);
+            options[i].isOn = (i == selected);
         }
     }
 
