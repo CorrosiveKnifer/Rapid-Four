@@ -11,7 +11,6 @@ public class HomingShotType : ShotType
     public GameObject target;
     public GameObject[] enemies;
     private Vector3 original;
-    private bool isQuitting;
     private float timer = 0.0f;
     protected override void Start()
     {
@@ -56,23 +55,12 @@ public class HomingShotType : ShotType
 
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
+                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }
     }
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
-    }
 
-    private void OnDestroy()
-    {
-
-        if (!isQuitting && !LevelLoader.loadingNextArea && (gameObject.GetComponentInParent<PlayerController>() == null))
-        {
-            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
-        }
-    }
     void homingBullet()
     {
         //finding all enemies constantly

@@ -10,7 +10,6 @@ public class PierceShotType : ShotType
 {
     int endurance = 1;
     private float timer = 0.0f;
-    private bool isQuitting;
     // Start is called before the first frame update
 
     protected override void Start()
@@ -48,19 +47,6 @@ public class PierceShotType : ShotType
             }
         }
     }
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-
-        if (!isQuitting && !LevelLoader.loadingNextArea && (gameObject.GetComponentInParent<PlayerController>() == null))
-        {
-            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
-        }
-    }
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -72,6 +58,7 @@ public class PierceShotType : ShotType
             {
                 if (endurance == -1)
                 {
+                    Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                     Destroy(gameObject);
                 }
                 endurance--;
