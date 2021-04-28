@@ -13,9 +13,15 @@ public class FrostShotType : ShotType
 
     protected override void Start()
     {
-        if (!IsLaser)
-            Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
+        Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
+
+        if (gameObject.GetComponentInParent<PlayerController>() != null)
+        {
+            gameObject.GetComponentInParent<LineRenderer>().enabled = false;
+            Instantiate(Resources.Load<GameObject>("Prefabs/BasicFrost"), transform);
+        }
     }
+
     protected override void Update()
     {
         if (timer > 0)

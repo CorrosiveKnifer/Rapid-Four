@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Ammo > maxAmmo)
+            Ammo = maxAmmo;
+
         if (isAlive)
         {
             if (InputManager.instance.GetPlayerShoot(ID))
@@ -182,6 +185,8 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             shieldObject.gameObject.SetActive(true);
             shieldObject.timer = 0.0f;
+            Ammo = maxAmmo;
+
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = true;

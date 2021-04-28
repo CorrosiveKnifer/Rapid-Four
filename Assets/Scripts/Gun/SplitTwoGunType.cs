@@ -160,6 +160,6 @@ public class SplitTwoGunType : GunType
 
     public override int AmmoCount()
     {
-        return 12;
+        return 16;
     }
 }

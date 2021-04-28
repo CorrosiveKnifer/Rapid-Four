@@ -92,6 +92,6 @@ public class BasicGunType : GunType
 
     public override int AmmoCount()
     {
-        return 10;
+        return 14;
     }
 }
