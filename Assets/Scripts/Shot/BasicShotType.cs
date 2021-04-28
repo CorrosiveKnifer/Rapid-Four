@@ -6,7 +6,6 @@ using PowerUp;
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
-    private bool isQuitting;
     //private GameObject pushVFX;
 
     protected override void Start()
@@ -17,7 +16,6 @@ public class BasicShotType : ShotType
         //    pushVFX = Instantiate(Resources.Load<GameObject>("VFX/Push"), transform);
         //    pushVFX.SetActive(false);
         //}
-        isQuitting = false;
     }
     
     protected override void Update()
@@ -56,6 +54,7 @@ public class BasicShotType : ShotType
             //}
         }
     }
+
     //private bool RayCastToFirst(out RaycastHit closest)
     //{
     //    RaycastHit[] hits = Physics.RaycastAll(transform.position + transform.up, transform.up, transform.localScale.y);
@@ -74,19 +73,6 @@ public class BasicShotType : ShotType
     //    
     //    return false;
     //}
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        
-        if (!isQuitting && !LevelLoader.loadingNextArea && (gameObject.GetComponentInParent<PlayerController>() == null))
-        {
-            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
-        }
-    }
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -96,6 +82,7 @@ public class BasicShotType : ShotType
 
             if((gameObject.GetComponentInParent<PlayerController>() == null))
             {
+                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }            
         }

@@ -23,6 +23,7 @@ namespace PowerUp
         public float probability;
         public float delay;
 
+        protected bool isQuitting = false;
         protected virtual void Start() { }
 
         protected virtual void Update()
@@ -34,6 +35,5 @@ namespace PowerUp
             }
         }
         protected virtual void OnTriggerEnter(Collider other) { }
-
     }
 }

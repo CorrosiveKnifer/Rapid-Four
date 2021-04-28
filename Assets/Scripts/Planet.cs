@@ -103,6 +103,7 @@ public class Planet : MonoBehaviour
         }
         if (other.gameObject.tag == "Projectile")
         {
+            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), other.gameObject.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
         }
     }

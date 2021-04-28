@@ -9,7 +9,6 @@ using PowerUp;
 public class FrostShotType : ShotType
 {
     private float timer = 0.0f;
-    private bool isQuitting;
     protected override void Start()
     {
         Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
@@ -47,19 +46,6 @@ public class FrostShotType : ShotType
             }
         }
     }
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-
-        if (!isQuitting && !LevelLoader.loadingNextArea && (gameObject.GetComponentInParent<PlayerController>() == null))
-        {
-            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
-        }
-    }
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Asteroid")
@@ -69,6 +55,7 @@ public class FrostShotType : ShotType
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 other.gameObject.GetComponent<Astroid>().Slow(3.0f); //3 second
+                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }
