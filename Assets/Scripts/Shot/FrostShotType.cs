@@ -8,7 +8,6 @@ using PowerUp;
 /// </summary>
 public class FrostShotType : ShotType
 {
-    private float probability = 35.0f;
     private float timer = 0.0f;
 
     protected override void Start()

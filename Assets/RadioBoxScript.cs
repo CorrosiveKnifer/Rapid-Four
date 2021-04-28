@@ -34,4 +34,14 @@ public class RadioBoxScript : MonoBehaviour
             options[i].interactable = !options[i].isOn;
         }
     }
+
+    public void SetSelected(int index)
+    {
+        index = Mathf.Clamp(index, 0, options.Length);
+        options[selected].isOn = false;
+        options[selected].interactable = false;
+        options[index].isOn = true;
+        options[index].interactable = true;
+        selected = index;
+    }
 }
