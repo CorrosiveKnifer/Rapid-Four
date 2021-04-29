@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     {
         if (instance == this)
             instance = null;
+
+        EndScreenScript.ScoreToDisplay = TotalScore;
     }
 
     #endregion

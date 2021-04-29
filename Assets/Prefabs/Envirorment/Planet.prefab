@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 8695306752015050475}
   - component: {fileID: 8695306752015050474}
   - component: {fileID: 7678393852053213533}
+  - component: {fileID: 1064839890859718784}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Planet
@@ -264,5 +265,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af098b31c9d54d44bb312cf94f8b40da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoader: {fileID: 0}
+  vfx: {fileID: 0}
+  playerCamera: []
+  m_fHealth: 0
   m_fRotationSpeedMult: 2
   minimapSprite: {fileID: 437940589278075211}
+--- !u!114 &1064839890859718784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8695306752015050473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 9748055e5008c7548a091a49b185666f, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1

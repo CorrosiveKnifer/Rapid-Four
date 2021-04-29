@@ -35,7 +35,7 @@ public class HomingShotType : ShotType
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
 
             //spawning ammo
-            if (Random.Range(0.0f, 100.0f) < probability && timer == 0.0f)
+            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
             {
                 GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
@@ -65,7 +65,6 @@ public class HomingShotType : ShotType
         enemies = GameObject.FindGameObjectsWithTag("Asteroid");
         TargetCloset();
         bulletUpdateMovement();
-
     }
 
     void bulletUpdateMovement()
@@ -76,7 +75,7 @@ public class HomingShotType : ShotType
             {                
                 Vector3 direction = (target.transform.position - transform.position).normalized;
                 transform.up = direction;
-                GetComponent<Rigidbody>().velocity = direction * 10.0f;
+                GetComponent<Rigidbody>().velocity = direction * 50.0f;
             }
             else
             {

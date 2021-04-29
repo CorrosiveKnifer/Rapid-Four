@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject particlePrefab;
 
+    AudioAgent audioAgent;
+
     // Death stuff
     bool isAlive = true;
     float m_fRespawnTime = 10.0f;
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
         effectType = typeof(BasicShotType);
@@ -54,25 +57,34 @@ public class PlayerController : MonoBehaviour
         {
             if (InputManager.instance.GetPlayerShoot(ID))
             {
+                bool hasShot = false;
                 foreach (var gameObject in projectileSpawnLoc)
                 {
                     if (Ammo > 0 || maxAmmo < 0)
                     {
                         int cost = gameObject.GetComponent<GunType>().ammoCost;
-                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost)
+                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost && maxAmmo > 0)
                         {
                             cost = Ammo;
                         }
-                        else Debug.Log("You are out of ammo!");
-
+                        hasShot = true;
                         gameObject.GetComponent<GunType>().Fire(effectType, cost);
                         
                         if (maxAmmo > 0)
                             Ammo = Mathf.Clamp(Ammo - cost, 0, 100);
 
                     }
-
                 }
+
+                if(hasShot && ID == 0)
+                {
+                    audioAgent.PlaySoundEffect("ShootPew");
+                }
+                else if (ID == 0)
+                {
+                    audioAgent.PlaySoundEffect("Empty");
+                }
+                
             }
         }
 
@@ -129,6 +141,11 @@ public class PlayerController : MonoBehaviour
                     body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
                     SetMovement(true);
                 }
+                else if (verticalAxis < 0.0f)
+                {
+                    body.velocity = Vector3.zero;
+                    SetMovement(false);
+                }
                 else
                 {
                     SetMovement(false);
@@ -140,7 +157,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
                     body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
-                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.05f);
+                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
                     SetMovement(true);
                 }
                 else
@@ -163,7 +180,8 @@ public class PlayerController : MonoBehaviour
             m_DeathTimer = 0;
             m_InvincibilityTimer = m_fInvincibilityTime;
             isInvincible = true;
-
+            shieldObject.gameObject.SetActive(true);
+            shieldObject.timer = 0.0f;
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = true;
@@ -218,7 +236,7 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive && !shieldObject.IsActive)
         {
             isAlive = false;
-
+            shieldObject.gameObject.SetActive(false);
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
                 item.enabled = false;
@@ -232,7 +250,7 @@ public class PlayerController : MonoBehaviour
             }
 
             m_DeathTimer = m_fRespawnTime;
-            myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, 0.0f));
+            myCamera.SetTargetLoc(new Vector3(0.0f, 0.0f, -45.0f));
 
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;
@@ -262,6 +280,8 @@ public class PlayerController : MonoBehaviour
     {
         if(gType.IsSubclassOf(typeof(GunType)))
         {
+            audioAgent.PlaySoundEffect("Pickup" + Random.Range(1, 5));
+
             int ammoCount = 0;
             foreach (var gameObject in projectileSpawnLoc)
             {
@@ -289,6 +309,7 @@ public class PlayerController : MonoBehaviour
     {
         if (etype.IsSubclassOf(typeof(ShotType)))
         {
+            audioAgent.PlaySoundEffect("Pickup" + Random.Range(1, 5));
             effectType = etype;
         }
     }
@@ -313,6 +334,14 @@ public class PlayerController : MonoBehaviour
         foreach (var item in engine)
         {
             item.SetBool("IsMoving", isMoving);
+        }
+        if (isMoving && audioAgent.IsAudioStopped("Thruster1"))
+        {
+            audioAgent.PlaySoundEffect("Thruster1", true);
+        }
+        else if (!isMoving && !audioAgent.IsAudioStopped("Thruster1"))
+        {
+            audioAgent.StopAudio("Thruster1");
         }
     }
 }

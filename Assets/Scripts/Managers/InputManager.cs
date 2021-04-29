@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
     public KeyCode playerAForwards;
     public KeyCode playerABackwards;
     public KeyCode playerAShoot;
+    public KeyCode playerAShootSecond;
 
     [Header("Player B Controls")]
     public KeyCode playerBLeft;
@@ -43,6 +44,7 @@ public class InputManager : MonoBehaviour
     public KeyCode playerBForwards;
     public KeyCode playerBBackwards;
     public KeyCode playerBShoot;
+    public KeyCode playerBShootSecond;
 
     public float GetHorizontalInput(int playerID)
     {
@@ -121,9 +123,9 @@ public class InputManager : MonoBehaviour
         {
             default:
             case 0:
-                return Input.GetKeyDown(playerAShoot);
+                return Input.GetKeyDown(playerAShoot) || Input.GetKeyDown(playerAShootSecond);
             case 1:
-                return Input.GetKeyDown(playerBShoot);
+                return Input.GetKeyDown(playerBShoot) || Input.GetKeyDown(playerBShootSecond);
         }
     }
 
@@ -136,9 +138,9 @@ public class InputManager : MonoBehaviour
         {
             default:
             case 0:
-                return Input.GetKey(playerAShoot);
+                return Input.GetKey(playerAShoot) || Input.GetKey(playerAShootSecond);
             case 1:
-                return Input.GetKey(playerBShoot);
+                return Input.GetKey(playerBShoot) || Input.GetKey(playerBShootSecond);
         }
     }
 
@@ -151,9 +153,9 @@ public class InputManager : MonoBehaviour
         {
             default:
             case 0:
-                return !Input.GetKey(playerAShoot);
+                return !Input.GetKey(playerAShoot) && !Input.GetKey(playerAShootSecond);
             case 1:
-                return !Input.GetKey(playerBShoot);
+                return !Input.GetKey(playerBShoot) && !Input.GetKey(playerBShootSecond);
         }
     }
 }

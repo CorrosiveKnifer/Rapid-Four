@@ -14,7 +14,7 @@ public class EndScreenScript : MonoBehaviour
     void Start()
     {
         ApplicationManager.GetInstance();
-
+        GetComponent<AudioAgent>().PlayBackground("EndMusic", true, 10);
         Score.text = ScoreToDisplay.ToString();
         Highscore.text = GameManager.HighScore.ToString();
     }

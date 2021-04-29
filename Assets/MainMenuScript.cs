@@ -45,8 +45,8 @@ public class MainMenuScript : MonoBehaviour
     {
         if(!isIgnore)
         {
-            if (GetComponent<AudioAgent>().IsAudioStopped("PowerUp"))
-                GetComponent<AudioAgent>().PlaySoundEffect("PowerUp");
+            if (GetComponent<AudioAgent>().IsAudioStopped("ShootPew"))
+                GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
         }
     }
 
