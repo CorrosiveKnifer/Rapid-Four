@@ -15,6 +15,8 @@ public class SpawnManager : MonoBehaviour
     public float m_fSpawnInterval = 10.0f;
     float m_fSpawnTimer;
 
+    bool m_bWarning = false;
+
     public float m_fSpawningGraceDuration = 50.0f;
     float m_fSpawningGrace;
     bool m_bSpawningGrace = false; 
@@ -76,10 +78,23 @@ public class SpawnManager : MonoBehaviour
             // Activate spawning grace (turns off spawning for the duration)
             m_bSpawningGrace = true;
             m_fSpawningGrace = 0.0f;
+        }
+
+        if (!m_bWarning && m_fBossSpawnTimer > m_fBossSpawnDuration - 10.0f)
+        {
+            m_bWarning = true;
             GameManager.instance.WarningText.SetActive(true);
             animDanger.SetTrigger("Start");
             GetComponent<AudioAgent>().PlaySoundEffect("Alarm", true);
         }
+        if (m_bWarning && bossteroid != null)
+        {
+            m_bWarning = false;
+            GameManager.instance.WarningText.SetActive(false);
+            GetComponent<AudioAgent>().StopAudio("Alarm");
+            animDanger.SetTrigger("Reset");
+        }
+
         if (m_fBossSpawnTimer >= m_fBossSpawnDuration)
         {
             m_fBossSpawnTimer = 0.0f;
@@ -93,13 +108,6 @@ public class SpawnManager : MonoBehaviour
             {
                 m_bSpawningGrace = false;
                 m_fSpawningGrace = 0.0f;
-            }
-
-            if (bossteroid != null)
-            {
-                GameManager.instance.WarningText.SetActive(false);
-                GetComponent<AudioAgent>().StopAudio("Alarm");
-                animDanger.SetTrigger("Reset");
             }
         }
     }
@@ -116,7 +124,7 @@ public class SpawnManager : MonoBehaviour
         bossteroid.transform.localScale = new Vector3(3, 3, 3);
         bossteroid.GetComponent<Rigidbody>().mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
 
-        bossteroid.GetComponent<Astroid>().Endurance = 5;
+        bossteroid.GetComponent<Astroid>().Endurance = 4;
         bossteroid.GetComponent<Astroid>().maxSpeed = 2.0f;
     }
 }
