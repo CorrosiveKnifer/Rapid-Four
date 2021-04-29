@@ -9,13 +9,12 @@ using PowerUp;
 public class PierceShotType : ShotType
 {
     int endurance = 1;
-    private float probability = 35.0f;
     private float timer = 0.0f;
     // Start is called before the first frame update
 
     protected override void Start()
     {
-        if(IsLaser)
+        if (gameObject.GetComponentInParent<PlayerController>() != null)
         {
             transform.localScale = new Vector3(1.5f, 15.0f, 1.0f);
         }
@@ -31,7 +30,7 @@ public class PierceShotType : ShotType
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid" && IsLaser)
+        if (other.gameObject.tag == "Asteroid" && gameObject.GetComponentInParent<PlayerController>() != null)
         {
             other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             //spawning ammo
@@ -41,7 +40,7 @@ public class PierceShotType : ShotType
                 AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
                 AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-                timer = 1.0f;
+                timer = delay;
             }
         }
     }
@@ -51,7 +50,7 @@ public class PierceShotType : ShotType
         {
             other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
-            if (!IsLaser)
+            if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 if (endurance == -1)
                 {
