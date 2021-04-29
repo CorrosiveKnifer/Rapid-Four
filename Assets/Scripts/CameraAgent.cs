@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// William de Beer
+/// </summary>
 public class CameraAgent : MonoBehaviour
 {
     public GameObject[] targets;

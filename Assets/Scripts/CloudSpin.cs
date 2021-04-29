@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+///  William de Beer
+/// </summary>
 public class CloudSpin : MonoBehaviour
 {
     public float m_fRotationSpeedMult;

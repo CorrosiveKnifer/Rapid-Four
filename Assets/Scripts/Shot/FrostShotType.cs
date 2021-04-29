@@ -4,7 +4,7 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// Rachael
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class FrostShotType : ShotType
 {

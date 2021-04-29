@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
 using System;
-
+/// <summary>
+/// Michael Jordan, Rachael Colaco
+/// </summary>
 public class BasicGunType : GunType
 {
     private GameObject proj;

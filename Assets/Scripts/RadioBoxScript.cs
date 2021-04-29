@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Michael Jordan
+/// </summary>
 public class RadioBoxScript : MonoBehaviour
 {
     public int selected;

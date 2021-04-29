@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 /// <summary>
-/// Rachael, William
+/// Rachael Colaco, William de Beer
 /// </summary>
+
 public class Astroid : MonoBehaviour
 {
     public int Endurance = 1;

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// William de Beer
+/// </summary>
 public class CameraManager : MonoBehaviour
 {
     // Start is called before the first frame update

@@ -5,7 +5,7 @@ using PowerUp;
 using System;
 
 /// <summary>
-/// RACHAEL
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class SplitGunType : GunType
 {
@@ -157,6 +157,7 @@ public class SplitGunType : GunType
         laser2.GetComponent<ShotType>().IsLaser = true;
 
     }
+
     void SpawnChild(System.Type type, int costPayed)
     {
         //Set thoseponteial directions
@@ -214,6 +215,6 @@ public class SplitGunType : GunType
 
     public override int AmmoCount()
     {
-        return 22;
+        return 24;
     }
 }

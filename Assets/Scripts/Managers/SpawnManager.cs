@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// William de Beer
+/// </summary>
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] asteroidPrefab;
@@ -68,7 +71,6 @@ public class SpawnManager : MonoBehaviour
         {
             m_fBossSpawnTimer += Time.deltaTime;
         }
-        Debug.Log(m_fBossSpawnTimer);
         if (!m_bSpawningGrace && (m_fBossSpawnTimer > (m_fBossSpawnDuration - 20.0f)))
         {
             // Activate spawning grace (turns off spawning for the duration)
@@ -113,7 +115,6 @@ public class SpawnManager : MonoBehaviour
 
         bossteroid.transform.localScale = new Vector3(3, 3, 3);
         bossteroid.GetComponent<Rigidbody>().mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
-        bossteroid.GetComponent<Astroid>().Health = Mathf.Sqrt(bossteroid.GetComponent<Rigidbody>().mass) * 100.0f;
 
         bossteroid.GetComponent<Astroid>().Endurance = 5;
         bossteroid.GetComponent<Astroid>().maxSpeed = 2.0f;

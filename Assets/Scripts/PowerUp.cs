@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Michael Jordan
+/// </summary>
 namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour

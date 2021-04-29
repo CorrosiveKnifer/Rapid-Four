@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Michael Jordan
+/// </summary>
 public class LevelTimer : MonoBehaviour
 {
     public float maxTime;

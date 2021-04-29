@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using PowerUp;
 
+/// <summary>
+/// Michael Jordan, William de Beer
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public int ID;
@@ -93,6 +96,10 @@ public class PlayerController : MonoBehaviour
                 {
                     audioAgent.PlaySoundEffect("Empty");
                 }
+                else if(ID == 1)
+                {
+                    audioAgent.PlaySoundEffect("Laser");
+                }
                 
             }
         }
@@ -102,6 +109,7 @@ public class PlayerController : MonoBehaviour
             foreach (var gameObject in projectileSpawnLoc)
             {
                 gameObject.GetComponent<GunType>().UnFire();
+                audioAgent.StopAudio("Laser");
             }
         }
         DeathUpdate();
@@ -191,7 +199,9 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             shieldObject.gameObject.SetActive(true);
             shieldObject.timer = 0.0f;
-            Ammo = maxAmmo;
+
+            if(ID == 0)
+                Ammo = maxAmmo;
 
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {

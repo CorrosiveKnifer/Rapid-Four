@@ -772,6 +772,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1350261209}
     m_Modifications:
+    - target: {fileID: 4991461600359524479, guid: 44a1809f358ad8a4aaed38e6e83e37c1,
+        type: 3}
+      propertyPath: m_Text
+      value: "Player 2 Alternative Controls:\n - [Arrow keys] : Move\n - [R.Shift]
+        : Shoot\n - [Key. 0] : Shoot"
+      objectReference: {fileID: 0}
     - target: {fileID: 4991461601658268868, guid: 44a1809f358ad8a4aaed38e6e83e37c1,
         type: 3}
       propertyPath: m_Name

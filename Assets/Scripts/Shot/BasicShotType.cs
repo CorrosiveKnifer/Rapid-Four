@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using PowerUp;
 
+/// <summary>
+/// Michael Jordan, Rachael Colaco
+/// </summary>
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
@@ -30,6 +33,7 @@ public class BasicShotType : ShotType
         {
             if (other.GetComponent<Astroid>().Endurance != 5)
                 other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+
             //spawning ammo
             if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
             {
@@ -40,6 +44,7 @@ public class BasicShotType : ShotType
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
                 timer = delay;
             }
+
             RaycastHit hit;
 
             //if(RayCastToFirst(out hit))

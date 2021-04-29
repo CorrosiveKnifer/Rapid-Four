@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// William de Beer
+/// </summary>
 public class EndScreenScript : MonoBehaviour
 {
     public static float ScoreToDisplay = 0f;
