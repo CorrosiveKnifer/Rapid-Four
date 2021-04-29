@@ -96,6 +96,10 @@ public class PlayerController : MonoBehaviour
                 {
                     audioAgent.PlaySoundEffect("Empty");
                 }
+                else if(ID == 1)
+                {
+                    audioAgent.PlaySoundEffect("Laser");
+                }
                 
             }
         }
@@ -105,6 +109,7 @@ public class PlayerController : MonoBehaviour
             foreach (var gameObject in projectileSpawnLoc)
             {
                 gameObject.GetComponent<GunType>().UnFire();
+                audioAgent.StopAudio("Laser");
             }
         }
         DeathUpdate();
