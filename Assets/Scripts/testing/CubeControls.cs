@@ -64,14 +64,10 @@ public class CubeControls : MonoBehaviour
 
         float horizontalAxis = m.x;
         float verticalAxis = m.y;
-        Vector3 direct = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f).normalized;
-
         if (verticalAxis > 0.0f)
         {
             body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
-
-            
-
+   
         }
         else if (verticalAxis < 0.0f)
         {
@@ -79,17 +75,15 @@ public class CubeControls : MonoBehaviour
  
         }
 
-        body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
 
         //body.rotation = Quaternion.Euler(body.rotation.eulerAngles + new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -rotationSpeed * horizontalAxis));
 
+        Vector3 direct = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f).normalized;
+
+        //body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
+        body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
 
 
-        if (RotVerticalAxis != 0 && RotHorizontalAxis != 0)
-        {
-            body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
-
-        }
 
         //transform.Rotate(r, Space.World);
         Debug.Log(m);
