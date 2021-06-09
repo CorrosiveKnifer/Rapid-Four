@@ -29,21 +29,24 @@ public class LevelLoader : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "MenuScreen") // Back to menu
         {
+            /*
             if (Input.GetKeyDown(KeyCode.P))
             {
                 StartCoroutine(LoadLevel(0));
             }
+            */
         }
 
         if (cheatToggle != null)
         {
             cheatsEnabled = cheatToggle.isOn;
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.O)) // Reset scene
         {
             ResetScene();
         }
+        */
     }
 
     private void OnDestroy()
