@@ -100,16 +100,14 @@ public class CubeControls : MonoBehaviour
         Debug.Log(r);
 
     }
-
-    // Update is called once per frame
-    void Update()
+    void GamepadForPlayer1()
     {
-        if(player1.buttonEast.wasPressedThisFrame)
+        if (player1.buttonEast.wasPressedThisFrame)
         {
             Debug.Log(player1);
             Debug.Log("This works");
         }
-        if(player1.leftStick.x.ReadValue() != 0 || player1.leftStick.y.ReadValue() != 0)
+        if (player1.leftStick.x.ReadValue() != 0 || player1.leftStick.y.ReadValue() != 0)
         {
             Debug.Log("ROTATION");
             Vector2 r = new Vector2(player1.leftStick.x.ReadValue(), player1.leftStick.y.ReadValue());
@@ -120,6 +118,11 @@ public class CubeControls : MonoBehaviour
             Vector3 direct = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f).normalized;
             body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        GamepadForPlayer1();
         //Movement();
     }
 
