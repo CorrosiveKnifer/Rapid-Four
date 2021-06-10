@@ -17,13 +17,16 @@ public class CubeControls : MonoBehaviour
     private Rigidbody body;
     public float speed = 350.0f;
     public float rotationSpeed = 120.0f;
+
+    public int playerID;
     Gamepad player1;
+
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody>();
         var allGamepads = Gamepad.all;
-        player1 = allGamepads[0];
+        player1 = allGamepads[playerID];
         
         float here = allGamepads.Count;
         Debug.Log(player1);
