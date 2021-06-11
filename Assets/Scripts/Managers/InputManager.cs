@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
-
+    /*
     [Header("Player A Controls")]
     public KeyCode playerALeft;
     public KeyCode playerARight;
@@ -161,4 +161,5 @@ public class InputManager : MonoBehaviour
                 return !Input.GetKey(playerBShoot) && !Input.GetKey(playerBShootSecond);
         }
     }
+    */
 }

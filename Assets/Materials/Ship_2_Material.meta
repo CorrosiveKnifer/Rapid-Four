@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Materials/Ship_2_Material.meta
 guid: d195eef931a15d947869f008db528281
+=======
+guid: 06b8d10569302fb4585230d926e34be2
+>>>>>>> origin/RachaelWork:Assets/Settings/PlayerControllers.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
