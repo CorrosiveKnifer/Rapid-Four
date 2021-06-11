@@ -4,19 +4,20 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// Rachael
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class HomingShotType : ShotType
 {
     public GameObject target;
     public GameObject[] enemies;
     private Vector3 original;
-
     private float timer = 0.0f;
     protected override void Start()
     {
         if(!IsLaser)
             Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+
+        isQuitting = false;
     }
 
     protected override void Update()
@@ -31,7 +32,8 @@ public class HomingShotType : ShotType
     {
         if (other.gameObject.tag == "Asteroid" && IsLaser)
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+            if (other.GetComponent<Astroid>().Endurance != 5)
+                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
 
             //spawning ammo
             if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
@@ -53,6 +55,7 @@ public class HomingShotType : ShotType
 
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
+                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }

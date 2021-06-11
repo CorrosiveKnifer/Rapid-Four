@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// William de Beer
+/// </summary>
 public class LaserLink : MonoBehaviour
 {
     public GameObject Player1;
@@ -11,13 +13,14 @@ public class LaserLink : MonoBehaviour
     public float m_fLaserDamage = 10.0f;
     public float m_fMaxPlayerDistance = 30.0f;
 
-    public float m_fTransferRate = 0.2f;
+    public float m_fMinTransferRate = 0.2f;
+    public float m_fMaxTransferRate = 0.02f;
     float m_fTransferTimer = 0.2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_fTransferTimer = m_fTransferRate;
+        m_fTransferTimer = m_fMinTransferRate;
     }
 
     // Update is called once per frame
@@ -31,7 +34,7 @@ public class LaserLink : MonoBehaviour
         else
         {
             laser.enabled = false;
-            m_fTransferTimer = m_fTransferRate;
+            m_fTransferTimer = m_fMinTransferRate;
         }
     }
 
@@ -79,9 +82,11 @@ public class LaserLink : MonoBehaviour
                 Player1.GetComponent<PlayerController>().Ammo++;
                 Player2.GetComponent<PlayerController>().Ammo--;
 
-                Debug.Log("P1: " + Player1.GetComponent<PlayerController>().Ammo + ", P2: " + Player2.GetComponent<PlayerController>().Ammo);
-                m_fTransferTimer = m_fTransferRate;
+                //Debug.Log("P1: " + Player1.GetComponent<PlayerController>().Ammo + ", P2: " + Player2.GetComponent<PlayerController>().Ammo);
+                float distance = (Player2.transform.position - Player1.transform.position).magnitude;
+                m_fTransferTimer = Mathf.Lerp(m_fMaxTransferRate, m_fMinTransferRate, distance / m_fMaxPlayerDistance);
             }
         }
     }
+    
 }

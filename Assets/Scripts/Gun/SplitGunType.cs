@@ -5,7 +5,7 @@ using PowerUp;
 using System;
 
 /// <summary>
-/// RACHAEL
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class SplitGunType : GunType
 {
@@ -62,6 +62,13 @@ public class SplitGunType : GunType
             laserObject.GetComponent<ShotType>().IsLaser = true;
             laser1.GetComponent<ShotType>().IsLaser = true;
             laser2.GetComponent<ShotType>().IsLaser = true;
+
+            laserObject.GetComponent<ShotType>().probability = 20.0f;
+            laserObject.GetComponent<ShotType>().delay = 1.45f;
+            laser1.GetComponent<ShotType>().probability = 20.0f;
+            laser1.GetComponent<ShotType>().delay = 1.45f;
+            laser2.GetComponent<ShotType>().probability = 20.0f;
+            laser2.GetComponent<ShotType>().delay = 1.45f;
         }
     }
     public override void Fire(System.Type etype, int costPayed)
@@ -97,6 +104,7 @@ public class SplitGunType : GunType
                     laser2.AddComponent(etype);
                     laser2.GetComponent<ShotType>().damage = damage * Time.deltaTime;
                     laser2.GetComponent<ShotType>().IsLaser = true;
+
                 }
 
                 //Create Laser, which is parented by us
@@ -149,6 +157,7 @@ public class SplitGunType : GunType
         laser2.GetComponent<ShotType>().IsLaser = true;
 
     }
+
     void SpawnChild(System.Type type, int costPayed)
     {
         //Set thoseponteial directions
@@ -206,6 +215,6 @@ public class SplitGunType : GunType
 
     public override int AmmoCount()
     {
-        return 22;
+        return 24;
     }
 }

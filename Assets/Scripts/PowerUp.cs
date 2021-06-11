@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Michael Jordan
+/// </summary>
 namespace PowerUp
 {
     public abstract class GunType : MonoBehaviour
@@ -23,6 +25,7 @@ namespace PowerUp
         public float probability;
         public float delay;
 
+        protected bool isQuitting = false;
         protected virtual void Start() { }
 
         protected virtual void Update()
@@ -34,6 +37,5 @@ namespace PowerUp
             }
         }
         protected virtual void OnTriggerEnter(Collider other) { }
-
     }
 }

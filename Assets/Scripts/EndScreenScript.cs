@@ -1,0 +1,23 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+/// <summary>
+/// William de Beer
+/// </summary>
+public class EndScreenScript : MonoBehaviour
+{
+    public static float ScoreToDisplay = 0f;
+
+    public Text Highscore;
+    public Text Score;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        ApplicationManager.GetInstance();
+        GetComponent<AudioAgent>().PlayBackground("EndMusic", true, 10);
+        Score.text = ScoreToDisplay.ToString();
+        Highscore.text = GameManager.HighScore.ToString();
+    }
+}

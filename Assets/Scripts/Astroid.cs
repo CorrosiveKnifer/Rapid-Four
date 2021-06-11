@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 /// <summary>
-/// Rachael, William
+/// Rachael Colaco, William de Beer
 /// </summary>
+
 public class Astroid : MonoBehaviour
 {
     public int Endurance = 1;
@@ -14,7 +14,7 @@ public class Astroid : MonoBehaviour
     public float probability = 50.0f;
 
     public bool isDestroyed = false;
-    public GameObject AstroidPrefab;
+    public GameObject[] AstroidPrefab;
     Vector3 Astroiddirection;
     public GameObject minimapSprite;
 
@@ -41,7 +41,7 @@ public class Astroid : MonoBehaviour
         
         if (Endurance != 0)
         {
-            Health = 100.0f;
+            Health = Mathf.Pow(Endurance, 0.9f) * 100.0f;
         }
         else
         {
@@ -49,6 +49,7 @@ public class Astroid : MonoBehaviour
         }
 
         transform.localScale = transform.localScale * Random.Range(0.8f, 1.2f);
+        rigidBody.mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
     }
     private void Awake()
     {
@@ -134,7 +135,8 @@ public class Astroid : MonoBehaviour
             Vector3 interpolatedPosition = Vector3.Lerp(FirstDir, SecondDir, randomIndex);
 
             //create child
-            GameObject childAstroid = Instantiate(AstroidPrefab);
+            GameObject childAstroid = Instantiate(AstroidPrefab[Random.Range(0, AstroidPrefab.Length)], transform.position, 
+                Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
 
             //set speed
             childAstroid.GetComponent<Rigidbody>().AddForce(interpolatedPosition.normalized * 300.0f, ForceMode.Impulse);
@@ -142,10 +144,10 @@ public class Astroid : MonoBehaviour
             //apply that direction onto child
             childAstroid.GetComponent<Astroid>().Astroiddirection = interpolatedPosition;
             //scale it down
-            childAstroid.transform.localScale = transform.localScale*0.5f;
+            childAstroid.transform.localScale = transform.localScale*0.6f;
 
             //make it known it is a child in that script
-            childAstroid.GetComponent<Astroid>().Endurance--;
+            childAstroid.GetComponent<Astroid>().Endurance = Endurance - 1;
         }
     }
     public void SetNumberofAstroids(int num)
@@ -173,6 +175,7 @@ public class Astroid : MonoBehaviour
 
         slowTime += time;
         //Slow effect
+        float oldSpeed = maxSpeed;
         maxSpeed = 2.0f;
 
         GetComponent<MeshRenderer>().material = slowMat;
@@ -183,7 +186,7 @@ public class Astroid : MonoBehaviour
         } while (slowTime > 0.0f);
 
         //Return to normal effect
-        maxSpeed = 8.0f;
+        maxSpeed = oldSpeed;
         GetComponent<MeshRenderer>().material = baseMat;
         yield return null;
     }

@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Michael Jordan
+/// </summary>
 class ApplicationManager
 {
     #region Singleton

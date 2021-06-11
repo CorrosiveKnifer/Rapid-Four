@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+///  William de Beer
+/// </summary>
 public class Planet : MonoBehaviour
 {
     public LevelLoader levelLoader;
@@ -86,7 +88,7 @@ public class Planet : MonoBehaviour
             float size = asteroid.Endurance;
             if (asteroid != null)
             {
-                m_fHealth -= (int)(asteroid.transform.localScale.x * 50.0f);
+                m_fHealth -= (int)(Mathf.Pow(asteroid.Endurance + 1, 2) * 20.0f);
                 Destroy(other.gameObject);
             }
 
@@ -103,6 +105,7 @@ public class Planet : MonoBehaviour
         }
         if (other.gameObject.tag == "Projectile")
         {
+            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), other.gameObject.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
         }
     }

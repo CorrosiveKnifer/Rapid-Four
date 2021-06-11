@@ -4,12 +4,11 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// Rachael
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class FrostShotType : ShotType
 {
     private float timer = 0.0f;
-
     protected override void Start()
     {
         Instantiate(Resources.Load<GameObject>("VFX/FrostBullet"), transform);
@@ -19,6 +18,8 @@ public class FrostShotType : ShotType
             gameObject.GetComponentInParent<LineRenderer>().enabled = false;
             Instantiate(Resources.Load<GameObject>("Prefabs/BasicFrost"), transform);
         }
+
+        isQuitting = false;
     }
 
     protected override void Update()
@@ -31,7 +32,8 @@ public class FrostShotType : ShotType
     {
         if (other.gameObject.tag == "Asteroid" && (gameObject.GetComponentInParent<PlayerController>() != null))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
+            if (other.GetComponent<Astroid>().Endurance != 5)
+                other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
             other.gameObject.GetComponent<Astroid>().Slow(30.0f * Time.deltaTime);
             //spawning ammo
             if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
@@ -53,6 +55,7 @@ public class FrostShotType : ShotType
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 other.gameObject.GetComponent<Astroid>().Slow(3.0f); //3 second
+                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }

@@ -221,11 +221,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Endurance: 1
-  ChildNum: 3
+  ChildNum: 2
   Health: 0
   probability: 50
   isDestroyed: 0
-  AstroidPrefab: {fileID: 4409862675478639242}
+  AstroidPrefab:
+  - {fileID: 4409862675478639242}
+  - {fileID: 4409862675478639242, guid: 52cb0b7da536f5549969af8d3356c823, type: 3}
   minimapSprite: {fileID: 2548773295693940808}
   angle: 45
   maxSpeed: 5

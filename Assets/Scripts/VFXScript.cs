@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Michael Jordan
+/// </summary>
 public class VFXScript : MonoBehaviour
 {
     public float lifetime = 1.0f;
