@@ -24,15 +24,22 @@ public class CubeControls : MonoBehaviour
     Mouse mouse;
     Keyboard keyboard;
 
+    /// <summary>
+    /// Creting and storing each controls in the 
+    /// </summary>
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody>();
+
+        //for keyboard and mouse currently plugged in
         keyboard = Keyboard.current;
         mouse = Mouse.current;
 
+        //if it detecting any gamepad plugged in
         if (Gamepad.all.Count != 0)
         {
+            //assign it by the player ID
             var allGamepads = Gamepad.all;
             player1 = allGamepads[playerID];
 
@@ -43,6 +50,10 @@ public class CubeControls : MonoBehaviour
         //Debug.Log(string.Join("\n", Gamepad.all));
     }
 
+    /// <summary>
+    /// For the new input system instead of XInput
+    /// This however applies to all controllers and not seperately
+    /// </summary>
     /*
     private void Awake()
     {
@@ -112,13 +123,18 @@ public class CubeControls : MonoBehaviour
         Debug.Log(r);
 
     }
+    /// <summary>
+    /// Old testing for movement on sticks and pressing of the button
+    /// </summary>
     void GamepadForPlayer1()
     {
+        //detecting pressing a button
         if (player1.buttonEast.wasPressedThisFrame)
         {
             Debug.Log(player1);
             Debug.Log("This works");
         }
+        //detecting the movement by axis
         if (player1.leftStick.x.ReadValue() != 0 || player1.leftStick.y.ReadValue() != 0)
         {
             Debug.Log("ROTATION");
@@ -131,7 +147,9 @@ public class CubeControls : MonoBehaviour
             body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
         }
     }
-
+    /// <summary>
+    /// This function is all controls and button for the any Controller gamepad for XInput
+    /// </summary>
     void GamepadControls()
     {
         //the buttons on the right
@@ -265,6 +283,9 @@ public class CubeControls : MonoBehaviour
         }
     
     }
+    /// <summary>
+    /// This function is all controls and button for the mouse for XInput
+    /// </summary>
     void MouseControls()
     {
         //Vector3 mousePos = Input.mousePosition;
