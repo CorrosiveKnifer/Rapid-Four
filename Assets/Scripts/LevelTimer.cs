@@ -19,10 +19,10 @@ public class LevelTimer : MonoBehaviour
         if (maxTime > 0)
             maxTime -= Time.deltaTime;
 
-        if (maxTime <= 0 || Input.GetKeyDown(KeyCode.Space))
-        {
-            GetComponent<LevelLoader>().LoadNextLevel();
-            Destroy(this);
-        }
+        //if (maxTime <= 0 || Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    GetComponent<LevelLoader>().LoadNextLevel();
+        //    Destroy(this);
+        //}
     }
 }
