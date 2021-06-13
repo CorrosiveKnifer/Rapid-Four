@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public CameraAgent myCamera;
     public bool usingKeyboard = false;
     private GameObject proj;
+    private GameObject homing;
+    private GameObject beam;
 
     [Header("Abilities")]
     public UnityEvent SecondaryFire;
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
     enum abilityType
     {
         DASH,
+        PARTICLE_BEAM,
     }
 
     // Start is called before the first frame update
@@ -85,6 +88,8 @@ public class PlayerController : MonoBehaviour
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
+        homing = Resources.Load<GameObject>("Prefabs/HomingShot");
+        beam = Resources.Load<GameObject>("Prefabs/ParticleBeam");
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
         
@@ -190,7 +195,7 @@ public class PlayerController : MonoBehaviour
     private void Ability()
     {
         // false is temp
-        if (false && SecondaryFire != null)
+        if (Input.GetKeyDown(KeyCode.E) && SecondaryFire != null)
         {
             SecondaryFire.Invoke();
         }
@@ -198,7 +203,7 @@ public class PlayerController : MonoBehaviour
         {
             Ability1.Invoke();
         }
-        if (false && Ability2 != null)
+        if (Input.GetKeyDown(KeyCode.Q) && Ability2 != null)
         {
             Ability2.Invoke();
         }
@@ -216,20 +221,16 @@ public class PlayerController : MonoBehaviour
                 gObject.transform.up = transform.forward;
 
                 //Send projectile
-                gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 10.0f, ForceMode.Impulse);
+                gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
             }
 
-            if (hasShot && ID == 0)
+            if (hasShot)
             {
                 audioAgent.PlaySoundEffect("ShootPew");
             }
-            else if (ID == 0)
+            else
             {
                 audioAgent.PlaySoundEffect("Empty");
-            }
-            else if (ID == 1)
-            {
-                audioAgent.PlaySoundEffect("Laser");
             }
         }
 
@@ -246,6 +247,11 @@ public class PlayerController : MonoBehaviour
     public void AbilityHomingMissile()
     {
         // Summon Homing Missile
+        GameObject gObject = Instantiate(homing, transform.position, Quaternion.identity);
+        gObject.transform.up = transform.forward;
+
+        //Send projectile
+        gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
     }
 
     public void AbilityDash()
@@ -256,11 +262,17 @@ public class PlayerController : MonoBehaviour
         DashDir = MoveDir;
         StoredVelocity = GetComponent<Rigidbody>().velocity;
         playerEffects.Add(newEffect);
+        audioAgent.PlaySoundEffect("Dash");
     }
 
     public void AbilityParticleBeam()
     {
         // IMA FIORIN MAH LAHSOR
+        activeEffect newEffect = new activeEffect();
+        newEffect.effect = abilityType.PARTICLE_BEAM;
+        newEffect.duration = 2.0f;
+        playerEffects.Add(newEffect);
+        audioAgent.PlaySoundEffect("BeamCharge");
     }
 
     private void EffectUpdate()
@@ -268,20 +280,30 @@ public class PlayerController : MonoBehaviour
         List<activeEffect> removeList = new List<activeEffect>();
         foreach (var item in playerEffects)
         {
-            switch (item.effect)
+            switch (item.effect) // During effect
             {
                 case abilityType.DASH:
                     GetComponent<Rigidbody>().velocity = DashDir * 150.0f;
                     break;
+                case abilityType.PARTICLE_BEAM:
+                    GetComponent<Rigidbody>().velocity -= GetComponent<Rigidbody>().velocity * Time.deltaTime * 3.0f;
+                    break;
                 default:
                     break;
             }
-            if (item.UpdateDuration())
+            if (item.UpdateDuration()) 
             {
-                switch (item.effect)
+                switch (item.effect) // Finish effect
                 {
                     case abilityType.DASH:
-                        GetComponent<Rigidbody>().velocity = StoredVelocity;
+                        GetComponent<Rigidbody>().velocity = MoveDir * 20.0f;
+                        break;
+                    case abilityType.PARTICLE_BEAM:
+                        GameObject gObject = Instantiate(beam, transform.position, Quaternion.identity);
+                        gObject.transform.up = transform.forward;
+                        GetComponent<Rigidbody>().velocity -= transform.forward * 100.0f;
+                        audioAgent.PlaySoundEffect("BeamRelease");
+                        //gObject.transform.rotation = transform.rotation;
                         break;
                     default:
                         break;

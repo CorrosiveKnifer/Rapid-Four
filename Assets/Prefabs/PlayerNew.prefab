@@ -9905,7 +9905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269361367159261437}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.5200005, y: 0, z: -0.32000005}
+  m_LocalPosition: {x: 1.6, y: -0.5000001, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1471841211072414173}
@@ -14811,6 +14811,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e73cfe93be8f4274584e77bc8ef17d88, type: 3}
   - {fileID: 8300000, guid: 76418d0440051c7489304b1bb6b8b859, type: 3}
   - {fileID: 8300000, guid: 1cd7a2346f328294bbe4e31e5ed3ffb2, type: 3}
+  - {fileID: 8300000, guid: c586988fdec06be40941aa7735ae49c9, type: 3}
+  - {fileID: 8300000, guid: 770ab8d2ace04fe42a6bd6bc3c8beb3c, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
 --- !u!114 &8743630890151397360
@@ -14850,7 +14852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8954587127369612768}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.5900002, y: 0, z: -0.32000005}
+  m_LocalPosition: {x: -1.6, y: -0.5, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1471841211072414173}
