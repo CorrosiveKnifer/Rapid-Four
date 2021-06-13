@@ -1,13 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 /// <summary>
-/// Michael Jordan
+/// Rachael Colaco
 /// </summary>
 public class InputManager : MonoBehaviour
 {
     #region Singleton
+    public enum ButtonType
+    {
+        BUTTON_NORTH,
+        BUTTON_SOUTH,
+        BUTTON_EAST,
+        BUTTON_WEST,
+        BUTTON_START,
+        BUTTON_SELECT,
+        BUTTON_LT,
+        BUTTON_RT,
+        BUTTON_LS,
+        BUTTON_RS
+
+    }
+
+    public enum KeyType
+    {
+        KEY_A,
+        KEY_D,
+        KEY_W,
+        KEY_S
+
+    }
 
     public static InputManager instance = null;
 
@@ -32,6 +55,78 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
+    struct Controller
+    {
+        public Controller(bool _isKeyboard = false, int _controllerID = 0)
+        {
+            isKeyboard = false;
+            controllerID = 0;
+        }
+        public bool isKeyboard;
+        public int controllerID;
+    }
+    private Controller[] players = new Controller[2];
+
+    public bool GetKeyDown(ButtonType buttonName,  int playerIndex)
+    {
+        if (players[playerIndex].isKeyboard)
+        {
+            //DO LATER
+            return false;
+            
+        }
+        else
+        {
+            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            if (pad != null)
+            {
+                switch (buttonName)
+                {
+                    default:
+                        Debug.LogWarning($"Unsupported button type in GetKeyDown." );
+                        return false;
+                    case ButtonType.BUTTON_NORTH:
+                        return pad.buttonNorth.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_EAST:
+                        return pad.buttonWest.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_WEST:
+                        return pad.buttonNorth.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_SOUTH:
+                        return pad.buttonSouth.wasPressedThisFrame;
+                       
+                    case ButtonType.BUTTON_START:
+                        return pad.startButton.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_SELECT:
+                        return pad.selectButton.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_LT:
+                        return pad.leftTrigger.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_RT:
+                        return pad.rightTrigger.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_LS:
+                        return pad.leftShoulder.wasPressedThisFrame;
+                        
+                    case ButtonType.BUTTON_RS:
+                        return pad.rightShoulder.wasPressedThisFrame;
+                        
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    public bool GetKey(ButtonType buttonName)
+    {
+        return false;
+    }
     /*
     [Header("Player A Controls")]
     public KeyCode playerALeft;
