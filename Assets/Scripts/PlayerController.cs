@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using PowerUp;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Michael Jordan, William de Beer
@@ -76,6 +77,8 @@ public class PlayerController : MonoBehaviour
         PARTICLE_BEAM,
     }
 
+    ControlInput controls;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,7 +98,31 @@ public class PlayerController : MonoBehaviour
         
         Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
+    private void Awake()
+    {
+        controls = new ControlInput();
 
+        //controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        //controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+
+        controls.Gameplay.Shoot.performed += ctx => Shooting();
+        //Debug.Log("Shoot");
+    }
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
+    /// <summary>
+    /// this activate when right trigger is pressed
+    /// </summary>
+    public void Shooting()
+    {
+        Debug.Log("Shoot");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -109,6 +136,60 @@ public class PlayerController : MonoBehaviour
             EffectUpdate();
         }
         //DeathUpdate();
+            /*
+            if(Gamepad.current.buttonSouth.wasPressedThisFrame)
+            { 
+            }
+            */
+            /*
+            if (InputManager.instance.GetPlayerShoot(ID))
+            {
+                bool hasShot = false;
+                foreach (var gameObject in projectileSpawnLoc)
+                {
+                    if (Ammo > 0 || maxAmmo < 0)
+                    {
+                        int cost = gameObject.GetComponent<GunType>().ammoCost;
+                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost && maxAmmo > 0)
+                        {
+                            cost = Ammo;
+                        }
+                        hasShot = true;
+                        gameObject.GetComponent<GunType>().Fire(effectType, cost);
+                        
+                        if (maxAmmo > 0)
+                            Ammo = Mathf.Clamp(Ammo - cost, 0, 100);
+
+                    }
+                }
+
+                if(hasShot && ID == 0)
+                {
+                    audioAgent.PlaySoundEffect("ShootPew");
+                }
+                else if (ID == 0)
+                {
+                    audioAgent.PlaySoundEffect("Empty");
+                }
+                else if(ID == 1)
+                {
+                    audioAgent.PlaySoundEffect("Laser");
+                }
+                
+            }
+            */
+        /*
+
+        if(InputManager.instance.GetPlayerUnshoot(ID))
+        {
+            foreach (var gameObject in projectileSpawnLoc)
+            {
+                gameObject.GetComponent<GunType>().UnFire();
+                audioAgent.StopAudio("Laser");
+            }
+        }
+        */
+        DeathUpdate();
     }
 
     private void FixedUpdate()
@@ -121,6 +202,8 @@ public class PlayerController : MonoBehaviour
     {
         float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+        //float verticalAxis = 0; //InputManager.instance.GetVerticalInput(ID);
+        //float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(ID);
 
         if (!isAlive)
         {
@@ -398,6 +481,7 @@ public class PlayerController : MonoBehaviour
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;
 
+            /*
             // Force player to stop shooting
             if (InputManager.instance.GetPlayerUnshoot(ID))
             {
@@ -406,6 +490,7 @@ public class PlayerController : MonoBehaviour
                     gameObject.GetComponent<GunType>().UnFire();
                 }
             }
+            */
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -429,6 +514,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(gameObject.GetComponent<GunType>());
                 GunType temp = gameObject.AddComponent(gType) as GunType;
+                /*
                 if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
                 {
                     gameObject.GetComponent<GunType>().Fire(effectType, 0);
@@ -437,6 +523,7 @@ public class PlayerController : MonoBehaviour
                 {
                     ammoCount += temp.AmmoCount();
                 }
+                */
             }
 
             if(ID == 0)
