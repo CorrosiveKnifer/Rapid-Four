@@ -267,8 +267,14 @@ public class CubeControls : MonoBehaviour
     }
     void MouseControls()
     {
-        Debug.Log(string.Format("Mouse position x={0} y={1}", 
-            Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue()));
+        //Vector3 mousePos = Input.mousePosition;
+
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = Camera.main.farClipPlane * .5f;
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+
+        Debug.Log(string.Format("Mouse position x={0} y={1}",
+            worldPoint.x, worldPoint.y));
 
         if (mouse.leftButton.wasPressedThisFrame)
         {
@@ -324,7 +330,7 @@ public class CubeControls : MonoBehaviour
     {
 
         KeyboardControls();
-        //MouseControls();
+        MouseControls();
 
         //if (Gamepad.all.Count != 0 )
         if (player1 != null)
