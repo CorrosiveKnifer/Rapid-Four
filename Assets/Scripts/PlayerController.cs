@@ -312,30 +312,29 @@ public class PlayerController : MonoBehaviour
 
     private void Ability()
     {
-        // false is temp
-        //if (Input.GetKeyDown(KeyCode.E) && SecondaryFire != null)
-        //{
-        //    SecondaryFire.Invoke();
-        //}
-        //if (Input.GetKeyDown(KeyCode.LeftControl) && Ability1 != null)
-        //{
-        //    Ability1.Invoke();
-        //}
-        //if (Input.GetKeyDown(KeyCode.Q) && Ability2 != null)
-        //{
-        //    Ability2.Invoke();
-        //}
+        if (gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
+        {
+            SecondaryFire.Invoke();
+        }
+        if (gamepad.buttonEast.wasPressedThisFrame && Ability1 != null)
+        {
+            Ability1.Invoke();
+        }
+        if (gamepad.buttonNorth.wasPressedThisFrame && Ability2 != null)
+        {
+            Ability2.Invoke();
+        }
     }
 
     private void Shoot()
     {
-        if (false/*InputManager.instance.GetPlayerShoot(ID)*/)
+        if (gamepad.rightTrigger.wasPressedThisFrame)
         {
             bool hasShot = false;
             foreach (var gameObject in projectileSpawnLoc)
             {
                 hasShot = true; 
-                GameObject gObject = Instantiate(proj, transform.position, Quaternion.identity);
+                GameObject gObject = Instantiate(proj, gameObject.transform.position, Quaternion.identity);
                 gObject.transform.up = transform.forward;
 
                 //Send projectile
