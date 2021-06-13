@@ -579,6 +579,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AstroidSphere2
       objectReference: {fileID: 0}
+    - target: {fileID: 4409862675478639242, guid: 52cb0b7da536f5549969af8d3356c823,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52cb0b7da536f5549969af8d3356c823, type: 3}
 --- !u!1001 &492133715
@@ -1966,6 +1971,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InputManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1791947810502883594, guid: fc9c5c0e93262b1498c0e60dfd81c2bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc9c5c0e93262b1498c0e60dfd81c2bd, type: 3}
 --- !u!1 &1971125095
@@ -2101,7 +2111,7 @@ PrefabInstance:
     - target: {fileID: 2681349447916555403, guid: 1694c342d2a51d5419cb07a84ab18c18,
         type: 3}
       propertyPath: usingKeyboard
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2681349447916555403, guid: 1694c342d2a51d5419cb07a84ab18c18,
         type: 3}
@@ -2113,16 +2123,6 @@ PrefabInstance:
       propertyPath: SecondaryFire.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3101882920354123936, guid: 1694c342d2a51d5419cb07a84ab18c18,
-        type: 3}
-      propertyPath: AudioClips.Array.size
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101882920354123936, guid: 1694c342d2a51d5419cb07a84ab18c18,
-        type: 3}
-      propertyPath: AudioClips.Array.data[11]
-      value: 
-      objectReference: {fileID: 8300000, guid: d532c377a8f6c114cbcebf63993b7e4e, type: 3}
     - target: {fileID: 6356714808855603805, guid: 1694c342d2a51d5419cb07a84ab18c18,
         type: 3}
       propertyPath: m_Name

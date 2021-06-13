@@ -60,6 +60,12 @@ public class PlayerController : MonoBehaviour
     float m_InvincibilityTimer = 0.0f;
 
     List<activeEffect> playerEffects = new List<activeEffect>();
+
+    [Header("Input Devices")]
+    Gamepad gamepad;
+    Keyboard keyboard;
+    Mouse mouse;
+
     class activeEffect
     {
         public abilityType effect;
@@ -77,7 +83,7 @@ public class PlayerController : MonoBehaviour
         PARTICLE_BEAM,
     }
 
-    ControlInput controls;
+    //ControlInput controls;
 
     // Start is called before the first frame update
     void Start()
@@ -86,6 +92,17 @@ public class PlayerController : MonoBehaviour
             controlsID = GameManager.player1Controls;
         if (ID == 1)
             controlsID = GameManager.player2Controls;
+
+        if (usingKeyboard)
+        {
+            keyboard = Keyboard.current;
+            mouse = Mouse.current;
+        }
+        else if (Gamepad.all.Count != 0)
+        {
+            var allGamepads = Gamepad.all;
+            gamepad = allGamepads[controlsID];
+        }
 
         audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
@@ -100,21 +117,38 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        controls = new ControlInput();
+        body = GetComponent<Rigidbody>();
 
-        //controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
-        //controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+        if (usingKeyboard)
+        {
+            keyboard = Keyboard.current;
+            mouse = Mouse.current;
+        }
+        else if (Gamepad.all.Count != 0)
+        {
+            var allGamepads = Gamepad.all;
+            gamepad = allGamepads[ID];
 
-        controls.Gameplay.Shoot.performed += ctx => Shooting();
+            //float here = allGamepads.Count;
+            //Debug.Log(player1);
+        }
+
+        //controls = new ControlInput();
+
+        ////controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        ////controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+
+        //controls.Gameplay.Shoot.performed += ctx => Shooting();
+
         //Debug.Log("Shoot");
     }
     private void OnEnable()
     {
-        controls.Gameplay.Enable();
+       // controls.Gameplay.Enable();
     }
     private void OnDisable()
     {
-        controls.Gameplay.Disable();
+       // controls.Gameplay.Disable();
     }
     /// <summary>
     /// this activate when right trigger is pressed
@@ -189,7 +223,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         */
-        DeathUpdate();
     }
 
     private void FixedUpdate()
@@ -200,19 +233,18 @@ public class PlayerController : MonoBehaviour
     }
     private void ShipMovement()
     {
-        float verticalAxis = InputManager.instance.GetVerticalInput(ID);
-        float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
-        //float verticalAxis = 0; //InputManager.instance.GetVerticalInput(ID);
-        //float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(ID);
+        //float verticalAxis = InputManager.instance.GetVerticalInput(ID);
+        //float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+        
+        Vector2 movement = gamepad.leftStick.ReadValue();
 
         if (!isAlive)
         {
-            verticalAxis = 0;
-            horizontalAxis = 0;
+            movement = new Vector2(0,0);
         }
-        if (verticalAxis != 0 || horizontalAxis != 0) // Move
+        if (movement.x != 0 || movement.y != 0) // Move
         {
-            Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
+            Vector3 direct = new Vector3(movement.x, movement.y, 0.0f).normalized;
             body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
             SetMovement(true);
             MoveDir = direct;
@@ -227,7 +259,8 @@ public class PlayerController : MonoBehaviour
     {
         if (usingKeyboard) // Mouse aiming
         {
-            Vector3 screenPoint = Input.mousePosition;
+            
+            Vector3 screenPoint = mouse.position.ReadValue();
             screenPoint.z = myCamera.GetComponent<Camera>().nearClipPlane;
             //Debug.LogWarning(screenPoint);
             Vector3 worldPoint = myCamera.GetComponent<Camera>().ScreenToWorldPoint(screenPoint);
@@ -239,12 +272,14 @@ public class PlayerController : MonoBehaviour
         }
         else // Joystick aiming
         {
-            float verticalAxis = InputManager.instance.GetVerticalInput(1);
-            float horizontalAxis = InputManager.instance.GetHorizontalInput(1);
+            float verticalAxis = 0; //InputManager.instance.GetVerticalInput(1);
+            float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(1);
 
-            if (verticalAxis != 0 || horizontalAxis != 0)
+            Vector2 aim = gamepad.rightStick.ReadValue();
+
+            if (aim.x != 0 || aim.y != 0)
             {
-                Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
+                Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
                 body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
             }
         }
@@ -278,23 +313,23 @@ public class PlayerController : MonoBehaviour
     private void Ability()
     {
         // false is temp
-        if (Input.GetKeyDown(KeyCode.E) && SecondaryFire != null)
-        {
-            SecondaryFire.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftControl) && Ability1 != null)
-        {
-            Ability1.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && Ability2 != null)
-        {
-            Ability2.Invoke();
-        }
+        //if (Input.GetKeyDown(KeyCode.E) && SecondaryFire != null)
+        //{
+        //    SecondaryFire.Invoke();
+        //}
+        //if (Input.GetKeyDown(KeyCode.LeftControl) && Ability1 != null)
+        //{
+        //    Ability1.Invoke();
+        //}
+        //if (Input.GetKeyDown(KeyCode.Q) && Ability2 != null)
+        //{
+        //    Ability2.Invoke();
+        //}
     }
 
     private void Shoot()
     {
-        if (InputManager.instance.GetPlayerShoot(ID))
+        if (false/*InputManager.instance.GetPlayerShoot(ID)*/)
         {
             bool hasShot = false;
             foreach (var gameObject in projectileSpawnLoc)
@@ -317,14 +352,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (InputManager.instance.GetPlayerUnshoot(ID))
-        {
-            foreach (var gameObject in projectileSpawnLoc)
-            {
-                gameObject.GetComponent<GunType>().UnFire();
-                audioAgent.StopAudio("Laser");
-            }
-        }
+        //if (InputManager.instance.GetPlayerUnshoot(ID))
+        //{
+        //    foreach (var gameObject in projectileSpawnLoc)
+        //    {
+        //        gameObject.GetComponent<GunType>().UnFire();
+        //        audioAgent.StopAudio("Laser");
+        //    }
+        //}
     }
 
     public void AbilityHomingMissile()
