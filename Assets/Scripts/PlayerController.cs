@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using PowerUp;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Michael Jordan, William de Beer
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     float m_fInvincibilityTime = 2.0f;
     float m_InvincibilityTimer = 0.0f;
 
+    ControlInput controls;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +60,31 @@ public class PlayerController : MonoBehaviour
         
         Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
+    private void Awake()
+    {
+        controls = new ControlInput();
 
+        //controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        //controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+
+        controls.Gameplay.Shoot.performed += ctx => Shooting();
+        //Debug.Log("Shoot");
+    }
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
+    /// <summary>
+    /// this activate when right trigger is pressed
+    /// </summary>
+    public void Shooting()
+    {
+        Debug.Log("Shoot");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -67,6 +93,12 @@ public class PlayerController : MonoBehaviour
 
         if (isAlive)
         {
+            /*
+            if(Gamepad.current.buttonSouth.wasPressedThisFrame)
+            { 
+            }
+            */
+            /*
             if (InputManager.instance.GetPlayerShoot(ID))
             {
                 bool hasShot = false;
@@ -102,7 +134,9 @@ public class PlayerController : MonoBehaviour
                 }
                 
             }
+            */
         }
+        /*
 
         if(InputManager.instance.GetPlayerUnshoot(ID))
         {
@@ -112,13 +146,14 @@ public class PlayerController : MonoBehaviour
                 audioAgent.StopAudio("Laser");
             }
         }
+        */
         DeathUpdate();
     }
 
     private void FixedUpdate()
     {
-        float verticalAxis = InputManager.instance.GetVerticalInput(ID);
-        float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+        float verticalAxis = 0; //InputManager.instance.GetVerticalInput(ID);
+        float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(ID);
 
         Vector3 force = new Vector3();
         if (transform.position.x < minDist.x)
@@ -276,6 +311,7 @@ public class PlayerController : MonoBehaviour
             GameObject explode = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             explode.transform.localScale = transform.localScale;
 
+            /*
             // Force player to stop shooting
             if (InputManager.instance.GetPlayerUnshoot(ID))
             {
@@ -284,6 +320,7 @@ public class PlayerController : MonoBehaviour
                     gameObject.GetComponent<GunType>().UnFire();
                 }
             }
+            */
         }
     }
 
@@ -308,6 +345,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(gameObject.GetComponent<GunType>());
                 GunType temp = gameObject.AddComponent(gType) as GunType;
+                /*
                 if (InputManager.instance.GetPlayerShooting(ID) && ID == 1)
                 {
                     gameObject.GetComponent<GunType>().Fire(effectType, 0);
@@ -316,6 +354,7 @@ public class PlayerController : MonoBehaviour
                 {
                     ammoCount += temp.AmmoCount();
                 }
+                */
             }
 
             if(ID == 0)
