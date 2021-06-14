@@ -491,6 +491,12 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+
+    public void DealDamage(float damage)
+    {
+        //Unsupported ~ Michael
+    }
+
     private void PlayerHit()
     {
         if (!isInvincible && isAlive && !shieldObject.IsActive)

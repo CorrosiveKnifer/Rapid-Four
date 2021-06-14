@@ -13,13 +13,10 @@ public class EnemyAI : MonoBehaviour
     public float m_PrefDist = 25.0f; //Prefered distance away from the currentTarget
     public float m_AttackDist = 5.0f; //Distance from the targetLocation, when to start shooting.
     public float m_maxAttackDelay = 3.0f; //Delay inbetween attacks.
-    public float m_shotForce = 50.0f; //Projectile force when a projectile is created.
-    public float maxSpeed = 10.0f; //Maximum speed of the ship.
-    public LayerMask m_TargetTag; //Layer of the target fields.
+    
     public float m_startingHealth = 100.0f;
 
     [Header("Enemy Prefabs")]
-    public GameObject m_projPrefab;
     public GameObject m_deathPrefab;
 
     [Header("Read Only Variables")]
@@ -28,17 +25,17 @@ public class EnemyAI : MonoBehaviour
     [ReadOnly]
     public float m_CurrentHealth;
 
-    private float m_nextShotDelay;
+    private float m_maxSpeed; //Maximum speed of the ship.
     private GameObject[] m_Targets;
     private List<GameObject> m_NeighbourhoodList;
     private Quaternion m_TargetRot;
-    private Vector3 m_TargetPos;
     private Vector3 m_ForwardVector;
-
+    private LayerMask m_TargetTag; //Layer of the target fields.
     // Start is called before the first frame update
     void Start()
     {
-        if(m_TargetTag.value == 0)
+        m_TargetTag = GetComponent<EnemyAttackBehavour>().m_TargetTag;
+        if (m_TargetTag.value == 0)
         {
             m_TargetTag = LayerMask.NameToLayer("Player");
             m_Targets = GameObject.FindGameObjectsWithTag(LayerMask.LayerToName(m_TargetTag.value));
@@ -48,10 +45,10 @@ public class EnemyAI : MonoBehaviour
             m_Targets = GameObject.FindGameObjectsWithTag(LayerMask.LayerToName((int)Mathf.Log(m_TargetTag.value, 2)));
         }
 
+        m_maxSpeed = GetComponent<EnemyAttackBehavour>().m_myMaxSpeed;
         m_CurrentHealth = m_startingHealth;
         m_CurrentTarget = null;
         m_NeighbourhoodList = new List<GameObject>();
-        m_nextShotDelay = m_maxAttackDelay;
     }
 
     // Update is called once per frame
@@ -60,69 +57,39 @@ public class EnemyAI : MonoBehaviour
         UpdateClosestTarget();
 
         //Update targetRotation
-        m_TargetPos = m_CurrentTarget.transform.position + (transform.position - m_CurrentTarget.transform.position).normalized * m_PrefDist;
         m_TargetRot = Quaternion.LookRotation(m_CurrentTarget.transform.position - transform.position, transform.up);
         
         //transform.position = Vector3.Lerp(transform.position, targetPosition, moveLerp);
         transform.rotation = Quaternion.Slerp(transform.rotation, m_TargetRot, m_RotationSlerp);
 
-        if (Vector3.Distance(m_TargetPos, transform.position) < m_AttackDist)
+        if(GetComponent<EnemyAttackBehavour>().IsWithinPreferedDistance(m_CurrentTarget))
         {
-            m_nextShotDelay -= Time.deltaTime;
-            if(m_nextShotDelay <= 0)
-            {
-                Attack();
-            }
+            GetComponent<EnemyAttackBehavour>().StartAttack(m_CurrentTarget);
         }
-    }
 
-    private void FixedUpdate()
-    {
         //For each neighbour
         foreach (var neighbour in m_NeighbourhoodList)
         {
-            if(neighbour != null)
+            if (neighbour != null)
             {
                 //Calculate the direction away from the neighbour
                 Vector3 direct = (transform.position - neighbour.transform.position).normalized;
-                m_ForwardVector += direct;
-                //Draw force vector
-                Debug.DrawRay(transform.position, direct * 5, Color.yellow);
+                m_ForwardVector += direct * m_maxSpeed;
             }
         }
 
-        //Draw force towards the target location
-        Debug.DrawRay(transform.position, (m_TargetPos - transform.position).normalized * 5, Color.yellow);
-        //Draw the resultant force
-        Debug.DrawRay(transform.position, m_ForwardVector * 5, Color.red);
-
         //Add the force towards the target location
-        m_ForwardVector += (m_TargetPos - transform.position).normalized;
+        m_ForwardVector += GetComponent<EnemyAttackBehavour>().GetTargetVector(m_CurrentTarget);
 
         //Normalise to get the actual direction
         m_ForwardVector.Normalize();
 
-        float distanceTo = (m_TargetPos - transform.position).magnitude;
-        //Is Player within the arrival range?
-        if (distanceTo < m_AttackDist)
-        {
-            GetComponent<Rigidbody>().velocity = m_ForwardVector * ((maxSpeed * distanceTo) / m_AttackDist);
-        }
-        else
-        {
-            GetComponent<Rigidbody>().velocity = m_ForwardVector * maxSpeed;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        //Draw target location
-        Gizmos.DrawWireSphere(m_TargetPos, 0.5f);
+        GetComponent<Rigidbody>().velocity = m_ForwardVector * GetComponent<EnemyAttackBehavour>().m_currentSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer != m_TargetTag)
+        if(other.gameObject.layer != (int)Mathf.Log(m_TargetTag.value, 2))
         {
             m_NeighbourhoodList.Add(other.gameObject);
         }
@@ -130,7 +97,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer != m_TargetTag)
+        if (other.gameObject.layer != (int)Mathf.Log(m_TargetTag.value, 2))
         {
             m_NeighbourhoodList.Remove(other.gameObject);
         }
@@ -165,26 +132,6 @@ public class EnemyAI : MonoBehaviour
         
         //Return true if there is a change.
         return oldTarget != m_CurrentTarget;
-    }
-
-    /// <summary>
-    /// Attack action
-    /// </summary>
-    private void Attack()
-    {
-        if(m_projPrefab != null)
-        {
-            m_nextShotDelay = m_maxAttackDelay;
-
-            GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position, Quaternion.identity);
-            newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
-            newProj.transform.up = (m_CurrentTarget.transform.position - transform.position).normalized;
-            newProj.GetComponent<Rigidbody>().AddForce((m_CurrentTarget.transform.position - transform.position).normalized * m_shotForce, ForceMode.Impulse);
-            foreach (var collider in GetComponentsInChildren<Collider>())
-            {
-                Physics.IgnoreCollision(collider, newProj.GetComponent<Collider>());
-            }
-        }
     }
 
     /// <summary>
