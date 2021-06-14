@@ -287,6 +287,10 @@ public class PlayerController : MonoBehaviour
         //    body.freezeRotation = true;
         //}
     }
+    public void DealDamage(float damage)
+    {
+
+    }
     private void PlayerHit()
     {
         if (!isInvincible && isAlive && !shieldObject.IsActive)
