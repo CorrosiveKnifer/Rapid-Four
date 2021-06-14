@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using PowerUp;
 using UnityEngine.InputSystem;
 
@@ -17,11 +18,25 @@ public class PlayerController : MonoBehaviour
     public Vector2 maxDist;
     public Vector2 minDist;
 
+    [Header("Attachments")]
     public GameObject[] projectileSpawnLoc;
     public Shield shieldObject;
     public Animator[] engine;
     public Animator immune;
     public CameraAgent myCamera;
+    public bool usingKeyboard = false;
+    private GameObject proj;
+    private GameObject homing;
+    private GameObject beam;
+
+    [Header("Abilities")]
+    public UnityEvent SecondaryFire;
+    public UnityEvent Ability1;
+    public UnityEvent Ability2;
+
+    private Vector3 DashDir;
+    private Vector3 MoveDir;
+    private Vector3 StoredVelocity;
 
     private System.Type effectType;
     private System.Type gunType;
@@ -29,7 +44,8 @@ public class PlayerController : MonoBehaviour
     private int controlsID;
 
     public float speed = 350.0f;
-    public float rotationSpeed = 120.0f;
+    [Range(0.0f, 1.0f)]
+    public float rotationSpeed = 0.1f;
 
     public GameObject particlePrefab;
 
@@ -43,7 +59,32 @@ public class PlayerController : MonoBehaviour
     float m_fInvincibilityTime = 2.0f;
     float m_InvincibilityTimer = 0.0f;
 
-    ControlInput controls;
+    List<activeEffect> playerEffects = new List<activeEffect>();
+
+    [Header("Input Devices")]
+    Gamepad gamepad;
+    Keyboard keyboard;
+    Mouse mouse;
+
+    class activeEffect
+    {
+        public abilityType effect;
+        public float duration;
+
+        public bool UpdateDuration() 
+        {
+            duration -= Time.deltaTime;
+            return (duration <= 0.0f); 
+        }
+    }
+    enum abilityType
+    {
+        DASH,
+        PARTICLE_BEAM,
+    }
+
+    //ControlInput controls;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,9 +93,23 @@ public class PlayerController : MonoBehaviour
         if (ID == 1)
             controlsID = GameManager.player2Controls;
 
+        if (usingKeyboard)
+        {
+            keyboard = Keyboard.current;
+            mouse = Mouse.current;
+        }
+        else if (Gamepad.all.Count != 0)
+        {
+            var allGamepads = Gamepad.all;
+            gamepad = allGamepads[controlsID];
+        }
+
         audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
+        proj = Resources.Load<GameObject>("Prefabs/BasicShot");
+        homing = Resources.Load<GameObject>("Prefabs/HomingShot");
+        beam = Resources.Load<GameObject>("Prefabs/ParticleBeam");
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
         
@@ -62,21 +117,38 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        controls = new ControlInput();
+        body = GetComponent<Rigidbody>();
 
-        //controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
-        //controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+        if (usingKeyboard)
+        {
+            keyboard = Keyboard.current;
+            mouse = Mouse.current;
+        }
+        else if (Gamepad.all.Count != 0)
+        {
+            var allGamepads = Gamepad.all;
+            gamepad = allGamepads[ID];
 
-        controls.Gameplay.Shoot.performed += ctx => Shooting();
+            //float here = allGamepads.Count;
+            //Debug.Log(player1);
+        }
+
+        //controls = new ControlInput();
+
+        ////controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        ////controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+
+        //controls.Gameplay.Shoot.performed += ctx => Shooting();
+
         //Debug.Log("Shoot");
     }
     private void OnEnable()
     {
-        controls.Gameplay.Enable();
+       // controls.Gameplay.Enable();
     }
     private void OnDisable()
     {
-        controls.Gameplay.Disable();
+       // controls.Gameplay.Disable();
     }
     /// <summary>
     /// this activate when right trigger is pressed
@@ -93,6 +165,11 @@ public class PlayerController : MonoBehaviour
 
         if (isAlive)
         {
+            Shoot();
+            Ability();
+            EffectUpdate();
+        }
+        //DeathUpdate();
             /*
             if(Gamepad.current.buttonSouth.wasPressedThisFrame)
             { 
@@ -135,7 +212,6 @@ public class PlayerController : MonoBehaviour
                 
             }
             */
-        }
         /*
 
         if(InputManager.instance.GetPlayerUnshoot(ID))
@@ -147,14 +223,69 @@ public class PlayerController : MonoBehaviour
             }
         }
         */
-        DeathUpdate();
     }
 
     private void FixedUpdate()
     {
-        float verticalAxis = 0; //InputManager.instance.GetVerticalInput(ID);
-        float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(ID);
+        Bounds();
+        ShipMovement();
+        ShipAiming();
+    }
+    private void ShipMovement()
+    {
+        //float verticalAxis = InputManager.instance.GetVerticalInput(ID);
+        //float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
+        
+        Vector2 movement = gamepad.leftStick.ReadValue();
 
+        if (!isAlive)
+        {
+            movement = new Vector2(0,0);
+        }
+        if (movement.x != 0 || movement.y != 0) // Move
+        {
+            Vector3 direct = new Vector3(movement.x, movement.y, 0.0f).normalized;
+            body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
+            SetMovement(true);
+            MoveDir = direct;
+        }
+        else
+        {
+            SetMovement(false);
+            MoveDir = transform.forward;
+        }
+    }
+    private void ShipAiming()
+    {
+        if (usingKeyboard) // Mouse aiming
+        {
+            
+            Vector3 screenPoint = mouse.position.ReadValue();
+            screenPoint.z = myCamera.GetComponent<Camera>().nearClipPlane;
+            //Debug.LogWarning(screenPoint);
+            Vector3 worldPoint = myCamera.GetComponent<Camera>().ScreenToWorldPoint(screenPoint);
+            //worldPoint.z = gameObject.transform.position.z;
+            Vector3 direct = worldPoint - gameObject.transform.position;
+            direct.z = 0;
+            Quaternion lookDirect = Quaternion.LookRotation(direct, transform.up);
+            body.rotation = Quaternion.Slerp(body.rotation, lookDirect, rotationSpeed);
+        }
+        else // Joystick aiming
+        {
+            float verticalAxis = 0; //InputManager.instance.GetVerticalInput(1);
+            float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(1);
+
+            Vector2 aim = gamepad.rightStick.ReadValue();
+
+            if (aim.x != 0 || aim.y != 0)
+            {
+                Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
+                body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
+            }
+        }
+    }
+    private void Bounds()
+    {
         Vector3 force = new Vector3();
         if (transform.position.x < minDist.x)
         {
@@ -177,49 +308,131 @@ public class PlayerController : MonoBehaviour
         {
             body.AddForce(force, ForceMode.Acceleration);//transform.position = targetLoc;
         }
+    }
 
-        if (!isAlive)
+    private void Ability()
+    {
+        if (gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
         {
-            verticalAxis = 0;
-            horizontalAxis = 0;
+            SecondaryFire.Invoke();
         }
-
-        switch (controlsID)
+        if (gamepad.buttonEast.wasPressedThisFrame && Ability1 != null)
         {
-            default:
-            case 0:
-                if (verticalAxis > 0.0f)
-                {
-                    body.AddForce(transform.up * speed * verticalAxis * Time.deltaTime, ForceMode.Acceleration);
-                    SetMovement(true);
-                }
-                else if (verticalAxis < 0.0f)
-                {
-                    body.velocity = Vector3.zero;
-                    SetMovement(false, 5.0f);
-                }
-                else
-                {
-                    SetMovement(false);
-                }
-                body.rotation = Quaternion.Euler(body.rotation.eulerAngles + new Vector3(0.0f, 0.0f, Mathf.Deg2Rad * -rotationSpeed * horizontalAxis));
-                break;
-            case 1:
-                if(verticalAxis != 0 || horizontalAxis != 0)
-                {
-                    Vector3 direct = new Vector3(horizontalAxis, verticalAxis, 0.0f).normalized;
-                    body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
-                    body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direct), 0.1f);
-                    SetMovement(true);
-                }
-                else
-                {
-                    SetMovement(false);
-                }
-                break;
+            Ability1.Invoke();
+        }
+        if (gamepad.buttonNorth.wasPressedThisFrame && Ability2 != null)
+        {
+            Ability2.Invoke();
         }
     }
 
+    private void Shoot()
+    {
+        if (gamepad.rightTrigger.wasPressedThisFrame)
+        {
+            bool hasShot = false;
+            foreach (var gameObject in projectileSpawnLoc)
+            {
+                hasShot = true; 
+                GameObject gObject = Instantiate(proj, gameObject.transform.position, Quaternion.identity);
+                gObject.transform.up = transform.forward;
+
+                //Send projectile
+                gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+            }
+
+            if (hasShot)
+            {
+                audioAgent.PlaySoundEffect("ShootPew");
+            }
+            else
+            {
+                audioAgent.PlaySoundEffect("Empty");
+            }
+        }
+
+        //if (InputManager.instance.GetPlayerUnshoot(ID))
+        //{
+        //    foreach (var gameObject in projectileSpawnLoc)
+        //    {
+        //        gameObject.GetComponent<GunType>().UnFire();
+        //        audioAgent.StopAudio("Laser");
+        //    }
+        //}
+    }
+
+    public void AbilityHomingMissile()
+    {
+        // Summon Homing Missile
+        GameObject gObject = Instantiate(homing, transform.position, Quaternion.identity);
+        gObject.transform.up = transform.forward;
+
+        //Send projectile
+        gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+    }
+
+    public void AbilityDash()
+    {
+        activeEffect newEffect = new activeEffect();
+        newEffect.effect = abilityType.DASH;
+        newEffect.duration = 0.2f;
+        DashDir = MoveDir;
+        StoredVelocity = GetComponent<Rigidbody>().velocity;
+        playerEffects.Add(newEffect);
+        audioAgent.PlaySoundEffect("Dash");
+    }
+
+    public void AbilityParticleBeam()
+    {
+        // IMA FIORIN MAH LAHSOR
+        activeEffect newEffect = new activeEffect();
+        newEffect.effect = abilityType.PARTICLE_BEAM;
+        newEffect.duration = 2.0f;
+        playerEffects.Add(newEffect);
+        audioAgent.PlaySoundEffect("BeamCharge");
+    }
+
+    private void EffectUpdate()
+    {
+        List<activeEffect> removeList = new List<activeEffect>();
+        foreach (var item in playerEffects)
+        {
+            switch (item.effect) // During effect
+            {
+                case abilityType.DASH:
+                    GetComponent<Rigidbody>().velocity = DashDir * 150.0f;
+                    break;
+                case abilityType.PARTICLE_BEAM:
+                    GetComponent<Rigidbody>().velocity -= GetComponent<Rigidbody>().velocity * Time.deltaTime * 3.0f;
+                    break;
+                default:
+                    break;
+            }
+            if (item.UpdateDuration()) 
+            {
+                switch (item.effect) // Finish effect
+                {
+                    case abilityType.DASH:
+                        GetComponent<Rigidbody>().velocity = MoveDir * 20.0f;
+                        break;
+                    case abilityType.PARTICLE_BEAM:
+                        GameObject gObject = Instantiate(beam, transform.position, Quaternion.identity);
+                        gObject.transform.up = transform.forward;
+                        GetComponent<Rigidbody>().velocity -= transform.forward * 100.0f;
+                        audioAgent.PlaySoundEffect("BeamRelease");
+                        //gObject.transform.rotation = transform.rotation;
+                        break;
+                    default:
+                        break;
+                }
+                removeList.Add(item);
+            }
+        }
+        foreach (var item in removeList)
+        {
+            playerEffects.Remove(item);
+        }
+    }
     private void DeathUpdate()
     {
         GameManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
@@ -277,15 +490,6 @@ public class PlayerController : MonoBehaviour
             m_InvincibilityTimer -= Time.deltaTime;
 
         }
-        /* This unfreezes rotation when collided which looks good with the miner ship but not the gunner ship as the gunner does not restore their rotation :( */
-        //if (!isAlive)
-        //{
-        //    body.freezeRotation = false;
-        //}
-        //else
-        //{
-        //    body.freezeRotation = true;
-        //}
     }
     private void PlayerHit()
     {
@@ -323,7 +527,6 @@ public class PlayerController : MonoBehaviour
             */
         }
     }
-
     private void OnCollisionEnter(Collision other)
     {
         if (isAlive && !shieldObject.IsActive)
@@ -372,8 +575,7 @@ public class PlayerController : MonoBehaviour
             audioAgent.PlaySoundEffect("Pickup" + Random.Range(1, 5));
             effectType = etype;
         }
-    }
-    
+    }  
     public void GetPowerUps(out System.Type gun, out System.Type shot)
     {
         gun = gunType;
@@ -388,7 +590,6 @@ public class PlayerController : MonoBehaviour
         m_InvincibilityTimer = _time;
         isInvincible = true;
     }
-
     private void SetMovement(bool isMoving, float speed = 1.0f)
     {
         foreach (var item in engine)

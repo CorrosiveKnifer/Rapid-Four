@@ -1,7 +1,12 @@
 fileFormatVersion: 2
-guid: da3c0f11e134dcb41b6728534f7792b2
+<<<<<<< HEAD:Assets/Prefabs/PlayerNew.prefab.meta
+guid: 9863c0d483d540e45a61b92e793f0f01
+PrefabImporter:
+=======
+guid: 4f3f9dbd67c30ce4da5634ca83d332b6
 folderAsset: yes
 DefaultImporter:
+>>>>>>> origin/RachaelWork:Assets/Scripts/testing.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

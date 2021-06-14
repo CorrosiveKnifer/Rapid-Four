@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2109647461443920875}
   - component: {fileID: 4988674478709685145}
   - component: {fileID: 8505389813931593353}
-  - component: {fileID: 8839045931691040125}
+  - component: {fileID: 4042283002049250233}
   m_Layer: 0
-  m_Name: BasicShot
+  m_Name: HomingShot
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
---- !u!114 &8839045931691040125
+--- !u!114 &4042283002049250233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,15 +73,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3152514501791161350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9280e9c271992f149a9cba74b420a383, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c8c743c66282f7498c15c5955d7e032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 15
-  damage: 30
+  damage: 100
   powerUpIcon: 
   IsLaser: 0
   probability: 0
   delay: 0
+  target: {fileID: 0}
+  enemies: []
 --- !u!1 &5714239203291711375
 GameObject:
   m_ObjectHideFlags: 0

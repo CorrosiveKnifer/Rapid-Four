@@ -12,17 +12,21 @@ public class HomingShotType : ShotType
     public GameObject[] enemies;
     private Vector3 original;
     private float timer = 0.0f;
+    private float startTimer;
     protected override void Start()
     {
         if(!IsLaser)
             Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
 
         isQuitting = false;
+        timer = lifetime;
+        startTimer = timer;
     }
 
     protected override void Update()
     {
-        homingBullet();
+        if (timer < startTimer - 0.5f)
+            homingBullet();
 
         if (timer > 0)
             timer -= Time.deltaTime;

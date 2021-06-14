@@ -38,14 +38,14 @@ public class TimeSpeedManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            m_CurrentTimeSpeedIndex++;
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            m_CurrentTimeSpeedIndex--;
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    m_CurrentTimeSpeedIndex++;
+        //}
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    m_CurrentTimeSpeedIndex--;
+        //}
         m_CurrentTimeSpeedIndex = Mathf.Clamp(m_CurrentTimeSpeedIndex, 0, m_AvailableTimeSpeeds.Length - 1);
 
         m_TimeSlowerButton.interactable = m_CurrentTimeSpeedIndex != 0;
