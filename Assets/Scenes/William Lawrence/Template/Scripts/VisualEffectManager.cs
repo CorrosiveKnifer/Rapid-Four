@@ -39,10 +39,10 @@ public class VisualEffectManager : MonoBehaviour
     {
         m_FireButton.interactable = !m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Fire");
 
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    Fire();
-        //}
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Fire();
+        }
     }
 
     private void LateUpdate()
