@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 /// <summary>
 /// Rachael Colaco
 /// </summary>
@@ -126,8 +127,6 @@ public class InputManager : MonoBehaviour
                 return keyboard.digit4Key.wasPressedThisFrame;
 
         }
-
-
     }
 
 
@@ -178,8 +177,6 @@ public class InputManager : MonoBehaviour
                     return keyboard.digit4Key.wasPressedThisFrame;
 
             }
-
-
         }
         else
         {
@@ -187,7 +184,6 @@ public class InputManager : MonoBehaviour
             if (pad == null)
             {
                 return false;
-
             }
 
             switch (buttonName)
@@ -268,8 +264,6 @@ public class InputManager : MonoBehaviour
                 return keyboard.digit4Key.isPressed;
 
         }
-
-
     }
 
     /// <summary>
@@ -319,8 +313,6 @@ public class InputManager : MonoBehaviour
                     return keyboard.digit4Key.isPressed;
 
             }
-
-
         }
         else
         {
@@ -328,7 +320,6 @@ public class InputManager : MonoBehaviour
             if (pad == null)
             {
                 return false;
-
             }
 
             switch (buttonName)
@@ -440,135 +431,4 @@ public class InputManager : MonoBehaviour
             }
         }
     }
-
-    /*
-    [Header("Player A Controls")]
-    public KeyCode playerALeft;
-    public KeyCode playerARight;
-    public KeyCode playerAForwards;
-    public KeyCode playerABackwards;
-    public KeyCode playerAShoot;
-    public KeyCode playerAShootSecond;
-
-    [Header("Player B Controls")]
-    public KeyCode playerBLeft;
-    public KeyCode playerBRight;
-    public KeyCode playerBForwards;
-    public KeyCode playerBBackwards;
-    public KeyCode playerBShoot;
-    public KeyCode playerBShootSecond;
-
-    public float GetHorizontalInput(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-
-        float playerHoriz = 0.0f;
-        KeyCode left;
-        KeyCode right;
-        
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                left = playerALeft;
-                right = playerARight;
-                break;
-            case 1:
-                left = playerBLeft;
-                right = playerBRight;
-                break;
-        }
-
-        if (Input.GetKey(left))
-        {
-            playerHoriz -= 1.0f;
-        }
-        if (Input.GetKey(right))
-        {
-            playerHoriz += 1.0f;
-        }
-        return playerHoriz;
-    }
-
-    public float GetVerticalInput(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-        
-        float playerVerti = 0.0f;
-        KeyCode forward;
-        KeyCode backward;
-
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                forward = playerAForwards;
-                backward = playerABackwards;
-                break;
-            case 1:
-                forward = playerBForwards;
-                backward = playerBBackwards;
-                break;
-        }
-
-        if (Input.GetKey(backward))
-        {
-            playerVerti -= 1.0f;
-        }
-        if (Input.GetKey(forward))
-        {
-            playerVerti += 1.0f;
-        }
-        return playerVerti;
-    }
-
-    public bool GetPlayerShoot(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-        
-        switch (playerID)
-        {
-            default:
-            case 0:
-                return Input.GetKeyDown(playerAShoot) || Input.GetKeyDown(playerAShootSecond);
-            case 1:
-                return Input.GetKeyDown(playerBShoot) || Input.GetKeyDown(playerBShootSecond);
-        }
-    }
-
-    public bool GetPlayerShooting(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                return Input.GetKey(playerAShoot) || Input.GetKey(playerAShootSecond);
-            case 1:
-                return Input.GetKey(playerBShoot) || Input.GetKey(playerBShootSecond);
-        }
-    }
-
-    public bool GetPlayerUnshoot(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                return !Input.GetKey(playerAShoot) && !Input.GetKey(playerAShootSecond);
-            case 1:
-                return !Input.GetKey(playerBShoot) && !Input.GetKey(playerBShootSecond);
-        }
-    }
-    */
 }
