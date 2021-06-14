@@ -126,10 +126,7 @@ public class InputManager : MonoBehaviour
 
             case KeyType.KEY_4:
                 return keyboard.digit4Key.wasPressedThisFrame;
-
         }
-
-
     }
 
 
