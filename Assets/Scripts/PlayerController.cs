@@ -52,12 +52,28 @@ public class PlayerController : MonoBehaviour
     AudioAgent audioAgent;
 
     // Death stuff
-    bool isAlive = true;
-    float m_fRespawnTime = 10.0f;
-    float m_DeathTimer = 0.0f;
-    bool isInvincible = false;
-    float m_fInvincibilityTime = 2.0f;
-    float m_InvincibilityTimer = 0.0f;
+    private bool isAlive = true;
+    private float m_fRespawnTime = 10.0f;
+    private float m_DeathTimer = 0.0f;
+    private bool isInvincible = false;
+    private float m_fInvincibilityTime = 2.0f;
+    private float m_InvincibilityTimer = 0.0f;
+
+    // Shoot timer
+    [Header("Ability Stats")]
+    public float m_fFirerate = 3.0f;
+    private float m_fShootTimer = 0.0f;
+
+    public float m_fSecondaryFireCD = 5.0f;
+    private float m_fSecondaryFireTimer = 0.0f;
+
+    public float m_fAbility1CD = 1.5f;
+    private float m_fAbility1Timer = 0.0f;
+
+    public float m_fAbility2CD = 20.0f;
+    private float m_fAbility2Timer = 0.0f;
+
+
 
     List<activeEffect> playerEffects = new List<activeEffect>();
 
@@ -129,18 +145,8 @@ public class PlayerController : MonoBehaviour
             var allGamepads = Gamepad.all;
             gamepad = allGamepads[ID];
 
-            //float here = allGamepads.Count;
-            //Debug.Log(player1);
         }
 
-        //controls = new ControlInput();
-
-        ////controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
-        ////controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
-
-        //controls.Gameplay.Shoot.performed += ctx => Shooting();
-
-        //Debug.Log("Shoot");
     }
     private void OnEnable()
     {
@@ -169,60 +175,6 @@ public class PlayerController : MonoBehaviour
             Ability();
             EffectUpdate();
         }
-        //DeathUpdate();
-            /*
-            if(Gamepad.current.buttonSouth.wasPressedThisFrame)
-            { 
-            }
-            */
-            /*
-            if (InputManager.instance.GetPlayerShoot(ID))
-            {
-                bool hasShot = false;
-                foreach (var gameObject in projectileSpawnLoc)
-                {
-                    if (Ammo > 0 || maxAmmo < 0)
-                    {
-                        int cost = gameObject.GetComponent<GunType>().ammoCost;
-                        if (Ammo < gameObject.GetComponent<GunType>().ammoCost && maxAmmo > 0)
-                        {
-                            cost = Ammo;
-                        }
-                        hasShot = true;
-                        gameObject.GetComponent<GunType>().Fire(effectType, cost);
-                        
-                        if (maxAmmo > 0)
-                            Ammo = Mathf.Clamp(Ammo - cost, 0, 100);
-
-                    }
-                }
-
-                if(hasShot && ID == 0)
-                {
-                    audioAgent.PlaySoundEffect("ShootPew");
-                }
-                else if (ID == 0)
-                {
-                    audioAgent.PlaySoundEffect("Empty");
-                }
-                else if(ID == 1)
-                {
-                    audioAgent.PlaySoundEffect("Laser");
-                }
-                
-            }
-            */
-        /*
-
-        if(InputManager.instance.GetPlayerUnshoot(ID))
-        {
-            foreach (var gameObject in projectileSpawnLoc)
-            {
-                gameObject.GetComponent<GunType>().UnFire();
-                audioAgent.StopAudio("Laser");
-            }
-        }
-        */
     }
 
     private void FixedUpdate()
@@ -312,24 +264,39 @@ public class PlayerController : MonoBehaviour
 
     private void Ability()
     {
-        if (gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
+        if (m_fSecondaryFireTimer > 0)
+            m_fSecondaryFireTimer -= Time.deltaTime;
+        if (m_fAbility1Timer > 0)
+            m_fAbility1Timer -= Time.deltaTime;
+        if (m_fAbility2Timer > 0)
+            m_fAbility2Timer -= Time.deltaTime;
+
+        if (m_fSecondaryFireTimer <= 0 && gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
         {
+            m_fSecondaryFireTimer = m_fSecondaryFireCD;
             SecondaryFire.Invoke();
         }
-        if (gamepad.buttonEast.wasPressedThisFrame && Ability1 != null)
+        if (m_fAbility1Timer <= 0 && gamepad.rightShoulder.wasPressedThisFrame && Ability1 != null)
         {
+            m_fAbility1Timer = m_fAbility1CD;
             Ability1.Invoke();
         }
-        if (gamepad.buttonNorth.wasPressedThisFrame && Ability2 != null)
+        if (m_fAbility2Timer <= 0 && gamepad.leftShoulder.wasPressedThisFrame && Ability2 != null)
         {
+            m_fAbility2Timer = m_fAbility2CD;
             Ability2.Invoke();
         }
     }
 
     private void Shoot()
     {
-        if (gamepad.rightTrigger.wasPressedThisFrame)
+        if (m_fShootTimer > 0)
+            m_fShootTimer -= Time.deltaTime;
+
+        if (gamepad.rightTrigger.isPressed && m_fShootTimer <= 0)
         {
+            m_fShootTimer = 1.0f / m_fFirerate; 
+
             bool hasShot = false;
             foreach (var gameObject in projectileSpawnLoc)
             {
@@ -375,7 +342,7 @@ public class PlayerController : MonoBehaviour
     {
         activeEffect newEffect = new activeEffect();
         newEffect.effect = abilityType.DASH;
-        newEffect.duration = 0.2f;
+        newEffect.duration = 0.3f;
         DashDir = MoveDir;
         StoredVelocity = GetComponent<Rigidbody>().velocity;
         playerEffects.Add(newEffect);
@@ -387,7 +354,7 @@ public class PlayerController : MonoBehaviour
         // IMA FIORIN MAH LAHSOR
         activeEffect newEffect = new activeEffect();
         newEffect.effect = abilityType.PARTICLE_BEAM;
-        newEffect.duration = 2.0f;
+        newEffect.duration = 1.0f;
         playerEffects.Add(newEffect);
         audioAgent.PlaySoundEffect("BeamCharge");
     }
@@ -418,7 +385,8 @@ public class PlayerController : MonoBehaviour
                     case abilityType.PARTICLE_BEAM:
                         GameObject gObject = Instantiate(beam, transform.position, Quaternion.identity);
                         gObject.transform.up = transform.forward;
-                        GetComponent<Rigidbody>().velocity -= transform.forward * 100.0f;
+                        GetComponent<Rigidbody>().velocity -= transform.forward * 50.0f;
+                        audioAgent.StopAudio("BeamCharge");
                         audioAgent.PlaySoundEffect("BeamRelease");
                         //gObject.transform.rotation = transform.rotation;
                         break;
