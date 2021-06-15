@@ -11,16 +11,17 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     public float m_attackDelay = 0.5f;
     public float m_myDamage = 10.0f;
 
-    private void Awake()
+    protected override void Awake()
     {
         m_preferedPersonalDistance = 6.5f;
         m_preferedAttackDistance = 9.0f;
+        base.Awake();
     }
 
     //Inherited by EnemyAttackBehavour
     public override void StartAttack(GameObject target)
     {
-         if (m_delay > 0.0f)
+        if (m_delay > 0.0f)
         {
             return;
         }
