@@ -29,6 +29,12 @@ public class InputManager : MonoBehaviour
         RIGHT
 
     }
+    public enum MouseButton
+    {
+        LEFT,
+        RIGHT
+
+    }
 
     public enum KeyType
     {
@@ -372,7 +378,7 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Getting the vertical axis value
+    /// Getting the vertical axis value from controller
     /// </summary>
     /// <param name="joystick"></param>
     /// <param name="playerIndex"></param>
@@ -381,7 +387,8 @@ public class InputManager : MonoBehaviour
     {
         if (players[playerIndex].isKeyboard)
         {
-            return 0;
+
+            return GetVerticalAxis();
         }
         else
         {
@@ -407,7 +414,7 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Getting the Horizontall Axis value
+    /// Getting the Horizontall Axis value from controller
     /// </summary>
     /// <param name="joystick"></param>
     /// <param name="playerIndex"></param>
@@ -416,7 +423,7 @@ public class InputManager : MonoBehaviour
     {
         if (players[playerIndex].isKeyboard)
         {
-            return 0;
+            return GetHorizontalAxis();
         }
         else
         {
@@ -439,6 +446,119 @@ public class InputManager : MonoBehaviour
                     return pad.rightStick.x.ReadValue();
             }
         }
+    }
+
+
+    /// <summary>
+    /// Getting the vertical axis value from keyboard
+    /// </summary>
+    /// <param name="joystick"></param>
+    /// <param name="playerIndex"></param>
+    /// <returns></returns>
+    public float GetVerticalAxis()
+    {
+        if(keyboard.wKey.isPressed)
+        {
+            return 1.0f;
+        }
+        else if (keyboard.sKey.isPressed)
+        {
+            return -1.0f;
+        }
+        else
+        {
+            return 0.0f;
+        }
+
+
+        
+    }
+
+    /// <summary>
+    /// Getting the Horizontall Axis value from keyboard
+    /// </summary>
+    /// <param name="joystick"></param>
+    /// <param name="playerIndex"></param>
+    /// <returns></returns>
+    public float GetHorizontalAxis()
+    {
+        if (keyboard.dKey.isPressed)
+        {
+            return 1.0f;
+        }
+        else if (keyboard.aKey.isPressed)
+        {
+            return -1.0f;
+        }
+        else
+        {
+            return 0.0f;
+        }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <returns></returns>
+    public bool GetMouseDown(MouseButton button)
+    {
+
+        switch (button)
+        {
+            default:
+                Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
+                return 0;
+            case MouseButton.LEFT:
+                return mouse.leftButton.wasPressedThisFrame;
+
+            case MouseButton.RIGHT:
+                return mouse.rightButton.wasPressedThisFrame;
+        }
+
+    }
+
+    public bool GetMousePress(MouseButton button)
+    {
+
+        switch (button)
+        {
+            default:
+                Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
+                return 0;
+            case MouseButton.LEFT:
+                return mouse.leftButton.isPressed;
+
+            case MouseButton.RIGHT:
+                return mouse.rightButton.isPressed;
+        }
+
+    }
+
+    /// <summary>
+    /// Get the mouse Vertical axis
+    /// </summary>
+    /// <returns></returns>
+    public float GetMouseVertAxis()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = Camera.main.farClipPlane * .5f;
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+
+        return worldPoint.y;
+
+    }
+    /// <summary>
+    /// Get the mouse Horizontal axis
+    /// </summary>
+    /// <returns></returns>
+    public float GetMouseHortAxis()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = Camera.main.farClipPlane * .5f;
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+
+        return worldPoint.x;
+
     }
 
     /*
