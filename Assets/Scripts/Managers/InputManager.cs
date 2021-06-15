@@ -507,7 +507,7 @@ public class InputManager : MonoBehaviour
         {
             default:
                 Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
-                return 0;
+                return false;
             case MouseButton.LEFT:
                 return mouse.leftButton.wasPressedThisFrame;
 
@@ -528,7 +528,7 @@ public class InputManager : MonoBehaviour
         {
             default:
                 Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
-                return 0;
+                return false;
             case MouseButton.LEFT:
                 return mouse.leftButton.isPressed;
 
