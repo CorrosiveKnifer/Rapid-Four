@@ -496,7 +496,7 @@ public class InputManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// 
+    /// Checking if the mouse button is down
     /// </summary>
     /// <param name="button"></param>
     /// <returns></returns>
@@ -516,7 +516,11 @@ public class InputManager : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Checking if the mouse button is pressed
+    /// </summary>
+    /// <param name="button"></param>
+    /// <returns></returns>
     public bool GetMousePress(MouseButton button)
     {
 
