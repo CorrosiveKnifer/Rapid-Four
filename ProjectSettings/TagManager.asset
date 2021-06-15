@@ -9,6 +9,7 @@ TagManager:
   - Planet
   - PowerUp
   - Camera
+  - Enemy
   layers:
   - Default
   - TransparentFX
