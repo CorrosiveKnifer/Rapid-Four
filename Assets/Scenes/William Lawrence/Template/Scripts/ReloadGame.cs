@@ -12,9 +12,9 @@ public class ReloadGame : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    Reload();
-        //}
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
     }
 }

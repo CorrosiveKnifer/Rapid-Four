@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 /// <summary>
-/// Rachael Colaco
+/// Michael Jordan
 /// </summary>
 public class InputManager : MonoBehaviour
 {
@@ -76,6 +77,7 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
+
     struct Controller
     {
         public Controller(bool _isKeyboard = false, int _controllerID = 0)
@@ -130,10 +132,7 @@ public class InputManager : MonoBehaviour
 
             case KeyType.KEY_4:
                 return keyboard.digit4Key.wasPressedThisFrame;
-
         }
-
-
     }
 
 
@@ -144,7 +143,7 @@ public class InputManager : MonoBehaviour
     /// <param name="buttonName"></param>
     /// <param name="playerIndex"></param>
     /// <returns></returns>
-    public bool GetKeyDown(ButtonType buttonName,  int playerIndex)
+    public bool GetKeyDown(ButtonType buttonName, int playerIndex)
     {
         if (players[playerIndex].isKeyboard)
         {
@@ -447,7 +446,6 @@ public class InputManager : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// Getting the vertical axis value from keyboard

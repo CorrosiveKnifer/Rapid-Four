@@ -11,9 +11,9 @@ public class QuitGame : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    Quit();
-        //}
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            Quit();
+        }
     }
 }

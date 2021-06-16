@@ -103,18 +103,18 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    m_CurrentStateIndex = 0;
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    m_CurrentStateIndex = 1;
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    m_CurrentStateIndex = 2;
-        //}
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            m_CurrentStateIndex = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            m_CurrentStateIndex = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            m_CurrentStateIndex = 2;
+        }
 
         for (int i = 0; i < m_CameraButtons.Length; i++)
         {
