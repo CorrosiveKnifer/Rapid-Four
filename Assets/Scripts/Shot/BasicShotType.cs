@@ -91,5 +91,10 @@ public class BasicShotType : ShotType
                 Destroy(gameObject);
             }            
         }
+        if(other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyAI>().HurtEnemy(damage);
+            Destroy(gameObject);
+        }
     }
 }

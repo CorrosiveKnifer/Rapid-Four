@@ -9,8 +9,8 @@ public class BasicRangeBehavour : EnemyAttackBehavour
     public float m_shotDelay = 3.0f;
     public float m_shotDamage = 10.0f;
     public GameObject m_projPrefab;
-    
-    private void Awake()
+
+    protected override void Awake()
     {
         m_preferedPersonalDistance = 45f;
         m_preferedAttackDistance = 50.0f;
