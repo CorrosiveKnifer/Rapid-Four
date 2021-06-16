@@ -90,18 +90,167 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
-
-    struct Controller
+    public struct Controller
     {
-        public Controller(bool _isKeyboard = false, int _controllerID = 0)
+        public Controller(bool _isKeyboard = false, int _controllerID = 0, Gamepad _gamepad = null, int _shipId =0)
         {
-            isKeyboard = false;
-            controllerID = 0;
+            isKeyboard = _isKeyboard;
+            controllerID = _controllerID;
+            gamepad = _gamepad;
         }
         public bool isKeyboard;
         public int controllerID;
+        public Gamepad gamepad;
+
     }
     private Controller[] players = new Controller[2];
+
+    public bool IsPlayerAssigned(int id)
+    {
+        if (players[id].isKeyboard || players[id].gamepad != null)
+        {
+            return true;
+        }
+        return false;
+    }
+    //-----------------------------------------------------------------------
+    //this section is for lobby
+
+    public bool CheckGampadConnected(int id)
+    {
+        foreach(Gamepad padAvail in Gamepad.all)
+        {
+            if(padAvail == players[id].gamepad)
+            {
+                return true;
+            }
+        }
+        players[id].gamepad = null;
+        return false;
+    }
+    public void LobbyDetection()
+    {
+        if(!PlayerChoseGamepad() && !PlayerChoseKeyBoard())
+        {
+            Select(0);
+            return;
+        }
+
+        for(int i=0; i< players.Length; i++)
+        {
+            //check if there is no controls assigned to this player
+            if (!players[i].isKeyboard && players[i].gamepad == null)
+            {
+
+                Select(i);
+                
+            }
+            else if(players[i].isKeyboard || players[i].gamepad != null)
+            {
+                Deselect(i);
+            }
+            
+        }
+    }
+    public bool PlayerChoseGamepad()
+    {
+        foreach (Controller player in players)
+        {
+            if(player.gamepad !=null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool PlayerChoseKeyBoard()
+    {
+        foreach (Controller player in players)
+        {
+            if (player.isKeyboard)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void Deselect(int _index)
+    {
+        //if its assigned to keys
+        if (players[_index].isKeyboard)
+        {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                players[_index] = new Controller();
+                Debug.Log("deselect player " + _index.ToString() + " with keyboard");
+            }
+            
+        }
+        else
+        {
+            if(players[_index].gamepad.buttonEast.wasPressedThisFrame)
+            {
+                players[_index] = new Controller();
+                Debug.Log("deselect player " + _index.ToString() + " with controller");
+            }
+            
+
+        }
+    }
+    public void Select(int _index)
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && !PlayerChoseKeyBoard())
+        {
+            players[_index] = new Controller(true, _index);            
+            Debug.Log("confirm player " + _index.ToString() + " with keyboard");
+
+
+        }
+        else
+        {
+            confirmGamepad(_index);
+            
+        }
+    }
+    public void confirmGamepad(int _index)
+    {
+        Gamepad currentGamepad = Gamepad.current;
+        if (currentGamepad != null)
+        {
+            if (currentGamepad.buttonSouth.wasPressedThisFrame && UnasignedController(currentGamepad))
+            {
+
+                players[_index] = new Controller(false, _index, currentGamepad);
+
+                Debug.Log("confirm player " + _index.ToString() + " with Controller");
+                
+            }
+        }
+    }
+
+    public bool UnasignedController(Gamepad _gamepad)
+    {
+        foreach(Controller player in players)
+        {
+            if(player.isKeyboard )
+            {
+                return true;
+            }
+            if(player.gamepad == _gamepad)
+            {
+                return false;
+            }
+        }
+        return true;
+        
+    }
+    //-----------------------------------------------------------------------------
+    public Controller GetPlayerControl(int id)
+    {
+        return players[id];
+    }
+
 
     /// <summary>
     /// Checks if the key buttons has been pressed once
@@ -201,7 +350,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return false;
@@ -342,7 +491,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return false;
@@ -414,7 +563,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return 0;
@@ -460,7 +609,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return 0;
