@@ -138,7 +138,7 @@ public class EnemyAI : MonoBehaviour
     /// Hurt the enemy.
     /// </summary>
     /// <param name="damage"> Damage to deal to the enemy</param>
-    private void HurtEnemy(float damage)
+    public void HurtEnemy(float damage)
     {
         m_CurrentHealth -= damage;
         if (m_CurrentHealth <= 0.0f)

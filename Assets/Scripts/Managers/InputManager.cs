@@ -46,9 +46,22 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public static InputManager instance = null;
+    private static InputManager instance = null;
     public Mouse mouse;
     public Keyboard keyboard;
+
+    public static InputManager GetInstance()
+    {
+        if (instance == null)
+        {
+            GameObject loader = new GameObject();
+            instance = loader.AddComponent<InputManager>();
+            return loader.GetComponent<InputManager>();
+
+        }
+
+        return instance;
+    }
 
     private void Awake()
     {
