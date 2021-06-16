@@ -17,7 +17,6 @@ public class Astroid : MonoBehaviour
     public bool isDestroyed = false;
     public bool IsClockwise = true;
     public GameObject[] AstroidPrefab;
-    public GameObject minimapSprite;
 
     public int angle = 90;
     Rigidbody rigidBody;
@@ -85,11 +84,11 @@ public class Astroid : MonoBehaviour
         Vector3 perp = Vector3.Cross(m_planet.transform.position - transform.position, Vector3.forward).normalized;
         if(IsClockwise)
         {
-            rigidBody.velocity = perp.normalized * m_speed;
+            rigidBody.velocity = -perp.normalized * m_speed;
         }
         else
         {
-            rigidBody.velocity = -perp.normalized * m_speed;
+            rigidBody.velocity = perp.normalized * m_speed;
         }
     }
 
