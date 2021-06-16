@@ -24,7 +24,9 @@ public class CubeControls : MonoBehaviour
     Mouse mouse;
     Keyboard keyboard;
 
-    
+    public Camera myCamera;
+
+
 
     /// <summary>
     /// Creting and storing each controls in the 
@@ -348,6 +350,57 @@ public class CubeControls : MonoBehaviour
         }
 
     }
+    void mouseRot()
+    {
+        float RotHorizontalAxis = InputManager.GetInstance().GetMouseHortAxis(myCamera);
+        float RotVerticalAxis = InputManager.GetInstance().GetMouseVertAxis(myCamera);
+
+        Vector3 worldPoint = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f);
+
+        Vector3 direct = worldPoint - gameObject.transform.position;
+        direct.z = 0;
+        Quaternion lookDirect = Quaternion.LookRotation(direct, transform.up);
+        body.rotation = Quaternion.Slerp(body.rotation, lookDirect, rotationSpeed);
+    }
+    void rotation()
+    {
+        float RotHorizontalAxis = InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.RIGHT, playerID);
+        float RotVerticalAxis = InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.RIGHT, playerID);
+
+        Vector3 direct = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f).normalized;
+        if (RotHorizontalAxis != 0 || RotVerticalAxis != 0)
+        {
+            body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), 0.1f);
+        }
+    }
+    void KeyMovement()
+    {
+        float RotHorizontalAxis = InputManager.GetInstance().GetHorizontalAxis();
+        float RotVerticalAxis = InputManager.GetInstance().GetVerticalAxis();
+
+        Vector3 direct = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f).normalized;
+        if (RotHorizontalAxis != 0 || RotVerticalAxis != 0)
+        {
+            
+            body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
+
+            //Debug.Log(body.rotation);
+        }
+    }
+    void movement()
+    {
+        float RotHorizontalAxis = InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.LEFT, playerID);
+        float RotVerticalAxis = InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.LEFT, playerID);
+
+        Vector3 direct = new Vector3(RotHorizontalAxis, RotVerticalAxis, 0.0f).normalized;
+        if (RotHorizontalAxis != 0 || RotVerticalAxis != 0)
+        {
+
+            body.AddForce(direct * speed * Time.deltaTime, ForceMode.Acceleration);
+
+            //Debug.Log(body.rotation);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -361,14 +414,30 @@ public class CubeControls : MonoBehaviour
         //{
         //    GamepadControls();
         //}
+        //
 
-        InputManager.instance.GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID);
+        //controller option
+        movement();
+        rotation();
+
+        //keyboard option
+        //KeyMovement();
+        //mouseRot();
+        if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID))
+        {
+            Debug.Log("you click on button");
+        }
+        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_2, playerID))
+        {
+            Debug.Log("you click on button");
+        }
+
 
         //GamepadForPlayer1();
         //Movement();
     }
 
-   
+
 
 
 }

@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
 
     private static InputManager instance = null;
     public Mouse mouse;
-    public Keyboard keyboard;
+    public Keyboard keyboard = Keyboard.current;
 
     public static InputManager GetInstance()
     {
@@ -217,10 +217,10 @@ public class InputManager : MonoBehaviour
                     return pad.buttonNorth.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_EAST:
-                    return pad.buttonWest.wasPressedThisFrame;
+                    return pad.buttonEast.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_WEST:
-                    return pad.buttonNorth.wasPressedThisFrame;
+                    return pad.buttonWest.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_SOUTH:
                     return pad.buttonSouth.wasPressedThisFrame;
@@ -358,10 +358,10 @@ public class InputManager : MonoBehaviour
                     return pad.buttonNorth.isPressed;
 
                 case ButtonType.BUTTON_EAST:
-                    return pad.buttonWest.isPressed;
+                    return pad.buttonEast.isPressed;
 
                 case ButtonType.BUTTON_WEST:
-                    return pad.buttonNorth.isPressed;
+                    return pad.buttonWest.isPressed;
 
                 case ButtonType.BUTTON_SOUTH:
                     return pad.buttonSouth.isPressed;
@@ -395,12 +395,22 @@ public class InputManager : MonoBehaviour
     /// <param name="joystick"></param>
     /// <param name="playerIndex"></param>
     /// <returns></returns>
-    public float GetVerticalAxis(Joysticks joystick, int playerIndex)
+    public float GetVerticalAxis(Joysticks joystick, int playerIndex, Camera playercamera = null)
     {
         if (players[playerIndex].isKeyboard)
         {
+            switch (joystick)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported key type in GetVerticalAxis.");
+                    return 0;
+                case Joysticks.LEFT:
+                    return GetVerticalAxis();
 
-            return GetVerticalAxis();
+                case Joysticks.RIGHT:
+                    return GetMouseVertAxis(playercamera);
+            }
+            
         }
         else
         {
@@ -414,7 +424,7 @@ public class InputManager : MonoBehaviour
             switch (joystick)
             {
                 default:
-                    Debug.LogWarning($"Unsupported button type in GetKeyPress.");
+                    Debug.LogWarning($"Unsupported button type in GetVerticalAxis.");
                     return 0;
                 case Joysticks.LEFT:
                     return pad.leftStick.y.ReadValue();
@@ -431,11 +441,22 @@ public class InputManager : MonoBehaviour
     /// <param name="joystick"></param>
     /// <param name="playerIndex"></param>
     /// <returns></returns>
-    public float GetHorizontalAxis(Joysticks joystick, int playerIndex)
+    public float GetHorizontalAxis(Joysticks joystick, int playerIndex, Camera playercamera = null)
     {
         if (players[playerIndex].isKeyboard)
         {
-            return GetHorizontalAxis();
+            switch (joystick)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported key type in GetHorizontalAxis.");
+                    return 0;
+                case Joysticks.LEFT:
+                    return GetHorizontalAxis();
+
+                case Joysticks.RIGHT:
+                    return GetMouseHortAxis(playercamera);
+            }
+
         }
         else
         {
@@ -449,7 +470,7 @@ public class InputManager : MonoBehaviour
             switch (joystick)
             {
                 default:
-                    Debug.LogWarning($"Unsupported button type in GetKeyPress.");
+                    Debug.LogWarning($"Unsupported button type in GetHorizontalAxis.");
                     return 0;
                 case Joysticks.LEFT:
                     return pad.leftStick.x.ReadValue();
@@ -553,26 +574,34 @@ public class InputManager : MonoBehaviour
     /// Get the mouse Vertical axis
     /// </summary>
     /// <returns></returns>
-    public float GetMouseVertAxis()
+    public float GetMouseVertAxis(Camera playerCam)
     {
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = Camera.main.farClipPlane * .5f;
-        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+        if (playerCam != null)
+        {
+            Vector3 mousePos = Mouse.current.position.ReadValue();
+            mousePos.z = playerCam.farClipPlane * .5f;
+            Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
 
-        return worldPoint.y;
+            return worldPoint.y;
+        }
+        return 0;
 
     }
     /// <summary>
     /// Get the mouse Horizontal axis
     /// </summary>
     /// <returns></returns>
-    public float GetMouseHortAxis()
+    public float GetMouseHortAxis(Camera playerCam)
     {
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = Camera.main.farClipPlane * .5f;
-        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+        if (playerCam != null)
+        {
+            Vector3 mousePos = Mouse.current.position.ReadValue();
+            mousePos.z = playerCam.farClipPlane * .5f;
+            Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
 
-        return worldPoint.x;
+            return worldPoint.x;
+        }
+        return 0;
 
     }
 
