@@ -24,6 +24,8 @@ public class CubeControls : MonoBehaviour
     Mouse mouse;
     Keyboard keyboard;
 
+    
+
     /// <summary>
     /// Creting and storing each controls in the 
     /// </summary>
@@ -46,6 +48,7 @@ public class CubeControls : MonoBehaviour
             //float here = allGamepads.Count;
             //Debug.Log(player1);
         }
+       
 
         //Debug.Log(string.Join("\n", Gamepad.all));
     }
@@ -350,16 +353,16 @@ public class CubeControls : MonoBehaviour
     void Update()
     {
 
-        KeyboardControls();
-        MouseControls();
+        //KeyboardControls();
+        //MouseControls();
 
         //if (Gamepad.all.Count != 0 )
-        if (player1 != null)
-        {
-            GamepadControls();
-        }
+        //if (player1 != null)
+        //{
+        //    GamepadControls();
+        //}
 
-
+        InputManager.instance.GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID);
 
         //GamepadForPlayer1();
         //Movement();
