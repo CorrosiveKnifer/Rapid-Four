@@ -20,14 +20,20 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attachments")]
     public GameObject[] projectileSpawnLoc;
+    public GameObject noseProjectileSpawnLoc;
     public Shield shieldObject;
     public Animator[] engine;
     public Animator immune;
     public CameraAgent myCamera;
     public bool usingKeyboard = false;
+
     private GameObject proj;
     private GameObject homing;
+    private GameObject blackhole;
+    private GameObject energyWave;
     private GameObject beam;
+
+    private GameObject currentBlackhole;
 
     [Header("Primary Fire Overheat")]
     public float m_currentHeatLevel = 0.0f;
@@ -103,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         DASH,
         PARTICLE_BEAM,
+        BLACKHOLE_PROJECTILE,
     }
 
     //ControlInput controls;
@@ -131,6 +138,8 @@ public class PlayerController : MonoBehaviour
         body = GetComponentInChildren<Rigidbody>();
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
         homing = Resources.Load<GameObject>("Prefabs/HomingShot");
+        blackhole = Resources.Load<GameObject>("Prefabs/BlackholeProjectile");
+        energyWave = Resources.Load<GameObject>("Prefabs/EnergyWave");
         beam = Resources.Load<GameObject>("Prefabs/ParticleBeam");
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
@@ -277,6 +286,11 @@ public class PlayerController : MonoBehaviour
         if (m_fAbility2Timer > 0)
             m_fAbility2Timer -= Time.deltaTime;
 
+        if (currentBlackhole != null && gamepad.leftShoulder.wasPressedThisFrame)
+        {
+           // currentBlackhole.GetComponent<BlackholeProjectile>().ActivateBlackhole();
+        }
+
         if (m_fSecondaryFireTimer <= 0 && gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
         {
             m_fSecondaryFireTimer = m_fSecondaryFireCD;
@@ -292,6 +306,7 @@ public class PlayerController : MonoBehaviour
             m_fAbility2Timer = m_fAbility2CD;
             Ability2.Invoke();
         }
+
     }
 
     private void Shoot()
@@ -329,6 +344,8 @@ public class PlayerController : MonoBehaviour
         if (m_currentHeatLevel >= 100.0f)
         {
             m_currentHeatLevel = 100.0f;
+            if (!m_overheated)
+                audioAgent.PlaySoundEffect("Overheated");
             m_overheated = true;
         }
 
@@ -340,6 +357,8 @@ public class PlayerController : MonoBehaviour
         if (m_currentHeatLevel <= 0)
         {
             m_currentHeatLevel = 0.0f;
+            if (m_overheated)
+                audioAgent.PlaySoundEffect("Empty");
             m_overheated = false;
         }
     }
@@ -347,7 +366,7 @@ public class PlayerController : MonoBehaviour
     public void AbilityHomingMissile()
     {
         // Summon Homing Missile
-        GameObject gObject = Instantiate(homing, transform.position, Quaternion.identity);
+        GameObject gObject = Instantiate(homing, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
         gObject.transform.up = transform.forward;
 
         //Send projectile
@@ -375,6 +394,28 @@ public class PlayerController : MonoBehaviour
         audioAgent.PlaySoundEffect("BeamCharge");
     }
 
+    public void AbilityEnergyWave()
+    {
+        // Summon Wave
+        GameObject gObject = Instantiate(energyWave, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+        gObject.transform.up = transform.forward;
+
+        gObject.transform.SetParent(gameObject.transform);
+    }
+
+    public void AbilityBlackhole()
+    {
+        if (currentBlackhole == null)
+        {
+            // Summon blackhole
+            currentBlackhole = Instantiate(blackhole, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+            currentBlackhole.transform.up = transform.forward;
+
+            //Send projectile
+            currentBlackhole.GetComponent<Rigidbody>().AddForce(transform.forward * 20.0f, ForceMode.Impulse);
+        }
+    }
+
     private void EffectUpdate()
     {
         List<activeEffect> removeList = new List<activeEffect>();
@@ -399,7 +440,7 @@ public class PlayerController : MonoBehaviour
                         GetComponent<Rigidbody>().velocity = MoveDir * 20.0f;
                         break;
                     case abilityType.PARTICLE_BEAM:
-                        GameObject gObject = Instantiate(beam, transform.position, Quaternion.identity);
+                        GameObject gObject = Instantiate(beam, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
                         gObject.transform.up = transform.forward;
                         GetComponent<Rigidbody>().velocity -= transform.forward * 50.0f;
                         audioAgent.StopAudio("BeamCharge");
