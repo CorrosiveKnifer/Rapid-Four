@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -227,7 +227,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1429,41 +1429,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 277664656531758401, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 277664656531758401, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 277664656531758401, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 277664656531758401, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.b
-      value: 0.0421579
-      objectReference: {fileID: 0}
-    - target: {fileID: 277664656531758401, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 277664656531758401, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.r
-      value: 0.735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 277664656531758403, guid: 53c8b8f02de07f44ca9ed0a045470b92,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6123029695138328569, guid: 53c8b8f02de07f44ca9ed0a045470b92,
         type: 3}
       propertyPath: m_Name
@@ -1476,18 +1441,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123029695138328575, guid: 53c8b8f02de07f44ca9ed0a045470b92,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123029695138328575, guid: 53c8b8f02de07f44ca9ed0a045470b92,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123029695138328575, guid: 53c8b8f02de07f44ca9ed0a045470b92,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.2
+      value: -24.9
       objectReference: {fileID: 0}
     - target: {fileID: 6123029695138328575, guid: 53c8b8f02de07f44ca9ed0a045470b92,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.63
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 6123029695138328575, guid: 53c8b8f02de07f44ca9ed0a045470b92,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.51
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6123029695138328575, guid: 53c8b8f02de07f44ca9ed0a045470b92,
         type: 3}
