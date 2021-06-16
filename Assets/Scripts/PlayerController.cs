@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private GameObject beam;
 
     private GameObject currentBlackhole;
+    private GameObject currentLaser;
 
     [Header("Primary Fire Overheat")]
     public float m_currentHeatLevel = 0.0f;
@@ -387,11 +388,19 @@ public class PlayerController : MonoBehaviour
     public void AbilityParticleBeam()
     {
         // IMA FIORIN MAH LAHSOR
-        activeEffect newEffect = new activeEffect();
-        newEffect.effect = abilityType.PARTICLE_BEAM;
-        newEffect.duration = 1.05f;
-        playerEffects.Add(newEffect);
-        audioAgent.PlaySoundEffect("BeamCharge");
+        if (currentLaser == null)
+        {
+            currentLaser = Instantiate(beam, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+            currentLaser.transform.up = transform.forward;
+
+            currentLaser.transform.SetParent(gameObject.transform);
+
+            activeEffect newEffect = new activeEffect();
+            newEffect.effect = abilityType.PARTICLE_BEAM;
+            newEffect.duration = 1.05f;
+            playerEffects.Add(newEffect);
+            audioAgent.PlaySoundEffect("BeamCharge");
+        }
     }
 
     public void AbilityEnergyWave()
@@ -440,8 +449,7 @@ public class PlayerController : MonoBehaviour
                         GetComponent<Rigidbody>().velocity = MoveDir * 20.0f;
                         break;
                     case abilityType.PARTICLE_BEAM:
-                        GameObject gObject = Instantiate(beam, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
-                        gObject.transform.up = transform.forward;
+                        currentLaser.transform.SetParent(null);
                         GetComponent<Rigidbody>().velocity -= transform.forward * 50.0f;
                         audioAgent.StopAudio("BeamCharge");
                         audioAgent.PlaySoundEffect("BeamRelease");
