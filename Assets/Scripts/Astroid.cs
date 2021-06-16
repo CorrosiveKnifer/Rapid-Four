@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Rachael Colaco, William de Beer
+/// Michael Jordan
 /// </summary>
 
 public class Astroid : MonoBehaviour
@@ -15,8 +15,8 @@ public class Astroid : MonoBehaviour
     public float probability = 50.0f;
     public float m_speed = 10.0f;
     public bool isDestroyed = false;
+    public bool IsClockwise = true;
     public GameObject[] AstroidPrefab;
-    Vector3 Astroiddirection;
     public GameObject minimapSprite;
 
     public int angle = 90;
@@ -28,12 +28,6 @@ public class Astroid : MonoBehaviour
 
     public Material baseMat;
     public Material slowMat;
-
-    Vector3 FirstDir;
-    Vector3 SecondDir;
-
-    private bool isQuitting = false;
-    private float slowTime = 0.0f;
 
     private GameObject m_planet;
 
@@ -89,7 +83,14 @@ public class Astroid : MonoBehaviour
     void Update()
     {
         Vector3 perp = Vector3.Cross(m_planet.transform.position - transform.position, Vector3.forward).normalized;
-        rigidBody.velocity = perp.normalized * m_speed;
+        if(IsClockwise)
+        {
+            rigidBody.velocity = perp.normalized * m_speed;
+        }
+        else
+        {
+            rigidBody.velocity = -perp.normalized * m_speed;
+        }
     }
 
     private void OnApplicationQuit()
