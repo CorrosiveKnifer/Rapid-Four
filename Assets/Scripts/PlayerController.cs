@@ -29,6 +29,12 @@ public class PlayerController : MonoBehaviour
     private GameObject homing;
     private GameObject beam;
 
+    [Header("Primary Fire Overheat")]
+    public float m_currentHeatLevel = 0.0f;
+    public float m_heatPerShot = 5.0f;
+    public float m_cooloffRate = 20.0f;
+    public bool m_overheated = false;
+
     [Header("Abilities")]
     public UnityEvent SecondaryFire;
     public UnityEvent Ability1;
@@ -293,8 +299,9 @@ public class PlayerController : MonoBehaviour
         if (m_fShootTimer > 0)
             m_fShootTimer -= Time.deltaTime;
 
-        if (gamepad.rightTrigger.isPressed && m_fShootTimer <= 0)
+        if (gamepad.rightTrigger.isPressed && m_fShootTimer <= 0 && !m_overheated)
         {
+            m_currentHeatLevel += m_heatPerShot;
             m_fShootTimer = 1.0f / m_fFirerate;
 
             bool hasShot = false;
@@ -318,14 +325,23 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //if (InputManager.instance.GetPlayerUnshoot(ID))
-        //{
-        //    foreach (var gameObject in projectileSpawnLoc)
-        //    {
-        //        gameObject.GetComponent<GunType>().UnFire();
-        //        audioAgent.StopAudio("Laser");
-        //    }
-        //}
+        // Overheating System
+        if (m_currentHeatLevel >= 100.0f)
+        {
+            m_currentHeatLevel = 100.0f;
+            m_overheated = true;
+        }
+
+        if (m_currentHeatLevel > 0 && (!gamepad.rightTrigger.isPressed || m_overheated))
+        {
+            m_currentHeatLevel -= Time.deltaTime * m_cooloffRate;
+        }
+
+        if (m_currentHeatLevel <= 0)
+        {
+            m_currentHeatLevel = 0.0f;
+            m_overheated = false;
+        }
     }
 
     public void AbilityHomingMissile()
@@ -354,7 +370,7 @@ public class PlayerController : MonoBehaviour
         // IMA FIORIN MAH LAHSOR
         activeEffect newEffect = new activeEffect();
         newEffect.effect = abilityType.PARTICLE_BEAM;
-        newEffect.duration = 1.0f;
+        newEffect.duration = 1.05f;
         playerEffects.Add(newEffect);
         audioAgent.PlaySoundEffect("BeamCharge");
     }
