@@ -116,6 +116,7 @@ public class InputManager : MonoBehaviour
     //-----------------------------------------------------------------------
     //this section is for lobby
 
+    
     public bool CheckGampadConnected(int id)
     {
         foreach(Gamepad padAvail in Gamepad.all)
@@ -246,9 +247,33 @@ public class InputManager : MonoBehaviour
         
     }
     //-----------------------------------------------------------------------------
+    /// <summary>
+    /// get the player controller by player id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Controller GetPlayerControl(int id)
     {
         return players[id];
+    }
+
+    /// <summary>
+    /// Automatically assigned controllers (assigns the controllers first before keyboard
+    /// </summary>
+    public void DefaultAssignControllers()
+    {
+        int index = 0;
+        foreach (Gamepad padAvail in Gamepad.all)
+        {
+            players[index].gamepad = padAvail;
+            players[index].controllerID = index;
+            index++;
+        }
+        if (index != 2)
+        {
+            players[index].isKeyboard = true;
+        }
+
     }
 
 
