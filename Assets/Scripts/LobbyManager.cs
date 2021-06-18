@@ -81,6 +81,7 @@ public class LobbyManager : MonoBehaviour
            // Debug.Log("PlayerTwo has " + InputManager.GetInstance().GetPlayerControl(1).shipID);
 
             //displayment on Lobby ---------------------------------------------------------------------------
+            //text instruction displayment depending on control choice
             if (InputManager.GetInstance().PlayerChoseKeyBoard())
             {
                 instructTexts[0].GetComponent<Text>().text = "Press A";
@@ -92,10 +93,13 @@ public class LobbyManager : MonoBehaviour
                 instructTexts[1].GetComponent<Text>().text = "Press A/Press space";
             }
             
+            //Selector displayment
+            //The selector moving for the player 1
             player1Selector.transform.position = player1OptImage[P1_index].transform.position;
             player2Selector.transform.position = player2OptImage[P2_index].transform.position;
 
-            //check if player one assigned
+
+            //check if player two with a controller for display purposes
             if (InputManager.GetInstance().IsPlayerAssigned(0))
             {
                 instructTexts[0].SetActive(false);
@@ -105,6 +109,7 @@ public class LobbyManager : MonoBehaviour
                 player1OptionPanel.SetActive(true);
 
                 player1Ready.SetActive(false);
+                //for keyboard confirmation
                 if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
                 {
                     player1KeyPanel.SetActive(true);
@@ -126,7 +131,7 @@ public class LobbyManager : MonoBehaviour
                 playerOneImg.color = Color.red;
             }
 
-            //check if player two assigned
+            //check if player two with a controller for display purposes
             if (InputManager.GetInstance().IsPlayerAssigned(1))
             {
                 instructTexts[1].SetActive(false);
@@ -136,6 +141,7 @@ public class LobbyManager : MonoBehaviour
 
                 player2Ready.SetActive(false);
 
+                //for keyboard confirmation
                 if (InputManager.GetInstance().GetPlayerControl(1).isKeyboard)
                 {
                     player2KeyPanel.SetActive(true);
@@ -156,29 +162,24 @@ public class LobbyManager : MonoBehaviour
                 playerTwoImg.color = Color.red;
             }
 
+            //displays the READY sign
+            //for  player 1
             if(InputManager.GetInstance().IsPlayerReady(0))
             {
                 playerOneImg.color = Color.green;
                 player1Ready.SetActive(true);
             }
-          
+            //for player 2
             if (InputManager.GetInstance().IsPlayerReady(1))
             {
                 playerTwoImg.color = Color.green;
                 player2Ready.SetActive(true);
             }
-
-            /*
-
-            if (InputManager.GetInstance().IsPlayerAssigned(0) && InputManager.GetInstance().IsPlayerAssigned(1))
-            {
-                playerOneImg.color = Color.green;
-                playerTwoImg.color = Color.green;
-            }
-            */
+            // end of displayment on Lobby ---------------------------------------------------------------------------
 
 
-
+            // if any of the controller disconnected
+            //for the player 1
             if (!InputManager.GetInstance().GetPlayerControl(0).isKeyboard && InputManager.GetInstance().GetPlayerControl(0).gamepad != null)
             {
                 if (!InputManager.GetInstance().CheckGampadConnected(0))
@@ -186,7 +187,7 @@ public class LobbyManager : MonoBehaviour
                     Debug.Log("player one disconnected");
                 }
             }
-
+            //for the player 2
             if (!InputManager.GetInstance().GetPlayerControl(1).isKeyboard && InputManager.GetInstance().GetPlayerControl(1).gamepad != null)
             {
                 if (!InputManager.GetInstance().CheckGampadConnected(1))
@@ -195,19 +196,23 @@ public class LobbyManager : MonoBehaviour
                 }
             }
 
+            //canceling the ship Id after confirming they want to cancel their selection
+            //for the player one 
             if (cancelp1ShipID == true)
             {
                 //setting player one step to no ship id
                 InputManager.GetInstance().SetShipToPlayer(0, 0);
                 cancelp1ShipID = false;
             }
+            //for the player two
             if (cancelp2ShipID == true)
             {
-                //setting player one step to no ship id
+                //setting player two step to no ship id
                 InputManager.GetInstance().SetShipToPlayer(1, 0);
                 cancelp2ShipID = false;
             }
 
+            //For when the players have both controllers and ship selected
             //Check if both player already selected a ship
             if (InputManager.GetInstance().IsPlayerReady(0) && InputManager.GetInstance().IsPlayerReady(1))
             {
@@ -244,6 +249,8 @@ public class LobbyManager : MonoBehaviour
 
 
     }
+
+    //setting the index to move when it detects the stick/key direction
     int MoveIndex(int direction,int CurrentIndex)
     {
         CurrentIndex += direction;
@@ -262,6 +269,9 @@ public class LobbyManager : MonoBehaviour
 
 
     }
+    /// <summary>
+    /// Set the index of the player one selection
+    /// </summary>
     void PlayerOneSelecting()
     {
         if (InputManager.GetInstance().GetPlayerControl(0).shipID == 0)
@@ -280,6 +290,10 @@ public class LobbyManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Set the index of the player two selection
+    /// </summary>
     void PlayerTwoSelecting()
     {
         if (InputManager.GetInstance().GetPlayerControl(1).shipID == 0)
@@ -298,13 +312,20 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Goes through the function to confirm the ship selected
+    /// </summary>
+    /// <param name="playerID"></param>
+    /// <param name="Shipindex"></param>
     void ChosingPlayerShip(int playerID, int Shipindex)
     {
-        //Debug.Log(InputManager.GetInstance().GetPlayerControl(playerID).shipID);
+        //if no ship have been selected then get confirmation to select ship
         if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == 0)
         {
+            //if they have a key controls
             if (InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
+                //presing space
                 if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID))
                 {
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
@@ -313,7 +334,7 @@ public class LobbyManager : MonoBehaviour
                 }
                 
             }
-            else
+            else //otherwise if its gamepad
             {
                 if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID))
                 {
@@ -324,41 +345,29 @@ public class LobbyManager : MonoBehaviour
                 }
                 
             }
-            /*
-            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, playerID))
-            {
-                Debug.Log("right");
-                MoveIndex(1, Shipindex);
-
-
-                return;
-            }
-            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, playerID))
-            {
-                Debug.Log("left");
-                MoveIndex(-1, Shipindex);
-                return;
-            }
-            */
+      
         }
-        else
+        else //if they have a ship selected, get confirmation to cancel the ship
         {
+            //if its a key controls
             if(InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
+                //pressing escape key
                 if(InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, playerID))
                 {
                     if (playerID == 0)
                     {
-                        cancelp1ShipID = true;
+                        cancelp1ShipID = true; //confirm the cancelation
                     }
                     else
                     {
-                        cancelp2ShipID = true;
+                        cancelp2ShipID = true; //confirm the cancelation
                     }
                     //Debug.Log("player" + playerID + " ship has been cancel with selection " + Shipindex);
                 }
 
             }
+            //otherwise if its gamepad
             else if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID))
             {
                 if(playerID ==0)
