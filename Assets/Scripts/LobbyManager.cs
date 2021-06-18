@@ -35,9 +35,6 @@ public class LobbyManager : MonoBehaviour
     public GameObject[] player1OptImage;
     public GameObject[] player2OptImage;
  
-
-    
-
     public int P1_index = 0;
 
     public int P2_index = 0;
@@ -279,13 +276,13 @@ public class LobbyManager : MonoBehaviour
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, 0))
             {
                 Debug.Log("right");
-                P1_index=MoveIndex(1, P1_index);
+                P1_index = MoveIndex(1, P1_index);
 
             }
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, 0))
             {
                 Debug.Log("left");
-                P1_index=MoveIndex(-1, P1_index);
+                P1_index = MoveIndex(-1, P1_index);
 
             }
         }
@@ -370,7 +367,7 @@ public class LobbyManager : MonoBehaviour
             //otherwise if its gamepad
             else if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID))
             {
-                if(playerID ==0)
+                if(playerID == 0)
                 {
                     cancelp1ShipID = true;
                 }
