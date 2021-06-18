@@ -31,6 +31,21 @@ public class InputManager : MonoBehaviour
 
     }
 
+    public enum StickDirection
+    {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
+
+    }
+    public enum MouseButton
+    {
+        LEFT,
+        RIGHT
+
+    }
+
     public enum KeyType
     {
         KEY_W,
@@ -48,7 +63,7 @@ public class InputManager : MonoBehaviour
 
     private static InputManager instance = null;
     public Mouse mouse;
-    public Keyboard keyboard;
+    public Keyboard keyboard = Keyboard.current;
 
     public static InputManager GetInstance()
     {
@@ -84,18 +99,274 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
-
-    struct Controller
+    public struct Controller
     {
-        public Controller(bool _isKeyboard = false, int _controllerID = 0)
+        public Controller(bool _isKeyboard = false, int _controllerID = 0, Gamepad _gamepad = null, int _shipID =0)
         {
-            isKeyboard = false;
-            controllerID = 0;
+            isKeyboard = _isKeyboard;
+            controllerID = _controllerID;
+            gamepad = _gamepad;
+            shipID = _shipID;
         }
         public bool isKeyboard;
         public int controllerID;
+        public Gamepad gamepad;
+        public int shipID;
+
     }
     private Controller[] players = new Controller[2];
+    /// <summary>
+    /// Check if the player is assigned a controller
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public bool IsPlayerAssigned(int id)
+    {
+        if (players[id].isKeyboard || players[id].gamepad != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Set ship ID
+    /// </summary>
+    /// <param name="_shipID"></param>
+    /// <param name="_playerID"></param>
+    public void SetShipToPlayer(int _playerID, int _shipID)
+    {
+        players[_playerID].shipID = _shipID;
+    }
+
+    /// <summary>
+    /// Set the controller to Keyboard
+    /// </summary>
+    /// <param name="_isKeyboard"></param>
+    /// <param name="_playerID"></param>
+    public void SetKeyToPlayer( int _playerID, bool _isKeyboard)
+    {
+        players[_playerID].isKeyboard = _isKeyboard;
+    }
+    /// <summary>
+    /// check if the certain player is ready as it has both have a control assigned and a ship assigned
+    /// </summary>
+    /// <param name="_playerID"></param>
+    /// <returns></returns>
+
+    public bool IsPlayerReady(int _playerID)
+    {
+        if(IsPlayerAssigned(_playerID) && players[_playerID].shipID !=0)
+        {
+            return true;
+        }
+        return false;
+    }
+    //-----------------------------------------------------------------------
+    //this section is for lobby
+
+    /// <summary>
+    /// check if the gamepad is connected otherwise it assigned as null
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public bool CheckGampadConnected(int id)
+    {
+        foreach(Gamepad padAvail in Gamepad.all)
+        {
+            if(padAvail == players[id].gamepad)
+            {
+                return true;
+            }
+        }
+        players[id] = new Controller();
+
+        return false;
+    }
+
+    /// <summary>
+    /// check on any detection on the controller for the player(s)
+    /// </summary>
+    public void LobbyDetection()
+    {
+        if(!PlayerChoseGamepad() && !PlayerChoseKeyBoard() && players[0].shipID == 0)
+        {
+            confirmController(0);
+            return;
+        }
+
+        for(int i=0; i< players.Length; i++)
+        {
+            //check if there is no controls assigned to this player
+            if (!players[i].isKeyboard && players[i].gamepad == null)
+            {
+                if (players[i].shipID == 0)
+                    confirmController(i);
+                
+            }
+            else if(players[i].isKeyboard || players[i].gamepad != null)
+            {
+                if (players[i].shipID == 0)
+                    cancelController(i);
+             
+            }
+            
+        }
+    }
+
+    /// <summary>
+    /// check if player chose gamepad
+    /// </summary>
+    /// <returns></returns>
+    public bool PlayerChoseGamepad()
+    {
+        foreach (Controller player in players)
+        {
+            if(player.gamepad !=null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// checks if player chose keyboard
+    /// </summary>
+    /// <returns></returns>
+    public bool PlayerChoseKeyBoard()
+    {
+        foreach (Controller player in players)
+        {
+            if (player.isKeyboard)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    /// <summary>
+    /// waits for a confirmation to unassign controller
+    /// </summary>
+    /// <param name="_index"></param>
+    public void cancelController(int _index)
+    {
+        //if its assigned to keys
+        if (players[_index].isKeyboard)
+        {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                players[_index] = new Controller();
+                Debug.Log("deselect player " + _index.ToString() + " with keyboard");
+            }
+            
+        }
+        else
+        {
+            if(players[_index].gamepad.buttonEast.wasPressedThisFrame)
+            {
+                players[_index] = new Controller();
+                Debug.Log("deselect player " + _index.ToString() + " with controller");
+            }
+            
+
+        }
+    }
+
+    /// <summary>
+    /// waits for a confirmation to assign controller
+    /// </summary>
+    /// <param name="_index"></param>
+    public void confirmController(int _index)
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && !PlayerChoseKeyBoard())
+        {
+            players[_index] = new Controller(true, _index);            
+            Debug.Log("confirm player " + _index.ToString() + " with keyboard");
+
+
+        }
+        else
+        {
+            confirmGamepad(_index);
+            
+        }
+    }
+
+    /// <summary>
+    /// comfirming for a gamepad
+    /// </summary>
+    /// <param name="_index"></param>
+    public void confirmGamepad(int _index)
+    {
+        Gamepad currentGamepad = Gamepad.current;
+        if (currentGamepad != null)
+        {
+            if (currentGamepad.buttonSouth.wasPressedThisFrame && UnasignedController(currentGamepad))
+            {
+
+                players[_index] = new Controller(false, _index, currentGamepad);
+
+                Debug.Log("confirm player " + _index.ToString() + " with Controller");
+                
+            }
+        }
+    }
+
+    /// <summary>
+    /// check if this the player controls are assigned both from the key and the gamepad
+    /// </summary>
+    /// <param name="_gamepad"></param>
+    /// <returns></returns>
+    public bool UnasignedController(Gamepad _gamepad)
+    {
+        foreach(Controller player in players)
+        {
+            if(player.isKeyboard )
+            {
+                return true;
+            }
+            if(player.gamepad == _gamepad)
+            {
+                return false;
+            }
+        }
+        return true;
+        
+    }
+    //end of lobby selection
+    //-----------------------------------------------------------------------------
+
+
+    /// <summary>
+    /// get the player controller by player id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public Controller GetPlayerControl(int id)
+    {
+        return players[id];
+    }
+
+    /// <summary>
+    /// Automatically assigned controllers (assigns the controllers first before keyboard
+    /// </summary>
+    public void DefaultAssignControllers()
+    {
+        int index = 0;
+        foreach (Gamepad padAvail in Gamepad.all)
+        {
+            players[index].gamepad = padAvail;
+            players[index].controllerID = index;
+            index++;
+        }
+        if (index != 2)
+        {
+            players[index].isKeyboard = true;
+        }
+
+    }
+
 
     /// <summary>
     /// Checks if the key buttons has been pressed once
@@ -195,7 +466,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return false;
@@ -211,10 +482,10 @@ public class InputManager : MonoBehaviour
                     return pad.buttonNorth.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_EAST:
-                    return pad.buttonWest.wasPressedThisFrame;
+                    return pad.buttonEast.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_WEST:
-                    return pad.buttonNorth.wasPressedThisFrame;
+                    return pad.buttonWest.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_SOUTH:
                     return pad.buttonSouth.wasPressedThisFrame;
@@ -336,7 +607,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return false;
@@ -352,10 +623,10 @@ public class InputManager : MonoBehaviour
                     return pad.buttonNorth.isPressed;
 
                 case ButtonType.BUTTON_EAST:
-                    return pad.buttonWest.isPressed;
+                    return pad.buttonEast.isPressed;
 
                 case ButtonType.BUTTON_WEST:
-                    return pad.buttonNorth.isPressed;
+                    return pad.buttonWest.isPressed;
 
                 case ButtonType.BUTTON_SOUTH:
                     return pad.buttonSouth.isPressed;
@@ -383,21 +654,89 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public bool GetStickDirection(StickDirection direction, int playerIndex)
+    {
+        if (players[playerIndex].isKeyboard)
+        {
+            switch (direction)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported key type in GetStickDirection.");
+                    return false;
+                case StickDirection.UP:
+                    return keyboard.wKey.wasPressedThisFrame;
+
+                case StickDirection.DOWN:
+                    return keyboard.sKey.wasPressedThisFrame;
+
+                case StickDirection.LEFT:
+                    return keyboard.aKey.wasPressedThisFrame;
+
+                case StickDirection.RIGHT:
+                    return keyboard.dKey.wasPressedThisFrame;
+
+
+            }
+
+
+        }
+        else
+        {
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
+            if (pad == null)
+            {
+                return false;
+
+            }
+
+            switch (direction)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported button type in GetStickDirection.");
+                    return false;
+                case StickDirection.UP:
+                    return pad.leftStick.up.wasPressedThisFrame;
+
+                case StickDirection.DOWN:
+                    return pad.leftStick.down.wasPressedThisFrame;
+
+                case StickDirection.LEFT:
+                    return pad.leftStick.left.wasPressedThisFrame;
+
+                case StickDirection.RIGHT:
+                    return pad.leftStick.right.wasPressedThisFrame;
+
+            }
+
+        }
+    }
+
     /// <summary>
-    /// Getting the vertical axis value
+    /// Getting the vertical axis value from controller
     /// </summary>
     /// <param name="joystick"></param>
     /// <param name="playerIndex"></param>
     /// <returns></returns>
-    public float GetVerticalAxis(Joysticks joystick, int playerIndex)
+    public float GetVerticalAxis(Joysticks joystick, int playerIndex, Camera playercamera = null)
     {
         if (players[playerIndex].isKeyboard)
         {
-            return 0;
+            switch (joystick)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported key type in GetVerticalAxis.");
+                    return 0;
+                case Joysticks.LEFT:
+                    return GetVerticalAxis();
+
+                case Joysticks.RIGHT:
+                    return GetMouseVertAxis(playercamera);
+            }
+            
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return 0;
@@ -407,7 +746,7 @@ public class InputManager : MonoBehaviour
             switch (joystick)
             {
                 default:
-                    Debug.LogWarning($"Unsupported button type in GetKeyPress.");
+                    Debug.LogWarning($"Unsupported button type in GetVerticalAxis.");
                     return 0;
                 case Joysticks.LEFT:
                     return pad.leftStick.y.ReadValue();
@@ -419,20 +758,31 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Getting the Horizontall Axis value
+    /// Getting the Horizontall Axis value from controller
     /// </summary>
     /// <param name="joystick"></param>
     /// <param name="playerIndex"></param>
     /// <returns></returns>
-    public float GetHorizontalAxis(Joysticks joystick, int playerIndex)
+    public float GetHorizontalAxis(Joysticks joystick, int playerIndex, Camera playercamera = null)
     {
         if (players[playerIndex].isKeyboard)
         {
-            return 0;
+            switch (joystick)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported key type in GetHorizontalAxis.");
+                    return 0;
+                case Joysticks.LEFT:
+                    return GetHorizontalAxis();
+
+                case Joysticks.RIGHT:
+                    return GetMouseHortAxis(playercamera);
+            }
+
         }
         else
         {
-            Gamepad pad = Gamepad.all[players[playerIndex].controllerID];
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
                 return 0;
@@ -442,7 +792,7 @@ public class InputManager : MonoBehaviour
             switch (joystick)
             {
                 default:
-                    Debug.LogWarning($"Unsupported button type in GetKeyPress.");
+                    Debug.LogWarning($"Unsupported button type in GetHorizontalAxis.");
                     return 0;
                 case Joysticks.LEFT:
                     return pad.leftStick.x.ReadValue();
@@ -452,6 +802,131 @@ public class InputManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Getting the vertical axis value from keyboard
+    /// </summary>
+    /// <param name="joystick"></param>
+    /// <param name="playerIndex"></param>
+    /// <returns></returns>
+    public float GetVerticalAxis()
+    {
+        if(keyboard.wKey.isPressed)
+        {
+            return 1.0f;
+        }
+        else if (keyboard.sKey.isPressed)
+        {
+            return -1.0f;
+        }
+        else
+        {
+            return 0.0f;
+        }
+
+
+        
+    }
+
+    /// <summary>
+    /// Getting the Horizontall Axis value from keyboard
+    /// </summary>
+    /// <param name="joystick"></param>
+    /// <param name="playerIndex"></param>
+    /// <returns></returns>
+    public float GetHorizontalAxis()
+    {
+        if (keyboard.dKey.isPressed)
+        {
+            return 1.0f;
+        }
+        else if (keyboard.aKey.isPressed)
+        {
+            return -1.0f;
+        }
+        else
+        {
+            return 0.0f;
+        }
+    }
+    /// <summary>
+    /// Checking if the mouse button is down
+    /// </summary>
+    /// <param name="button"></param>
+    /// <returns></returns>
+    public bool GetMouseDown(MouseButton button)
+    {
+
+        switch (button)
+        {
+            default:
+                Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
+                return false;
+            case MouseButton.LEFT:
+                return mouse.leftButton.wasPressedThisFrame;
+
+            case MouseButton.RIGHT:
+                return mouse.rightButton.wasPressedThisFrame;
+        }
+
+    }
+    /// <summary>
+    /// Checking if the mouse button is pressed
+    /// </summary>
+    /// <param name="button"></param>
+    /// <returns></returns>
+    public bool GetMousePress(MouseButton button)
+    {
+
+        switch (button)
+        {
+            default:
+                Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
+                return false;
+            case MouseButton.LEFT:
+                return mouse.leftButton.isPressed;
+
+            case MouseButton.RIGHT:
+                return mouse.rightButton.isPressed;
+        }
+
+    }
+
+    /// <summary>
+    /// Get the mouse Vertical axis
+    /// </summary>
+    /// <returns></returns>
+    public float GetMouseVertAxis(Camera playerCam)
+    {
+        if (playerCam != null)
+        {
+            Vector3 mousePos = Mouse.current.position.ReadValue();
+            mousePos.z = playerCam.farClipPlane * .5f;
+            Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
+
+            return worldPoint.y;
+        }
+        return 0;
+
+    }
+    /// <summary>
+    /// Get the mouse Horizontal axis
+    /// </summary>
+    /// <returns></returns>
+    public float GetMouseHortAxis(Camera playerCam)
+    {
+        if (playerCam != null)
+        {
+            Vector3 mousePos = Mouse.current.position.ReadValue();
+            mousePos.z = playerCam.farClipPlane * .5f;
+            Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
+
+            return worldPoint.x;
+        }
+        return 0;
+
+    }
+
     /*
     [Header("Player A Controls")]
     public KeyCode playerALeft;
