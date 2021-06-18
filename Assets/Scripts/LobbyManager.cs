@@ -83,11 +83,11 @@ public class LobbyManager : MonoBehaviour
             //check if player one assigned
             if (InputManager.GetInstance().IsPlayerAssigned(0))
             {
-                //instructTexts[0].SetActive(false);
+                instructTexts[0].SetActive(false);
                 
                 playerOneImg.color = Color.yellow;
-                //player1AssignedPanel.SetActive(true);
-                /*
+                player1AssignedPanel.SetActive(true);
+               
                 player1OptionPanel.SetActive(true);
                 if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
                 {
@@ -100,40 +100,40 @@ public class LobbyManager : MonoBehaviour
                     player1GamepadPanel.SetActive(true);
 
                 }
-                */
+               
             }
             else
             {
-                //instructTexts[0].SetActive(true);
-                //player1AssignedPanel.SetActive(true);
-                //player1OptionPanel.SetActive(false);
+                instructTexts[0].SetActive(true);
+                player1AssignedPanel.SetActive(true);
+                player1OptionPanel.SetActive(false);
                 playerOneImg.color = Color.red;
             }
 
             //check if player two assigned
             if (InputManager.GetInstance().IsPlayerAssigned(1))
             {
-                //instructTexts[1].SetActive(false);
+                instructTexts[1].SetActive(false);
                 playerTwoImg.color = Color.yellow;
-                //player2AssignedPanel.SetActive(true);
-                //player2OptionPanel.SetActive(true);
-                //if (InputManager.GetInstance().GetPlayerControl(1).isKeyboard)
-                //{
-                //    player2KeyPanel.SetActive(true);
-                //    player2GamepadPanel.SetActive(false);
-                //}
-                //else
-                //{
-                //    player2KeyPanel.SetActive(false);
-                //    player2GamepadPanel.SetActive(true);
+                player2AssignedPanel.SetActive(true);
+                player2OptionPanel.SetActive(true);
+                if (InputManager.GetInstance().GetPlayerControl(1).isKeyboard)
+                {
+                    player2KeyPanel.SetActive(true);
+                    player2GamepadPanel.SetActive(false);
+                }
+                else
+                {
+                    player2KeyPanel.SetActive(false);
+                    player2GamepadPanel.SetActive(true);
 
-                //}
+                }
             }
             else
             {
-                //instructTexts[1].SetActive(true);
-                //player2AssignedPanel.SetActive(true);
-                //player2OptionPanel.SetActive(false);
+                instructTexts[1].SetActive(true);
+                player2AssignedPanel.SetActive(true);
+                player2OptionPanel.SetActive(false);
                 playerTwoImg.color = Color.red;
             }
 

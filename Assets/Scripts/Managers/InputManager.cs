@@ -231,7 +231,7 @@ public class InputManager : MonoBehaviour
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 players[_index] = new Controller();
-                //Debug.Log("deselect player " + _index.ToString() + " with keyboard");
+                Debug.Log("deselect player " + _index.ToString() + " with keyboard");
             }
             
         }
@@ -240,7 +240,7 @@ public class InputManager : MonoBehaviour
             if(players[_index].gamepad.buttonEast.wasPressedThisFrame)
             {
                 players[_index] = new Controller();
-                //Debug.Log("deselect player " + _index.ToString() + " with controller");
+                Debug.Log("deselect player " + _index.ToString() + " with controller");
             }
             
 
@@ -251,7 +251,7 @@ public class InputManager : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame && !PlayerChoseKeyBoard())
         {
             players[_index] = new Controller(true, _index);            
-            //Debug.Log("confirm player " + _index.ToString() + " with keyboard");
+            Debug.Log("confirm player " + _index.ToString() + " with keyboard");
 
 
         }
@@ -272,7 +272,7 @@ public class InputManager : MonoBehaviour
 
                 players[_index] = new Controller(false, _index, currentGamepad);
 
-                //Debug.Log("confirm player " + _index.ToString() + " with Controller");
+                Debug.Log("confirm player " + _index.ToString() + " with Controller");
                 
             }
         }
