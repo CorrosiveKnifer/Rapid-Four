@@ -36,9 +36,14 @@ public class LobbyManager : MonoBehaviour
     public GameObject[] player2OptImage;
  
 
+    
+
     public int P1_index = 0;
 
     public int P2_index = 0;
+
+    public GameObject allReady;
+
     int shipOptions = 0;
 
     bool cancelp1ShipID = false;
@@ -206,8 +211,10 @@ public class LobbyManager : MonoBehaviour
             //Check if both player already selected a ship
             if (InputManager.GetInstance().IsPlayerReady(0) && InputManager.GetInstance().IsPlayerReady(1))
             {
-                //only response to the first player inputs 
+                //displays the READY sign in the middle
+                allReady.SetActive(true);
 
+                //only response to the first player inputs 
                 //if they use keyboard
                 if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
                 {
@@ -228,6 +235,10 @@ public class LobbyManager : MonoBehaviour
                         Debug.Log("GAMESTART");
                     }
                 }
+            }
+            else
+            {
+                allReady.SetActive(false);
             }
         }
 
