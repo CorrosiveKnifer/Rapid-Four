@@ -30,6 +30,15 @@ public class InputManager : MonoBehaviour
         RIGHT
 
     }
+
+    public enum StickDirection
+    {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
+
+    }
     public enum MouseButton
     {
         LEFT,
@@ -92,19 +101,25 @@ public class InputManager : MonoBehaviour
     #endregion
     public struct Controller
     {
-        public Controller(bool _isKeyboard = false, int _controllerID = 0, Gamepad _gamepad = null, int _shipId =0)
+        public Controller(bool _isKeyboard = false, int _controllerID = 0, Gamepad _gamepad = null, int _shipID =-1)
         {
             isKeyboard = _isKeyboard;
             controllerID = _controllerID;
             gamepad = _gamepad;
+            shipID = _shipID;
         }
         public bool isKeyboard;
         public int controllerID;
         public Gamepad gamepad;
+        public int shipID;
 
     }
     private Controller[] players = new Controller[2];
-
+    /// <summary>
+    /// Check if the player is assigned a controller
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public bool IsPlayerAssigned(int id)
     {
         if (players[id].isKeyboard || players[id].gamepad != null)
@@ -113,10 +128,39 @@ public class InputManager : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// Set ship ID
+    /// </summary>
+    /// <param name="_shipID"></param>
+    /// <param name="_playerID"></param>
+    public void SetShipToPlayer(int _playerID, int _shipID)
+    {
+        players[_playerID].shipID = _shipID;
+    }
+
+    /// <summary>
+    /// Set the controller to Keyboard
+    /// </summary>
+    /// <param name="_isKeyboard"></param>
+    /// <param name="_playerID"></param>
+    public void SetKeyToPlayer( int _playerID, bool _isKeyboard)
+    {
+        players[_playerID].isKeyboard = _isKeyboard;
+    }
+
+    public bool IsPlayerReady(int _playerID)
+    {
+        if(IsPlayerAssigned(_playerID) && players[_playerID].shipID !=-1)
+        {
+            return true;
+        }
+        return false;
+    }
     //-----------------------------------------------------------------------
     //this section is for lobby
 
-    
+
     public bool CheckGampadConnected(int id)
     {
         foreach(Gamepad padAvail in Gamepad.all)
@@ -133,7 +177,7 @@ public class InputManager : MonoBehaviour
     {
         if(!PlayerChoseGamepad() && !PlayerChoseKeyBoard())
         {
-            Select(0);
+            confirmController(0);
             return;
         }
 
@@ -142,13 +186,15 @@ public class InputManager : MonoBehaviour
             //check if there is no controls assigned to this player
             if (!players[i].isKeyboard && players[i].gamepad == null)
             {
-
-                Select(i);
+                if (players[i].shipID == -1)
+                    confirmController(i);
                 
             }
             else if(players[i].isKeyboard || players[i].gamepad != null)
             {
-                Deselect(i);
+                if (players[i].shipID == -1)
+                    cancelController(i);
+             
             }
             
         }
@@ -176,7 +222,7 @@ public class InputManager : MonoBehaviour
         }
         return false;
     }
-    public void Deselect(int _index)
+    public void cancelController(int _index)
     {
         //if its assigned to keys
         if (players[_index].isKeyboard)
@@ -199,7 +245,7 @@ public class InputManager : MonoBehaviour
 
         }
     }
-    public void Select(int _index)
+    public void confirmController(int _index)
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame && !PlayerChoseKeyBoard())
         {
@@ -214,6 +260,7 @@ public class InputManager : MonoBehaviour
             
         }
     }
+
     public void confirmGamepad(int _index)
     {
         Gamepad currentGamepad = Gamepad.current;
@@ -246,6 +293,8 @@ public class InputManager : MonoBehaviour
         return true;
         
     }
+
+    
     //-----------------------------------------------------------------------------
     /// <summary>
     /// get the player controller by player id
@@ -557,6 +606,63 @@ public class InputManager : MonoBehaviour
 
                 case ButtonType.BUTTON_RS:
                     return pad.rightShoulder.isPressed;
+
+            }
+
+        }
+    }
+
+    public bool GetStickDirection(StickDirection direction, int playerIndex)
+    {
+        if (players[playerIndex].isKeyboard)
+        {
+            switch (direction)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported key type in GetStickDirection.");
+                    return false;
+                case StickDirection.UP:
+                    return keyboard.wKey.wasPressedThisFrame;
+
+                case StickDirection.DOWN:
+                    return keyboard.sKey.wasPressedThisFrame;
+
+                case StickDirection.LEFT:
+                    return keyboard.aKey.wasPressedThisFrame;
+
+                case StickDirection.RIGHT:
+                    return keyboard.dKey.wasPressedThisFrame;
+
+
+            }
+
+
+        }
+        else
+        {
+            Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
+            if (pad == null)
+            {
+                return false;
+
+            }
+
+            switch (direction)
+            {
+                default:
+                    Debug.LogWarning($"Unsupported button type in GetStickDirection.");
+                    return false;
+                case StickDirection.UP:
+                    return pad.leftStick.up.wasPressedThisFrame;
+
+                case StickDirection.DOWN:
+                    return pad.leftStick.down.wasPressedThisFrame;
+
+                case StickDirection.LEFT:
+                    return pad.leftStick.left.wasPressedThisFrame;
+
+                case StickDirection.RIGHT:
+                    return pad.leftStick.right.wasPressedThisFrame;
 
             }
 
