@@ -148,6 +148,11 @@ public class InputManager : MonoBehaviour
     {
         players[_playerID].isKeyboard = _isKeyboard;
     }
+    /// <summary>
+    /// check if the certain player is ready as it has both have a control assigned and a ship assigned
+    /// </summary>
+    /// <param name="_playerID"></param>
+    /// <returns></returns>
 
     public bool IsPlayerReady(int _playerID)
     {
@@ -160,7 +165,11 @@ public class InputManager : MonoBehaviour
     //-----------------------------------------------------------------------
     //this section is for lobby
 
-
+    /// <summary>
+    /// check if the gamepad is connected otherwise it assigned as null
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public bool CheckGampadConnected(int id)
     {
         foreach(Gamepad padAvail in Gamepad.all)
@@ -170,10 +179,14 @@ public class InputManager : MonoBehaviour
                 return true;
             }
         }
-        players[id].gamepad = null;
+        players[id] = new Controller();
 
         return false;
     }
+
+    /// <summary>
+    /// check on any detection on the controller for the player(s)
+    /// </summary>
     public void LobbyDetection()
     {
         if(!PlayerChoseGamepad() && !PlayerChoseKeyBoard() && players[0].shipID == 0)
@@ -200,6 +213,11 @@ public class InputManager : MonoBehaviour
             
         }
     }
+
+    /// <summary>
+    /// check if player chose gamepad
+    /// </summary>
+    /// <returns></returns>
     public bool PlayerChoseGamepad()
     {
         foreach (Controller player in players)
@@ -212,6 +230,10 @@ public class InputManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// checks if player chose keyboard
+    /// </summary>
+    /// <returns></returns>
     public bool PlayerChoseKeyBoard()
     {
         foreach (Controller player in players)
@@ -223,6 +245,10 @@ public class InputManager : MonoBehaviour
         }
         return false;
     }
+    /// <summary>
+    /// waits for a confirmation to unassign controller
+    /// </summary>
+    /// <param name="_index"></param>
     public void cancelController(int _index)
     {
         //if its assigned to keys
@@ -246,6 +272,11 @@ public class InputManager : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// waits for a confirmation to assign controller
+    /// </summary>
+    /// <param name="_index"></param>
     public void confirmController(int _index)
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame && !PlayerChoseKeyBoard())
@@ -262,6 +293,10 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// comfirming for a gamepad
+    /// </summary>
+    /// <param name="_index"></param>
     public void confirmGamepad(int _index)
     {
         Gamepad currentGamepad = Gamepad.current;
@@ -278,6 +313,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// check if this the player controls are assigned both from the key and the gamepad
+    /// </summary>
+    /// <param name="_gamepad"></param>
+    /// <returns></returns>
     public bool UnasignedController(Gamepad _gamepad)
     {
         foreach(Controller player in players)
@@ -294,9 +334,10 @@ public class InputManager : MonoBehaviour
         return true;
         
     }
-
-    
+    //end of lobby selection
     //-----------------------------------------------------------------------------
+
+
     /// <summary>
     /// get the player controller by player id
     /// </summary>
