@@ -54,17 +54,19 @@ public class LobbyManager : MonoBehaviour
             //if player one is assigned with a controller
             if (InputManager.GetInstance().IsPlayerAssigned(0))
             {
-                Debug.Log("player one ready");
+                //Debug.Log("player one ready");
                 ChosingPlayerShip(0, P1_index);
             }
             //if player two is assigned to a controller
             if (InputManager.GetInstance().IsPlayerAssigned(1))
             {
-                Debug.Log("player two ready");
+                //Debug.Log("player two ready");
                 ChosingPlayerShip(1, P2_index);
             }
 
             InputManager.GetInstance().LobbyDetection();
+            Debug.Log("PlayerOne has " + InputManager.GetInstance().GetPlayerControl(0).shipID);
+            Debug.Log("PlayerTwo has " + InputManager.GetInstance().GetPlayerControl(1).shipID);
 
             //displayment on the 
             if (InputManager.GetInstance().PlayerChoseKeyBoard())
@@ -84,7 +86,8 @@ public class LobbyManager : MonoBehaviour
                 //instructTexts[0].SetActive(false);
                 
                 playerOneImg.color = Color.yellow;
-                player1AssignedPanel.SetActive(false);
+                //player1AssignedPanel.SetActive(true);
+                /*
                 player1OptionPanel.SetActive(true);
                 if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
                 {
@@ -93,35 +96,64 @@ public class LobbyManager : MonoBehaviour
                 }
                 else
                 {
-                    player2KeyPanel.SetActive(false);
-                    player2GamepadPanel.SetActive(true);
+                    player1KeyPanel.SetActive(false);
+                    player1GamepadPanel.SetActive(true);
 
                 }
+                */
             }
             else
             {
-                instructTexts[0].SetActive(true);
+                //instructTexts[0].SetActive(true);
+                //player1AssignedPanel.SetActive(true);
+                //player1OptionPanel.SetActive(false);
                 playerOneImg.color = Color.red;
             }
 
             //check if player two assigned
             if (InputManager.GetInstance().IsPlayerAssigned(1))
             {
-                instructTexts[1].SetActive(false);
+                //instructTexts[1].SetActive(false);
                 playerTwoImg.color = Color.yellow;
+                //player2AssignedPanel.SetActive(true);
+                //player2OptionPanel.SetActive(true);
+                //if (InputManager.GetInstance().GetPlayerControl(1).isKeyboard)
+                //{
+                //    player2KeyPanel.SetActive(true);
+                //    player2GamepadPanel.SetActive(false);
+                //}
+                //else
+                //{
+                //    player2KeyPanel.SetActive(false);
+                //    player2GamepadPanel.SetActive(true);
+
+                //}
             }
             else
             {
-                instructTexts[1].SetActive(true);
+                //instructTexts[1].SetActive(true);
+                //player2AssignedPanel.SetActive(true);
+                //player2OptionPanel.SetActive(false);
                 playerTwoImg.color = Color.red;
             }
 
+            if(InputManager.GetInstance().IsPlayerReady(0))
+            {
+                playerOneImg.color = Color.green;
+            }
+            if (InputManager.GetInstance().IsPlayerReady(1))
+            {
+                playerTwoImg.color = Color.green;
+            }
+            /*
 
             if (InputManager.GetInstance().IsPlayerAssigned(0) && InputManager.GetInstance().IsPlayerAssigned(1))
             {
                 playerOneImg.color = Color.green;
                 playerTwoImg.color = Color.green;
             }
+            */
+
 
 
             if (!InputManager.GetInstance().GetPlayerControl(0).isKeyboard && InputManager.GetInstance().GetPlayerControl(0).gamepad != null)
@@ -143,13 +175,14 @@ public class LobbyManager : MonoBehaviour
             if (cancelp1ShipID == true)
             {
                 //setting player one step to no ship id
-                InputManager.GetInstance().SetShipToPlayer(0, -1);
+                Debug.Log("set it back to -1");
+                InputManager.GetInstance().SetShipToPlayer(0, 0);
                 cancelp1ShipID = false;
             }
             if (cancelp2ShipID == true)
             {
                 //setting player one step to no ship id
-                InputManager.GetInstance().SetShipToPlayer(0, -1);
+                InputManager.GetInstance().SetShipToPlayer(1, 0);
                 cancelp2ShipID = false;
             }
 
@@ -202,21 +235,27 @@ public class LobbyManager : MonoBehaviour
     }
     void ChosingPlayerShip(int playerID, int Shipindex)
     {
-        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == -1)
+        //Debug.Log(InputManager.GetInstance().GetPlayerControl(playerID).shipID);
+        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == 0)
         {
             if (InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
                 if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID))
                 {
-                    Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
-                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
-                    return;
+                    //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
+                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex+1);
+                    
                 }
+                return;
             }
-            else if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID))
+            else
             {
-                Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
-                InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID))
+                {
+                    //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
+                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex+1);
+                    
+                }
                 return;
             }
 
@@ -248,7 +287,7 @@ public class LobbyManager : MonoBehaviour
                     {
                         cancelp2ShipID = true;
                     }
-                    Debug.Log("player" + playerID + " ship has been cancel with selection " + Shipindex);
+                    //Debug.Log("player" + playerID + " ship has been cancel with selection " + Shipindex);
                 }
 
             }
@@ -262,7 +301,7 @@ public class LobbyManager : MonoBehaviour
                 {
                     cancelp2ShipID = true;
                 }
-                Debug.Log("player" + playerID + " ship has been cancel with selection " + Shipindex);
+                //Debug.Log("player" + playerID + " ship has been cancel with selection " + Shipindex);
             }
         }
 
