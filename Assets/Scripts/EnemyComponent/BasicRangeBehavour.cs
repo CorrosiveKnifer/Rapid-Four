@@ -30,6 +30,8 @@ public class BasicRangeBehavour : EnemyAttackBehavour
 
         //Calculate current speed.
         m_currentSpeed = Mathf.Clamp((m_myMaxSpeed * distanceToTarget) / m_preferedPersonalDistance, 0.0f, m_myMaxSpeed);
+        
+        m_target = target;
 
         return (targetLoc - transform.position).normalized * m_currentSpeed;
     }
@@ -43,7 +45,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
         }
         if (Vector3.Distance(transform.position, target.transform.position) <= m_preferedAttackDistance)
         {
-            //Start Animation
+            m_target = target;
 
             //Raycast forward to predict if it will hit the target
             RaycastHit hit;
@@ -52,14 +54,14 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             //It will hit? so shoot projectile:
             if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
             {
-                
-                DealDamage(target);
+                //Start Animation
+                GetComponentInChildren<Animator>()?.SetTrigger("Attack");
             }
         }
     }
 
     //Inherited by EnemyAttackBehavour
-    protected override void DealDamage(GameObject target)
+    public override void DealDamage(GameObject target)
     {
         if (m_projPrefab != null)
         {

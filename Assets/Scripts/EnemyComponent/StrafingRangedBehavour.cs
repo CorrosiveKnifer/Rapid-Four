@@ -39,7 +39,7 @@ public class StrafingRangedBehavour : BasicRangeBehavour
     }
 
     //Inherited by EnemyAttackBehavour
-    protected override void DealDamage(GameObject target)
+    public override void DealDamage(GameObject target)
     {
         if (m_projPrefab != null)
         {

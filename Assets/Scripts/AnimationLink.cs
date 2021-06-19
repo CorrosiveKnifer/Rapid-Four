@@ -1,0 +1,38 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+/// <summary>
+/// Michael Jordan
+/// </summary>
+public class AnimationLink : MonoBehaviour
+{
+    public UnityEvent eventOne;
+    public UnityEvent eventTwo;
+    public UnityEvent eventThree;
+
+    /// <summary>
+    /// Invokes an event from animation to an external script.
+    /// </summary>
+    public void PlayEventOne()
+    {
+        eventOne.Invoke();
+    }
+
+    /// <summary>
+    /// Invokes an event from animation to an external script.
+    /// </summary>
+    public void PlayEventTwo()
+    {
+        eventTwo.Invoke();
+    }
+
+    /// <summary>
+    /// Invokes an event from animation to an external script.
+    /// </summary>
+    public void PlayEventThree()
+    {
+        eventThree.Invoke();
+    }
+}
