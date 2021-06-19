@@ -183,7 +183,11 @@ public class InputManager : MonoBehaviour
 
         return false;
     }
-
+    /// <summary>
+    /// Check if the ship has been assigned by a player
+    /// </summary>
+    /// <param name="shipID"></param>
+    /// <returns></returns>
     public bool IsShipIdTaken(int shipID)
     {
         foreach (Controller player in players)
