@@ -2137,7 +2137,7 @@ PrefabInstance:
     - target: {fileID: 5571576020357256187, guid: 4eb63db104932fd40baff2b7afb8f0b4,
         type: 3}
       propertyPath: SecondaryFire.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AbilityParticleBeam
+      value: AbilityEnergyWave
       objectReference: {fileID: 0}
     - target: {fileID: 8877465658883280399, guid: 4eb63db104932fd40baff2b7afb8f0b4,
         type: 3}

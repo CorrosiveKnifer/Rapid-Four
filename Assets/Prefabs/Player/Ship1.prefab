@@ -320,6 +320,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 22d038fbae222f64ca31b7bda90815d2, type: 3}
   - {fileID: 8300000, guid: dc0fcb84585d5a14a8a1afb6dc57bcec, type: 3}
   - {fileID: 8300000, guid: 763e999985067854c859f20f3487692f, type: 3}
+  - {fileID: 8300000, guid: ac6057702404d654cb87162c31c077e4, type: 3}
+  - {fileID: 8300000, guid: cda478e084e885343b23eed1f6a4d303, type: 3}
+  - {fileID: 8300000, guid: 040f4e8ca2ae87d48be8c6250edc17e8, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
 --- !u!1 &7628842543104257163

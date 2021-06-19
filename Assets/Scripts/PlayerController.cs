@@ -329,6 +329,7 @@ public class PlayerController : MonoBehaviour
 
                 //Send projectile
                 gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+                //gObject.GetComponent<Rigidbody>().velocity += GetComponent<Rigidbody>().velocity;
             }
 
             if (hasShot)
@@ -372,6 +373,7 @@ public class PlayerController : MonoBehaviour
 
         //Send projectile
         gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+        audioAgent.PlaySoundEffect("MissileLaunch");
     }
 
     public void AbilityDash()
@@ -410,6 +412,7 @@ public class PlayerController : MonoBehaviour
         gObject.transform.up = transform.forward;
 
         gObject.transform.SetParent(gameObject.transform);
+        audioAgent.PlaySoundEffect("EnergyWave");
     }
 
     public void AbilityBlackhole()
@@ -422,6 +425,8 @@ public class PlayerController : MonoBehaviour
 
             //Send projectile
             currentBlackhole.GetComponent<Rigidbody>().AddForce(transform.forward * 20.0f, ForceMode.Impulse);
+
+            audioAgent.PlaySoundEffect("BlackholeProj");
         }
     }
 
