@@ -323,7 +323,7 @@ public class LobbyManager : MonoBehaviour
             if (InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
                 //presing space
-                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID))
+                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex+1))
                 {
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex+1);
@@ -333,7 +333,7 @@ public class LobbyManager : MonoBehaviour
             }
             else //otherwise if its gamepad
             {
-                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID))
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex+1))
                 {
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex+1);

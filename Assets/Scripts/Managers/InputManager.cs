@@ -170,19 +170,39 @@ public class InputManager : MonoBehaviour
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public bool CheckGampadConnected(int id)
+    public bool CheckGampadConnected(int playerid)
     {
         foreach(Gamepad padAvail in Gamepad.all)
         {
-            if(padAvail == players[id].gamepad)
+            if(padAvail == players[playerid].gamepad)
             {
                 return true;
             }
         }
-        players[id] = new Controller();
+        players[playerid] = new Controller();
 
         return false;
     }
+    /// <summary>
+    /// Check if the ship has been assigned by a player
+    /// </summary>
+    /// <param name="shipID"></param>
+    /// <returns></returns>
+    public bool IsShipIdTaken(int shipID)
+    {
+        foreach (Controller player in players)
+        {
+            if (player.shipID == shipID)
+            {
+                return true;
+            }
+           
+        }
+  
+
+        return false;
+    }
+
 
     /// <summary>
     /// check on any detection on the controller for the player(s)
