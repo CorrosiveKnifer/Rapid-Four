@@ -80,66 +80,20 @@ public class SpawnManager : MonoBehaviour
         */
     }
 
-    private void BossSpawnUpdate()
+    public void SpawnWave(Wave wave)
     {
-        //if (bossteroid == null)
-        //{
-        //    m_fBossSpawnTimer += Time.deltaTime;
-        //}
-        //if (!m_bSpawningGrace && (m_fBossSpawnTimer > (m_fBossSpawnDuration - 20.0f)))
-        //{
-        //    // Activate spawning grace (turns off spawning for the duration)
-        //    m_bSpawningGrace = true;
-        //    m_fSpawningGrace = 0.0f;
-        //}
-        //
-        //if (!m_bWarning && m_fBossSpawnTimer > m_fBossSpawnDuration - 10.0f)
-        //{
-        //    m_bWarning = true;
-        //    GameManager.instance.WarningText.SetActive(true);
-        //    animDanger.SetTrigger("Start");
-        //    GetComponent<AudioAgent>().PlaySoundEffect("Alarm", true);
-        //}
-        //if (m_bWarning && bossteroid != null)
-        //{
-        //    m_bWarning = false;
-        //    GameManager.instance.WarningText.SetActive(false);
-        //    GetComponent<AudioAgent>().StopAudio("Alarm");
-        //    animDanger.SetTrigger("Reset");
-        //}
-        //
-        //if (m_fBossSpawnTimer >= m_fBossSpawnDuration)
-        //{
-        //    m_fBossSpawnTimer = 0.0f;
-        //    SpawnBossteroid();
-        //}
-        //
-        //if (m_bSpawningGrace)
-        //{
-        //    m_fSpawningGrace += Time.deltaTime;
-        //    if (m_fSpawningGrace > m_fSpawningGraceDuration)
-        //    {
-        //        m_bSpawningGrace = false;
-        //        m_fSpawningGrace = 0.0f;
-        //    }
-        //}
+        uint shipCount = 0;
+        for (int i = 0; i < wave.enemyInfo.Length; i++)
+        {
+            shipCount += wave.enemyInfo[i];
+        }
+
+        while(shipCount > 0)
+        {
+
+        }
     }
-    private void SpawnBossteroid()
-    {
-        //if (bossteroid != null)
-        //    return;
-        //
-        //Vector3 spawnPosition = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
-        //spawnPosition = spawnPosition.normalized * m_fSpawnDistance;
-        //
-        //bossteroid = Instantiate(asteroidPrefab[Random.Range(0, asteroidPrefab.Length)], spawnPosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
-        //
-        //bossteroid.transform.localScale = new Vector3(3, 3, 3);
-        //bossteroid.GetComponent<Rigidbody>().mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
-        //
-        //bossteroid.GetComponent<Astroid>().Endurance = 4;
-        //bossteroid.GetComponent<Astroid>().maxSpeed = 2.0f;
-    }
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(Vector3.zero, spawnRadius);
