@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2109647461443920875}
   - component: {fileID: 4988674478709685145}
   - component: {fileID: 8505389813931593353}
-  - component: {fileID: 8690675415201927674}
+  - component: {fileID: 8497252384854651923}
   m_Layer: 0
   m_Name: BasicShot
   m_TagString: Projectile
@@ -64,7 +64,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
---- !u!114 &8690675415201927674
+--- !u!114 &8497252384854651923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 15
-  damage: 20
+  damage: 30
   powerUpIcon: 
   IsLaser: 0
   probability: 0

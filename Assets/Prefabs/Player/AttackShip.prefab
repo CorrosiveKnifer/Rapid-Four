@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7984448699897444891}
   - component: {fileID: 232907722786506610}
   - component: {fileID: 976588060587774009}
+  - component: {fileID: 2000292428853289852}
   m_Layer: 0
   m_Name: AttackShip
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &2000292428853289852
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2735163131159697778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4975301218104737564, guid: 20ccea82450da5d45a54e2b7ad770b65, type: 3}
 --- !u!1 &5662755055239345605
 GameObject:
   m_ObjectHideFlags: 0
