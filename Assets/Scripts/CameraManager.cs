@@ -56,8 +56,8 @@ public class CameraManager : MonoBehaviour
         agents[index].AddTarget(focusObject);
     }
 
-    public void GetCamera(int index)
+    public CameraAgent GetCameraAgent(int index)
     {
-        agents[index].GetComponent<Camera>();
+        return agents[index];
     }
 }

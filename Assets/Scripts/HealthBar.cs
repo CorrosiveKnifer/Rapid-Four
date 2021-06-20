@@ -12,15 +12,16 @@ public class HealthBar : MonoBehaviour
     public Image healthMaxBar;
     public Image shieldBar;
     public Image shieldMaxBar;
-
+    public Image overHeatBar;
     public uint playerID;
 
     public float healthMax;
     public float shieldMax;
+    public float overheatMax = 100;
 
     public float healthCurrent;
     public float shieldCurrent;
-
+    public float overheatCurrent;
     public float totalCombined;
 
     // Start is called before the first frame update
@@ -32,6 +33,8 @@ public class HealthBar : MonoBehaviour
 
         healthBar.fillAmount = healthCurrent / totalCombined;
         shieldBar.fillAmount = shieldCurrent / totalCombined + healthCurrent / totalCombined;
+
+        overHeatBar.fillAmount = overheatCurrent / overheatMax;
     }
 
     // Update is called once per frame
@@ -44,5 +47,8 @@ public class HealthBar : MonoBehaviour
         {
             shieldBar.fillAmount = healthBar.fillAmount;
         }
+
+        overHeatBar.fillAmount = overheatCurrent / overheatMax;
+        overHeatBar.color = Color.Lerp(Color.gray, Color.red, overHeatBar.fillAmount);
     }
 }
