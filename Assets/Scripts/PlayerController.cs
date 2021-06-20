@@ -126,6 +126,10 @@ public class PlayerController : MonoBehaviour
         if (ID == 1)
             controlsID = GameManager.player2Controls;
 
+        HUDManager.instance.SetHealthMax(ID, m_maxHealth, m_maxShields);
+        m_health = m_maxHealth;
+        m_shields = m_maxShields;
+
         if (usingKeyboard)
         {
             keyboard = Keyboard.current;

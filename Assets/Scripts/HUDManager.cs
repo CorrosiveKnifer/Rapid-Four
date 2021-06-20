@@ -103,4 +103,8 @@ public class HUDManager : MonoBehaviour
     {
         //
     }
+    public void SetHealthMax(int id, float maxHealth, float maxShield)
+    {
+        //
+    }
 }
