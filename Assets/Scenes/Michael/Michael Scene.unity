@@ -1159,6 +1159,11 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 5220056347773448950, guid: 5dd2d3ace6f2e39428969cec3e538499,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 8704
+      objectReference: {fileID: 0}
     - target: {fileID: 5220056347773448951, guid: 5dd2d3ace6f2e39428969cec3e538499,
         type: 3}
       propertyPath: m_RootOrder
@@ -1761,7 +1766,7 @@ PrefabInstance:
     - target: {fileID: 8566949946984051687, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8566949947031557403, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
