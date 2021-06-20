@@ -83,7 +83,7 @@ public class InputManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Cursor.lockState = CursorLockMode.Confined;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
