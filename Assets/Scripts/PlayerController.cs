@@ -122,12 +122,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (ID == 0)
-            controlsID = GameManager.player1Controls;
-        if (ID == 1)
-            controlsID = GameManager.player2Controls;
-
         HUDManager.instance.SetHealthMax(ID, m_maxHealth, m_maxShields);
+
         m_health = m_maxHealth;
         m_shields = m_maxShields;
 
@@ -214,7 +210,8 @@ public class PlayerController : MonoBehaviour
         //float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         //float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
 
-        Vector2 movement = gamepad.leftStick.ReadValue();
+        Vector2 movement = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.LEFT, ID), 
+            InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.LEFT, ID));
 
         if (!isAlive)
         {
