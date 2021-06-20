@@ -1898,6 +1898,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
+      propertyPath: m_waves.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
       propertyPath: m_enemyPrefab.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1925,6 +1930,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1314751589999664590, guid: 87a88bfd3374f5945b40f1fe2a6f2f24,
         type: 3}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[0].enemyInfo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[1].enemyInfo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[0].enemyInfo.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[0].enemyInfo.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[1].enemyInfo.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[1].enemyInfo.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051681, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_RootOrder

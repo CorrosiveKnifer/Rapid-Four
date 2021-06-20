@@ -234,28 +234,13 @@ public class PlayerController : MonoBehaviour
     }
     private void ShipAiming()
     {
-        //if (usingKeyboard) // Mouse aiming
-        //{
-        //    Vector3 screenPoint = mouse.position.ReadValue();
-        //    screenPoint.z = myCamera.GetComponent<Camera>().nearClipPlane;
-        //    //Debug.LogWarning(screenPoint);
-        //    Vector3 worldPoint = myCamera.GetComponent<Camera>().ScreenToWorldPoint(screenPoint);
-        //    //worldPoint.z = gameObject.transform.position.z;
-        //    Vector3 direct = worldPoint - gameObject.transform.position;
-        //    direct.z = 0;
-        //    Quaternion lookDirect = Quaternion.LookRotation(direct, transform.up);
-        //    body.rotation = Quaternion.Slerp(body.rotation, lookDirect, rotationSpeed);
-        //}
-        //else // Joystick aiming
-        {
-            Vector2 aim = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()),
-            InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()));
+        Vector2 aim = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()),
+        InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()));
 
-            if (aim.x != 0 || aim.y != 0)
-            {
-                Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
-                body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
-            }
+        if (aim.x != 0 || aim.y != 0)
+        {
+            Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
+            body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
         }
     }
     private void Bounds()

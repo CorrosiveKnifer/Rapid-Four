@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         GameObject ship2 = Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.Euler(new Vector3(-90, 0, 0)));
         CameraManager.instance.SetCameraFocus(1, ship2);
-        ship2.GetComponent<PlayerController>().ID = 0;
+        ship2.GetComponent<PlayerController>().ID = 1;
 
         //CameraManager.instance.SetCameraFocus(1, Instantiate(playerShipPrefabs[shipId2], pos1, Quaternion.Euler(new Vector3(-90, 0, 0))));
         //Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.identity);
