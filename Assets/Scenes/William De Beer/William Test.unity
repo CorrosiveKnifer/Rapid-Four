@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -701,12 +701,6 @@ Transform:
   m_Father: {fileID: 514542583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &696901833 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1214859132203251925, guid: 1017a188a453f4a47aa41b7b9844d5ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 492133715}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1050280941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -963,166 +957,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3358980166718997024, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997024, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_TagString
-      value: Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: size.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 696901833}
-    - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: targets.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
       propertyPath: targets.Array.data[0]
       value: 
       objectReference: {fileID: 212308618}
-    - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: targets.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997027, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -45
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_Depth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1335
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_AllowDynamicResolution
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980166718997031, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245192, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -45
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245193, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245193, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_TagString
-      value: Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: size.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1796440525}
-    - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: targets.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
       propertyPath: targets.Array.data[0]
       value: 
       objectReference: {fileID: 1796440525}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_Depth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1335
-      objectReference: {fileID: 0}
-    - target: {fileID: 3358980167320245196, guid: 25661ef289c607341aa409d7c1b83879,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3358980167695252337, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
       propertyPath: m_RootOrder

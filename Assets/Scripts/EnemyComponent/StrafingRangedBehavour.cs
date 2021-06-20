@@ -58,7 +58,7 @@ public class StrafingRangedBehavour : BasicRangeBehavour
             {
                 //Adust the aim to negate inherited velocity.
                 Vector3 perpDirect = Vector3.Cross(transform.position - target.transform.position, Vector3.forward).normalized;
-                force = (transform.forward - (0.1f * perpDirect)).normalized;
+                force = (transform.forward + (0.1f * perpDirect)).normalized;
             }
 
             //Apply shot force forward

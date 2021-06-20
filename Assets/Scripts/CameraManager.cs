@@ -2,127 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 /// <summary>
-/// William de Beer
+/// Michael Jordan
 /// </summary>
 public class CameraManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Camera[] sideCameras;
-    public Camera mainCamera;
-    public Image mainImage;
-    public Image barrier;
-    public RenderTexture render;
+    #region Singleton
 
-    private bool fadeInTrigger = false;
-    private bool fadeOutTrigger = false;
-    private bool fadeInOnce = false;
-    private bool fadeOutOnce = false;
+    public static CameraManager instance = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Debug.LogError("Second Instance of CameraManager was created, this instance was destroyed.");
+            Destroy(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
+
+    #endregion
+    // Start is called before the first frame update
+    private CameraAgent[] agents;
 
     void Start()
     {
-        mainImage.enabled = false;
-        render.width = Screen.currentResolution.width;
-        render.height = Screen.currentResolution.height;
+        agents = GetComponentsInChildren<CameraAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool cond = true;
-        foreach (var side in sideCameras)
-        {
-            if(Vector2.Distance(mainCamera.transform.position, side.transform.position) > 8.0f)
-            {
-                cond = false;
-            }
-        }
-
-        if(cond)
-        {
-            fadeOutOnce = false;
-            if (!fadeInOnce)
-            {
-                StartCoroutine(FadeIn());
-                fadeInOnce = true;
-            }
-        }
-        else
-        {
-            fadeInOnce = false;
-            if(!fadeOutOnce)
-            {
-                StartCoroutine(FadeOut());
-                fadeOutOnce = true;
-            }
-            
-        }
+        
     }
 
-    private IEnumerator FadeIn()
+    /// <summary>
+    /// Updates the focus point of a camera to a new game object.
+    /// </summary>
+    /// <param name="index"> player index </param>
+    /// <param name="focusObject"> new focus </param>
+    public void SetCameraFocus(int index, GameObject focusObject)
     {
-        if(fadeInTrigger)
-            yield return null;
-
-        fadeInTrigger = true;
-
-        mainImage.enabled = true;
-        mainImage.color = new Color(255f, 255f, 255f, 0.0f);
-        barrier.color = new Color(255f, 255f, 255f, 1.0f);
-
-        do
-        {
-            if(fadeOutTrigger)
-            {
-                fadeInTrigger = false;
-                yield return null;
-            }
-
-            mainImage.color = Color.Lerp(mainImage.color, new Color(255, 255, 255, 1.0f), 0.05f);
-            barrier.color = Color.Lerp(barrier.color, new Color(255, 255, 255, 0.0f), 0.05f);
-            yield return new WaitForEndOfFrame();
-        } while (mainImage.color.a < 0.95f);
-
-        mainImage.enabled = false;
-        mainCamera.enabled = true;
-        foreach (var side in sideCameras)
-        {
-            side.enabled = false;
-        }
-        fadeInTrigger = false;
-        yield return null;
-    }
-
-    private IEnumerator FadeOut()
-    {
-        if (fadeOutTrigger)
-            yield return null;
-
-        fadeOutTrigger = true;
-
-        mainImage.enabled = true;
-        mainImage.color = new Color(255f, 255f, 255f, 1.0f);
-        barrier.color = new Color(255f, 255f, 255f, 0.0f);
-        foreach (var side in sideCameras)
-        {
-            side.enabled = true;
-        }
-
-        do
-        {
-            if (fadeInTrigger)
-            {
-                fadeOutTrigger = false;
-                yield return null;
-            }
-
-            mainImage.color = Color.Lerp(mainImage.color, new Color(255, 255, 255, 0.0f), 0.05f);
-            barrier.color = Color.Lerp(barrier.color, new Color(255, 255, 255, 1.0f), 0.05f); ;
-            yield return new WaitForEndOfFrame();
-        } while (mainImage.color.a > 0.05f);
-
-        mainImage.enabled = false;
-        fadeOutTrigger = false;
-        yield return null;
+        agents[index].AddTarget(focusObject);
     }
 }

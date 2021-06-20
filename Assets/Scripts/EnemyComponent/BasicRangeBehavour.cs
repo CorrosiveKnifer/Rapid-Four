@@ -71,7 +71,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position, Quaternion.identity);
 
             //Set inheritance velocity.
-            newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+            //newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
             
             //Set orientation of projectile:
             newProj.transform.up = transform.forward;

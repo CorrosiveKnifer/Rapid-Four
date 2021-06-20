@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 149542262306642036}
   - component: {fileID: 669671372163268759}
   - component: {fileID: 449815550834559447}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4201503520841949860}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ProjLoc (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8545017520617394511}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: enginePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4835429028978326639}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NoseProjLoc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 5571576020357256187}
   - component: {fileID: 2851828537410872846}
   - component: {fileID: 684405848260637986}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ship1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 6040365058286052824}
   - component: {fileID: 9017022784321172713}
   - component: {fileID: 8722594651427547075}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShieldEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5087,7 +5087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3854005477662087332}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ProjLoc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5194,6 +5194,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ship engine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565771867284224978, guid: 2ef53b1422572ed418bb693442a339cb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ef53b1422572ed418bb693442a339cb, type: 3}
@@ -5322,6 +5327,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8877465658883280399}
     m_Modifications:
+    - target: {fileID: 2735163131159697778, guid: 57d7b26dd0dce664b86827caba8f3e5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5034449428059451263, guid: 57d7b26dd0dce664b86827caba8f3e5b,
         type: 3}
       propertyPath: m_RootOrder
@@ -5396,6 +5406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AttackShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662755055239345605, guid: 57d7b26dd0dce664b86827caba8f3e5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7984448699897444891, guid: 57d7b26dd0dce664b86827caba8f3e5b,
         type: 3}

@@ -473,7 +473,7 @@ public class PlayerController : MonoBehaviour
     }
     private void DeathUpdate()
     {
-        GameManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
+        HUDManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
 
         immune.SetBool("IsImmune", isInvincible);
 
@@ -515,7 +515,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_DeathTimer -= Time.deltaTime;
-            GameManager.instance.GetRespawnTimer().UpdateTimer(ID, m_DeathTimer);
+            HUDManager.instance.GetRespawnTimer().UpdateTimer(ID, m_DeathTimer);
         }
 
         if (m_InvincibilityTimer <= 0)
