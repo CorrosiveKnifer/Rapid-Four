@@ -42,7 +42,7 @@ Camera:
   m_GameObject: {fileID: 3358980166718997024}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -119,8 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90746f1f444f174dae8c94329aec006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - {fileID: 0}
+  targets: []
   size: {x: 0.5, y: 1}
 --- !u!1 &3358980167320245193
 GameObject:
@@ -164,7 +163,7 @@ Camera:
   m_GameObject: {fileID: 3358980167320245193}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -241,8 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90746f1f444f174dae8c94329aec006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - {fileID: 0}
+  targets: []
   size: {x: 0.5, y: 1}
 --- !u!1 &3358980167695252350
 GameObject:
@@ -289,8 +287,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1769d5479eb09b845aede1cf23b9cd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideCameras: []
-  mainCamera: {fileID: 0}
-  mainImage: {fileID: 0}
-  barrier: {fileID: 0}
-  render: {fileID: 0}

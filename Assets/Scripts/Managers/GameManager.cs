@@ -96,17 +96,20 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayers()
     {
-        Vector3 pos1 = new Vector3(-40, -3, 0);
-        Vector3 pos2 = new Vector3(40, -3, 0);
+        Vector3 pos1 = new Vector3(-80, -3, 0);
+        Vector3 pos2 = new Vector3(80, -3, 0);
 
         int shipId1 = InputManager.GetInstance().GetPlayerControl(0).shipID;
-        //int shipId2 = InputManager.GetInstance().GetPlayerControl(1).shipID;
+        int shipId2 = InputManager.GetInstance().GetPlayerControl(1).shipID;
 
-        GameObject ship = Instantiate(playerShipPrefabs[shipId1], pos1, Quaternion.Euler(new Vector3(-90, 0, 0)));
-        CameraManager.instance.SetCameraFocus(0, ship);
-        ship.GetComponent<PlayerController>().ID = 0;
-        
-        
+        GameObject ship1 = Instantiate(playerShipPrefabs[shipId1], pos1, Quaternion.Euler(new Vector3(-90, 0, 0)));
+        CameraManager.instance.SetCameraFocus(0, ship1);
+        ship1.GetComponent<PlayerController>().ID = 0;
+
+        GameObject ship2 = Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.Euler(new Vector3(-90, 0, 0)));
+        CameraManager.instance.SetCameraFocus(1, ship2);
+        ship2.GetComponent<PlayerController>().ID = 0;
+
         //CameraManager.instance.SetCameraFocus(1, Instantiate(playerShipPrefabs[shipId2], pos1, Quaternion.Euler(new Vector3(-90, 0, 0))));
         //Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.identity);
     }

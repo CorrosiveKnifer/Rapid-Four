@@ -44,6 +44,8 @@ public class HUDManager : MonoBehaviour
 
     public RespawnTimer respawnTimer;
 
+    public HealthBar[] playerBars;
+
     private PlayerController player1;
     private PlayerController player2;
 
@@ -101,10 +103,12 @@ public class HUDManager : MonoBehaviour
 
     public void SetHealthDisplay(int id, float currentHealth, float currentShield)
     {
-        //
+        playerBars[id].healthCurrent = currentHealth;
+        playerBars[id].shieldCurrent = currentShield;
     }
     public void SetHealthMax(int id, float maxHealth, float maxShield)
     {
-        //
+        playerBars[id].healthMax = maxHealth;
+        playerBars[id].shieldMax = maxShield;
     }
 }
