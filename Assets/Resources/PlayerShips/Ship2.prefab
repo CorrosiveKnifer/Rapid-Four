@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 449815550834559447}
   m_Layer: 11
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8545017520617394511}
   m_Layer: 11
   m_Name: enginePos
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4835429028978326639}
   m_Layer: 11
   m_Name: NoseProjLoc
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 8722594651427547075}
   m_Layer: 11
   m_Name: ShieldEffect
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5060,7 +5060,7 @@ GameObject:
   - component: {fileID: 3854005477662087332}
   m_Layer: 11
   m_Name: ProjLoc
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5171,6 +5171,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1565771867284224978, guid: 2ef53b1422572ed418bb693442a339cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ef53b1422572ed418bb693442a339cb, type: 3}
 --- !u!4 &1515319868103193650 stripped
@@ -5206,6 +5211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941125808156472792, guid: 5dbb497c16136b948aea8efec53e51cf,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6429115918460268386, guid: 5dbb497c16136b948aea8efec53e51cf,
         type: 3}
@@ -5314,6 +5324,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 2735163131159697778, guid: 57d7b26dd0dce664b86827caba8f3e5b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5034449428059451263, guid: 57d7b26dd0dce664b86827caba8f3e5b,
         type: 3}
       propertyPath: m_RootOrder
@@ -5393,6 +5408,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662755055239345605, guid: 57d7b26dd0dce664b86827caba8f3e5b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7984448699897444891, guid: 57d7b26dd0dce664b86827caba8f3e5b,
         type: 3}

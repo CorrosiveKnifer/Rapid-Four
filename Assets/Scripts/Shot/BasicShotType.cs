@@ -13,7 +13,7 @@ public class BasicShotType : ShotType
 
     protected override void Start()
     {
-        Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+        //Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
         //if (gameObject.GetComponentInParent<PlayerController>() != null)
         //{
         //    pushVFX = Instantiate(Resources.Load<GameObject>("VFX/Push"), transform);

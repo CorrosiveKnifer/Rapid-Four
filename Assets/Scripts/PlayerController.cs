@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
             Shoot();
             Ability();
             EffectUpdate();
-            HUDManager.instance.SetHealthDisplay(ID, m_health, m_shields);
+            HUDManager.instance.SetHealthDisplay(ID, m_health, m_shields, m_currentHeatLevel);
         }
     }
 
@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour
         if (m_fShootTimer > 0)
             m_fShootTimer -= Time.deltaTime;
 
-        if (gamepad.rightTrigger.isPressed && m_fShootTimer <= 0 && !m_overheated)
+        if (InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_RT, ID) && m_fShootTimer <= 0 && !m_overheated)
         {
             m_currentHeatLevel += m_heatPerShot;
             m_fShootTimer = 1.0f / m_fFirerate;
