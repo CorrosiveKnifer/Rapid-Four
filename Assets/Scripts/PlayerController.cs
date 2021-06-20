@@ -149,6 +149,8 @@ public class PlayerController : MonoBehaviour
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
 
+        myCamera = CameraManager.instance.GetCameraAgent(ID);
+
         Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
 
@@ -232,25 +234,22 @@ public class PlayerController : MonoBehaviour
     }
     private void ShipAiming()
     {
-        if (usingKeyboard) // Mouse aiming
+        //if (usingKeyboard) // Mouse aiming
+        //{
+        //    Vector3 screenPoint = mouse.position.ReadValue();
+        //    screenPoint.z = myCamera.GetComponent<Camera>().nearClipPlane;
+        //    //Debug.LogWarning(screenPoint);
+        //    Vector3 worldPoint = myCamera.GetComponent<Camera>().ScreenToWorldPoint(screenPoint);
+        //    //worldPoint.z = gameObject.transform.position.z;
+        //    Vector3 direct = worldPoint - gameObject.transform.position;
+        //    direct.z = 0;
+        //    Quaternion lookDirect = Quaternion.LookRotation(direct, transform.up);
+        //    body.rotation = Quaternion.Slerp(body.rotation, lookDirect, rotationSpeed);
+        //}
+        //else // Joystick aiming
         {
-
-            Vector3 screenPoint = mouse.position.ReadValue();
-            screenPoint.z = myCamera.GetComponent<Camera>().nearClipPlane;
-            //Debug.LogWarning(screenPoint);
-            Vector3 worldPoint = myCamera.GetComponent<Camera>().ScreenToWorldPoint(screenPoint);
-            //worldPoint.z = gameObject.transform.position.z;
-            Vector3 direct = worldPoint - gameObject.transform.position;
-            direct.z = 0;
-            Quaternion lookDirect = Quaternion.LookRotation(direct, transform.up);
-            body.rotation = Quaternion.Slerp(body.rotation, lookDirect, rotationSpeed);
-        }
-        else // Joystick aiming
-        {
-            float verticalAxis = 0; //InputManager.instance.GetVerticalInput(1);
-            float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(1);
-
-            Vector2 aim = gamepad.rightStick.ReadValue();
+            Vector2 aim = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()),
+            InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()));
 
             if (aim.x != 0 || aim.y != 0)
             {
@@ -294,22 +293,22 @@ public class PlayerController : MonoBehaviour
         if (m_fAbility2Timer > 0)
             m_fAbility2Timer -= Time.deltaTime;
 
-        if (currentBlackhole != null && gamepad.leftShoulder.wasPressedThisFrame)
+        if (currentBlackhole != null && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LS, ID))
         {
            // currentBlackhole.GetComponent<BlackholeProjectile>().ActivateBlackhole();
         }
 
-        if (m_fSecondaryFireTimer <= 0 && gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
+        if (m_fSecondaryFireTimer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LT, ID) && SecondaryFire != null)
         {
             m_fSecondaryFireTimer = m_fSecondaryFireCD;
             SecondaryFire.Invoke();
         }
-        if (m_fAbility1Timer <= 0 && gamepad.rightShoulder.wasPressedThisFrame && Ability1 != null)
+        if (m_fAbility1Timer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_RS, ID) && Ability1 != null)
         {
             m_fAbility1Timer = m_fAbility1CD;
             Ability1.Invoke();
         }
-        if (m_fAbility2Timer <= 0 && gamepad.leftShoulder.wasPressedThisFrame && Ability2 != null)
+        if (m_fAbility2Timer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LS, ID) && Ability2 != null)
         {
             m_fAbility2Timer = m_fAbility2CD;
             Ability2.Invoke();
