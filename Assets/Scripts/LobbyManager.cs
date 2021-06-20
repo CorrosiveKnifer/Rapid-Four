@@ -31,16 +31,15 @@ public class LobbyManager : MonoBehaviour
     public GameObject player1GamepadPanel;
     public GameObject player2GamepadPanel;
 
-
     public GameObject[] player1OptImage;
     public GameObject[] player2OptImage;
- 
 
-    
 
-    public int P1_index = 0;
+    int[] playerIndex = new int [2];
 
-    public int P2_index = 0;
+    int P1_index = 0;
+
+    int P2_index = 0;
 
     public GameObject allReady;
 
@@ -55,6 +54,8 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         shipOptions = 2;
+        playerIndex[0] = 0;
+        playerIndex[1] = 0;
     }
 
     // Update is called once per frame
@@ -65,136 +66,23 @@ public class LobbyManager : MonoBehaviour
             //if player one is assigned with a controller
             if (InputManager.GetInstance().IsPlayerAssigned(0))
             {
-                ChosingPlayerShip(0, P1_index);
-                PlayerOneSelecting();
+                PlayerSelector(0);
+                ChosingPlayerShip(0, playerIndex[0]);
             }
             //if player two is assigned to a controller
             if (InputManager.GetInstance().IsPlayerAssigned(1))
             {
-                ChosingPlayerShip(1, P2_index);
-                PlayerTwoSelecting();
+                PlayerSelector(1);
+                ChosingPlayerShip(1, playerIndex[1]);
             }
 
             InputManager.GetInstance().LobbyDetection();
 
-            //Debug.Log("PlayerOne has " + InputManager.GetInstance().GetPlayerControl(0).shipID);
-           // Debug.Log("PlayerTwo has " + InputManager.GetInstance().GetPlayerControl(1).shipID);
-
-            //displayment on Lobby ---------------------------------------------------------------------------
-            //text instruction displayment depending on control choice
-            if (InputManager.GetInstance().PlayerChoseKeyBoard())
-            {
-                instructTexts[0].GetComponent<Text>().text = "Press A";
-                instructTexts[1].GetComponent<Text>().text = "Press A";
-            }
-            else
-            {
-                instructTexts[0].GetComponent<Text>().text = "Press A/Press space";
-                instructTexts[1].GetComponent<Text>().text = "Press A/Press space";
-            }
-            
-            //Selector displayment
-            //The selector moving for the player 1
-            player1Selector.transform.position = player1OptImage[P1_index].transform.position;
-            player2Selector.transform.position = player2OptImage[P2_index].transform.position;
-
-
-            //check if player two with a controller for display purposes
-            if (InputManager.GetInstance().IsPlayerAssigned(0))
-            {
-                instructTexts[0].SetActive(false);
-                
-                playerOneImg.color = Color.yellow;
-                player1AssignedPanel.SetActive(false);
-                player1OptionPanel.SetActive(true);
-
-                player1Ready.SetActive(false);
-                //for keyboard confirmation
-                if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
-                {
-                    player1KeyPanel.SetActive(true);
-                    player1GamepadPanel.SetActive(false);
-                }
-                else
-                {
-                    player1KeyPanel.SetActive(false);
-                    player1GamepadPanel.SetActive(true);
-
-                }
-               
-            }
-            else
-            {
-                instructTexts[0].SetActive(true);
-                player1AssignedPanel.SetActive(true);
-                player1OptionPanel.SetActive(false);
-                playerOneImg.color = Color.red;
-            }
-
-            //check if player two with a controller for display purposes
-            if (InputManager.GetInstance().IsPlayerAssigned(1))
-            {
-                instructTexts[1].SetActive(false);
-                playerTwoImg.color = Color.yellow;
-                player2AssignedPanel.SetActive(false);
-                player2OptionPanel.SetActive(true);
-
-                player2Ready.SetActive(false);
-
-                //for keyboard confirmation
-                if (InputManager.GetInstance().GetPlayerControl(1).isKeyboard)
-                {
-                    player2KeyPanel.SetActive(true);
-                    player2GamepadPanel.SetActive(false);
-                }
-                else
-                {
-                    player2KeyPanel.SetActive(false);
-                    player2GamepadPanel.SetActive(true);
-
-                }
-            }
-            else
-            {
-                instructTexts[1].SetActive(true);
-                player2AssignedPanel.SetActive(true);
-                player2OptionPanel.SetActive(false);
-                playerTwoImg.color = Color.red;
-            }
-
-            //displays the READY sign
-            //for  player 1
-            if(InputManager.GetInstance().IsPlayerReady(0))
-            {
-                playerOneImg.color = Color.green;
-                player1Ready.SetActive(true);
-            }
-            //for player 2
-            if (InputManager.GetInstance().IsPlayerReady(1))
-            {
-                playerTwoImg.color = Color.green;
-                player2Ready.SetActive(true);
-            }
-            // end of displayment on Lobby ---------------------------------------------------------------------------
-
+            //displayment on Lobby UI
+            displayLobbyUI();
 
             // if any of the controller disconnected
-            //for the player 1
-            if (!InputManager.GetInstance().GetPlayerControl(0).isKeyboard && InputManager.GetInstance().GetPlayerControl(0).gamepad != null)
-            {
-                if (!InputManager.GetInstance().CheckGampadConnected(0))
-                {
-                    Debug.Log("player one disconnected");
-                }
-            }
-            //for the player 2
-            if (!InputManager.GetInstance().GetPlayerControl(1).isKeyboard && InputManager.GetInstance().GetPlayerControl(1).gamepad != null)
-            {
-                if (!InputManager.GetInstance().CheckGampadConnected(1))
-                {
-                    Debug.Log("player two disconnected");
-                }
-            }
+            CheckControllerDisconnected();
 
             //canceling the ship Id after confirming they want to cancel their selection
             //for the player one 
@@ -236,8 +124,9 @@ public class LobbyManager : MonoBehaviour
                     //press start to gamepad
                     if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_START, 0))
                     {
-                        Lobbydone = true;
                         Debug.Log("GAMESTART");
+                        Lobbydone = true;
+                        
                     }
                 }
             }
@@ -250,67 +139,156 @@ public class LobbyManager : MonoBehaviour
 
     }
 
-    //setting the index to move when it detects the stick/key direction
-    int MoveIndex(int direction,int CurrentIndex)
-    {
-        CurrentIndex += direction;
-
-        //if it reaches the far left, move it to the far right
-        if (CurrentIndex == -1)
-        {
-            return CurrentIndex = 0;
-        }
-        //if it reaches the far right, move it to the far left
-        if (CurrentIndex == shipOptions)
-        {
-            return CurrentIndex = shipOptions-1;
-        }
-        return CurrentIndex;
-
-
-    }
     /// <summary>
-    /// Set the index of the player one selection
+    /// check if the controller are disconnected
     /// </summary>
-    void PlayerOneSelecting()
+    void CheckControllerDisconnected()
     {
-        if (InputManager.GetInstance().GetPlayerControl(0).shipID == 0)
+        //for the player 1
+        if (!InputManager.GetInstance().GetPlayerControl(0).isKeyboard && InputManager.GetInstance().GetPlayerControl(0).gamepad != null)
         {
-            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, 0))
+            if (!InputManager.GetInstance().CheckGampadConnected(0))
             {
-                Debug.Log("right");
-                P1_index=MoveIndex(1, P1_index);
-
+                Debug.Log("player one disconnected");
             }
-            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, 0))
+        }
+        //for the player 2
+        if (!InputManager.GetInstance().GetPlayerControl(1).isKeyboard && InputManager.GetInstance().GetPlayerControl(1).gamepad != null)
+        {
+            if (!InputManager.GetInstance().CheckGampadConnected(1))
             {
-                Debug.Log("left");
-                P1_index=MoveIndex(-1, P1_index);
-
+                Debug.Log("player two disconnected");
             }
         }
     }
+
 
     /// <summary>
-    /// Set the index of the player two selection
+    /// The UI for the lobby displayed
     /// </summary>
-    void PlayerTwoSelecting()
+    void displayLobbyUI()
     {
-        if (InputManager.GetInstance().GetPlayerControl(1).shipID == 0)
+        //text instruction displayment depending on control choice
+        if (InputManager.GetInstance().PlayerChoseKeyBoard())
         {
-            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, 1))
+            instructTexts[0].GetComponent<Text>().text = "Press A";
+            instructTexts[1].GetComponent<Text>().text = "Press A";
+        }
+        else
+        {
+            instructTexts[0].GetComponent<Text>().text = "Press A/Press space";
+            instructTexts[1].GetComponent<Text>().text = "Press A/Press space";
+        }
+
+        //Selector displayment
+        player1Selector.transform.position = player1OptImage[playerIndex[0]].transform.position;
+        player2Selector.transform.position = player2OptImage[playerIndex[1]].transform.position;
+
+        
+        //Show option ships panel
+        if (InputManager.GetInstance().IsPlayerAssigned(0))
+        {
+            instructTexts[0].SetActive(false);
+
+            playerOneImg.color = Color.yellow;
+            player1AssignedPanel.SetActive(false);
+            player1OptionPanel.SetActive(true);
+
+            player1Ready.SetActive(false);
+
+            //for keyboard confirmation
+            if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
             {
-                Debug.Log("right");
-                P2_index = MoveIndex(1, P2_index);
+                player1KeyPanel.SetActive(true);
+                player1GamepadPanel.SetActive(false);
+            }
+            else //gamepad comfirmation
+            {
+                player1KeyPanel.SetActive(false);
+                player1GamepadPanel.SetActive(true);
 
             }
-            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, 1))
+
+        }
+        else //show assigned controller panel
+        {
+            instructTexts[0].SetActive(true);
+            player1AssignedPanel.SetActive(true);
+            player1OptionPanel.SetActive(false);
+            playerOneImg.color = Color.red;
+        }
+
+        //Show option ships panel
+        if (InputManager.GetInstance().IsPlayerAssigned(1))
+        {
+            instructTexts[1].SetActive(false);
+            playerTwoImg.color = Color.yellow;
+            player2AssignedPanel.SetActive(false);
+            player2OptionPanel.SetActive(true);
+
+            player2Ready.SetActive(false);
+
+            //for keyboard confirmation
+            if (InputManager.GetInstance().GetPlayerControl(1).isKeyboard)
+            {
+                player2KeyPanel.SetActive(true);
+                player2GamepadPanel.SetActive(false);
+            }
+            else//gamepad comfirmation
+            {
+                player2KeyPanel.SetActive(false);
+                player2GamepadPanel.SetActive(true);
+
+            }
+        }
+        else//show assigned controller panel
+        {
+            instructTexts[1].SetActive(true);
+            player2AssignedPanel.SetActive(true);
+            player2OptionPanel.SetActive(false);
+            playerTwoImg.color = Color.red;
+        }
+
+        //displays the READY sign
+        //for  player 1
+        if (InputManager.GetInstance().IsPlayerReady(0))
+        {
+            playerOneImg.color = Color.green;
+            player1Ready.SetActive(true);
+        }
+        //for player 2
+        if (InputManager.GetInstance().IsPlayerReady(1))
+        {
+            playerTwoImg.color = Color.green;
+            player2Ready.SetActive(true);
+        }
+    }
+
+
+    /// <summary>
+    /// moves the selector of the player ships when controllers are assigned 
+    /// </summary>
+    /// <param name="playerID"></param>
+    void PlayerSelector(int playerID)
+    {
+        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == 0)
+        {
+            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, playerID))
+            {
+                Debug.Log("right");
+                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID] + 1, 0, 1);
+
+            }
+            if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, playerID))
             {
                 Debug.Log("left");
-                P2_index = MoveIndex(-1, P2_index);
+                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID] -1 , 0, 1);
+
             }
         }
     }
+
+    
 
     /// <summary>
     /// Goes through the function to confirm the ship selected
