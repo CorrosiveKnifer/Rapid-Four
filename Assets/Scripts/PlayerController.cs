@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
             return (duration <= 0.0f);
         }
     }
+
     enum abilityType
     {
         DASH,
@@ -154,6 +155,7 @@ public class PlayerController : MonoBehaviour
 
         Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();

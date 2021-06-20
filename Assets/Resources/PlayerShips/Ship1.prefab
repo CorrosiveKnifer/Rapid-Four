@@ -216,6 +216,8 @@ MonoBehaviour:
   ID: 0
   maxAmmo: 20
   Ammo: 0
+  m_maxHealth: 100
+  m_maxShields: 100
   maxDist: {x: 500, y: 500}
   minDist: {x: -500, y: -500}
   projectileSpawnLoc:

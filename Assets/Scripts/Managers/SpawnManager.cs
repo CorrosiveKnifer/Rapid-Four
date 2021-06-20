@@ -18,6 +18,7 @@ public class SpawnManager : MonoBehaviour
     
     public Wave[] m_waves;
 
+    public float spawnRadius = 200;
     //GameObject bossteroid;
 
     //public float m_fSpawnDistance = 160.0f;
@@ -138,5 +139,9 @@ public class SpawnManager : MonoBehaviour
         //
         //bossteroid.GetComponent<Astroid>().Endurance = 4;
         //bossteroid.GetComponent<Astroid>().maxSpeed = 2.0f;
+    }
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(Vector3.zero, spawnRadius);
     }
 }
