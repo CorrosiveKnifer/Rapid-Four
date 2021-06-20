@@ -385,6 +385,7 @@ public class InputManager : MonoBehaviour
         if (index != 2)
         {
             players[index].isKeyboard = true;
+            players[index].shipID = index;
         }
 
     }
