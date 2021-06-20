@@ -101,11 +101,13 @@ public class HUDManager : MonoBehaviour
         return respawnTimer;
     }
 
-    public void SetHealthDisplay(int id, float currentHealth, float currentShield)
+    public void SetHealthDisplay(int id, float currentHealth, float currentShield, float currentOverheat = 0)
     {
         playerBars[id].healthCurrent = currentHealth;
         playerBars[id].shieldCurrent = currentShield;
+        playerBars[id].overheatCurrent = currentOverheat;
     }
+
     public void SetHealthMax(int id, float maxHealth, float maxShield)
     {
         playerBars[id].healthMax = maxHealth;

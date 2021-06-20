@@ -49,6 +49,6 @@ public class HealthBar : MonoBehaviour
         }
 
         overHeatBar.fillAmount = overheatCurrent / overheatMax;
-        overHeatBar.color = Color.Lerp(Color.gray, Color.red, overHeatBar.fillAmount);
+        overHeatBar.color = Color.Lerp(Color.gray, new Color(1, 120.0f/255.0f, 45.0f/255.0f), overHeatBar.fillAmount);
     }
 }
