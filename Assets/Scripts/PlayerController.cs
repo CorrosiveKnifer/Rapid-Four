@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public int maxAmmo = 20;
     public int Ammo;
 
+    public float m_maxHealth;
+    public float m_maxShields;
     public Vector2 maxDist;
     public Vector2 minDist;
 
@@ -86,7 +88,8 @@ public class PlayerController : MonoBehaviour
     public float m_fAbility2CD = 20.0f;
     private float m_fAbility2Timer = 0.0f;
 
-
+    private float m_health;
+    private float m_shields;
 
     List<activeEffect> playerEffects = new List<activeEffect>();
 
@@ -190,6 +193,7 @@ public class PlayerController : MonoBehaviour
             Shoot();
             Ability();
             EffectUpdate();
+            HUDManager.instance.SetHealthDisplay(ID, m_health, m_shields);
         }
     }
 

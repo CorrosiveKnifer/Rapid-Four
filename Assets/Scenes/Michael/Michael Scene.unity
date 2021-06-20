@@ -782,8 +782,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3358980166718997026, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
-      propertyPath: targets.Array.data[0]
-      value: 
+      propertyPath: targets.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
+        type: 3}
+      propertyPath: targets.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3358980167320245195, guid: 25661ef289c607341aa409d7c1b83879,
         type: 3}
@@ -1624,13 +1629,7 @@ MonoBehaviour:
   TotalScore: 0
   AsteroidDestroyScore: 10
   GameTime: 0
-  WarningText: {fileID: 0}
-  ObjectiveText: {fileID: 0}
-  scoreText: {fileID: 0}
-  player1Ammo: {fileID: 0}
-  player2Ammo: {fileID: 0}
-  planetHealth: {fileID: 0}
-  respawnTimer: {fileID: 0}
+  playerShipPrefabs: []
 --- !u!4 &2101230195
 Transform:
   m_ObjectHideFlags: 0

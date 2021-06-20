@@ -98,4 +98,9 @@ public class HUDManager : MonoBehaviour
     {
         return respawnTimer;
     }
+
+    public void SetHealthDisplay(int id, float currentHealth, float currentShield)
+    {
+        //
+    }
 }

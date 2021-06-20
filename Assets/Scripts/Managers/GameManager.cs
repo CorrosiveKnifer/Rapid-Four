@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Michael Jordan, William de Beer
@@ -78,6 +79,12 @@ public class GameManager : MonoBehaviour
     {
         playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
 
+        //If on game scene Default:
+        if(!SceneManager.GetActiveScene().name.Contains("Lobby"))
+        {
+            InputManager.GetInstance().DefaultAssignControllers();
+        }
+
         SpawnPlayers();
     }
 
@@ -95,7 +102,11 @@ public class GameManager : MonoBehaviour
         int shipId1 = InputManager.GetInstance().GetPlayerControl(0).shipID;
         //int shipId2 = InputManager.GetInstance().GetPlayerControl(1).shipID;
 
-        CameraManager.instance.SetCameraFocus(0, Instantiate(playerShipPrefabs[shipId1], pos1, Quaternion.Euler(new Vector3(-90, 0, 0))));
+        GameObject ship = Instantiate(playerShipPrefabs[shipId1], pos1, Quaternion.Euler(new Vector3(-90, 0, 0)));
+        CameraManager.instance.SetCameraFocus(0, ship);
+        ship.GetComponent<PlayerController>().ID = 0;
+        
+        
         //CameraManager.instance.SetCameraFocus(1, Instantiate(playerShipPrefabs[shipId2], pos1, Quaternion.Euler(new Vector3(-90, 0, 0))));
         //Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.identity);
     }
