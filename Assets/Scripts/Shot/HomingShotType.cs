@@ -4,7 +4,7 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// Rachael Colaco, Michael Jordan
+/// Rachael Colaco, Michael Jordan, William de Beer
 /// </summary>
 public class HomingShotType : ShotType
 {
@@ -12,17 +12,26 @@ public class HomingShotType : ShotType
     public GameObject[] enemies;
     private Vector3 original;
     private float timer = 0.0f;
+    private float startingLife;
     protected override void Start()
     {
-        if(!IsLaser)
-            Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+        //if(!IsLaser)
+        //    Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
 
         isQuitting = false;
+        startingLife = lifetime;
     }
 
     protected override void Update()
     {
-        homingBullet();
+        if (lifetime < startingLife - 0.5f)
+            homingBullet();
+
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0)
+        {
+            Destroy(this);
+        }
 
         if (timer > 0)
             timer -= Time.deltaTime;
@@ -35,15 +44,15 @@ public class HomingShotType : ShotType
             if (other.GetComponent<Astroid>().Endurance != 5)
                 other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
 
-            //spawning ammo
-            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
-            {
-                GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
-                AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
-                AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
-                AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-                timer = delay;
-            }
+            ////spawning ammo
+            //if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
+            //{
+            //    GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
+            //    AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+            //    AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
+            //    AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
+            //    timer = delay;
+            //}
         }
     }
 

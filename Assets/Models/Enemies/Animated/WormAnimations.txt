@@ -1,0 +1,2 @@
+0 - 60 Movement
+61 - 95 Attack

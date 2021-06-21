@@ -15,19 +15,34 @@ public class PlayerController : MonoBehaviour
     public int maxAmmo = 20;
     public int Ammo;
 
+    public float m_maxHealth;
+    public float m_maxShields;
     public Vector2 maxDist;
     public Vector2 minDist;
 
     [Header("Attachments")]
     public GameObject[] projectileSpawnLoc;
+    public GameObject noseProjectileSpawnLoc;
     public Shield shieldObject;
     public Animator[] engine;
     public Animator immune;
     public CameraAgent myCamera;
     public bool usingKeyboard = false;
+
     private GameObject proj;
     private GameObject homing;
+    private GameObject blackhole;
+    private GameObject energyWave;
     private GameObject beam;
+
+    private GameObject currentBlackhole;
+    private GameObject currentLaser;
+
+    [Header("Primary Fire Overheat")]
+    public float m_currentHeatLevel = 0.0f;
+    public float m_heatPerShot = 5.0f;
+    public float m_cooloffRate = 20.0f;
+    public bool m_overheated = false;
 
     [Header("Abilities")]
     public UnityEvent SecondaryFire;
@@ -73,7 +88,8 @@ public class PlayerController : MonoBehaviour
     public float m_fAbility2CD = 20.0f;
     private float m_fAbility2Timer = 0.0f;
 
-
+    private float m_health;
+    private float m_shields;
 
     List<activeEffect> playerEffects = new List<activeEffect>();
 
@@ -93,10 +109,12 @@ public class PlayerController : MonoBehaviour
             return (duration <= 0.0f);
         }
     }
+
     enum abilityType
     {
         DASH,
         PARTICLE_BEAM,
+        BLACKHOLE_PROJECTILE,
     }
 
     //ControlInput controls;
@@ -104,10 +122,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (ID == 0)
-            controlsID = GameManager.player1Controls;
-        if (ID == 1)
-            controlsID = GameManager.player2Controls;
+        HUDManager.instance.SetHealthMax(ID, m_maxHealth, m_maxShields);
+
+        m_health = m_maxHealth;
+        m_shields = m_maxShields;
 
         if (usingKeyboard)
         {
@@ -125,12 +143,17 @@ public class PlayerController : MonoBehaviour
         body = GetComponentInChildren<Rigidbody>();
         proj = Resources.Load<GameObject>("Prefabs/BasicShot");
         homing = Resources.Load<GameObject>("Prefabs/HomingShot");
+        blackhole = Resources.Load<GameObject>("Prefabs/BlackholeProjectile");
+        energyWave = Resources.Load<GameObject>("Prefabs/EnergyWave");
         beam = Resources.Load<GameObject>("Prefabs/ParticleBeam");
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
 
+        myCamera = CameraManager.instance.GetCameraAgent(ID);
+
         Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
@@ -174,6 +197,7 @@ public class PlayerController : MonoBehaviour
             Shoot();
             Ability();
             EffectUpdate();
+            HUDManager.instance.SetHealthDisplay(ID, m_health, m_shields, m_currentHeatLevel);
         }
     }
 
@@ -188,7 +212,8 @@ public class PlayerController : MonoBehaviour
         //float verticalAxis = InputManager.instance.GetVerticalInput(ID);
         //float horizontalAxis = InputManager.instance.GetHorizontalInput(ID);
 
-        Vector2 movement = gamepad.leftStick.ReadValue();
+        Vector2 movement = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.LEFT, ID), 
+            InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.LEFT, ID));
 
         if (!isAlive)
         {
@@ -209,31 +234,13 @@ public class PlayerController : MonoBehaviour
     }
     private void ShipAiming()
     {
-        if (usingKeyboard) // Mouse aiming
+        Vector2 aim = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()),
+        InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()));
+
+        if (aim.x != 0 || aim.y != 0)
         {
-
-            Vector3 screenPoint = mouse.position.ReadValue();
-            screenPoint.z = myCamera.GetComponent<Camera>().nearClipPlane;
-            //Debug.LogWarning(screenPoint);
-            Vector3 worldPoint = myCamera.GetComponent<Camera>().ScreenToWorldPoint(screenPoint);
-            //worldPoint.z = gameObject.transform.position.z;
-            Vector3 direct = worldPoint - gameObject.transform.position;
-            direct.z = 0;
-            Quaternion lookDirect = Quaternion.LookRotation(direct, transform.up);
-            body.rotation = Quaternion.Slerp(body.rotation, lookDirect, rotationSpeed);
-        }
-        else // Joystick aiming
-        {
-            float verticalAxis = 0; //InputManager.instance.GetVerticalInput(1);
-            float horizontalAxis = 0; //InputManager.instance.GetHorizontalInput(1);
-
-            Vector2 aim = gamepad.rightStick.ReadValue();
-
-            if (aim.x != 0 || aim.y != 0)
-            {
-                Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
-                body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
-            }
+            Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
+            body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
         }
     }
     private void Bounds()
@@ -271,21 +278,27 @@ public class PlayerController : MonoBehaviour
         if (m_fAbility2Timer > 0)
             m_fAbility2Timer -= Time.deltaTime;
 
-        if (m_fSecondaryFireTimer <= 0 && gamepad.leftTrigger.wasPressedThisFrame && SecondaryFire != null)
+        if (currentBlackhole != null && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LS, ID))
+        {
+           // currentBlackhole.GetComponent<BlackholeProjectile>().ActivateBlackhole();
+        }
+
+        if (m_fSecondaryFireTimer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LT, ID) && SecondaryFire != null)
         {
             m_fSecondaryFireTimer = m_fSecondaryFireCD;
             SecondaryFire.Invoke();
         }
-        if (m_fAbility1Timer <= 0 && gamepad.rightShoulder.wasPressedThisFrame && Ability1 != null)
+        if (m_fAbility1Timer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_RS, ID) && Ability1 != null)
         {
             m_fAbility1Timer = m_fAbility1CD;
             Ability1.Invoke();
         }
-        if (m_fAbility2Timer <= 0 && gamepad.leftShoulder.wasPressedThisFrame && Ability2 != null)
+        if (m_fAbility2Timer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LS, ID) && Ability2 != null)
         {
             m_fAbility2Timer = m_fAbility2CD;
             Ability2.Invoke();
         }
+
     }
 
     private void Shoot()
@@ -293,8 +306,9 @@ public class PlayerController : MonoBehaviour
         if (m_fShootTimer > 0)
             m_fShootTimer -= Time.deltaTime;
 
-        if (gamepad.rightTrigger.isPressed && m_fShootTimer <= 0)
+        if (InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_RT, ID) && m_fShootTimer <= 0 && !m_overheated)
         {
+            m_currentHeatLevel += m_heatPerShot;
             m_fShootTimer = 1.0f / m_fFirerate;
 
             bool hasShot = false;
@@ -306,6 +320,7 @@ public class PlayerController : MonoBehaviour
 
                 //Send projectile
                 gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+                //gObject.GetComponent<Rigidbody>().velocity += GetComponent<Rigidbody>().velocity;
             }
 
             if (hasShot)
@@ -318,24 +333,38 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //if (InputManager.instance.GetPlayerUnshoot(ID))
-        //{
-        //    foreach (var gameObject in projectileSpawnLoc)
-        //    {
-        //        gameObject.GetComponent<GunType>().UnFire();
-        //        audioAgent.StopAudio("Laser");
-        //    }
-        //}
+        // Overheating System
+        if (m_currentHeatLevel >= 100.0f)
+        {
+            m_currentHeatLevel = 100.0f;
+            if (!m_overheated)
+                audioAgent.PlaySoundEffect("Overheated");
+            m_overheated = true;
+        }
+
+        if (m_currentHeatLevel > 0 && (!gamepad.rightTrigger.isPressed || m_overheated))
+        {
+            m_currentHeatLevel -= Time.deltaTime * m_cooloffRate;
+        }
+
+        if (m_currentHeatLevel <= 0)
+        {
+            m_currentHeatLevel = 0.0f;
+            if (m_overheated)
+                audioAgent.PlaySoundEffect("Empty");
+            m_overheated = false;
+        }
     }
 
     public void AbilityHomingMissile()
     {
         // Summon Homing Missile
-        GameObject gObject = Instantiate(homing, transform.position, Quaternion.identity);
+        GameObject gObject = Instantiate(homing, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
         gObject.transform.up = transform.forward;
 
         //Send projectile
         gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+        audioAgent.PlaySoundEffect("MissileLaunch");
     }
 
     public void AbilityDash()
@@ -352,11 +381,44 @@ public class PlayerController : MonoBehaviour
     public void AbilityParticleBeam()
     {
         // IMA FIORIN MAH LAHSOR
-        activeEffect newEffect = new activeEffect();
-        newEffect.effect = abilityType.PARTICLE_BEAM;
-        newEffect.duration = 1.0f;
-        playerEffects.Add(newEffect);
-        audioAgent.PlaySoundEffect("BeamCharge");
+        if (currentLaser == null)
+        {
+            currentLaser = Instantiate(beam, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+            currentLaser.transform.up = transform.forward;
+
+            currentLaser.transform.SetParent(gameObject.transform);
+
+            activeEffect newEffect = new activeEffect();
+            newEffect.effect = abilityType.PARTICLE_BEAM;
+            newEffect.duration = 1.05f;
+            playerEffects.Add(newEffect);
+            audioAgent.PlaySoundEffect("BeamCharge");
+        }
+    }
+
+    public void AbilityEnergyWave()
+    {
+        // Summon Wave
+        GameObject gObject = Instantiate(energyWave, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+        gObject.transform.up = transform.forward;
+
+        gObject.transform.SetParent(gameObject.transform);
+        audioAgent.PlaySoundEffect("EnergyWave");
+    }
+
+    public void AbilityBlackhole()
+    {
+        if (currentBlackhole == null)
+        {
+            // Summon blackhole
+            currentBlackhole = Instantiate(blackhole, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+            currentBlackhole.transform.up = transform.forward;
+
+            //Send projectile
+            currentBlackhole.GetComponent<Rigidbody>().AddForce(transform.forward * 20.0f, ForceMode.Impulse);
+
+            audioAgent.PlaySoundEffect("BlackholeProj");
+        }
     }
 
     private void EffectUpdate()
@@ -383,8 +445,7 @@ public class PlayerController : MonoBehaviour
                         GetComponent<Rigidbody>().velocity = MoveDir * 20.0f;
                         break;
                     case abilityType.PARTICLE_BEAM:
-                        GameObject gObject = Instantiate(beam, transform.position, Quaternion.identity);
-                        gObject.transform.up = transform.forward;
+                        currentLaser.transform.SetParent(null);
                         GetComponent<Rigidbody>().velocity -= transform.forward * 50.0f;
                         audioAgent.StopAudio("BeamCharge");
                         audioAgent.PlaySoundEffect("BeamRelease");
@@ -403,7 +464,7 @@ public class PlayerController : MonoBehaviour
     }
     private void DeathUpdate()
     {
-        GameManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
+        HUDManager.instance.GetRespawnTimer().EnableTimer(ID, !isAlive);
 
         immune.SetBool("IsImmune", isInvincible);
 
@@ -445,7 +506,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_DeathTimer -= Time.deltaTime;
-            GameManager.instance.GetRespawnTimer().UpdateTimer(ID, m_DeathTimer);
+            HUDManager.instance.GetRespawnTimer().UpdateTimer(ID, m_DeathTimer);
         }
 
         if (m_InvincibilityTimer <= 0)

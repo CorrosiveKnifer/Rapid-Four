@@ -36,7 +36,7 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     }
 
     //Inherited by EnemyAttackBehavour
-    protected override void DealDamage(GameObject target)
+    public override void DealDamage(GameObject target)
     {
         //Damage the player directly.
         target.GetComponent<PlayerController>().DealDamage(m_myDamage);

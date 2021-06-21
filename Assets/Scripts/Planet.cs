@@ -39,7 +39,7 @@ public class Planet : MonoBehaviour
        // }
 
         transform.Rotate(new Vector3(0.0f, m_fRotationSpeedMult * Time.deltaTime, 0.0f));
-        GameManager.instance.SetPlanetHealthBar(m_fHealth / m_fMaxHealth);
+        HUDManager.instance.SetPlanetHealthBar(m_fHealth / m_fMaxHealth);
         minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
         if (m_fHealth <= 0.0f)

@@ -16,7 +16,9 @@ public abstract class EnemyAttackBehavour : MonoBehaviour
 
     [ReadOnly]
     public float m_delay = 0.0f;
-    
+    [ReadOnly]
+    public GameObject m_target;
+
     protected float m_preferedPersonalDistance = 0.0f;
     protected float m_preferedAttackDistance = 0.0f;
     protected Vector3 m_gizmosPosition;
@@ -54,7 +56,7 @@ public abstract class EnemyAttackBehavour : MonoBehaviour
     /// Start Dealing damage towards the target based on this behavour.
     /// </summary>
     /// <param name="target">Target entity to attack.</param>
-    protected abstract void DealDamage(GameObject target);
+    public abstract void DealDamage(GameObject target);
 
     private void OnDrawGizmos()
     {

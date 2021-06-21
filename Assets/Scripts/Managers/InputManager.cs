@@ -377,11 +377,13 @@ public class InputManager : MonoBehaviour
         {
             players[index].gamepad = padAvail;
             players[index].controllerID = index;
+            players[index].shipID = index;
             index++;
         }
         if (index != 2)
         {
             players[index].isKeyboard = true;
+            players[index].shipID = index;
         }
 
     }
