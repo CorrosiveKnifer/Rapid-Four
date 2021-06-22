@@ -19,65 +19,25 @@ public class SpawnManager : MonoBehaviour
     public Wave[] m_waves;
 
     public float spawnRadius = 200;
-    //GameObject bossteroid;
-
-    //public float m_fSpawnDistance = 160.0f;
-
-    //public float m_fSpawnInterval = 10.0f;
-    //float m_fSpawnTimer;
-
-    //bool m_bWarning = false;
-
-    //public float m_fSpawningGraceDuration = 50.0f;
-    //float m_fSpawningGrace;
-    //bool m_bSpawningGrace = false; 
-
-    //public float m_fBossSpawnDuration = 120.0f;
-    //float m_fBossSpawnTimer;
-    // bool m_bSpawningGrace = false;
-
-    //Animator animDanger;
-
-    //float m_fMaxInterval = 10.0f;
-    //float m_fMinInterval = 0.3f;
-    //float m_fChangeSpeed = 0.01f; 
+    public int currentWave = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Vector3.zero;
-        //m_fSpawnTimer = 0.0f;
-        //m_fSpawningGrace = 0.0f;
-        //m_fBossSpawnTimer = 0.0f;
-        //animDanger = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (m_fSpawnTimer <= 0.0f && !m_bSpawningGrace && bossteroid == null)
-        //{
-        //    Vector3 spawnPosition = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
-        //    spawnPosition = spawnPosition.normalized * m_fSpawnDistance;
-        //
-        //    Instantiate(asteroidPrefab[Random.Range(0, asteroidPrefab.Length)], spawnPosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
-        //
-        //    m_fSpawnTimer = m_fSpawnInterval;
-        //}
-        //else
-        //{
-        //    m_fSpawnTimer -= Time.deltaTime;
-        //}
-        //
-        //m_fSpawnInterval = (m_fMaxInterval / (1 + m_fChangeSpeed * GameManager.instance.TotalScore)) + m_fMinInterval;
-        //
-        //BossSpawnUpdate();
-        /*
-        if (Input.GetKeyDown(KeyCode.T))
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && m_waves.Length > currentWave + 1)
         {
-            SpawnBossteroid();
+            SpawnWave(m_waves[currentWave++]);
         }
-        */
+        else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0)
+        {
+            Debug.Log("Game Win");
+        }
     }
 
     public void SpawnWave(Wave wave)
@@ -90,7 +50,15 @@ public class SpawnManager : MonoBehaviour
 
         while(shipCount > 0)
         {
-
+            for (int i = 0; i < wave.enemyInfo.Length; i++)
+            {
+                if(wave.enemyInfo[i] > 0)
+                {
+                    Vector2 temp = new Vector2(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)).normalized;
+                    Instantiate(m_enemyPrefab[i], temp * spawnRadius, Quaternion.identity);
+                    shipCount--;
+                }
+            }
         }
     }
 

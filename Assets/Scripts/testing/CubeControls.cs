@@ -427,7 +427,7 @@ public class CubeControls : MonoBehaviour
         {
             Debug.Log("you click on button");
         }
-        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_2, playerID))
+        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_Q, playerID))
         {
             Debug.Log("you click on button");
         }

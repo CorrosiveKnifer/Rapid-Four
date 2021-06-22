@@ -54,15 +54,14 @@ public class InputManager : MonoBehaviour
         KEY_A,
         KEY_ESC,
         KEY_SPACE,
-        KEY_1,
-        KEY_2,
-        KEY_3,
-        KEY_4
+        KEY_TAB,
+        KEY_Q,
+        KEY_E,
 
     }
 
     private static InputManager instance = null;
-    public Mouse mouse;
+    public Mouse mouse = Mouse.current;
     public Keyboard keyboard = Keyboard.current;
 
     public static InputManager GetInstance()
@@ -83,7 +82,6 @@ public class InputManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Cursor.lockState = CursorLockMode.Confined;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -422,17 +420,14 @@ public class InputManager : MonoBehaviour
             case KeyType.KEY_SPACE:
                 return keyboard.spaceKey.wasPressedThisFrame;
 
-            case KeyType.KEY_1:
-                return keyboard.digit1Key.wasPressedThisFrame;
+            case KeyType.KEY_TAB:
+                return keyboard.tabKey.wasPressedThisFrame;
 
-            case KeyType.KEY_2:
-                return keyboard.digit2Key.wasPressedThisFrame;
+            case KeyType.KEY_Q:
+                return keyboard.qKey.wasPressedThisFrame;
 
-            case KeyType.KEY_3:
-                return keyboard.digit3Key.wasPressedThisFrame;
-
-            case KeyType.KEY_4:
-                return keyboard.digit4Key.wasPressedThisFrame;
+            case KeyType.KEY_E:
+                return keyboard.eKey.wasPressedThisFrame;
         }
     }
 
@@ -466,22 +461,22 @@ public class InputManager : MonoBehaviour
                     return keyboard.sKey.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_START:
-                    return keyboard.escapeKey.wasPressedThisFrame;
-
-                case ButtonType.BUTTON_SELECT:
                     return keyboard.spaceKey.wasPressedThisFrame;
 
+                case ButtonType.BUTTON_SELECT:
+                    return keyboard.tabKey.wasPressedThisFrame;
+
                 case ButtonType.BUTTON_LT:
-                    return keyboard.digit1Key.wasPressedThisFrame;
+                    return mouse.leftButton.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_RT:
-                    return keyboard.digit2Key.wasPressedThisFrame;
+                    return mouse.rightButton.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_LS:
-                    return keyboard.digit3Key.wasPressedThisFrame;
+                    return keyboard.qKey.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_RS:
-                    return keyboard.digit4Key.wasPressedThisFrame;
+                    return keyboard.eKey.wasPressedThisFrame;
 
             }
 
@@ -561,18 +556,14 @@ public class InputManager : MonoBehaviour
             case KeyType.KEY_SPACE:
                 return keyboard.spaceKey.isPressed;
 
-            case KeyType.KEY_1:
-                return keyboard.digit1Key.isPressed;
+            case KeyType.KEY_TAB:
+                return keyboard.tabKey.isPressed;
 
-            case KeyType.KEY_2:
-                return keyboard.digit2Key.isPressed;
+            case KeyType.KEY_Q:
+                return keyboard.qKey.isPressed;
 
-            case KeyType.KEY_3:
-                return keyboard.digit3Key.isPressed;
-
-            case KeyType.KEY_4:
-                return keyboard.digit4Key.isPressed;
-
+            case KeyType.KEY_E:
+                return keyboard.eKey.isPressed;
         }
 
 
@@ -592,7 +583,7 @@ public class InputManager : MonoBehaviour
             switch (buttonName)
             {
                 default:
-                    Debug.LogWarning($"Unsupported key type in GetKeyPress.");
+                    Debug.LogWarning($"Unsupported key type in GetKeyDown.");
                     return false;
                 case ButtonType.BUTTON_NORTH:
                     return keyboard.wKey.isPressed;
@@ -607,22 +598,22 @@ public class InputManager : MonoBehaviour
                     return keyboard.sKey.isPressed;
 
                 case ButtonType.BUTTON_START:
-                    return keyboard.escapeKey.isPressed;
-
-                case ButtonType.BUTTON_SELECT:
                     return keyboard.spaceKey.isPressed;
 
+                case ButtonType.BUTTON_SELECT:
+                    return keyboard.tabKey.isPressed;
+
                 case ButtonType.BUTTON_LT:
-                    return keyboard.digit1Key.isPressed;
+                    return mouse.leftButton.isPressed;
 
                 case ButtonType.BUTTON_RT:
-                    return keyboard.digit2Key.isPressed;
+                    return mouse.rightButton.isPressed;
 
                 case ButtonType.BUTTON_LS:
-                    return keyboard.digit3Key.isPressed;
+                    return keyboard.qKey.isPressed;
 
                 case ButtonType.BUTTON_RS:
-                    return keyboard.digit4Key.isPressed;
+                    return keyboard.eKey.isPressed;
 
             }
 
