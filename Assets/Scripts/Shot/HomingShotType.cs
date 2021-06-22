@@ -10,6 +10,7 @@ public class HomingShotType : ShotType
 {
     public GameObject target;
     public GameObject[] enemies;
+    public float range = 10.0f;
     private Vector3 original;
     private float timer = 0.0f;
     private float startingLife;
@@ -58,13 +59,23 @@ public class HomingShotType : ShotType
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Asteroid")
+        if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<Astroid>().DealDamage(damage);
+            EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
+
+            foreach (var enemy in enemies)
+            {
+                if (Vector3.Distance(enemy.gameObject.transform.position, transform.position) < range)
+                {
+                    enemy.HurtEnemy(damage);
+                }
+            }
+
 
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
                 Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
+                
                 Destroy(gameObject);
             }
         }
@@ -73,7 +84,7 @@ public class HomingShotType : ShotType
     void homingBullet()
     {
         //finding all enemies constantly
-        enemies = GameObject.FindGameObjectsWithTag("Asteroid");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         TargetCloset();
         bulletUpdateMovement();
     }

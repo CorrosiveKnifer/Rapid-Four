@@ -31,7 +31,7 @@ public class Blackhole : MonoBehaviour
             if (other.gameObject.GetComponent<Rigidbody>())
             {
                 Vector3 force = transform.position - other.gameObject.transform.position;
-                other.gameObject.GetComponent<Rigidbody>().AddForce(force.normalized * pullPower, ForceMode.Acceleration); ;
+                other.gameObject.GetComponent<Rigidbody>().velocity = force * pullPower;
             }
         }
     }

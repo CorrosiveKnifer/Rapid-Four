@@ -44,8 +44,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.1
-  m_Height: 0.66
+  m_Radius: 0.2
+  m_Height: 0.66000015
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8505389813931593353
@@ -84,6 +84,7 @@ MonoBehaviour:
   delay: 0
   target: {fileID: 0}
   enemies: []
+  range: 10
 --- !u!1001 &4519883212232232874
 PrefabInstance:
   m_ObjectHideFlags: 0

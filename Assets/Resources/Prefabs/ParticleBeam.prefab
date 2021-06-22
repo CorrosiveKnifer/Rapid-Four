@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6635670430175651496}
   - component: {fileID: 7234820967223732819}
   - component: {fileID: 8423762498588627924}
+  - component: {fileID: 2975425683068542192}
   m_Layer: 0
   m_Name: ParticleBeam
   m_TagString: Untagged
@@ -94,7 +95,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6413910294a664caa8860eb6caf579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 200
+--- !u!136 &2975425683068542192
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824567824521043788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 7
+  m_Height: 111.54677
+  m_Direction: 1
+  m_Center: {x: 0, y: 54.146584, z: 0}
 --- !u!1 &8255349122252977812
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +151,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8255349122252977812}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 5
   m_Height: 111.54677
   m_Direction: 1
