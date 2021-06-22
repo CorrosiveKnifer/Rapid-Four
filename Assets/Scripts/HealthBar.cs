@@ -22,17 +22,12 @@ public class HealthBar : MonoBehaviour
     public float healthCurrent;
     public float shieldCurrent;
     public float overheatCurrent;
-    public float totalCombined;
 
     // Start is called before the first frame update
     void Start()
     {
-        totalCombined = healthMax + shieldMax;
-        healthMaxBar.fillAmount = healthMax / totalCombined;
-        shieldMaxBar.fillAmount = shieldMax / totalCombined;
-
-        healthBar.fillAmount = healthCurrent / totalCombined;
-        shieldBar.fillAmount = shieldCurrent / totalCombined + healthCurrent / totalCombined;
+        healthBar.fillAmount = healthCurrent / healthMax;
+        shieldBar.fillAmount = shieldCurrent / shieldMax;
 
         overHeatBar.fillAmount = overheatCurrent / overheatMax;
     }
@@ -40,13 +35,8 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = healthCurrent / (healthMax + shieldMax);
+        healthBar.fillAmount = healthCurrent / healthMax;
         shieldBar.fillAmount = shieldCurrent / shieldMax;
-
-        if(shieldBar.fillAmount < healthBar.fillAmount)
-        {
-            shieldBar.fillAmount = healthBar.fillAmount;
-        }
 
         overHeatBar.fillAmount = overheatCurrent / overheatMax;
         overHeatBar.color = Color.Lerp(Color.gray, new Color(1, 120.0f/255.0f, 45.0f/255.0f), overHeatBar.fillAmount);

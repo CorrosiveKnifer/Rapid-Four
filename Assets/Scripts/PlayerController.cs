@@ -293,28 +293,28 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Bounds()
     {
-        Vector3 force = new Vector3();
-        if (transform.position.x < minDist.x)
-        {
-            force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x + minDist.x); //-x
-        }
-        if (transform.position.x > maxDist.x)
-        {
-            force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x - maxDist.x); //x
-        }
-        if (transform.position.y < minDist.y)
-        {
-            force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
-        }
-        if (transform.position.y > maxDist.y)
-        {
-            force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
-        }
-
-        if (force != new Vector3())
-        {
-            body.AddForce(force, ForceMode.Acceleration);//transform.position = targetLoc;
-        }
+        //Vector3 force = new Vector3();
+        //if (transform.position.x < minDist.x)
+        //{
+        //    force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x + minDist.x); //-x
+        //}
+        //if (transform.position.x > maxDist.x)
+        //{
+        //    force += new Vector3(-1f, 0f, 0f) * (speed / 350) * (transform.position.x - maxDist.x); //x
+        //}
+        //if (transform.position.y < minDist.y)
+        //{
+        //    force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
+        //}
+        //if (transform.position.y > maxDist.y)
+        //{
+        //    force += new Vector3(0f, -1f, 0f) * (speed / 350) * (transform.position.y - maxDist.y); //x
+        //}
+        //
+        //if (force != new Vector3())
+        //{
+        //    body.AddForce(force, ForceMode.Acceleration);//transform.position = targetLoc;
+        //}
     }
 
     /// <summary>
