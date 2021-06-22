@@ -51,7 +51,7 @@ MeshCollider:
   m_GameObject: {fileID: 1534109546590552976}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -202,7 +202,7 @@ MonoBehaviour:
   myCamera: {fileID: 0}
   usingKeyboard: 0
   m_currentHeatLevel: 0
-  m_heatPerShot: 5
+  m_heatPerShot: 7
   m_cooloffRate: 20
   m_overheated: 0
   SecondaryFire:
@@ -250,7 +250,7 @@ MonoBehaviour:
   speed: 1200
   rotationSpeed: 0.1
   particlePrefab: {fileID: 0}
-  m_fFirerate: 3
+  m_fFirerate: 5
   m_fSecondaryFireCD: 5
   m_fAbility1CD: 1.5
   m_fAbility2CD: 20

@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour
         // Shield regeneration
         if (isAlive)
         { 
-            if (m_shieldRegenTimer > 0.0f)
+            if (m_shieldRegenTimer <= 0.0f)
             {
                 if (m_shields < m_maxShields)
                 {
@@ -574,7 +574,7 @@ public class PlayerController : MonoBehaviour
             Vector3 spawnPos = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
             spawnPos = spawnPos.normalized * 25.0f;
             transform.position = spawnPos;
-            transform.rotation = Quaternion.Euler(0.0f, 0.0f, (transform.position.x < 0 ? 90.0f : -90.0f) + Mathf.Atan(spawnPos.y / spawnPos.x) * Mathf.Rad2Deg);
+            //transform.rotation = Quaternion.Euler(0.0f, 0.0f, (transform.position.x < 0 ? 90.0f : -90.0f) + Mathf.Atan(spawnPos.y / spawnPos.x) * Mathf.Rad2Deg);
             body.velocity = Vector3.zero;
         }
         else
@@ -625,6 +625,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="damage"></param>
     public void DealDamage(float damage)
     {
+        m_shieldRegenTimer = m_shieldRegenDelay;
         if (m_shields > 0.0f)
         {
             m_shields -= damage;

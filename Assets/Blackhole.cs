@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Blackhole : MonoBehaviour
 {
-    private float lifetime = 10.0f;
+    public float lifetime = 10.0f;
+    public float pullPower = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,19 @@ public class Blackhole : MonoBehaviour
         if (lifetime <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyAI>().StunTarget(0.1f);
+            if (other.gameObject.GetComponent<Rigidbody>())
+            {
+                Vector3 force = transform.position - other.gameObject.transform.position;
+                other.gameObject.GetComponent<Rigidbody>().AddForce(force.normalized * pullPower, ForceMode.Acceleration); ;
+            }
         }
     }
 

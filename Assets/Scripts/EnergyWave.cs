@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnergyWave : MonoBehaviour
 {
-    public float damage = 50.0f;
-    public float heal = 30.0f;
+    public float damage = 20.0f;
+    public float duration = 1.0f;
+    public float heal = 50.0f;
     public float knockback = 20.0f;
     private float lifetime = 0.5f;
 
@@ -29,9 +30,14 @@ public class EnergyWave : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<Astroid>() && !hitList.Contains(other))
+        if (hitList.Contains(other))
+            return;
+
+       
+        if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<Astroid>().DealDamage(damage);
+            other.gameObject.GetComponent<EnemyAI>().HurtEnemy(damage);
+            other.gameObject.GetComponent<EnemyAI>().StunTarget(duration);
             if (other.gameObject.GetComponent<Rigidbody>())
             {
                 Vector3 force = other.gameObject.transform.position - transform.position;
@@ -42,6 +48,7 @@ public class EnergyWave : MonoBehaviour
         if (other.gameObject.GetComponentInParent<PlayerController>() && !hitList.Contains(other))
         {
             // heal player hit
+            other.gameObject.GetComponentInParent<PlayerController>().DealHeal(heal);
         }
 
         hitList.Add(other);

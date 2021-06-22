@@ -33,6 +33,9 @@ public class EnemyAI : MonoBehaviour
     private Vector3 m_ForwardVector;
     private LayerMask m_TargetTag; //Layer of the target fields.
 
+    [Header("Stun timer")]
+    private float m_stunTimer = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +92,14 @@ public class EnemyAI : MonoBehaviour
         //Normalise to get the actual direction
         m_ForwardVector.Normalize();
 
-        GetComponent<Rigidbody>().velocity = m_ForwardVector * GetComponent<EnemyAttackBehavour>().m_currentSpeed;
+        if (m_stunTimer > 0.0f)
+        {
+            m_stunTimer -= Time.deltaTime;
+        }
+        else
+        {
+           GetComponent<Rigidbody>().velocity = m_ForwardVector * GetComponent<EnemyAttackBehavour>().m_currentSpeed;
+        }
 
         if(m_healthBar != null)
         {
@@ -97,6 +107,12 @@ public class EnemyAI : MonoBehaviour
             m_healthBar.transform.localScale = new Vector3(m_CurrentHealth / m_startingHealth, 1, 1);
         }
             
+    }
+
+    public void StunTarget(float duration)
+    {
+        if (duration > m_stunTimer)
+            m_stunTimer = duration;
     }
 
     private void OnTriggerEnter(Collider other)
