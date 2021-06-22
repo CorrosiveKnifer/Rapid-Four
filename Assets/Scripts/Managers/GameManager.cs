@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     [ReadOnly]
     public GameObject[] playerShipPrefabs;
 
+    private List<PlayerController> players;
     public int GetCombinedScore()
     {
         return 0;
@@ -110,13 +111,24 @@ public class GameManager : MonoBehaviour
         CameraManager.instance.SetCameraFocus(1, ship2);
         ship2.GetComponent<PlayerController>().ID = 1;
 
-        //CameraManager.instance.SetCameraFocus(1, Instantiate(playerShipPrefabs[shipId2], pos1, Quaternion.Euler(new Vector3(-90, 0, 0))));
-        //Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.identity);
+        players = new List<PlayerController>();
+        players.Add(ship1.GetComponent<PlayerController>());
+        players.Add(ship2.GetComponent<PlayerController>());
     }
 
     public void AddToScore(float _asteroidScale)
     {
         TotalScore += (int)(AsteroidDestroyScore * _asteroidScale);
+    }
+
+    public float ClosestPlayerDistance(Vector3 testPosition)
+    {
+        float dist = 10000;
+        foreach (var player in players)
+        {
+            dist = Mathf.Min(Vector3.Distance(player.gameObject.transform.position, testPosition), dist);
+        }
+        return dist;
     }
 }
 

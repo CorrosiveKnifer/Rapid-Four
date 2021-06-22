@@ -56,6 +56,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     Vector2 temp = new Vector2(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)).normalized;
                     Instantiate(m_enemyPrefab[i], temp * spawnRadius, Quaternion.identity);
+                    wave.enemyInfo[i]--;
                     shipCount--;
                 }
             }
