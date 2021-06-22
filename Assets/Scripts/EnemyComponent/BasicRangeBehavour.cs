@@ -88,6 +88,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             {
                 Physics.IgnoreCollision(collider, newProj.GetComponent<Collider>());
             }
+            GetComponent<AudioAgent>().Play3DSoundEffect("MissileLaunch");
         }
     }
 }
