@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5069427870979695916}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.65, z: 0}
+  m_LocalPosition: {x: 0, y: 2.63, z: 0}
   m_LocalScale: {x: 1.2000002, y: 1.2, z: 1.2000002}
   m_Children:
   - {fileID: 1455357984170822483}
@@ -235,10 +235,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.5
-  m_Height: 7
+  m_Radius: 2.68
+  m_Height: 18
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &6725544723137782864
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +729,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 7732841945800251459, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf6c380c5e9dee04ebd7f59f7c7870f6, type: 2}
     - target: {fileID: 8346484609636828909, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}
       propertyPath: m_Layer

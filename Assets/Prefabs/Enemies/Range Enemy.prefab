@@ -122,8 +122,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.9
-  m_Height: 6.4
+  m_Radius: 1.05
+  m_Height: 5.67
   m_Direction: 2
   m_Center: {x: -0.27, y: 0, z: -1.34}
 --- !u!1 &4112419664058450729
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 5985464240304704971}
   m_Layer: 2
   m_Name: Range Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 2279623724654793927}
   m_Layer: 0
   m_Name: HealthBar
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,6 +417,11 @@ PrefabInstance:
       propertyPath: eventOne.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4112419664058450705}
+    - target: {fileID: 819079289024652310, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
+        type: 3}
+      propertyPath: eventOne.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4112419664058450729}
     - target: {fileID: 894462264521719523, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}
       propertyPath: m_Layer
@@ -671,6 +676,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555351263912251384, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6646340770875315091, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}

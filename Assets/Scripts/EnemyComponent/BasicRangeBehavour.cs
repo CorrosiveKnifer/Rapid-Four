@@ -49,13 +49,14 @@ public class BasicRangeBehavour : EnemyAttackBehavour
 
             //Raycast forward to predict if it will hit the target
             RaycastHit hit;
-            Physics.Raycast(transform.position, transform.forward, out hit, m_preferedAttackDistance);
-
-            //It will hit? so shoot projectile:
-            if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
+            if(Physics.Raycast(transform.position, transform.forward, out hit, m_preferedAttackDistance))
             {
-                //Start Animation
-                GetComponentInChildren<Animator>()?.SetTrigger("Attack");
+                //It will hit? so shoot projectile:
+                if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
+                {
+                    //Start Animation
+                    GetComponentInChildren<Animator>()?.SetTrigger("Attack");
+                }
             }
         }
     }
