@@ -186,8 +186,10 @@ MonoBehaviour:
   ID: 0
   maxAmmo: 20
   Ammo: 0
-  m_maxHealth: 0
-  m_maxShields: 0
+  m_maxHealth: 50
+  m_maxShields: 150
+  m_shieldRegenRate: 20
+  m_shieldRegenDelay: 3
   maxDist: {x: 500, y: 500}
   minDist: {x: -500, y: -500}
   projectileSpawnLoc:
