@@ -27,11 +27,14 @@ public class Blackhole : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
+            if (!other.gameObject.GetComponent<EnemyAI>())
+                return;
+
             other.gameObject.GetComponent<EnemyAI>().StunTarget(0.1f);
             if (other.gameObject.GetComponent<Rigidbody>())
             {
                 Vector3 force = transform.position - other.gameObject.transform.position;
-                other.gameObject.GetComponent<Rigidbody>().AddForce(force.normalized * pullPower, ForceMode.Acceleration); ;
+                other.gameObject.GetComponent<Rigidbody>().velocity = force * pullPower;
             }
         }
     }

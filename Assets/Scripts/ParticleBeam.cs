@@ -19,6 +19,7 @@ public class ParticleBeam : MonoBehaviour
     void Update()
     {
         lifetime -= Time.deltaTime;
+        Debug.Log(lifetime);
         if (lifetime <= 0)
         {
             Destroy(gameObject);
@@ -27,11 +28,16 @@ public class ParticleBeam : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (hitList.Contains(other))
+            return;
+
         if (lifetime <= 1.5f - 1.05)
-        if (other.gameObject.GetComponent<Astroid>() && !hitList.Contains(other))
         {
-            other.gameObject.GetComponent<Astroid>().DealDamage(damage);
+            if (other.gameObject.tag == "Enemy" && !hitList.Contains(other))
+            {
+                other.gameObject.GetComponent<EnemyAI>().HurtEnemy(damage);
+            }
+            hitList.Add(other);
         }
-        hitList.Add(other);
     }
 }
