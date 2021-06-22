@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9037189827017423366}
   - component: {fileID: 9161307840673377720}
+  - component: {fileID: 5970192700740997479}
   - component: {fileID: 1216855673544465565}
   m_Layer: 0
   m_Name: Twelve_K
@@ -39,7 +40,26 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4500012218234863818}
-  m_Mesh: {fileID: 6489290203329438083, guid: 255b962027cd1364bbde5dd3d9556c3e, type: 3}
+  m_Mesh: {fileID: 6489290203329438083, guid: 51eaa273df485dd4da42aaa27924a3f9, type: 3}
+--- !u!95 &5970192700740997479
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4500012218234863818}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!23 &1216855673544465565
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58,7 +78,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9803a9739258d0f40b2b78beee7f5a87, type: 2}
+  - {fileID: 2100000, guid: 3eb221491ad2a4c4d91ddc8a077de938, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
