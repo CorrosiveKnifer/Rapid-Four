@@ -122,7 +122,7 @@ public class HomingShotType : ShotType
         foreach (GameObject enemy in enemies)
         {
             //calculate distance
-            float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
+            float enemydist = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
             //if its in tower range
             if (enemydist < tempRadius)
             {
