@@ -59,8 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf37a08d22d1c124dbf53d8e066bf9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
-  heal: 30
+  damage: 20
+  duration: 0.5
+  heal: 50
+  knockback: 50
 --- !u!1 &8899042494464991342
 GameObject:
   m_ObjectHideFlags: 0

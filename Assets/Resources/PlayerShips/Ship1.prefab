@@ -51,7 +51,7 @@ MeshCollider:
   m_GameObject: {fileID: 1534109546590552976}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -218,6 +218,8 @@ MonoBehaviour:
   Ammo: 0
   m_maxHealth: 100
   m_maxShields: 100
+  m_shieldRegenRate: 20
+  m_shieldRegenDelay: 3
   maxDist: {x: 500, y: 500}
   minDist: {x: -500, y: -500}
   projectileSpawnLoc:
