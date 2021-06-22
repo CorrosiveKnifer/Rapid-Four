@@ -184,7 +184,9 @@ public class LobbyManager : MonoBehaviour
         player1Selector.transform.position = player1OptImage[playerIndex[0]].transform.position;
         player2Selector.transform.position = player2OptImage[playerIndex[1]].transform.position;
 
-        
+        player1Ready.transform.position = player1Selector.transform.position;
+        player2Ready.transform.position = player2Selector.transform.position;
+
         //Show option ships panel
         if (InputManager.GetInstance().IsPlayerAssigned(0))
         {
