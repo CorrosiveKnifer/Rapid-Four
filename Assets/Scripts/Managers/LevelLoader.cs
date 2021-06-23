@@ -61,6 +61,10 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+    private void OnLevelWasLoaded(int level)
+    {
+        GetComponentInChildren<Animator>().SetTrigger("Blink");
+    }
 
     public void LoadNextLevel()
     {

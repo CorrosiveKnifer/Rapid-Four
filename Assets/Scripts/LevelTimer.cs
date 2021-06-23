@@ -7,22 +7,24 @@ using UnityEngine;
 public class LevelTimer : MonoBehaviour
 {
     public float maxTime;
+    public Camera camera;
+    public Camera camera2;
+
+    public GameObject UI;
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<AudioAgent>().PlayBackground("CutSceneSpaceShips", false, 10);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartAnim()
     {
-        if (maxTime > 0)
-            maxTime -= Time.deltaTime;
-
-        if (maxTime <= 0 || Input.GetKeyDown(KeyCode.Space))
+        camera.gameObject.SetActive(false);
+        camera2.gameObject.SetActive(true);
+        UI.SetActive(false);
+        foreach (var item in GameObject.FindObjectsOfType<Animator>())
         {
-            GetComponent<LevelLoader>().LoadNextLevel();
-            Destroy(this);
+            item.SetTrigger("Start");
         }
     }
 }

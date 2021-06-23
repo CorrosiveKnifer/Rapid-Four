@@ -34,6 +34,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject[] player1OptImage;
     public GameObject[] player2OptImage;
 
+    public LevelTimer timer;
 
     int[] playerIndex = new int [2];
 
@@ -109,24 +110,24 @@ public class LobbyManager : MonoBehaviour
 
                 //only response to the first player inputs 
                 //if they use keyboard
-                if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
+                for (int i = 0; i < 2; i++)
                 {
-                    //press start for the keyboard
-                    if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, 0))
+                    if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
                     {
-                        Debug.Log("GAMESTART");
-                        Lobbydone = true;
+                        //press start for the keyboard
+                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, 0))
+                        {
+                            timer.StartAnim();
+                        }
                     }
-                }
-                //if they use gamepad
-                else
-                {
-                    //press start to gamepad
-                    if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_START, 0))
+                    //if they use gamepad
+                    else
                     {
-                        Debug.Log("GAMESTART");
-                        Lobbydone = true;
-                        
+                        //press start to gamepad
+                        if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_START, 0))
+                        {
+                            timer.StartAnim();
+                        }
                     }
                 }
             }
