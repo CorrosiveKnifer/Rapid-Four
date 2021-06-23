@@ -39,7 +39,15 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     public override void DealDamage(GameObject target)
     {
         //Damage the player directly.
-        target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+        if(target.GetComponentInParent<PlayerController>() != null)
+        {
+            target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+        }
+        if (target.GetComponent<Planet>() != null)
+        {
+            target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+        }
+
         m_delay = m_attackDelay;
     }
 

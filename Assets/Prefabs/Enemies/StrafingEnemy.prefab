@@ -342,7 +342,7 @@ MonoBehaviour:
   m_AttackDist: 5
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 2059612428778102268}
-  m_startingHealth: 100
+  m_startingHealth: 250
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c30badaaf916ca47a4cf9cd498c51c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_myMaxSpeed: 10
+  m_myMaxSpeed: 15
   m_TargetTag:
     serializedVersion: 2
     m_Bits: 2048
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_target: {fileID: 0}
   m_shotForce: 50
   m_shotDelay: 3
-  m_shotDamage: 10
+  m_shotDamage: 40
   m_projPrefab: {fileID: 8657985447000331096, guid: d4a8895e73447f2499535614ebc7f55b,
     type: 3}
   m_strafingRange: 5
