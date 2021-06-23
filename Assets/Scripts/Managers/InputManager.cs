@@ -100,7 +100,7 @@ public class InputManager : MonoBehaviour
     #endregion
     public struct Controller
     {
-        public Controller(bool _isKeyboard = false, int _controllerID = 0, Gamepad _gamepad = null, int _shipID =0)
+        public Controller(bool _isKeyboard = false, int _controllerID = 0, Gamepad _gamepad = null, int _shipID =-1)
         {
             isKeyboard = _isKeyboard;
             controllerID = _controllerID;
@@ -114,6 +114,15 @@ public class InputManager : MonoBehaviour
 
     }
     private Controller[] players = new Controller[2];
+
+    public void setUpLog()
+    
+    {
+        players[0] = new Controller(false, 0, null, -1);
+        players[1] = new Controller(false, 0, null, -1);
+
+    }
+
     /// <summary>
     /// Check if the player is assigned a controller
     /// </summary>
@@ -155,7 +164,7 @@ public class InputManager : MonoBehaviour
 
     public bool IsPlayerReady(int _playerID)
     {
-        if(IsPlayerAssigned(_playerID) && players[_playerID].shipID !=0)
+        if(IsPlayerAssigned(_playerID) && players[_playerID].shipID !=-1)
         {
             return true;
         }
@@ -178,7 +187,7 @@ public class InputManager : MonoBehaviour
                 return true;
             }
         }
-        players[playerid] = new Controller();
+        players[playerid] = new Controller(false, 0, null, -1);
 
         return false;
     }
@@ -208,7 +217,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public void LobbyDetection()
     {
-        if(!PlayerChoseGamepad() && !PlayerChoseKeyBoard() && players[0].shipID == 0)
+        if(!PlayerChoseGamepad() && !PlayerChoseKeyBoard() && players[0].shipID == -1)
         {
             confirmController(0);
             return;
@@ -219,13 +228,13 @@ public class InputManager : MonoBehaviour
             //check if there is no controls assigned to this player
             if (!players[i].isKeyboard && players[i].gamepad == null)
             {
-                if (players[i].shipID == 0)
+                if (players[i].shipID == -1)
                     confirmController(i);
                 
             }
             else if(players[i].isKeyboard || players[i].gamepad != null)
             {
-                if (players[i].shipID == 0)
+                if (players[i].shipID == -1)
                     cancelController(i);
              
             }
@@ -275,7 +284,7 @@ public class InputManager : MonoBehaviour
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
-                players[_index] = new Controller();
+                players[_index] = new Controller(false, 0, null, -1);
                 Debug.Log("deselect player " + _index.ToString() + " with keyboard");
             }
             
@@ -284,7 +293,7 @@ public class InputManager : MonoBehaviour
         {
             if(players[_index].gamepad.buttonEast.wasPressedThisFrame)
             {
-                players[_index] = new Controller();
+                players[_index] = new Controller(false, 0, null, -1);
                 Debug.Log("deselect player " + _index.ToString() + " with controller");
             }
             
@@ -383,6 +392,7 @@ public class InputManager : MonoBehaviour
         if (index != 2)
         {
             players[index].isKeyboard = true;
+            players[index].controllerID = index;
             players[index].shipID = index;
         }
 
@@ -709,16 +719,16 @@ public class InputManager : MonoBehaviour
                     Debug.LogWarning($"Unsupported button type in GetStickDirection.");
                     return false;
                 case StickDirection.UP:
-                    return pad.leftStick.up.wasPressedThisFrame;
+                    return pad.leftStick.up.wasPressedThisFrame || pad.dpad.up.wasPressedThisFrame;
 
                 case StickDirection.DOWN:
-                    return pad.leftStick.down.wasPressedThisFrame;
+                    return pad.leftStick.down.wasPressedThisFrame || pad.dpad.down.wasPressedThisFrame;
 
                 case StickDirection.LEFT:
-                    return pad.leftStick.left.wasPressedThisFrame;
+                    return pad.leftStick.left.wasPressedThisFrame || pad.dpad.left.wasPressedThisFrame;
 
                 case StickDirection.RIGHT:
-                    return pad.leftStick.right.wasPressedThisFrame;
+                    return pad.leftStick.right.wasPressedThisFrame || pad.dpad.right.wasPressedThisFrame;
 
             }
 
