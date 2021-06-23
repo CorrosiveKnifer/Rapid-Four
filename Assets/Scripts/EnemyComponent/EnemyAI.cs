@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
     public float m_CurrentHealth;
 
     private float m_maxSpeed; //Maximum speed of the ship.
-    private GameObject[] m_Targets;
+    private List<GameObject> m_Targets;
     private List<GameObject> m_NeighbourhoodList;
     private Quaternion m_TargetRot;
     private Vector3 m_ForwardVector;
@@ -109,6 +109,11 @@ public class EnemyAI : MonoBehaviour
             
     }
 
+    public void SetTarget(GameObject newTarget)
+    {
+        m_Targets.Add(newTarget);
+    }
+
     public void StunTarget(float duration)
     {
         if (duration > m_stunTimer)
@@ -144,6 +149,14 @@ public class EnemyAI : MonoBehaviour
         //For each player in the scene
         foreach (var player in m_Targets)
         {
+            if(player == null)
+            {
+                m_Targets.Remove(player);
+            }
+            if()
+            {
+
+            }
             //Calculate the distance.
             float playerDist = Vector3.Distance(transform.position, player.transform.position);
 

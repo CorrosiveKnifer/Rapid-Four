@@ -57,19 +57,7 @@ AnimatorStateMachine:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Base Layer
-  m_ChildStates:
-  - serializedVersion: 1
-    m_State: {fileID: 6567994771011081327}
-    m_Position: {x: 220, y: 390, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 2853149790406224757}
-    m_Position: {x: 260, y: 280, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 3017704706049088283}
-    m_Position: {x: 219, y: 331, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -6809340348830998733}
-    m_Position: {x: 260, y: 200, z: 0}
+  m_ChildStates: []
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -79,7 +67,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -6809340348830998733}
+  m_DefaultState: {fileID: 0}
 --- !u!1102 &2853149790406224757
 AnimatorState:
   serializedVersion: 5
