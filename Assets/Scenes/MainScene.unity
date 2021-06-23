@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1606,7 +1606,7 @@ PrefabInstance:
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_enemyPrefab.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
@@ -1634,23 +1634,35 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
+      propertyPath: m_enemyPrefab.Array.data[4]
+      value: 
+      objectReference: {fileID: 4112419664058450729, guid: 4ad22fb016ecc1a44911fe76a836b8df,
+        type: 3}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_enemyPrefab.Array.data[5]
+      value: 
+      objectReference: {fileID: 730876343313299624, guid: af78076c0fd2fb142ab754205fa82edc,
+        type: 3}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
       propertyPath: m_waves.Array.data[0].enemyInfo.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[1].enemyInfo.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[2].enemyInfo.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[3].enemyInfo.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
@@ -1664,6 +1676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
+      propertyPath: m_waves.Array.data[0].enemyInfo.Array.data[5]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
       propertyPath: m_waves.Array.data[1].enemyInfo.Array.data[1]
       value: 4
       objectReference: {fileID: 0}
@@ -1671,6 +1688,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_waves.Array.data[1].enemyInfo.Array.data[3]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[1].enemyInfo.Array.data[4]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[1].enemyInfo.Array.data[5]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
@@ -1685,7 +1712,12 @@ PrefabInstance:
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[2].enemyInfo.Array.data[3]
-      value: 0
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[2].enemyInfo.Array.data[4]
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
@@ -1705,6 +1737,16 @@ PrefabInstance:
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[3].enemyInfo.Array.data[3]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[3].enemyInfo.Array.data[4]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[3].enemyInfo.Array.data[5]
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051681, guid: d23cc367fa9a8f649baec426e313b36f,
