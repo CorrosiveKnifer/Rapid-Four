@@ -80,13 +80,7 @@ public class GameManager : MonoBehaviour
     {
         playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
 
-        //If on game scene Default:
-        //if(!SceneManager.GetActiveScene().name.Contains("Lobby"))
-        //{
-            InputManager.GetInstance().DefaultAssignControllers();
-        //}
-
-        //SpawnPlayers();
+        SpawnPlayers();
     }
 
     // Update is called once per frame
@@ -124,10 +118,10 @@ public class GameManager : MonoBehaviour
     public float ClosestPlayerDistance(Vector3 testPosition)
     {
         float dist = 10000;
-        //foreach (var player in players)
-        //{
-        //    dist = Mathf.Min(Vector3.Distance(player.gameObject.transform.position, testPosition), dist);
-        //}
+        foreach (var player in players)
+        {
+            dist = Mathf.Min(Vector3.Distance(player.gameObject.transform.position, testPosition), dist);
+        }
         return 15000;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Michael Jordan
 /// </summary>
@@ -24,7 +25,11 @@ public class LevelTimer : MonoBehaviour
         UI.SetActive(false);
         foreach (var item in GameObject.FindObjectsOfType<Animator>())
         {
+            if (item.gameObject.GetComponentInParent<LevelLoader>() != null)
+                continue;
             item.SetTrigger("Start");
         }
+        GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 }

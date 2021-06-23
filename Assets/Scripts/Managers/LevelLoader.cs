@@ -132,7 +132,7 @@ public class LevelLoader : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked; // Make cursor unusable.
+            Cursor.lockState = CursorLockMode.Confined; // Make cursor unusable.
             Cursor.visible = false;
         }
 

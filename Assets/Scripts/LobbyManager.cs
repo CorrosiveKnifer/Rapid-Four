@@ -114,23 +114,23 @@ public class LobbyManager : MonoBehaviour
                 //if they use keyboard
                 for (int i = 0; i < 2; i++)
                 {
-                    if (InputManager.GetInstance().GetPlayerControl(0).isKeyboard)
+                    if (InputManager.GetInstance().GetPlayerControl(i).isKeyboard)
                     {
                         //press start for the keyboard
-                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, 0))
+                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, i))
                         {
                             timer.StartAnim();
-                            Destroy(gameObject);
+                            Destroy(this);
                         }
                     }
                     //if they use gamepad
                     else
                     {
                         //press start to gamepad
-                        if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_START, 0))
+                        if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_START, i))
                         {
                             timer.StartAnim();
-                            Destroy(gameObject);
+                            Destroy(this);
                         }
                     }
                 }

@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
 
-        //myCamera = CameraManager.instance.GetCameraAgent(ID);
+        myCamera = CameraManager.instance.GetCameraAgent(ID);
 
         Ammo = (maxAmmo > 0) ? maxAmmo : 0;
     }
