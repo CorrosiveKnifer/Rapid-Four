@@ -148,7 +148,13 @@ public class PlayerController : MonoBehaviour
         audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
-        proj = Resources.Load<GameObject>("Prefabs/BasicShot");
+
+        if (InputManager.GetInstance().GetPlayerControl(ID).shipID == 0)
+            proj = Resources.Load<GameObject>("Prefabs/BasicShot");
+        if (InputManager.GetInstance().GetPlayerControl(ID).shipID == 1)
+            proj = Resources.Load<GameObject>("Prefabs/BasicShot2");
+
+
         homing = Resources.Load<GameObject>("Prefabs/HomingShot");
         blackhole = Resources.Load<GameObject>("Prefabs/BlackholeProjectile");
         energyWave = Resources.Load<GameObject>("Prefabs/EnergyWave");
