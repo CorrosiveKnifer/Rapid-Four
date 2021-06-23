@@ -10404,6 +10404,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Push Wave
       objectReference: {fileID: 0}
+    - target: {fileID: 8628121836621700193, guid: 9fdab3d2419fb444fb94ac101f9e5b2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdab3d2419fb444fb94ac101f9e5b2b, type: 3}
 --- !u!1001 &1513228658320312477
