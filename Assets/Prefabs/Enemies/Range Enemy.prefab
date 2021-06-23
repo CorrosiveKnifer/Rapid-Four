@@ -122,8 +122,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.9
-  m_Height: 6.4
+  m_Radius: 1.05
+  m_Height: 5.67
   m_Direction: 2
   m_Center: {x: -0.27, y: 0, z: -1.34}
 --- !u!1 &4112419664058450729
@@ -141,9 +141,10 @@ GameObject:
   - component: {fileID: 4112419664058450731}
   - component: {fileID: 4112419664058450705}
   - component: {fileID: 5985464240304704971}
+  - component: {fileID: 1309626704925842655}
   m_Layer: 2
   m_Name: Range Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,6 +288,23 @@ CapsuleCollider:
   m_Height: 40
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1309626704925842655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112419664058450729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: ac6057702404d654cb87162c31c077e4, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
+  SoundRange: 50
 --- !u!1 &4655132576291732635
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +348,7 @@ GameObject:
   - component: {fileID: 2279623724654793927}
   m_Layer: 0
   m_Name: HealthBar
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,6 +435,11 @@ PrefabInstance:
       propertyPath: eventOne.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4112419664058450705}
+    - target: {fileID: 819079289024652310, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
+        type: 3}
+      propertyPath: eventOne.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4112419664058450729}
     - target: {fileID: 894462264521719523, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}
       propertyPath: m_Layer
@@ -671,6 +694,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555351263912251384, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6646340770875315091, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}

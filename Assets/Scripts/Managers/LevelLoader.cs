@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +11,8 @@ public class LevelLoader : MonoBehaviour
     public static bool cheatsEnabled = false;
     public static bool loadingNextArea = false;
 
+    public GameObject CompleteLoadUI;
+
     public Toggle cheatToggle;
 
     public Animator transition;
@@ -21,6 +22,7 @@ public class LevelLoader : MonoBehaviour
     private void Start()
     {
         ApplicationManager.GetInstance();
+        DontDestroyOnLoad(this.gameObject);
         loadingNextArea = false;
     }
 
@@ -76,6 +78,38 @@ public class LevelLoader : MonoBehaviour
     {
         loadingNextArea = true;
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
+    }
+
+    public void LoadLevelAsync(int levelIndex)
+    {
+        StartCoroutine(OperationLoadLevelAsync(levelIndex));
+    }
+
+    IEnumerator OperationLoadLevelAsync(int levelIndex)
+    {
+        AsyncOperation gameLoad = SceneManager.LoadSceneAsync(levelIndex);
+        gameLoad.allowSceneActivation = false;
+
+        while (!gameLoad.isDone)
+        {
+            if(gameLoad.progress >= 0.9f)
+            {
+                CompleteLoadUI.SetActive(true);
+
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, 0))
+                {
+                    gameLoad.allowSceneActivation = true;
+                }
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, 1))
+                {
+                    gameLoad.allowSceneActivation = true;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        CompleteLoadUI.SetActive(false);
+        yield return null;
     }
 
     IEnumerator LoadLevel(int levelIndex)

@@ -102,7 +102,7 @@ MonoBehaviour:
   m_PrefDist: 6.5
   m_AttackDist: 5
   m_maxAttackDelay: 3
-  m_healthBar: {fileID: 0}
+  m_healthBar: {fileID: 8387448023770630736}
   m_startingHealth: 100
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
