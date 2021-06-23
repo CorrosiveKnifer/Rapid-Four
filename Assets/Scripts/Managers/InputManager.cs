@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Michael Jordan
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class InputManager : MonoBehaviour
 {
@@ -497,6 +497,13 @@ public class InputManager : MonoBehaviour
             Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
+                pad = Gamepad.current;
+                //return false;
+
+            }
+            if (pad == null)
+            {
+
                 return false;
 
             }
@@ -709,6 +716,13 @@ public class InputManager : MonoBehaviour
             Gamepad pad = players[playerIndex].gamepad; //Gamepad.all[players[playerIndex].controllerID];
             if (pad == null)
             {
+                pad = Gamepad.current;
+                //return false;
+
+            }
+            if (pad == null)
+            {
+                
                 return false;
 
             }
