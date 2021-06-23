@@ -54,7 +54,9 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InputManager.GetInstance();
         shipOptions = 2;
+        InputManager.GetInstance().setUpLog();
         playerIndex[0] = 0;
         playerIndex[1] = 0;
     }
@@ -90,14 +92,14 @@ public class LobbyManager : MonoBehaviour
             if (cancelp1ShipID == true)
             {
                 //setting player one step to no ship id
-                InputManager.GetInstance().SetShipToPlayer(0, 0);
+                InputManager.GetInstance().SetShipToPlayer(0, -1);
                 cancelp1ShipID = false;
             }
             //for the player two
             if (cancelp2ShipID == true)
             {
                 //setting player two step to no ship id
-                InputManager.GetInstance().SetShipToPlayer(1, 0);
+                InputManager.GetInstance().SetShipToPlayer(1, -1);
                 cancelp2ShipID = false;
             }
 
@@ -118,6 +120,7 @@ public class LobbyManager : MonoBehaviour
                         if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, 0))
                         {
                             timer.StartAnim();
+                            Destroy(gameObject);
                         }
                     }
                     //if they use gamepad
@@ -127,6 +130,7 @@ public class LobbyManager : MonoBehaviour
                         if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_START, 0))
                         {
                             timer.StartAnim();
+                            Destroy(gameObject);
                         }
                     }
                 }
@@ -274,18 +278,18 @@ public class LobbyManager : MonoBehaviour
     /// <param name="playerID"></param>
     void PlayerSelector(int playerID)
     {
-        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == 0)
+        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == -1)
         {
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, playerID))
             {
                 Debug.Log("right");
-                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID] + 1, 0, 1);
+                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID]+1, 0, 1);
 
             }
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, playerID))
             {
                 Debug.Log("left");
-                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID] -1 , 0, 1);
+                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID]-1, 0, 1);
 
             }
         }
@@ -301,26 +305,26 @@ public class LobbyManager : MonoBehaviour
     void ChosingPlayerShip(int playerID, int Shipindex)
     {
         //if no ship have been selected then get confirmation to select ship
-        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == 0)
+        if (InputManager.GetInstance().GetPlayerControl(playerID).shipID == -1)
         {
             //if they have a key controls
             if (InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
                 //presing space
-                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex+1))
+                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
-                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex+1);
+                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
                 }
                 
             }
             else //otherwise if its gamepad
             {
-                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex+1))
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
-                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex+1);
+                    InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
 
                 }
