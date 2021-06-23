@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
     public float m_CurrentHealth;
 
     private float m_maxSpeed; //Maximum speed of the ship.
-    private GameObject[] m_Targets;
+    private List<GameObject> m_Targets;
     private List<GameObject> m_NeighbourhoodList;
     private Quaternion m_TargetRot;
     private Vector3 m_ForwardVector;
@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Stun timer")]
     private float m_stunTimer = 0.0f;
-
+    private GameObject planet;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +43,14 @@ public class EnemyAI : MonoBehaviour
         if (m_TargetTag.value == 0)
         {
             m_TargetTag = LayerMask.NameToLayer("Player");
-            m_Targets = GameObject.FindGameObjectsWithTag(LayerMask.LayerToName(m_TargetTag.value));
+            m_Targets = new List<GameObject>(GameObject.FindGameObjectsWithTag(LayerMask.LayerToName(m_TargetTag.value)));
         }
         else
         {
-            m_Targets = GameObject.FindGameObjectsWithTag(LayerMask.LayerToName((int)Mathf.Log(m_TargetTag.value, 2)));
+            m_Targets = new List<GameObject>(GameObject.FindGameObjectsWithTag(LayerMask.LayerToName((int)Mathf.Log(m_TargetTag.value, 2))));
         }
 
+        m_planet = GameObject.FindGameObjectWithTag("Planet");
         m_maxSpeed = GetComponent<EnemyAttackBehavour>().m_myMaxSpeed;
         m_CurrentHealth = m_startingHealth;
         m_CurrentTarget = null;
@@ -109,6 +110,11 @@ public class EnemyAI : MonoBehaviour
             
     }
 
+    public void SetTarget(GameObject newTarget)
+    {
+        m_Targets.Add(newTarget);
+    }
+
     public void StunTarget(float duration)
     {
         if (duration > m_stunTimer)
@@ -144,6 +150,14 @@ public class EnemyAI : MonoBehaviour
         //For each player in the scene
         foreach (var player in m_Targets)
         {
+            if(player == null)
+            {
+                m_Targets.Remove(player);
+            }
+            if(player.GetComponent<PlayerController>() != null && player.GetComponent<PlayerController>().CheckAlive())
+            {
+                continue;
+            }
             //Calculate the distance.
             float playerDist = Vector3.Distance(transform.position, player.transform.position);
 
@@ -157,7 +171,12 @@ public class EnemyAI : MonoBehaviour
         //Switch current target to the lowest
         GameObject oldTarget = m_CurrentTarget;
         m_CurrentTarget = closestPlayer;
-        
+
+        if (m_CurrentTarget.GetComponent<PlayerController>() != null && m_CurrentTarget.GetComponent<PlayerController>().CheckAlive())
+        {
+            m_CurrentTarget = planet;
+        }
+
         //Return true if there is a change.
         return oldTarget != m_CurrentTarget;
     }
