@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
     {
         playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
 
+        Debug.LogWarning("Using default controllers");
+        InputManager.GetInstance().DefaultAssignControllers();
         SpawnPlayers();
     }
 

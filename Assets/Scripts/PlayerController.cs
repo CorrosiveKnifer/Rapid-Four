@@ -43,8 +43,10 @@ public class PlayerController : MonoBehaviour
     private GameObject blackhole;
     private GameObject energyWave;
     private GameObject beam;
+    private GameObject decoy;
 
     private GameObject currentBlackhole;
+    private GameObject currentDecoy;
     private GameObject currentLaser;
 
     [Header("Primary Fire Overheat")]
@@ -129,6 +131,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         HUDManager.instance.SetHealthMax(ID, m_maxHealth, m_maxShields);
 
         m_health = m_maxHealth;
@@ -159,6 +162,7 @@ public class PlayerController : MonoBehaviour
         blackhole = Resources.Load<GameObject>("Prefabs/BlackholeProjectile");
         energyWave = Resources.Load<GameObject>("Prefabs/EnergyWave");
         beam = Resources.Load<GameObject>("Prefabs/ParticleBeam");
+        decoy = Resources.Load<GameObject>("Prefabs/Decoy");
         effectType = typeof(BasicShotType);
         ApplyGun(typeof(BasicGunType));
 
@@ -180,9 +184,7 @@ public class PlayerController : MonoBehaviour
         {
             var allGamepads = Gamepad.all;
             gamepad = allGamepads[ID];
-
         }
-
     }
     private void OnEnable()
     {
@@ -335,9 +337,19 @@ public class PlayerController : MonoBehaviour
         if (m_fAbility2Timer > 0)
             m_fAbility2Timer -= Time.deltaTime;
 
-        if (currentBlackhole != null && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LS, ID))
+        if (currentBlackhole != null && InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_LS, ID))
         {
-           // currentBlackhole.GetComponent<BlackholeProjectile>().ActivateBlackhole();
+            if (currentBlackhole.GetComponent<BlackholeProjectile>())
+                currentBlackhole.GetComponent<BlackholeProjectile>().ActivateBlackhole();
+            else
+                Debug.LogError("Incorrect ability saved to location or some other error");
+        }
+        if (currentDecoy != null && InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_RS, ID))
+        {
+            if (currentDecoy.GetComponent<Decoy>())
+                currentDecoy.GetComponent<Decoy>().ActivateDecoy();
+            else
+                Debug.LogError("Incorrect ability saved to location or some other error");
         }
 
         if (m_fSecondaryFireTimer <= 0 && InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_LT, ID) && SecondaryFire != null)
@@ -490,11 +502,27 @@ public class PlayerController : MonoBehaviour
             currentBlackhole.transform.up = transform.forward;
 
             //Send projectile
-            currentBlackhole.GetComponent<Rigidbody>().AddForce(transform.forward * 20.0f, ForceMode.Impulse);
+            currentBlackhole.GetComponent<Rigidbody>().AddForce(transform.forward * 30.0f, ForceMode.Impulse);
 
             audioAgent.PlaySoundEffect("BlackholeProj");
         }
     }
+
+    public void AbilityDecoy()
+    {
+        if (currentDecoy == null)
+        {
+            // Summon blackhole
+            currentDecoy = Instantiate(decoy, noseProjectileSpawnLoc.transform.position, Quaternion.identity);
+            currentDecoy.transform.up = transform.forward;
+
+            //Send projectile
+            currentDecoy.GetComponent<Rigidbody>().AddForce(transform.forward * 30.0f, ForceMode.Impulse);
+
+            //audioAgent.PlaySoundEffect("BlackholeProj");
+        }
+    }
+
     /// <summary>
     /// Updaet currently active effects
     /// </summary>

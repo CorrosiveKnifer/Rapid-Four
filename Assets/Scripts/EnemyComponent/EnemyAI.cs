@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour
             m_Targets = new List<GameObject>(GameObject.FindGameObjectsWithTag(LayerMask.LayerToName((int)Mathf.Log(m_TargetTag.value, 2))));
         }
 
-        m_planet = GameObject.FindGameObjectWithTag("Planet");
+        planet = GameObject.FindGameObjectWithTag("Planet");
         m_maxSpeed = GetComponent<EnemyAttackBehavour>().m_myMaxSpeed;
         m_CurrentHealth = m_startingHealth;
         m_CurrentTarget = null;
