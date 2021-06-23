@@ -348,12 +348,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7403eb4d134f354a9c0a0b57159bf51, type: 3}
---- !u!1 &376917344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3121112448869006727, guid: e8abeba2ad9635b4ab248a75c0e32950,
-    type: 3}
-  m_PrefabInstance: {fileID: 3121112447747868373}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &388934306 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4991461600429610993, guid: 44a1809f358ad8a4aaed38e6e83e37c1,
@@ -543,6 +537,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &841572708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3121112448107977151, guid: e8abeba2ad9635b4ab248a75c0e32950,
+    type: 3}
+  m_PrefabInstance: {fileID: 3121112447747868373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &875991504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3121112447243665794, guid: e8abeba2ad9635b4ab248a75c0e32950,
+    type: 3}
+  m_PrefabInstance: {fileID: 3121112447747868373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &886896010
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,18 +664,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1 &901777926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3121112448107977151, guid: e8abeba2ad9635b4ab248a75c0e32950,
-    type: 3}
-  m_PrefabInstance: {fileID: 3121112447747868373}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &973087683 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3121112447243665794, guid: e8abeba2ad9635b4ab248a75c0e32950,
-    type: 3}
-  m_PrefabInstance: {fileID: 3121112447747868373}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1191585733 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4991461600617433523, guid: 44a1809f358ad8a4aaed38e6e83e37c1,
@@ -1044,7 +1038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44a1809f358ad8a4aaed38e6e83e37c1, type: 3}
---- !u!1 &1814258150 stripped
+--- !u!1 &1684533735 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3121112449274485404, guid: e8abeba2ad9635b4ab248a75c0e32950,
     type: 3}
@@ -1062,6 +1056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1853642951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3121112448869006727, guid: e8abeba2ad9635b4ab248a75c0e32950,
+    type: 3}
+  m_PrefabInstance: {fileID: 3121112447747868373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1882801684 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7647263322872236764, guid: 42631441de086cd42ad91c71825e2a5b,
@@ -1271,6 +1271,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3121112449048582857, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3121112449048582857, guid: e8abeba2ad9635b4ab248a75c0e32950,
+        type: 3}
       propertyPath: player1Box
       value: 
       objectReference: {fileID: 47124793}
@@ -1283,7 +1288,7 @@ PrefabInstance:
         type: 3}
       propertyPath: GoBackButton
       value: 
-      objectReference: {fileID: 973087683}
+      objectReference: {fileID: 875991504}
     - target: {fileID: 3121112449048582857, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: Buttons.Array.size
@@ -1293,17 +1298,17 @@ PrefabInstance:
         type: 3}
       propertyPath: Buttons.Array.data[0]
       value: 
-      objectReference: {fileID: 376917344}
+      objectReference: {fileID: 1853642951}
     - target: {fileID: 3121112449048582857, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: Buttons.Array.data[1]
       value: 
-      objectReference: {fileID: 901777926}
+      objectReference: {fileID: 841572708}
     - target: {fileID: 3121112449048582857, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: Buttons.Array.data[2]
       value: 
-      objectReference: {fileID: 1814258150}
+      objectReference: {fileID: 1684533735}
     - target: {fileID: 3121112449048582857, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: player1Controls.Array.size
