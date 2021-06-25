@@ -81,8 +81,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_61FB2032: {r: 0, g: 0.9167206, b: 1, a: 1}
-    - Color_E86377EA: {r: 0.91982335, g: 0, b: 6.2745094, a: 1}
+    - Color_61FB2032: {r: 0, g: 0, b: 0, a: 0}
+    - Color_E86377EA: {r: 0.00010723039, g: 0, b: 0.0007314645, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
