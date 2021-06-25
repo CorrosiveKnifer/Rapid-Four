@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8505389813931593353}
   - component: {fileID: 8497252384854651923}
   m_Layer: 0
-  m_Name: BasicShot
+  m_Name: BasicShot2
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,17 +272,17 @@ PrefabInstance:
     - target: {fileID: 3124086170358239191, guid: fde832158bf4e7b499c2f6e3285e81fb,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
+      value: 0.43921566
       objectReference: {fileID: 0}
     - target: {fileID: 3124086170358239191, guid: fde832158bf4e7b499c2f6e3285e81fb,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.9337484
+      value: 0.77043176
       objectReference: {fileID: 0}
     - target: {fileID: 3124086170358239191, guid: fde832158bf4e7b499c2f6e3285e81fb,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.43921566
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fde832158bf4e7b499c2f6e3285e81fb, type: 3}

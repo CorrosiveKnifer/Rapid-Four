@@ -237,7 +237,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5571576020357256187}
-        m_MethodName: AbilityDash
+        m_MethodName: AbilityDecoy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
