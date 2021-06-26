@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
 
     public double GameTime = 0.0;
 
+    public uint Player1Kills;
+    public uint Player2Kills;
+    public uint Player1Deaths;
+    public uint Player2Deaths;
+
     [Header("Ship prefabs")]
     [ReadOnly]
     public GameObject[] playerShipPrefabs;
