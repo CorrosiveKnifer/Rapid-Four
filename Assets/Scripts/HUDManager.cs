@@ -46,6 +46,9 @@ public class HUDManager : MonoBehaviour
 
     public HealthBar[] playerBars;
 
+    public Image[] player1Ability;
+    public Image[] player2Ability;
+
     private PlayerController player1;
     private PlayerController player2;
 
