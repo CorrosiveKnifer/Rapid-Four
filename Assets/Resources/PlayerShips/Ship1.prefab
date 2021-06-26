@@ -329,6 +329,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 040f4e8ca2ae87d48be8c6250edc17e8, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+  SoundRange: 50
 --- !u!1 &7628842543104257163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5336,6 +5337,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8877465658883280399}
     m_Modifications:
+    - target: {fileID: 976588060587774009, guid: 57d7b26dd0dce664b86827caba8f3e5b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 25a1909540889e04885524ca97d079bf, type: 2}
     - target: {fileID: 2735163131159697778, guid: 57d7b26dd0dce664b86827caba8f3e5b,
         type: 3}
       propertyPath: m_Layer
