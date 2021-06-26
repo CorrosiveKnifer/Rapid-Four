@@ -32,7 +32,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: Plasma2
+  m_Name: OrangePlasma
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 0}
   m_Children:
@@ -80,7 +80,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":3.560209035873413,"b":3.999999523162842,"a":1.0},"time":0.0},{"color":{"r":1.2392157316207886,"g":0.0,"b":2.635294198989868,"a":1.0},"time":0.8029450178146362}],"alphaKeys":[{"alpha":1.0,"time":0.00881971511989832},{"alpha":0.46666666865348818,"time":0.27940794825553896},{"alpha":0.9215686321258545,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.8234330415725708,"g":4.798851490020752,"b":5.289933204650879,"a":1.0},"time":0.0},{"color":{"r":1.2392157316207886,"g":0.0,"b":2.635294198989868,"a":1.0},"time":0.8029450178146362}],"alphaKeys":[{"alpha":1.0,"time":0.00881971511989832},{"alpha":0.46666666865348818,"time":0.27940794825553896},{"alpha":0.9215686321258545,"time":1.0}],"gradientMode":0}'
     min: -Infinity
     max: Infinity
     descendantCount: 0
@@ -198,7 +198,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Plasma2
+  m_Name: OrangePlasma
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
@@ -598,7 +598,7 @@ VisualEffectResource:
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
     name: '[System 2]Output ParticleStrip Quad'
-    source: "Shader \"Hidden/VFX/Plasma2/System 2/Output ParticleStrip Quad\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    source: "Shader \"Hidden/VFX/OrangePlasma/System 2/Output ParticleStrip Quad\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One\n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t\n\t\t#define
@@ -1394,7 +1394,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 2
           m_Value:
             serializedVersion: 2
-            key0: {r: 0, g: 3.560209, b: 3.9999995, a: 1}
+            key0: {r: 0.82343304, g: 4.7988515, b: 5.289933, a: 1}
             key1: {r: 1.2392157, g: 0, b: 2.6352942, a: 0.46666667}
             key2: {r: 0, g: 0, b: 0, a: 0.92156863}
             key3: {r: 0, g: 0, b: 0, a: 0}
@@ -6320,7 +6320,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":3.560209035873413,"b":3.999999523162842,"a":1.0},"time":0.0},{"color":{"r":1.2392157316207886,"g":0.0,"b":2.635294198989868,"a":1.0},"time":0.8029450178146362}],"alphaKeys":[{"alpha":1.0,"time":0.00881971511989832},{"alpha":0.46666666865348818,"time":0.27940794825553896},{"alpha":0.9215686321258545,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.8234330415725708,"g":4.798851490020752,"b":5.289933204650879,"a":1.0},"time":0.0},{"color":{"r":1.2392157316207886,"g":0.0,"b":2.635294198989868,"a":1.0},"time":0.8029450178146362}],"alphaKeys":[{"alpha":1.0,"time":0.00881971511989832},{"alpha":0.46666666865348818,"time":0.27940794825553896},{"alpha":0.9215686321258545,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: o
