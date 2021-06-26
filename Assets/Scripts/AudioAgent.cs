@@ -13,6 +13,8 @@ public class AudioAgent : MonoBehaviour
     public float AgentSEVolume = 1f;
     public float AgentBGVolume = 1f;
 
+    public float SoundRange = 50.0f;
+
     private float savedSEVolume = 1f;
     private float savedBGVolume = 1f;
 
@@ -20,6 +22,7 @@ public class AudioAgent : MonoBehaviour
     {
         public AudioPlayer(AudioSource _source) { isSoundEffect = false; source = _source; }
         public bool isSoundEffect { get; set; }
+        public bool is3DSound { get; set; } = false;
         public AudioSource source { get; private set; }
 
         public float volume = 1.0f; //Local volume to the player
@@ -44,7 +47,15 @@ public class AudioAgent : MonoBehaviour
         foreach (var item in AudioLibrary)
         {
             if (item.Value.isSoundEffect)
-                item.Value.source.volume = GetSoundEffectVolume() * item.Value.volume * AgentSEVolume;
+            {
+                float ratio = 1.0f;
+                if (item.Value.is3DSound)
+                {
+                    float dist = GameManager.GetInstance().ClosestPlayerDistance(transform.position);
+                    ratio = Mathf.Clamp(1.0f - dist / SoundRange, 0.0f, 1.0f);
+                }
+                item.Value.source.volume = GetSoundEffectVolume() * item.Value.volume * AgentSEVolume * ratio;
+            }  
             else
                 item.Value.source.volume = GetBackgroundVolume() * item.Value.volume * AgentBGVolume;
         }
@@ -80,7 +91,20 @@ public class AudioAgent : MonoBehaviour
         }
         return false;
     }
-
+    public bool Play3DSoundEffect(string title, bool isLooping = false, int priority = 255)
+    {
+        AudioPlayer player;
+        if (AudioLibrary.TryGetValue(title, out player))
+        {
+            AudioLibrary[title].source.loop = isLooping;
+            AudioLibrary[title].source.priority = priority;
+            AudioLibrary[title].isSoundEffect = true;
+            AudioLibrary[title].is3DSound = true;
+            AudioLibrary[title].source.Play();
+            return true;
+        }
+        return false;
+    }
     public bool PlayBackground(string title, bool isLooping = false, int priority = 255)
     {
         AudioPlayer player;

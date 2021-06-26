@@ -30,6 +30,8 @@ public class BasicRangeBehavour : EnemyAttackBehavour
 
         //Calculate current speed.
         m_currentSpeed = Mathf.Clamp((m_myMaxSpeed * distanceToTarget) / m_preferedPersonalDistance, 0.0f, m_myMaxSpeed);
+        
+        m_target = target;
 
         return (targetLoc - transform.position).normalized * m_currentSpeed;
     }
@@ -43,23 +45,24 @@ public class BasicRangeBehavour : EnemyAttackBehavour
         }
         if (Vector3.Distance(transform.position, target.transform.position) <= m_preferedAttackDistance)
         {
-            //Start Animation
+            m_target = target;
 
             //Raycast forward to predict if it will hit the target
             RaycastHit hit;
-            Physics.Raycast(transform.position, transform.forward, out hit, m_preferedAttackDistance);
-
-            //It will hit? so shoot projectile:
-            if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
+            if(Physics.Raycast(transform.position, transform.forward, out hit, m_preferedAttackDistance))
             {
-                
-                DealDamage(target);
+                //It will hit? so shoot projectile:
+                if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
+                {
+                    //Start Animation
+                    GetComponentInChildren<Animator>()?.SetTrigger("Attack");
+                }
             }
         }
     }
 
     //Inherited by EnemyAttackBehavour
-    protected override void DealDamage(GameObject target)
+    public override void DealDamage(GameObject target)
     {
         if (m_projPrefab != null)
         {
@@ -69,7 +72,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position, Quaternion.identity);
 
             //Set inheritance velocity.
-            newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+            //newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
             
             //Set orientation of projectile:
             newProj.transform.up = transform.forward;
@@ -85,6 +88,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             {
                 Physics.IgnoreCollision(collider, newProj.GetComponent<Collider>());
             }
+            GetComponent<AudioAgent>().Play3DSoundEffect("MissileLaunch");
         }
     }
 }
