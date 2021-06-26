@@ -315,6 +315,7 @@ GameObject:
   - component: {fileID: 8695306752015050474}
   - component: {fileID: 7678393852053213533}
   - component: {fileID: 1064839890859718784}
+  - component: {fileID: 4923441578090942797}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Planet
@@ -477,3 +478,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9748055e5008c7548a091a49b185666f, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+  SoundRange: 50
+--- !u!114 &4923441578090942797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8695306752015050473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 934fc5b11b02ebe4f9093ed7ee4c281e, type: 2}
