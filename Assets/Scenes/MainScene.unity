@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
@@ -566,7 +566,7 @@ PrefabInstance:
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
@@ -1016,7 +1016,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1354972152
 GameObject:
@@ -1293,12 +1293,12 @@ PrefabInstance:
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -182.3
+      value: -187.1
       objectReference: {fileID: 0}
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
@@ -1565,7 +1565,7 @@ Transform:
   - {fileID: 1511987411}
   - {fileID: 862945962}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101230193
 GameObject:
@@ -1600,6 +1600,10 @@ MonoBehaviour:
   TotalScore: 0
   AsteroidDestroyScore: 10
   GameTime: 0
+  Player1Kills: 0
+  Player2Kills: 0
+  Player1Deaths: 0
+  Player2Deaths: 0
   playerShipPrefabs: []
 --- !u!4 &2101230195
 Transform:
@@ -1613,7 +1617,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1579653791057591593
 PrefabInstance:
@@ -1630,7 +1634,7 @@ PrefabInstance:
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3066583862277323991, guid: df90b76ace0e8724cb15c7def3566012,
         type: 3}

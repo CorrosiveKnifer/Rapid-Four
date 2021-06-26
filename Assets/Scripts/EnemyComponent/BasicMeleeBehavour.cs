@@ -29,7 +29,11 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
         if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
         {
             //Start Animation
-            GetComponentInChildren<Animator>().SetTrigger("Attack");
+            GetComponentInChildren<Animator>().SetBool("Attack", true);
+        }
+        else
+        {
+            GetComponentInChildren<Animator>().SetBool("Attack", false);
         }
     }
 
