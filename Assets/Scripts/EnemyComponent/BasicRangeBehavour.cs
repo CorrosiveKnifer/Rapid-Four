@@ -69,7 +69,6 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position, Quaternion.identity);
 
             //Set inheritance velocity.
-            //newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
             
             //Set orientation of projectile:
             newProj.transform.up = transform.forward;
@@ -85,7 +84,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             {
                 Physics.IgnoreCollision(collider, newProj.GetComponent<Collider>());
             }
-            GetComponent<AudioAgent>().Play3DSoundEffect("Whale");
+            GetComponent<AudioAgent>().Play3DSoundEffect("Whale", false, 255, Random.Range(0.75f, 1.25f));
         }
     }
 }

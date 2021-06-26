@@ -18,7 +18,6 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Enemy Prefabs")]
     public GameObject m_deathPrefab;
-    
 
     [Header("Read Only Variables")]
     [ReadOnly]

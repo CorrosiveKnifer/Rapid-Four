@@ -391,7 +391,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 61e457105539f2c489dcfa7a8a586eea, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
-  SoundRange: 50
+  SoundRange: 150
 --- !u!1 &819635677079441744
 GameObject:
   m_ObjectHideFlags: 0

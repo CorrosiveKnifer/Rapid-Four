@@ -461,7 +461,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 61e457105539f2c489dcfa7a8a586eea, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
-  SoundRange: 100
+  SoundRange: 150
 --- !u!1 &1362168377614804091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,7 +2265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6355385162046179945
 Transform:
   m_ObjectHideFlags: 0
@@ -2273,13 +2273,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7260864986233066182}
-  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
   m_LocalPosition: {x: -0.41, y: -0, z: 5.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5210930212507227000}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
 --- !u!212 &614108179699420054
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2319,8 +2319,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8eaf844c4ed0371458a2321d3d080121, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: f22d249759db4ae459c89a9b934cdc6f, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

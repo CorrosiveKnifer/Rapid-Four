@@ -72,7 +72,7 @@ public class ChargingMeleeBehavour : BasicMeleeBehavour
         if (dist > m_chargePreferedEndDistance * 2.5f)
             return;
 
-        GetComponent<AudioAgent>().PlaySoundEffect("MeleeCharge", false, 255, Random.Range(0.75f, 1.25f));
+        GetComponent<AudioAgent>().Play3DSoundEffect("MeleeCharge", false, 255, Random.Range(0.75f, 1.25f));
 
         if (m_target.GetComponentInParent<PlayerController>() != null)
         {

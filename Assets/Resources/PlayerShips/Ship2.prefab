@@ -5215,10 +5215,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8179270582067854601}
     m_Modifications:
+    - target: {fileID: 464345601152550246, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908292428255176732, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746150988223052679, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939157258494509140, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482386964153701690, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620972124140662684, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8362540526897909387, guid: 63ee16bcc5bf6a3499b419424bb1451c,
         type: 3}
       propertyPath: m_Name
       value: Ship_2_Orange
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362540526897909387, guid: 63ee16bcc5bf6a3499b419424bb1451c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9171130811754124337, guid: 63ee16bcc5bf6a3499b419424bb1451c,
         type: 3}

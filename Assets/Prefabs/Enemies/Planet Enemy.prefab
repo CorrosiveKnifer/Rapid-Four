@@ -268,7 +268,6 @@ MonoBehaviour:
     m_Bits: 4096
   m_currentSpeed: 0
   m_delay: 0
-  m_target: {fileID: 0}
   m_shotForce: 50
   m_shotDelay: 4
   m_shotDamage: 25
@@ -301,10 +300,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: ac6057702404d654cb87162c31c077e4, type: 3}
+  - {fileID: 8300000, guid: 35777b1c2c13a78449dd42f8a3f7fe7c, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
-  SoundRange: 50
+  SoundRange: 150
 --- !u!1 &4655132576291732635
 GameObject:
   m_ObjectHideFlags: 0

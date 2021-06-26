@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         {
             dist = Mathf.Min(Vector3.Distance(player.gameObject.transform.position, testPosition), dist);
         }
-        return 15000;
+        return dist;
     }
 }
 

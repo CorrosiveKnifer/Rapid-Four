@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 730876343313299630}
   - component: {fileID: 730876343313299632}
   - component: {fileID: 1095602650324997437}
+  - component: {fileID: 5473132402443678727}
   m_Layer: 0
   m_Name: Planet Melee
   m_TagString: Enemy
@@ -141,7 +142,6 @@ MonoBehaviour:
     m_Bits: 4096
   m_currentSpeed: 0
   m_delay: 0
-  m_target: {fileID: 0}
   m_attackDelay: 0.5
   m_myDamage: 20
 --- !u!136 &1095602650324997437
@@ -158,6 +158,24 @@ CapsuleCollider:
   m_Height: 25
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5473132402443678727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730876343313299624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 8c33fce948ae6de41a76b24ea494edaa, type: 3}
+  - {fileID: 8300000, guid: 61e457105539f2c489dcfa7a8a586eea, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
+  SoundRange: 150
 --- !u!1 &4434913310393360200
 GameObject:
   m_ObjectHideFlags: 0

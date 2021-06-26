@@ -92,7 +92,7 @@ public class AudioAgent : MonoBehaviour
         }
         return false;
     }
-    public bool Play3DSoundEffect(string title, bool isLooping = false, int priority = 255)
+    public bool Play3DSoundEffect(string title, bool isLooping = false, int priority = 255, float pitch = 1.0f)
     {
         AudioPlayer player;
         if (AudioLibrary.TryGetValue(title, out player))
@@ -101,6 +101,7 @@ public class AudioAgent : MonoBehaviour
             AudioLibrary[title].source.priority = priority;
             AudioLibrary[title].isSoundEffect = true;
             AudioLibrary[title].is3DSound = true;
+            AudioLibrary[title].source.pitch = pitch;
             AudioLibrary[title].source.Play();
             return true;
         }
