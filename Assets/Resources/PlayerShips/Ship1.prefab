@@ -280,8 +280,7 @@ MonoBehaviour:
         m_CallState: 2
   speed: 3200
   rotationSpeed: 0.1
-  particlePrefab: {fileID: 2638363246194272870, guid: d78aacae714650c41ae1f06eff0bda0f,
-    type: 3}
+  particlePrefab: {fileID: 0}
   m_fFirerate: 3
   m_fSecondaryFireCD: 5
   m_fAbility1CD: 1.5
@@ -330,7 +329,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 040f4e8ca2ae87d48be8c6250edc17e8, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
-  SoundRange: 50
 --- !u!1 &7628842543104257163
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,17 +28,16 @@ public class ParticleBeam : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (hitList.Contains(other) || other.gameObject == null)
+        if (hitList.Contains(other))
             return;
 
         if (lifetime <= 1.5f - 1.05)
         {
-            if (other.gameObject.tag == "Enemy" && !hitList.Contains(other) && other.gameObject.GetComponentInParent<EnemyAI>())
+            if (other.gameObject.tag == "Enemy" && !hitList.Contains(other))
             {
-                other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage);
+                other.gameObject.GetComponent<EnemyAI>().HurtEnemy(damage);
             }
-            if (other.gameObject != null)
-                hitList.Add(other);
+            hitList.Add(other);
         }
     }
 }
