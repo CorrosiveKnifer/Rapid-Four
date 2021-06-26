@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
     public uint Player2Kills;
     public uint Player1Deaths;
     public uint Player2Deaths;
+    public float planetHealth;
+    public uint lastWave;
 
     [Header("Ship prefabs")]
     [ReadOnly]
