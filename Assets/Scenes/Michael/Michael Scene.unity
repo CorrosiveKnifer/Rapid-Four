@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &2951376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3886549798815625104, guid: 5dd2d3ace6f2e39428969cec3e538499,
+    type: 3}
+  m_PrefabInstance: {fileID: 1472851226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &49333598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,6 +538,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e8400c29e59c2ab4c8e662d42b091bbc, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+  SoundRange: 50
 --- !u!1 &862945961
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +627,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1134171080862851659, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: overHeatOverlay
+      value: 
+      objectReference: {fileID: 1878904792}
+    - target: {fileID: 2298915828266719371, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403006423330955011, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: overHeatOverlay
+      value: 
+      objectReference: {fileID: 2951376}
     - target: {fileID: 7548617443576390204, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: m_RootOrder
@@ -673,6 +701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HUDManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125072501794741127, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 491e71fcc61688944aa1752986940134, type: 3}
@@ -1331,6 +1364,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1878904792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8926154331958616238, guid: 5dd2d3ace6f2e39428969cec3e538499,
+    type: 3}
+  m_PrefabInstance: {fileID: 1472851226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1887035989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8695306752015050473, guid: f517c8a68134b0b459eebf0f6125ff90,
@@ -1644,12 +1689,17 @@ PrefabInstance:
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[0].enemyInfo.Array.data[0]
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}
       propertyPath: m_waves.Array.data[0].enemyInfo.Array.data[1]
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
+        type: 3}
+      propertyPath: m_waves.Array.data[0].enemyInfo.Array.data[3]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8566949946984051680, guid: d23cc367fa9a8f649baec426e313b36f,
         type: 3}

@@ -61,19 +61,15 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         UpdateClosestTarget();
-
-        //Update targetRotation
-        if((m_CurrentTarget.transform.position - transform.position).x > 0)
-            m_TargetRot = Quaternion.LookRotation(m_CurrentTarget.transform.position - transform.position, Vector3.up);
-        else
-            m_TargetRot = Quaternion.LookRotation(m_CurrentTarget.transform.position - transform.position, -Vector3.up);
+        GetComponent<EnemyAttackBehavour>().m_target = m_CurrentTarget;
+        m_TargetRot = GetComponent<EnemyAttackBehavour>().IdealRotation();
 
         //transform.position = Vector3.Lerp(transform.position, targetPosition, moveLerp);
         transform.rotation = Quaternion.Slerp(transform.rotation, m_TargetRot, m_RotationSlerp);
 
-        if(GetComponent<EnemyAttackBehavour>().IsWithinPreferedDistance(m_CurrentTarget))
+        if (GetComponent<EnemyAttackBehavour>().IsWithinPreferedDistance())
         {
-            GetComponent<EnemyAttackBehavour>().StartAttack(m_CurrentTarget);
+            GetComponent<EnemyAttackBehavour>().StartAttack();
         }
 
         //For each neighbour
@@ -88,7 +84,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         //Add the force towards the target location
-        m_ForwardVector += GetComponent<EnemyAttackBehavour>().GetTargetVector(m_CurrentTarget);
+        m_ForwardVector += GetComponent<EnemyAttackBehavour>().GetTargetVector();
 
         //Normalise to get the actual direction
         m_ForwardVector.Normalize();

@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 6725544723137782867}
   - component: {fileID: 6725544723137782865}
   - component: {fileID: 7763163903277468199}
+  - component: {fileID: 2250696300691908977}
   m_Layer: 0
   m_Name: StrafingEnemy
   m_TagString: Enemy
@@ -380,7 +381,6 @@ MonoBehaviour:
     m_Bits: 2048
   m_currentSpeed: 0
   m_delay: 0
-  m_target: {fileID: 0}
   m_shotForce: 50
   m_shotDelay: 3
   m_shotDamage: 40
@@ -402,6 +402,23 @@ CapsuleCollider:
   m_Height: 20
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2250696300691908977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725544723137782864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 35777b1c2c13a78449dd42f8a3f7fe7c, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
+  SoundRange: 50
 --- !u!1001 &1887735490447970041
 PrefabInstance:
   m_ObjectHideFlags: 0

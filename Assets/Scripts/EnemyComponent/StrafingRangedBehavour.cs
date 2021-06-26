@@ -14,15 +14,15 @@ public class StrafingRangedBehavour : BasicRangeBehavour
     private bool IsStrafing = false;
 
     //Inherited by EnemyAttackBehavour
-    public override Vector3 GetTargetVector(GameObject target)
+    public override Vector3 GetTargetVector()
     {
-        Vector3 targetLoc = target.transform.position + (transform.position - target.transform.position).normalized * m_preferedPersonalDistance;
+        Vector3 targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
 
         //Strafing mechanics
         if (Vector3.Distance(transform.position, targetLoc) <= m_strafingRange)
         {
             //Get Perpendicular vector
-            Vector3 perpDirect = Vector3.Cross(transform.position - target.transform.position, Vector3.forward).normalized;
+            Vector3 perpDirect = Vector3.Cross(transform.position - m_target.transform.position, Vector3.forward).normalized;
 
             m_gizmosPosition = transform.position + perpDirect * m_strafingSpeed; //For drawing
 
@@ -35,11 +35,11 @@ public class StrafingRangedBehavour : BasicRangeBehavour
         }
 
         IsStrafing = true;
-        return base.GetTargetVector(target);
+        return base.GetTargetVector();
     }
 
     //Inherited by EnemyAttackBehavour
-    public override void DealDamage(GameObject target)
+    public override void DealDamage()
     {
         if (m_projPrefab != null)
         {
@@ -57,7 +57,7 @@ public class StrafingRangedBehavour : BasicRangeBehavour
             if (IsStrafing)
             {
                 //Adust the aim to negate inherited velocity.
-                Vector3 perpDirect = Vector3.Cross(transform.position - target.transform.position, Vector3.forward).normalized;
+                Vector3 perpDirect = Vector3.Cross(transform.position - m_target.transform.position, Vector3.forward).normalized;
                 force = (transform.forward + (0.1f * perpDirect)).normalized;
             }
 

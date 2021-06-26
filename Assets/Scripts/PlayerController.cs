@@ -397,7 +397,8 @@ public class PlayerController : MonoBehaviour
 
             if (hasShot)
             {
-                audioAgent.PlaySoundEffect("ShootPew");
+                
+                audioAgent.PlaySoundEffect("ShootPew", false, 255, Random.Range(0.75f, 1.25f));
             }
             else
             {

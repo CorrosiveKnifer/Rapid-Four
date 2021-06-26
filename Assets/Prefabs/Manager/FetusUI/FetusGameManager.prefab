@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 584081385428454244}
   - component: {fileID: 1477393025476878199}
   m_Layer: 0
-  m_Name: Image
+  m_Name: OverheatO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2601,7 +2601,7 @@ GameObject:
   - component: {fileID: 4517834673936946113}
   - component: {fileID: 873860968883244315}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: OverheatO2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2879,6 +2879,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8483433823691406185, guid: 310d03a77338e7f4a8e77747480cf39d,
+        type: 3}
+      propertyPath: overHeatOverlay
+      value: 
+      objectReference: {fileID: 1477393025476878199}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 310d03a77338e7f4a8e77747480cf39d, type: 3}
 --- !u!114 &4403006423330955011 stripped
@@ -3123,6 +3128,11 @@ PrefabInstance:
       propertyPath: playerID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8483433823691406185, guid: 310d03a77338e7f4a8e77747480cf39d,
+        type: 3}
+      propertyPath: overHeatOverlay
+      value: 
+      objectReference: {fileID: 873860968883244315}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 310d03a77338e7f4a8e77747480cf39d, type: 3}
 --- !u!114 &1134171080862851659 stripped

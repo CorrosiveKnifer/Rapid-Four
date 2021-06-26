@@ -13,6 +13,9 @@ public class HealthBar : MonoBehaviour
     public Image shieldBar;
     public Image shieldMaxBar;
     public Image overHeatBar;
+
+    public Image overHeatOverlay;
+
     public uint playerID;
 
     public float healthMax;
@@ -40,5 +43,8 @@ public class HealthBar : MonoBehaviour
 
         overHeatBar.fillAmount = overheatCurrent / overheatMax;
         overHeatBar.color = Color.Lerp(Color.gray, new Color(1, 120.0f/255.0f, 45.0f/255.0f), overHeatBar.fillAmount);
+
+        
+        overHeatOverlay.color = new Color(1, 1, 1, (overheatCurrent / overheatMax));
     }
 }
