@@ -61,6 +61,10 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+    private void OnLevelWasLoaded(int level)
+    {
+        GetComponentInChildren<Animator>().SetTrigger("Blink");
+    }
 
     public void LoadNextLevel()
     {
@@ -128,7 +132,7 @@ public class LevelLoader : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked; // Make cursor unusable.
+            Cursor.lockState = CursorLockMode.Confined; // Make cursor unusable.
             Cursor.visible = false;
         }
 

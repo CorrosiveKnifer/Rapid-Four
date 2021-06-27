@@ -16,8 +16,8 @@ public abstract class EnemyAttackBehavour : MonoBehaviour
 
     [ReadOnly]
     public float m_delay = 0.0f;
-    [ReadOnly]
-    public GameObject m_target;
+
+    public GameObject m_target { protected get; set; }
 
     protected float m_preferedPersonalDistance = 0.0f;
     protected float m_preferedAttackDistance = 0.0f;
@@ -34,30 +34,37 @@ public abstract class EnemyAttackBehavour : MonoBehaviour
             m_delay = Mathf.Clamp(m_delay - Time.deltaTime, 0.0f, 10.0f);
     }
 
-    public virtual bool IsWithinPreferedDistance(GameObject target)
+    public virtual bool IsWithinPreferedDistance()
     {
-        return Vector3.Distance(transform.position, target.transform.position) <= m_preferedAttackDistance;
+        return Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance;
     }
 
     /// <summary>
     /// Start Attacking based on this behavour.
     /// </summary>
     /// <param name="target">Target entity to attack.</param>
-    public abstract void StartAttack(GameObject target);
+    public abstract void StartAttack();
 
     /// <summary>
     /// Calculates the forward vector to the prefered target location for this behavour.
     /// </summary>
     /// <param name="target">Target entity to attack.</param>
     /// <returns> Force Vector to apply towards the ideal location. </returns>
-    public abstract Vector3 GetTargetVector(GameObject target);
+    public abstract Vector3 GetTargetVector();
 
     /// <summary>
     /// Start Dealing damage towards the target based on this behavour.
     /// </summary>
     /// <param name="target">Target entity to attack.</param>
-    public abstract void DealDamage(GameObject target);
+    public abstract void DealDamage();
 
+    public virtual Quaternion IdealRotation()
+    {
+        if ((m_target.transform.position - transform.position).x > 0)
+            return Quaternion.LookRotation(m_target.transform.position - transform.position, Vector3.up);
+        else
+            return Quaternion.LookRotation(m_target.transform.position - transform.position, -Vector3.up);
+    }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(m_gizmosPosition, 0.5f);

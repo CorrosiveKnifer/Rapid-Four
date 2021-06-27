@@ -19,38 +19,52 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     }
 
     //Inherited by EnemyAttackBehavour
-    public override void StartAttack(GameObject target)
+    public override void StartAttack()
     {
         if (m_delay > 0.0f)
         {
             return;
         }
 
-        if (Vector3.Distance(transform.position, target.transform.position) <= m_preferedAttackDistance)
+        if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
         {
             //Start Animation
-
-            //Will be replaced with animation event:
-            DealDamage(target);
+            GetComponentInChildren<Animator>().SetBool("Attack", true);
+        }
+        else
+        {
+            GetComponentInChildren<Animator>().SetBool("Attack", false);
         }
     }
 
     //Inherited by EnemyAttackBehavour
-    public override void DealDamage(GameObject target)
+    public override void DealDamage()
     {
         //Damage the player directly.
-        target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+        float dist = Vector3.Distance(transform.position, m_target.transform.position);
+        if (dist > m_preferedAttackDistance + 2.0f)
+            return;
+
+        if (m_target.GetComponentInParent<PlayerController>() != null)
+        {
+            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+        }
+        if (m_target.GetComponent<Planet>() != null)
+        {
+            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+        }
+        GetComponent<AudioAgent>().Play3DSoundEffect("MeleeAttack", false, 255, Random.Range(0.75f, 1.25f));
         m_delay = m_attackDelay;
     }
 
     //Inherited by EnemyAttackBehavour
-    public override Vector3 GetTargetVector(GameObject target)
+    public override Vector3 GetTargetVector()
     {
-        if (target == null)
+        if (m_target == null)
             return Vector3.zero;
 
         //Move towards the target.
-        Vector3 targetLoc = target.transform.position + (transform.position - target.transform.position).normalized * m_preferedPersonalDistance;
+        Vector3 targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
         m_gizmosPosition = targetLoc;
 
         float distanceToTarget = (targetLoc - transform.position).magnitude;

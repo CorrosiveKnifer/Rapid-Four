@@ -17,35 +17,32 @@ public class BasicRangeBehavour : EnemyAttackBehavour
     }
 
     //Inherited by EnemyAttackBehavour
-    public override Vector3 GetTargetVector(GameObject target)
+    public override Vector3 GetTargetVector()
     {
-        if (target == null)
+        if (m_target == null)
             return Vector3.zero;
 
         //Move towards a close enough position.
-        Vector3 targetLoc = target.transform.position + (transform.position - target.transform.position).normalized * m_preferedPersonalDistance;
+        Vector3 targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
         m_gizmosPosition = targetLoc; //For rendering in base class.
 
         float distanceToTarget = (targetLoc - transform.position).magnitude;
 
         //Calculate current speed.
         m_currentSpeed = Mathf.Clamp((m_myMaxSpeed * distanceToTarget) / m_preferedPersonalDistance, 0.0f, m_myMaxSpeed);
-        
-        m_target = target;
 
         return (targetLoc - transform.position).normalized * m_currentSpeed;
     }
 
     //Inherited by EnemyAttackBehavour
-    public override void StartAttack(GameObject target)
+    public override void StartAttack()
     {
         if (m_delay > 0.0f)
         {
             return;
         }
-        if (Vector3.Distance(transform.position, target.transform.position) <= m_preferedAttackDistance)
+        if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
         {
-            m_target = target;
 
             //Raycast forward to predict if it will hit the target
             RaycastHit hit;
@@ -62,7 +59,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
     }
 
     //Inherited by EnemyAttackBehavour
-    public override void DealDamage(GameObject target)
+    public override void DealDamage()
     {
         if (m_projPrefab != null)
         {
@@ -72,7 +69,6 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position, Quaternion.identity);
 
             //Set inheritance velocity.
-            //newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
             
             //Set orientation of projectile:
             newProj.transform.up = transform.forward;
@@ -88,7 +84,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             {
                 Physics.IgnoreCollision(collider, newProj.GetComponent<Collider>());
             }
-            GetComponent<AudioAgent>().Play3DSoundEffect("MissileLaunch");
+            GetComponent<AudioAgent>().Play3DSoundEffect("Whale", false, 255, Random.Range(0.75f, 1.25f));
         }
     }
 }

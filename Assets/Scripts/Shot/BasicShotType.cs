@@ -64,6 +64,7 @@ public class BasicShotType : ShotType
         if(other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage);
+            other.gameObject.GetComponent<EnemyAI>().StunTarget(0.16f);
             Destroy(gameObject);
         }
     }

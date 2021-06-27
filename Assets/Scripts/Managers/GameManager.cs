@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
 
     public double GameTime = 0.0;
 
+    public uint Player1Kills;
+    public uint Player2Kills;
+    public uint Player1Deaths;
+    public uint Player2Deaths;
+
     [Header("Ship prefabs")]
     [ReadOnly]
     public GameObject[] playerShipPrefabs;
@@ -80,12 +85,8 @@ public class GameManager : MonoBehaviour
     {
         playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
 
-        //If on game scene Default:
-        if(!SceneManager.GetActiveScene().name.Contains("Lobby"))
-        {
-            InputManager.GetInstance().DefaultAssignControllers();
-        }
-
+        Debug.LogWarning("Using default controllers");
+        InputManager.GetInstance().DefaultAssignControllers();
         SpawnPlayers();
     }
 

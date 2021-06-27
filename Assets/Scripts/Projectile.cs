@@ -21,6 +21,7 @@ public class Projectile : MonoBehaviour
     {
         //Send damage information to other
         collision.gameObject.GetComponent<PlayerController>()?.DealDamage(m_damage);
+        collision.gameObject.GetComponent<Planet>()?.DealDamage(m_damage);
         Destroy(gameObject);
     }
 }

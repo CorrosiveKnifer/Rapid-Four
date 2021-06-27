@@ -147,7 +147,7 @@ VisualEffectResource:
       }\n        {\n            SetAttribute_F01429A3( /*inout */attributes.lifetime, 
       /*inout */attributes.seed, (float)1, (float)3);\n        }\n        {\n           
       PositionSphere_0( /*inout */attributes.position,  /*inout */attributes.seed, 
-      /*inout */attributes.direction, float3(0, 0, 0), (float)2.20000005, (float)6.28318548,
+      /*inout */attributes.direction, float3(0, 0, 0), (float)7.38999987, (float)6.28318548,
       (float)1);\n        }\n        \n\n\t\t\n#if VFX_USE_ALIVE_CURRENT\n       
       if (attributes.alive)\n#endif       \n        {\n#if USE_DEAD_LIST\n\t       
       uint deadIndex = deadListIn.DecrementCounter();\n            uint index = deadListIn[deadIndex];\n#else\n           
@@ -1016,7 +1016,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 18
           m_Value: 6.2831855
         - m_ExpressionIndex: 19
-          m_Value: 2.2
+          m_Value: 7.39
         - m_ExpressionIndex: 21
           m_Value: 3
         - m_ExpressionIndex: 22
@@ -1056,10 +1056,10 @@ VisualEffectResource:
             serializedVersion: 2
             m_Curve:
             - serializedVersion: 3
-              time: -0.012657469
-              value: 0.105606675
-              inSlope: -0.10291547
-              outSlope: -0.10291547
+              time: -0.22623855
+              value: 0.4868933
+              inSlope: -0.3959301
+              outSlope: -0.3959301
               tangentMode: 34
               weightedMode: 0
               inWeight: 0
@@ -1067,8 +1067,8 @@ VisualEffectResource:
             - serializedVersion: 3
               time: 1
               value: 0.0013885498
-              inSlope: -0.10291547
-              outSlope: -0.10291547
+              inSlope: -0.3959301
+              outSlope: -0.3959301
               tangentMode: 34
               weightedMode: 0
               inWeight: 0
@@ -2524,7 +2524,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":-0.012657469138503075,"value":0.10560667514801026,"inTangent":-0.10291547328233719,"outTangent":-0.10291547328233719,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":0.0013885498046875,"inTangent":-0.10291547328233719,"outTangent":-0.10291547328233719,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":-0.22623854875564576,"value":0.48689329624176028,"inTangent":-0.39593011140823367,"outTangent":-0.39593011140823367,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":0.0013885498046875,"inTangent":-0.39593011140823367,"outTangent":-0.39593011140823367,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -2792,7 +2792,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.ArcSphere, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"sphere":{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":2.200000047683716},"arc":6.2831854820251469}'
+      m_SerializableObject: '{"sphere":{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":7.389999866485596},"arc":6.2831854820251469}'
     m_Space: 0
   m_Property:
     name: ArcSphere

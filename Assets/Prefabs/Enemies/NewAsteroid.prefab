@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3124352607387186713}
   - component: {fileID: 4717820435463998651}
   m_Layer: 8
-  m_Name: AstroidSphere
+  m_Name: NewAsteroid
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,10 +102,10 @@ MonoBehaviour:
   probability: 50
   m_speed: 10
   isDestroyed: 0
+  IsClockwise: 1
   AstroidPrefab:
   - {fileID: 3066583862277323996}
   - {fileID: 4409862675478639242, guid: 52cb0b7da536f5549969af8d3356c823, type: 3}
-  minimapSprite: {fileID: 3810965256650524190}
   angle: 45
   maxSpeed: 5
   particlePrefab: {fileID: 4987899189918581230, guid: cb437294288a6a645aa5d23566eb7249,
@@ -248,7 +248,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06873793e32ff624fbd9fd4ae0e43040, type: 2}
+  - {fileID: 2100000, guid: 68fb7ec778610c846a6e3835adece98c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
