@@ -1571,6 +1571,7 @@ MonoBehaviour:
   Player2Kills: {fileID: 872214849}
   Player1Deaths: {fileID: 904668520}
   Player2Deaths: {fileID: 440635300}
+  GoBackButton: {fileID: 1526848585}
 --- !u!114 &1301863453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,6 +1586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - {fileID: 8300000, guid: 27726c97c45c217439612dc4e34c85b0, type: 3}
+  - {fileID: 8300000, guid: 51ae30b002a300a48a6d457a7fa5926d, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
   SoundRange: 50

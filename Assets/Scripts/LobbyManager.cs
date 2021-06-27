@@ -332,6 +332,7 @@ public class LobbyManager : MonoBehaviour
                 //presing space
                 if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
+                    PlaySoundEffect();
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
@@ -342,6 +343,7 @@ public class LobbyManager : MonoBehaviour
             {
                 if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
+                    PlaySoundEffect();
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
@@ -359,6 +361,7 @@ public class LobbyManager : MonoBehaviour
                 //pressing escape key
                 if(InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, playerID))
                 {
+                    PlaySoundEffect();
                     if (playerID == 0)
                     {
                         cancelp1ShipID = true; //confirm the cancelation
@@ -374,7 +377,8 @@ public class LobbyManager : MonoBehaviour
             //otherwise if its gamepad
             else if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID))
             {
-                if(playerID ==0)
+                PlaySoundEffect();
+                if (playerID ==0)
                 {
                     cancelp1ShipID = true;
                 }
@@ -386,6 +390,11 @@ public class LobbyManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void PlaySoundEffect()
+    {
+        GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
     }
 
 

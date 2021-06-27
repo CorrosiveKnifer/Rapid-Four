@@ -19,6 +19,8 @@ public class EndScreenScript : MonoBehaviour
     public Text Player1Deaths;
     public Text Player2Deaths;
 
+    public GameObject GoBackButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,5 +35,39 @@ public class EndScreenScript : MonoBehaviour
         Player1Deaths.text = GameManager.GameTime.ToString();
         Player2Deaths.text = GameManager.GameTime.ToString();
 
+    }
+    void Update()
+    {
+        FadeToColor(GoBackButton.GetComponent<Button>().colors.highlightedColor, GoBackButton);
+        EndingMechanic();
+
+    }
+
+    void FadeToColor(Color color, GameObject currentButton)
+    {
+        Graphic graphic = currentButton.GetComponent<Graphic>();
+        Button button = currentButton.GetComponent<Button>();
+        if (graphic != null)
+            graphic.CrossFadeColor(color, button.colors.fadeDuration, true, true);
+    }
+
+    void EndingMechanic()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
+            {
+                Debug.Log("press");
+                PlaySoundEffect();
+                GoBackButton.GetComponent<Button>().onClick.Invoke();
+
+                break;
+            }
+        }
+    }
+
+    public void PlaySoundEffect()
+    {
+        GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
     }
 }
