@@ -16,6 +16,8 @@ public class Decoy : MonoBehaviour
     {
         EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
 
+        GetComponent<AudioAgent>().PlaySoundEffect("DecoySonar");
+
         foreach (var enemy in enemies)
         {
             enemy.SetTarget(gameObject);
@@ -30,7 +32,6 @@ public class Decoy : MonoBehaviour
         if (lifetime <= 0)
         {
             ActivateDecoy();
-            Destroy(gameObject);
         }
     }
 
@@ -46,12 +47,8 @@ public class Decoy : MonoBehaviour
             }
         }
 
+        Instantiate(Resources.Load<GameObject>("VFX/Detonate"), transform.position, Quaternion.identity);
 
-        if (gameObject.GetComponentInParent<PlayerController>() == null)
-        {
-            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
-
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }
