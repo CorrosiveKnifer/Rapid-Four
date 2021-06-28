@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 601507710251278426}
   - component: {fileID: 2938860774104926631}
   - component: {fileID: 6979093773173492932}
+  - component: {fileID: 89287167183357476}
   m_Layer: 0
   m_Name: Blackhole
   m_TagString: Untagged
@@ -91,6 +92,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &89287167183357476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4360177989359790784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac180dd2786e6a1488e84d64cd974062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: ed93d3c70647f154c8fe4e554e5ec234, type: 3}
+  AgentSEVolume: 2
+  AgentBGVolume: 1
+  SoundRange: 50
 --- !u!1001 &5485666018796399118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,6 +129,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579660058001719142, guid: 07c73d0518018924b81a6e9298bafa99,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8579660058268877678, guid: 07c73d0518018924b81a6e9298bafa99,
         type: 3}

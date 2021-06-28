@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4807535579071138901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.40356, y: 0.40356, z: 0.40356}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 5385382555060914399}
   m_RootOrder: 3
@@ -4838,7 +4838,7 @@ Transform:
   m_GameObject: {fileID: 5385382554944562954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 5385382555060914399}
   m_RootOrder: 1
@@ -4857,7 +4857,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -9687,6 +9687,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2283d1c472e377a4ea55286607191e8c, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+  SoundRange: 50
 --- !u!1 &5385382555567974463
 GameObject:
   m_ObjectHideFlags: 0
@@ -9714,7 +9715,7 @@ Transform:
   m_GameObject: {fileID: 5385382555567974463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 5385382555060914399}
   m_RootOrder: 2
@@ -14525,7 +14526,7 @@ Transform:
   m_GameObject: {fileID: 5385382555808139712}
   m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.251843, y: 1.251843, z: 1.251843}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 5385382555060914399}
   m_RootOrder: 0
