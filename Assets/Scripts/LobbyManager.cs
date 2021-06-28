@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Rachael Colaco
+/// </summary>
 public class LobbyManager : MonoBehaviour
 {
     public Image playerOneImg;
@@ -34,13 +36,12 @@ public class LobbyManager : MonoBehaviour
     public GameObject[] player1OptImage;
     public GameObject[] player2OptImage;
 
+    public GameObject player1NonAvailable;
+    public GameObject player2NonAvailable;
+
     public LevelTimer timer;
 
     int[] playerIndex = new int [2];
-
-    int P1_index = 0;
-
-    int P2_index = 0;
 
     public GameObject allReady;
 
@@ -192,7 +193,11 @@ public class LobbyManager : MonoBehaviour
         player1Ready.transform.position = player1Selector.transform.position;
         player2Ready.transform.position = player2Selector.transform.position;
 
-        //Show option ships panel
+        //cross displayment
+        player1NonAvailable.transform.position = player1OptImage[playerIndex[1]].transform.position;
+        player2NonAvailable.transform.position = player2OptImage[playerIndex[0]].transform.position;
+
+        //Show option ships panel FOR PLAYER 1
         if (InputManager.GetInstance().IsPlayerAssigned(0))
         {
             instructTexts[0].SetActive(false);
@@ -225,9 +230,10 @@ public class LobbyManager : MonoBehaviour
             playerOneImg.color = Color.red;
         }
 
-        //Show option ships panel
+        //Show option ships panel FOR PLAYER 2
         if (InputManager.GetInstance().IsPlayerAssigned(1))
         {
+
             instructTexts[1].SetActive(false);
             playerTwoImg.color = Color.yellow;
             player2AssignedPanel.SetActive(false);
@@ -262,12 +268,25 @@ public class LobbyManager : MonoBehaviour
         {
             playerOneImg.color = Color.green;
             player1Ready.SetActive(true);
+
+            player2NonAvailable.SetActive(true);
+
+        }
+        else
+        {
+            player2NonAvailable.SetActive(false);
         }
         //for player 2
         if (InputManager.GetInstance().IsPlayerReady(1))
         {
             playerTwoImg.color = Color.green;
             player2Ready.SetActive(true);
+
+            player1NonAvailable.SetActive(true);
+        }
+        else
+        {
+            player1NonAvailable.SetActive(false);
         }
     }
 
@@ -313,6 +332,7 @@ public class LobbyManager : MonoBehaviour
                 //presing space
                 if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
+                    PlaySoundEffect();
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
@@ -323,6 +343,7 @@ public class LobbyManager : MonoBehaviour
             {
                 if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
+                    PlaySoundEffect();
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
@@ -340,6 +361,7 @@ public class LobbyManager : MonoBehaviour
                 //pressing escape key
                 if(InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, playerID))
                 {
+                    PlaySoundEffect();
                     if (playerID == 0)
                     {
                         cancelp1ShipID = true; //confirm the cancelation
@@ -355,7 +377,8 @@ public class LobbyManager : MonoBehaviour
             //otherwise if its gamepad
             else if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID))
             {
-                if(playerID ==0)
+                PlaySoundEffect();
+                if (playerID ==0)
                 {
                     cancelp1ShipID = true;
                 }
@@ -367,6 +390,11 @@ public class LobbyManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void PlaySoundEffect()
+    {
+        GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
     }
 
 

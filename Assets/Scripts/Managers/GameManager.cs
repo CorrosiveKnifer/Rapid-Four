@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Michael Jordan, William de Beer
+/// Michael Jordan, William de Beer, Rachael Colaco
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -64,14 +64,12 @@ public class GameManager : MonoBehaviour
 
     public int AsteroidDestroyScore = 10;
 
-    public double GameTime = 0.0;
+    public static double GameTime { get; set; } = 0.0;
 
-    public uint Player1Kills;
-    public uint Player2Kills;
-    public uint Player1Deaths;
-    public uint Player2Deaths;
-    public float planetHealth;
-    public uint lastWave;
+    public static uint Player1Kills { get; set; } = 0;
+    public static uint Player2Kills { get; set; } = 0;
+    public static uint Player1Deaths { get; set; } = 0;
+    public static uint Player2Deaths { get; set; } = 0;
 
     [Header("Ship prefabs")]
     [ReadOnly]
@@ -86,8 +84,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
-        Physics.IgnoreLayerCollision(11, 11);
-
 
         Debug.LogWarning("Using default controllers");
         InputManager.GetInstance().DefaultAssignControllers();
