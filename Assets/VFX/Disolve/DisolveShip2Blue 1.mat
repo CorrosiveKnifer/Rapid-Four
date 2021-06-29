@@ -25,7 +25,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo:
-        m_Texture: {fileID: 2800000, guid: 1a9fb372985e83147a376026bc4f93ac, type: 3}
+        m_Texture: {fileID: 2800000, guid: d9c21e45d0de5f64b91c79d7329429ad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo_1:
@@ -65,6 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Fade: 1
     - NoiseScale: 40
     - Vector1_8BD5C34F: 0.02
     - Vector1_CC429641: 1
