@@ -141,6 +141,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1064839890859718784, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
+      propertyPath: AudioClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064839890859718784, guid: f517c8a68134b0b459eebf0f6125ff90,
+        type: 3}
+      propertyPath: AudioClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: eabee9b064d7a314ba206db9bc0b5774, type: 3}
     - target: {fileID: 6279433826970776357, guid: f517c8a68134b0b459eebf0f6125ff90,
         type: 3}
       propertyPath: m_Layer
@@ -523,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: e8400c29e59c2ab4c8e662d42b091bbc, type: 3}
+  - {fileID: 8300000, guid: e15019767c2b1754798f62d7f514c0b1, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
   SoundRange: 50
@@ -689,6 +699,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 897708677, guid: 491e71fcc61688944aa1752986940134, type: 3}
+      propertyPath: planetAlert
+      value: 
+      objectReference: {fileID: 1862292117}
     - target: {fileID: 3841342572400054522, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1372,6 +1386,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1862292117 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8079186210410596341, guid: 491e71fcc61688944aa1752986940134,
+    type: 3}
+  m_PrefabInstance: {fileID: 1050280941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1887035989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8695306752015050473, guid: f517c8a68134b0b459eebf0f6125ff90,
