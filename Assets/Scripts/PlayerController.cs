@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float m_shieldRegenDelay = 3.0f;
     private float m_shieldRegenTimer = 0.0f;
 
+    private bool isPlayerMoving = false;
 
     public Vector2 maxDist;
     public Vector2 minDist;
@@ -250,9 +251,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Bounds();
-        ShipMovement();
-        ShipAiming();
+        if (isAlive)
+        {
+            Bounds();
+            ShipMovement();
+            ShipAiming();
+        }
     }
 
     /// <summary>
@@ -290,12 +294,27 @@ public class PlayerController : MonoBehaviour
         Vector2 aim = new Vector2(InputManager.GetInstance().GetHorizontalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()),
         InputManager.GetInstance().GetVerticalAxis(InputManager.Joysticks.RIGHT, ID, myCamera.GetComponent<Camera>()));
 
-        if (aim.x != 0 || aim.y != 0)
+        Vector3 cameraPos = transform.position;
+        cameraPos.z = -45.0f;
+
+        Debug.Log(isPlayerMoving);
+        if ((aim.x != 0 || aim.y != 0))
         {
             Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
+            if (!isPlayerMoving) // Whiling idle and aiming
+                myCamera.SetTargetLoc(cameraPos + direct * 25.0f, false, 0.1f);
+            else // While moving and aiming
+                myCamera.SetTargetLoc(cameraPos, false, 0.1f);
+
             body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
         }
-        
+        else
+        {
+            if (!isPlayerMoving) // While idle
+                myCamera.SetTargetLoc(cameraPos, false , 0.3f);
+            else // While moving
+                myCamera.SetTargetLoc(cameraPos, false, 0.3f);
+        }
     }
 
     /// <summary>
@@ -393,7 +412,7 @@ public class PlayerController : MonoBehaviour
                 gObject.transform.up = transform.forward;
 
                 //Send projectile
-                gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
+                gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 100.0f, ForceMode.Impulse);
 
                 if (gObject.GetComponent<BasicShotType>())
                     gObject.GetComponent<BasicShotType>().playerID = (uint)ID;
@@ -671,6 +690,7 @@ public class PlayerController : MonoBehaviour
     }
     private void SetMovement(bool isMoving, float speed = 1.0f)
     {
+        isPlayerMoving = isMoving;
         foreach (var item in engine)
         {
             item.SetBool("IsMoving", isMoving);
