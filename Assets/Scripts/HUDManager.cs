@@ -94,10 +94,6 @@ public class HUDManager : MonoBehaviour
             ObjectiveText.SetActive(false);
         }
     }
-    public void SetPlanetHealthBar(float _health)
-    {
-        planetHealth.fillAmount = _health;
-    }
 
     public RespawnTimer GetRespawnTimer()
     {

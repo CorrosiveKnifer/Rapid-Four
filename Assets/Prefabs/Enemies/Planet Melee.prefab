@@ -186,8 +186,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 7.5
-  m_Height: 25
+  m_Radius: 18.75
+  m_Height: 60
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5473132402443678727
@@ -1369,7 +1369,6 @@ GameObject:
   m_Component:
   - component: {fileID: 366521103074325439}
   - component: {fileID: 9025656609718386714}
-  - component: {fileID: 7089160466385679898}
   - component: {fileID: 3138886792010038931}
   m_Layer: 0
   m_Name: Model
@@ -1419,23 +1418,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7089160466385679898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5002933358647628963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 518dd89291b18404394d458100289aa2, type: 2}
 --- !u!114 &3138886792010038931
 MonoBehaviour:
   m_ObjectHideFlags: 0
