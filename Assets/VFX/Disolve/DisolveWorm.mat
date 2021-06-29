@@ -75,7 +75,7 @@ Material:
     m_Floats:
     - Fade: 1
     - NoiseScale: 40
-    - Vector1_8BD5C34F: 0.02
+    - Vector1_8BD5C34F: 0.05
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -98,7 +98,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - ColorEdge: {r: 0, g: 686.6823, b: 371.063, a: 1}
+    - ColorEdge: {r: 0.85882354, g: 0.13075864, b: 0, a: 1}
     - Color_1D5C171B: {r: 0, g: 0, b: 0, a: 0}
     - Color_3454FDA7: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

@@ -78,6 +78,10 @@ public class Planet : MonoBehaviour
     public void DealDamage(float _damage)
     {
         m_fHealth -= _damage;
+        if(GetComponent<AudioAgent>().IsAudioStopped("PlanetAttacked"))
+        {
+            GetComponent<AudioAgent>().PlaySoundEffect("PlanetAttacked");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
