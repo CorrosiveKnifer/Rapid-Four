@@ -238,8 +238,8 @@ public class PlayerController : MonoBehaviour
             Shoot();
             Ability();
             EffectUpdate();
-            HUDManager.instance.SetHealthDisplay(ID, m_health, m_shields, m_currentHeatLevel);
         }
+        HUDManager.instance.SetHealthDisplay(ID, m_health, m_shields, m_currentHeatLevel);
         DeathUpdate();
     }
 

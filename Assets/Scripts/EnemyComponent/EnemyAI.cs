@@ -149,26 +149,39 @@ public class EnemyAI : MonoBehaviour
         float currDist = (m_CurrentTarget != null) ? Vector3.Distance(transform.position, m_CurrentTarget.transform.position) : 1000000;
         GameObject closestPlayer = null;
 
-        if (m_CurrentTarget != null 
-            && (m_CurrentTarget.GetComponentInParent<Planet>() != null 
-            || m_CurrentTarget.GetComponentInParent<PlayerController>().CheckAlive()
-            || m_CurrentTarget.GetComponentInParent<Decoy>()))
+        switch(GetTargetType(m_CurrentTarget))
         {
-            closestPlayer = m_CurrentTarget;
+            case 0: //Planet
+                closestPlayer = m_CurrentTarget;
+                break;
+            case 1: //Player
+                    closestPlayer = m_CurrentTarget;
+                break;
+            case 2: //Decoy
+                closestPlayer = m_CurrentTarget;
+                break;
+            default: //Null
+                break;
+        }
+
+        if (m_Targets.Count == 0)
+        {
+            return false;
         }
 
         //For each player in the scene
-        foreach (var target in m_Targets)
+        for(var i = m_Targets.Count - 1; i >= 0; i--)
         {
-            if (target == null)
+            if (m_Targets[i] == null)
             {
-                m_Targets.Remove(target);
+                m_Targets.RemoveAt(i);
             }
         }
 
         foreach (var player in m_Targets)
         {
-            if(player.GetComponentInParent<PlayerController>() != null && player.GetComponentInParent<PlayerController>().CheckAlive())
+            int type = GetTargetType(player);
+            if(type == -1)
             {
                 continue;
             }
@@ -188,6 +201,30 @@ public class EnemyAI : MonoBehaviour
 
         //Return true if there is a change.
         return oldTarget != m_CurrentTarget;
+    }
+
+    public int GetTargetType(GameObject target)
+    {
+        if(target == null)
+        {
+            return -1;
+        }
+        if (target.GetComponentInParent<Planet>() != null)
+        {
+            return 0;
+        }
+        if (target.GetComponentInParent<PlayerController>() != null)
+        {
+            if (target.GetComponentInParent<PlayerController>().CheckAlive())
+                return 1;
+
+            return -1;
+        }
+        if (target.GetComponentInParent<Decoy>() != null)
+        {
+            return 2;
+        }
+        return -1;
     }
 
     /// <summary>
