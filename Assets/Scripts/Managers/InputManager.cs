@@ -939,10 +939,11 @@ public class InputManager : MonoBehaviour
         if (playerCam != null)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue();
-            mousePos.z = playerCam.farClipPlane * .5f;
+            mousePos.z = playerCam.farClipPlane;
             Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
-
-            return worldPoint.y;
+            Vector3 direct = worldPoint - new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, worldPoint.z);
+            direct.z = 0;
+            return direct.y;
         }
         return 0;
 
@@ -956,10 +957,11 @@ public class InputManager : MonoBehaviour
         if (playerCam != null)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue();
-            mousePos.z = playerCam.farClipPlane * .5f;
+            mousePos.z = playerCam.farClipPlane;
             Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
-
-            return worldPoint.x;
+            Vector3 direct = worldPoint - new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, worldPoint.z);
+            direct.z = 0;
+            return direct.x;
         }
         return 0;
 
