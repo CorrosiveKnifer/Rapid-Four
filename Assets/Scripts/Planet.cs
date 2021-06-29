@@ -11,7 +11,7 @@ public class Planet : MonoBehaviour
 
     public CameraAgent[] playerCamera;
 
-    float m_fMaxHealth = 1000.0f;
+    float m_fMaxHealth = 10000.0f;
     public float m_fHealth;
     public float m_fRotationSpeedMult = 1.0f;
     public GameObject minimapSprite;
@@ -78,6 +78,7 @@ public class Planet : MonoBehaviour
             if (scaleMult <= -3.0f)
             {
                 levelLoader.LoadNextLevel();
+                Destroy(this);
             }
         }
     }
