@@ -27,6 +27,7 @@ public class Planet : MonoBehaviour
         m_fHealth = m_fMaxHealth;
         planetDeathTimer = planetDeathDuration;
         planetStartSize = transform.localScale;
+        GameManager.GetInstance().SpawnPlayers();
     }
 
     // Update is called once per frame
