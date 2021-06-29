@@ -102,10 +102,10 @@ public class PlayerController : MonoBehaviour
 
     List<activeEffect> playerEffects = new List<activeEffect>();
 
-    [Header("Input Devices")]
-    Gamepad gamepad;
-    Keyboard keyboard;
-    Mouse mouse;
+    [Header("Ability Thumbnails")]
+    public Sprite abilityThumbnail1;
+    public Sprite abilityThumbnail2;
+    public Sprite abilityThumbnail3;
 
     class activeEffect
     {
@@ -137,25 +137,32 @@ public class PlayerController : MonoBehaviour
         m_health = m_maxHealth;
         m_shields = m_maxShields;
 
-        if (usingKeyboard)
-        {
-            keyboard = Keyboard.current;
-            mouse = Mouse.current;
-        }
-        else if (Gamepad.all.Count != 0)
-        {
-            var allGamepads = Gamepad.all;
-            gamepad = allGamepads[controlsID];
-        }
 
         audioAgent = GetComponent<AudioAgent>();
         shieldObject = GetComponentInChildren<Shield>();
         body = GetComponentInChildren<Rigidbody>();
 
         if (InputManager.GetInstance().GetPlayerControl(ID).shipID == 0)
+        {
             proj = Resources.Load<GameObject>("Prefabs/BasicShot");
+        }
         if (InputManager.GetInstance().GetPlayerControl(ID).shipID == 1)
+        {
             proj = Resources.Load<GameObject>("Prefabs/BasicShot2");
+        }
+
+        if (ID == 0)
+        {
+            HUDManager.instance.player1Ability[0].sprite = abilityThumbnail1;
+            HUDManager.instance.player1Ability[1].sprite = abilityThumbnail2;
+            HUDManager.instance.player1Ability[2].sprite = abilityThumbnail3;
+        }
+        if (ID == 1)
+        {
+            HUDManager.instance.player2Ability[0].sprite = abilityThumbnail1;
+            HUDManager.instance.player2Ability[1].sprite = abilityThumbnail2;
+            HUDManager.instance.player2Ability[2].sprite = abilityThumbnail3;
+        }
 
 
         homing = Resources.Load<GameObject>("Prefabs/HomingShot");
@@ -175,16 +182,6 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
 
-        if (usingKeyboard)
-        {
-            keyboard = Keyboard.current;
-            mouse = Mouse.current;
-        }
-        else if (Gamepad.all.Count != 0)
-        {
-            var allGamepads = Gamepad.all;
-            gamepad = allGamepads[ID];
-        }
     }
     private void OnEnable()
     {
@@ -415,7 +412,7 @@ public class PlayerController : MonoBehaviour
             m_overheated = true;
         }
 
-        if (m_currentHeatLevel > 0 && (!gamepad.rightTrigger.isPressed || m_overheated))
+        if (m_currentHeatLevel > 0 && (!InputManager.GetInstance().GetKeyPressed(InputManager.ButtonType.BUTTON_RT, ID) || m_overheated))
         {
             m_currentHeatLevel -= Time.deltaTime * m_cooloffRate;
         }
@@ -440,7 +437,7 @@ public class PlayerController : MonoBehaviour
 
         //Send projectile
         gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
-        audioAgent.PlaySoundEffect("MissileLaunch");
+        audioAgent.PlaySoundEffect("MissileLaunch2");
     }
 
     /// <summary>
@@ -489,7 +486,7 @@ public class PlayerController : MonoBehaviour
         gObject.transform.up = transform.forward;
 
         gObject.transform.SetParent(gameObject.transform);
-        audioAgent.PlaySoundEffect("EnergyWave");
+        audioAgent.PlaySoundEffect("EnergyWave2");
     }
     /// <summary>
     /// Summon projectile which will summon blackhole after short period of time
@@ -589,6 +586,8 @@ public class PlayerController : MonoBehaviour
             m_health = m_maxHealth;
             m_shields = m_maxShields;
 
+            shieldObject.gameObject.SetActive(true);
+
             if (ID == 0)
                 Ammo = maxAmmo;
 
@@ -607,7 +606,9 @@ public class PlayerController : MonoBehaviour
             myCamera.ResetCamera();
 
             Vector3 spawnPos = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
-            spawnPos = spawnPos.normalized * 25.0f;
+            if (spawnPos == new Vector3(0.0f, 0.0f, 0.0f))
+                spawnPos = new Vector3(0.0f, 1.0f, 0.0f);
+            spawnPos = spawnPos.normalized * 50.0f;
             transform.position = spawnPos;
             //transform.rotation = Quaternion.Euler(0.0f, 0.0f, (transform.position.x < 0 ? 90.0f : -90.0f) + Mathf.Atan(spawnPos.y / spawnPos.x) * Mathf.Rad2Deg);
             body.velocity = Vector3.zero;

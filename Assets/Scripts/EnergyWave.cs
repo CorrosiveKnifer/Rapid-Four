@@ -8,7 +8,7 @@ public class EnergyWave : MonoBehaviour
     public float duration = 1.0f;
     public float heal = 50.0f;
     public float knockback = 20.0f;
-    private float lifetime = 0.5f;
+    private float lifetime = 1.0f;
 
     List<Collider> hitList = new List<Collider>();
 
@@ -30,18 +30,18 @@ public class EnergyWave : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (hitList.Contains(other))
+        if (hitList.Contains(other) || lifetime > 0.5)
             return;
 
        
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<EnemyAI>().HurtEnemy(damage);
-            other.gameObject.GetComponent<EnemyAI>().StunTarget(duration);
-            if (other.gameObject.GetComponent<Rigidbody>())
+            other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage);
+            other.gameObject.GetComponentInParent<EnemyAI>().StunTarget(duration);
+            if (other.gameObject.GetComponentInParent<Rigidbody>())
             {
                 Vector3 force = other.gameObject.transform.position - transform.position;
-                other.gameObject.GetComponent<Rigidbody>().velocity = force.normalized * knockback;
+                other.gameObject.GetComponentInParent<Rigidbody>().velocity = force.normalized * knockback;
             }
         }
 
@@ -49,6 +49,12 @@ public class EnergyWave : MonoBehaviour
         {
             // heal player hit
             other.gameObject.GetComponentInParent<PlayerController>().DealHeal(heal);
+        }
+
+        if (other.gameObject.GetComponentInParent<Decoy>() && !hitList.Contains(other))
+        {
+            Vector3 force = other.gameObject.transform.position - transform.position;
+            other.gameObject.GetComponentInParent<Rigidbody>().velocity = force.normalized * knockback;
         }
 
         hitList.Add(other);

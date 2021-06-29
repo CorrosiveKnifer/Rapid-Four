@@ -29,7 +29,7 @@ public class LevelTimer : MonoBehaviour
                 continue;
             item.SetTrigger("Start");
         }
-        GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex + 1, 64.0f);
 
     }
 }

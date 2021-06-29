@@ -68,13 +68,14 @@ public class HomingShotType : ShotType
                 if (Vector3.Distance(enemy.gameObject.transform.position, transform.position) < range)
                 {
                     enemy.HurtEnemy(damage);
+                    Instantiate(Resources.Load<GameObject>("VFX/Detonate"), transform.position, Quaternion.identity);
                 }
             }
 
 
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
-                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("VFX/Detonate"), transform.position, Quaternion.identity);
                 
                 Destroy(gameObject);
             }

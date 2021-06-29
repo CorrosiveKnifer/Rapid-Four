@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// Michael Jordan
+/// Michael Jordan, Rachael Colaco
 /// </summary>
 public class MainMenuScript : MonoBehaviour
 {
@@ -14,11 +14,11 @@ public class MainMenuScript : MonoBehaviour
     public GameObject Menu;
     public GameObject Settings;
 
-    public RadioBoxScript player1Box;
-    public RadioBoxScript player2Box;
+    //public RadioBoxScript player1Box;
+    //public RadioBoxScript player2Box;
 
-    public Text[] player1Controls;
-    public Text[] player2Controls;
+    //public Text[] player1Controls;
+    //public Text[] player2Controls;
 
     private bool isIgnore = true;
     public GameObject[] Buttons;
@@ -63,19 +63,19 @@ public class MainMenuScript : MonoBehaviour
 
        
 
-        player1Controls[0].enabled = false;
-        player1Controls[1].enabled = false;
-        player1Controls[player1Box.selected].enabled = true;
-        player2Controls[0].enabled = false;
-        player2Controls[1].enabled = false;
-        player2Controls[player2Box.selected].enabled = true;
+       // player1Controls[0].enabled = false;
+       // player1Controls[1].enabled = false;
+        //player1Controls[player1Box.selected].enabled = true;
+        //player2Controls[0].enabled = false;
+        //player2Controls[1].enabled = false;
+        //player2Controls[player2Box.selected].enabled = true;
 
         GameManager.MasterVolume = Master.value;
         GameManager.BackGroundVolume = Music.value;
         GameManager.SoundEffectVolume = SoundEffects.value;
 
-        GameManager.player1Controls = player1Box.selected;
-        GameManager.player2Controls = player2Box.selected;
+       // GameManager.player1Controls = player1Box.selected;
+        //GameManager.player2Controls = player2Box.selected;
     }
     void FadeToColor(Color color, GameObject currentButton)
     {
@@ -111,7 +111,7 @@ public class MainMenuScript : MonoBehaviour
             if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
             {
                 Debug.Log("press");
-
+                PlaySoundEffect();
                 Buttons[index].GetComponent<Button>().onClick.Invoke();
 
                 break;
@@ -125,7 +125,7 @@ public class MainMenuScript : MonoBehaviour
             if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
             {
                 Debug.Log("press");
-
+                PlaySoundEffect();
                 GoBackButton.GetComponent<Button>().onClick.Invoke();
 
                 break;

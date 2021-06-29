@@ -10,7 +10,7 @@ public class Blackhole : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<AudioAgent>().PlaySoundEffect("Blackhole");
     }
 
     // Update is called once per frame
@@ -27,14 +27,14 @@ public class Blackhole : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            if (!other.gameObject.GetComponent<EnemyAI>())
+            if (!other.gameObject.GetComponentInParent<EnemyAI>())
                 return;
 
-            other.gameObject.GetComponent<EnemyAI>().StunTarget(0.1f);
-            if (other.gameObject.GetComponent<Rigidbody>())
+            other.gameObject.GetComponentInParent<EnemyAI>().StunTarget(0.1f);
+            if (other.gameObject.GetComponentInParent<Rigidbody>())
             {
                 Vector3 force = transform.position - other.gameObject.transform.position;
-                other.gameObject.GetComponent<Rigidbody>().velocity = force * pullPower;
+                other.gameObject.GetComponentInParent<Rigidbody>().velocity = force * pullPower;
             }
         }
     }

@@ -477,10 +477,10 @@ public class InputManager : MonoBehaviour
                     return keyboard.tabKey.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_LT:
-                    return mouse.leftButton.wasPressedThisFrame;
+                    return mouse.rightButton.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_RT:
-                    return mouse.rightButton.wasPressedThisFrame;
+                    return mouse.leftButton.wasPressedThisFrame;
 
                 case ButtonType.BUTTON_LS:
                     return keyboard.qKey.wasPressedThisFrame;
@@ -621,10 +621,10 @@ public class InputManager : MonoBehaviour
                     return keyboard.tabKey.isPressed;
 
                 case ButtonType.BUTTON_LT:
-                    return mouse.leftButton.isPressed;
+                    return mouse.rightButton.isPressed;
 
                 case ButtonType.BUTTON_RT:
-                    return mouse.rightButton.isPressed;
+                    return mouse.leftButton.isPressed;
 
                 case ButtonType.BUTTON_LS:
                     return keyboard.qKey.isPressed;
@@ -901,10 +901,10 @@ public class InputManager : MonoBehaviour
                 Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
                 return false;
             case MouseButton.LEFT:
-                return mouse.leftButton.wasPressedThisFrame;
+                return mouse.rightButton.wasPressedThisFrame;
 
             case MouseButton.RIGHT:
-                return mouse.rightButton.wasPressedThisFrame;
+                return mouse.leftButton.wasPressedThisFrame;
         }
 
     }
@@ -922,10 +922,10 @@ public class InputManager : MonoBehaviour
                 Debug.LogWarning($"Unsupported mouse button type in GetMouseDown.");
                 return false;
             case MouseButton.LEFT:
-                return mouse.leftButton.isPressed;
+                return mouse.rightButton.isPressed;
 
             case MouseButton.RIGHT:
-                return mouse.rightButton.isPressed;
+                return mouse.leftButton.isPressed;
         }
 
     }
@@ -964,135 +964,4 @@ public class InputManager : MonoBehaviour
         return 0;
 
     }
-
-    /*
-    [Header("Player A Controls")]
-    public KeyCode playerALeft;
-    public KeyCode playerARight;
-    public KeyCode playerAForwards;
-    public KeyCode playerABackwards;
-    public KeyCode playerAShoot;
-    public KeyCode playerAShootSecond;
-
-    [Header("Player B Controls")]
-    public KeyCode playerBLeft;
-    public KeyCode playerBRight;
-    public KeyCode playerBForwards;
-    public KeyCode playerBBackwards;
-    public KeyCode playerBShoot;
-    public KeyCode playerBShootSecond;
-
-    public float GetHorizontalInput(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-
-        float playerHoriz = 0.0f;
-        KeyCode left;
-        KeyCode right;
-        
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                left = playerALeft;
-                right = playerARight;
-                break;
-            case 1:
-                left = playerBLeft;
-                right = playerBRight;
-                break;
-        }
-
-        if (Input.GetKey(left))
-        {
-            playerHoriz -= 1.0f;
-        }
-        if (Input.GetKey(right))
-        {
-            playerHoriz += 1.0f;
-        }
-        return playerHoriz;
-    }
-
-    public float GetVerticalInput(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-        
-        float playerVerti = 0.0f;
-        KeyCode forward;
-        KeyCode backward;
-
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                forward = playerAForwards;
-                backward = playerABackwards;
-                break;
-            case 1:
-                forward = playerBForwards;
-                backward = playerBBackwards;
-                break;
-        }
-
-        if (Input.GetKey(backward))
-        {
-            playerVerti -= 1.0f;
-        }
-        if (Input.GetKey(forward))
-        {
-            playerVerti += 1.0f;
-        }
-        return playerVerti;
-    }
-
-    public bool GetPlayerShoot(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-        
-        switch (playerID)
-        {
-            default:
-            case 0:
-                return Input.GetKeyDown(playerAShoot) || Input.GetKeyDown(playerAShootSecond);
-            case 1:
-                return Input.GetKeyDown(playerBShoot) || Input.GetKeyDown(playerBShootSecond);
-        }
-    }
-
-    public bool GetPlayerShooting(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                return Input.GetKey(playerAShoot) || Input.GetKey(playerAShootSecond);
-            case 1:
-                return Input.GetKey(playerBShoot) || Input.GetKey(playerBShootSecond);
-        }
-    }
-
-    public bool GetPlayerUnshoot(int playerID)
-    {
-        if (playerID > 1 || playerID < 0)
-            Debug.LogWarning($"Invalid player ID ({playerID}) passed, will use player 0 instead.");
-
-        switch (playerID)
-        {
-            default:
-            case 0:
-                return !Input.GetKey(playerAShoot) && !Input.GetKey(playerAShootSecond);
-            case 1:
-                return !Input.GetKey(playerBShoot) && !Input.GetKey(playerBShootSecond);
-        }
-    }
-    */
 }

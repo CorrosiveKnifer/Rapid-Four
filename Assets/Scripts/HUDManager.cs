@@ -116,4 +116,22 @@ public class HUDManager : MonoBehaviour
         playerBars[id].healthMax = maxHealth;
         playerBars[id].shieldMax = maxShield;
     }
+
+    public void SetAbilityUI(int id, Sprite Alt, Sprite Utility, Sprite Ult)
+    {
+        switch (id)
+        {
+            default:
+            case 0:
+                player1Ability[0].sprite = Alt;
+                player1Ability[1].sprite = Utility;
+                player1Ability[2].sprite = Ult;
+                break;
+            case 1:
+                player2Ability[0].sprite = Alt;
+                player2Ability[1].sprite = Utility;
+                player2Ability[2].sprite = Ult;
+                break;
+        }
+    }
 }

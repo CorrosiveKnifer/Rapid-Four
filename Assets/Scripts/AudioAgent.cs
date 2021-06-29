@@ -92,6 +92,19 @@ public class AudioAgent : MonoBehaviour
         }
         return false;
     }
+
+    public void PlayAudio(string title)
+    {
+        AudioPlayer player;
+        if (AudioLibrary.TryGetValue(title, out player))
+        {
+            AudioLibrary[title].source.loop = false;
+            AudioLibrary[title].source.priority = 255;
+            AudioLibrary[title].isSoundEffect = false;
+            AudioLibrary[title].source.Play();
+        }
+    }
+
     public bool Play3DSoundEffect(string title, bool isLooping = false, int priority = 255, float pitch = 1.0f)
     {
         AudioPlayer player;

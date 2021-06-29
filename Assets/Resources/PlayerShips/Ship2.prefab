@@ -269,6 +269,9 @@ MonoBehaviour:
   m_fSecondaryFireCD: 5
   m_fAbility1CD: 1.5
   m_fAbility2CD: 20
+  abilityThumbnail1: {fileID: 21300000, guid: 68507610bdb4b204683b5b27d700b517, type: 3}
+  abilityThumbnail2: {fileID: 21300000, guid: 1fe6d5ec585cf88429c2155bb7f8eeae, type: 3}
+  abilityThumbnail3: {fileID: 21300000, guid: 9bec68f13790ad3499c792d9652ac635, type: 3}
 --- !u!54 &2851828537410872846
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -308,8 +311,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 22d038fbae222f64ca31b7bda90815d2, type: 3}
   - {fileID: 8300000, guid: dc0fcb84585d5a14a8a1afb6dc57bcec, type: 3}
   - {fileID: 8300000, guid: 763e999985067854c859f20f3487692f, type: 3}
-  - {fileID: 8300000, guid: ac6057702404d654cb87162c31c077e4, type: 3}
-  - {fileID: 8300000, guid: cda478e084e885343b23eed1f6a4d303, type: 3}
+  - {fileID: 8300000, guid: 17edd8bacfcb948458454393e1bc0756, type: 3}
+  - {fileID: 8300000, guid: 514a80f0f5e69f14296b94f25ed03054, type: 3}
   - {fileID: 8300000, guid: 040f4e8ca2ae87d48be8c6250edc17e8, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
