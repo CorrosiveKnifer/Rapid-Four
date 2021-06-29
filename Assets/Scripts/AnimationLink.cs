@@ -11,7 +11,8 @@ public class AnimationLink : MonoBehaviour
     public UnityEvent eventOne;
     public UnityEvent eventTwo;
     public UnityEvent eventThree;
-
+    public UnityEvent eventFour;
+    public UnityEvent eventFive;
     /// <summary>
     /// Invokes an event from animation to an external script.
     /// </summary>
@@ -34,5 +35,19 @@ public class AnimationLink : MonoBehaviour
     public void PlayEventThree()
     {
         eventThree.Invoke();
+    }
+    /// <summary>
+    /// Invokes an event from animation to an external script.
+    /// </summary>
+    public void PlayEventFour()
+    {
+        eventFour.Invoke();
+    }
+    /// <summary>
+    /// Invokes an event from animation to an external script.
+    /// </summary>
+    public void PlayEventFive()
+    {
+        eventFive.Invoke();
     }
 }
