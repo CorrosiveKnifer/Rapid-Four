@@ -94,10 +94,6 @@ public class HUDManager : MonoBehaviour
             ObjectiveText.SetActive(false);
         }
     }
-    public void SetPlanetHealthBar(float _health)
-    {
-        planetHealth.fillAmount = _health;
-    }
 
     public RespawnTimer GetRespawnTimer()
     {
@@ -134,8 +130,10 @@ public class HUDManager : MonoBehaviour
                 break;
         }
     }
+
     public void SetPlanetHP(float m_max, float m_current)
     {
-
+        planetHealth.fillAmount = m_current / m_max;
+        planetHealth.color = Color.Lerp(Color.green, Color.red, 1.0f - m_current / m_max);
     }
 }

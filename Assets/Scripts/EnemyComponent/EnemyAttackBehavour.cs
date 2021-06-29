@@ -10,6 +10,7 @@ public abstract class EnemyAttackBehavour : MonoBehaviour
     [Header("BehavourStatistics")]
     public float m_myMaxSpeed = 10.0f;
     public LayerMask m_TargetTag;
+    public bool m_planetKiller = false;
 
     [ReadOnly]
     public float m_currentSpeed = 0.0f;
