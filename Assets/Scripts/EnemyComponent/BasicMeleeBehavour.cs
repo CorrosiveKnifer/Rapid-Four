@@ -10,12 +10,19 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     [Header("Melee Settings")]
     public float m_attackDelay = 0.5f;
     public float m_myDamage = 10.0f;
-
     protected override void Awake()
     {
         m_preferedPersonalDistance = 6.5f;
         m_preferedAttackDistance = 9.0f;
         base.Awake();
+    }
+    public override bool IsWithinPreferedDistance()
+    {
+        if(m_planetKiller)
+        {
+            return Vector3.Distance(transform.position, m_target.transform.position) <= 42.0f;
+        }
+        return Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance;
     }
 
     //Inherited by EnemyAttackBehavour
@@ -26,10 +33,21 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
             return;
         }
 
-        if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
+        if(m_planetKiller)
         {
-            //Start Animation
-            GetComponentInChildren<Animator>().SetBool("Attack", true);
+            if (Vector3.Distance(transform.position, m_target.transform.position) <= 40.0f)
+            {
+                //Start Animation
+                GetComponentInChildren<Animator>().SetBool("Attack", true);
+            }
+        }
+        else
+        {
+            if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
+            {
+                //Start Animation
+                GetComponentInChildren<Animator>().SetBool("Attack", true);
+            }
         }
     }
 
@@ -38,16 +56,17 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     {
         //Damage the player directly.
         float dist = Vector3.Distance(transform.position, m_target.transform.position);
+        if (m_planetKiller && m_target.GetComponentInParent<Planet>() != null)
+        {
+            m_target.GetComponentInParent<Planet>().DealDamage(m_myDamage);
+        }
+
         if (dist > m_preferedAttackDistance + 2.0f)
             return;
 
         if (m_target.GetComponentInParent<PlayerController>() != null)
         {
             m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
-        }
-        else if (m_target.GetComponentInParent<Planet>() != null)
-        {
-            m_target.GetComponentInParent<Planet>().DealDamage(m_myDamage);
         }
         GetComponent<AudioAgent>().Play3DSoundEffect("MeleeAttack", false, 255, Random.Range(0.75f, 1.25f));
         m_delay = m_attackDelay;
@@ -60,7 +79,15 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
             return Vector3.zero;
 
         //Move towards the target.
-        Vector3 targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
+        Vector3 targetLoc;
+        if (m_planetKiller)
+        {
+            targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * 39.0f;
+        }
+        else
+        {
+            targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
+        }
         m_gizmosPosition = targetLoc;
 
         float distanceToTarget = (targetLoc - transform.position).magnitude;

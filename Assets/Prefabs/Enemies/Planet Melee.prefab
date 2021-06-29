@@ -176,6 +176,7 @@ MonoBehaviour:
   m_delay: 0
   m_attackDelay: 0.5
   m_myDamage: 20
+  m_planetKiller: 1
 --- !u!136 &1095602650324997437
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1433,7 +1434,7 @@ MonoBehaviour:
   eventOne:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 730876343313299632}
         m_MethodName: DealDamage
         m_Mode: 1
         m_Arguments:

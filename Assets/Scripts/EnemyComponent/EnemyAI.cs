@@ -49,7 +49,9 @@ public class EnemyAI : MonoBehaviour
             m_Targets = new List<GameObject>(GameObject.FindGameObjectsWithTag(LayerMask.LayerToName((int)Mathf.Log(m_TargetTag.value, 2))));
         }
 
-        planet = GameObject.FindGameObjectWithTag("Planet");
+        if(!m_Targets.Contains(GameObject.FindGameObjectWithTag("Planet")))
+            m_Targets.Add(GameObject.FindGameObjectWithTag("Planet"));
+
         m_maxSpeed = GetComponent<EnemyAttackBehavour>().m_myMaxSpeed;
         m_CurrentHealth = m_startingHealth;
         m_CurrentTarget = null;
@@ -61,6 +63,7 @@ public class EnemyAI : MonoBehaviour
     {
         UpdateClosestTarget();
         GetComponent<EnemyAttackBehavour>().m_target = m_CurrentTarget;
+        GetComponent<EnemyAttackBehavour>().m_planetKiller = m_CurrentTarget.GetComponentInParent<Planet>() != null;
         m_TargetRot = GetComponent<EnemyAttackBehavour>().IdealRotation();
 
         //transform.position = Vector3.Lerp(transform.position, targetPosition, moveLerp);
@@ -144,16 +147,28 @@ public class EnemyAI : MonoBehaviour
     {
         //Get current distance to the target
         float currDist = (m_CurrentTarget != null) ? Vector3.Distance(transform.position, m_CurrentTarget.transform.position) : 1000000;
-        GameObject closestPlayer = m_CurrentTarget;
+        GameObject closestPlayer = null;
+
+        if (m_CurrentTarget != null 
+            && (m_CurrentTarget.GetComponentInParent<Planet>() != null 
+            || m_CurrentTarget.GetComponentInParent<PlayerController>().CheckAlive()
+            || m_CurrentTarget.GetComponentInParent<Decoy>()))
+        {
+            closestPlayer = m_CurrentTarget;
+        }
 
         //For each player in the scene
+        foreach (var target in m_Targets)
+        {
+            if (target == null)
+            {
+                m_Targets.Remove(target);
+            }
+        }
+
         foreach (var player in m_Targets)
         {
-            if(player == null)
-            {
-                m_Targets.Remove(player);
-            }
-            if(player.GetComponent<PlayerController>() != null && player.GetComponent<PlayerController>().CheckAlive())
+            if(player.GetComponentInParent<PlayerController>() != null && player.GetComponentInParent<PlayerController>().CheckAlive())
             {
                 continue;
             }
@@ -170,11 +185,6 @@ public class EnemyAI : MonoBehaviour
         //Switch current target to the lowest
         GameObject oldTarget = m_CurrentTarget;
         m_CurrentTarget = closestPlayer;
-
-        if (m_CurrentTarget.GetComponent<PlayerController>() != null && m_CurrentTarget.GetComponent<PlayerController>().CheckAlive())
-        {
-            m_CurrentTarget = planet;
-        }
 
         //Return true if there is a change.
         return oldTarget != m_CurrentTarget;
