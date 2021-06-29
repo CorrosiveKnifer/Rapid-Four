@@ -52,7 +52,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
                 if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
                 {
                     //Start Animation
-                    GetComponentInChildren<Animator>()?.SetTrigger("Attack");
+                    GetComponentInChildren<Animator>().SetBool("Attack", true);
                 }
             }
         }

@@ -41,7 +41,7 @@ public class HUDManager : MonoBehaviour
     public Text player1Ammo;
     public Text player2Ammo;
     public Image planetHealth;
-
+    
     public RespawnTimer respawnTimer;
 
     public HealthBar[] playerBars;
@@ -133,5 +133,9 @@ public class HUDManager : MonoBehaviour
                 player2Ability[2].sprite = Ult;
                 break;
         }
+    }
+    public void SetPlanetHP(float m_max, float m_current)
+    {
+
     }
 }

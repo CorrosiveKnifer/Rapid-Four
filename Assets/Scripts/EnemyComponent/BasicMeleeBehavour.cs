@@ -31,10 +31,6 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
             //Start Animation
             GetComponentInChildren<Animator>().SetBool("Attack", true);
         }
-        else
-        {
-            GetComponentInChildren<Animator>().SetBool("Attack", false);
-        }
     }
 
     //Inherited by EnemyAttackBehavour

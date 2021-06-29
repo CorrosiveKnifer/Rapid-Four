@@ -70,6 +70,10 @@ public class EnemyAI : MonoBehaviour
         {
             GetComponent<EnemyAttackBehavour>().StartAttack();
         }
+        else
+        {
+            GetComponentInChildren<Animator>().SetBool("Attack", false);
+        }
 
         //For each neighbour
         foreach (var neighbour in m_NeighbourhoodList)
@@ -180,7 +184,7 @@ public class EnemyAI : MonoBehaviour
     /// Hurt the enemy.
     /// </summary>
     /// <param name="damage"> Damage to deal to the enemy</param>
-    public void HurtEnemy(float damage)
+    public void HurtEnemy(float damage, uint playerID = 0)
     {
         m_CurrentHealth -= damage;
         if (m_CurrentHealth <= 0.0f)
@@ -189,6 +193,7 @@ public class EnemyAI : MonoBehaviour
             {
                 GameObject.Instantiate(m_deathPrefab, transform.position, Quaternion.identity);
             }
+            GameManager.GetInstance().Score[playerID] += (int)m_startingHealth;
             Destroy(gameObject);
         }
     }

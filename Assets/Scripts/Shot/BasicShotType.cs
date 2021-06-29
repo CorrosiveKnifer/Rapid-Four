@@ -9,6 +9,7 @@ using PowerUp;
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
+    public int playerID;
     //private GameObject pushVFX;
 
     protected override void Start()

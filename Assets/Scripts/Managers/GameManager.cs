@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public static int player1Controls = 0;
     public static int player2Controls = 1;
 
-    public int[] Score; // Not used anyore
+    public static int[] Score { get; set; } = new int[2];
     public int TotalScore;
 
     public int AsteroidDestroyScore = 10;
@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GameTime += Time.deltaTime;
+        TotalScore = Score[0] + Score[1];
     }
 
     public void SpawnPlayers()
