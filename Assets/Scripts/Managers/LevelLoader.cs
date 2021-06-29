@@ -61,8 +61,7 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
-
-    private void Loaded()
+    private void OnLevelWasLoaded(int level)
     {
         GetComponentInChildren<Animator>().SetTrigger("Blink");
     }
@@ -118,7 +117,7 @@ public class LevelLoader : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-        Loaded();
+
         CompleteLoadUI.SetActive(false);
         yield return null;
     }
@@ -145,6 +144,5 @@ public class LevelLoader : MonoBehaviour
 
         // Load Scene
         SceneManager.LoadScene(levelIndex);
-        Loaded();
     }
 }
