@@ -21,6 +21,8 @@ public class SpawnManager : MonoBehaviour
     public float spawnRadius = 200;
     public int currentWave = 0;
 
+    public bool isSpawning = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +32,10 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && m_waves.Length > currentWave + 1)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && m_waves.Length > currentWave + 1 && !isSpawning)
         {
-            SpawnWave(m_waves[currentWave++]);
+            isSpawning = true;
+            StartCoroutine(SpawnWave(m_waves[currentWave++]));
         }
         else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0)
         {
@@ -40,8 +43,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnWave(Wave wave)
+    public IEnumerator SpawnWave(Wave wave)
     {
+        float time = 0.0f;
+
+        while (time < 2.0f)
+        {
+            yield return new WaitForEndOfFrame();
+            time += Time.deltaTime;
+        }
+
+        GetComponent<AudioAgent>().PlaySoundEffect("EnemyWaveStart");
         uint shipCount = 0;
         for (int i = 0; i < wave.enemyInfo.Length; i++)
         {
@@ -61,6 +73,8 @@ public class SpawnManager : MonoBehaviour
                 }
             }
         }
+        isSpawning = false;
+        yield return null;
     }
 
     public void OnDrawGizmosSelected()
