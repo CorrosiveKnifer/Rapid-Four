@@ -9,7 +9,7 @@ using PowerUp;
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
-    public int playerID;
+    public uint playerID = 0;
     //private GameObject pushVFX;
 
     protected override void Start()
@@ -66,7 +66,7 @@ public class BasicShotType : ShotType
         {
             Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
             other.gameObject.GetComponentInParent<EnemyAI>().StunTarget(0.16f);
-            other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage);
+            other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage, playerID);
             Destroy(gameObject);
         }
     }

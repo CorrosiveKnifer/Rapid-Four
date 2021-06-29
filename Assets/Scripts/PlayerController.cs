@@ -389,7 +389,9 @@ public class PlayerController : MonoBehaviour
 
                 //Send projectile
                 gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
-                //gObject.GetComponent<Rigidbody>().velocity += GetComponent<Rigidbody>().velocity;
+
+                if (gObject.GetComponent<BasicShotType>())
+                    gObject.GetComponent<BasicShotType>().playerID = (uint)ID;
             }
 
             if (hasShot)
@@ -438,6 +440,9 @@ public class PlayerController : MonoBehaviour
         //Send projectile
         gObject.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f, ForceMode.Impulse);
         audioAgent.PlaySoundEffect("MissileLaunch2");
+
+        if (gObject.GetComponent<HomingShotType>())
+            gObject.GetComponent<HomingShotType>().playerID = (uint)ID;
     }
 
     /// <summary>
@@ -452,11 +457,23 @@ public class PlayerController : MonoBehaviour
         StoredVelocity = GetComponent<Rigidbody>().velocity;
         playerEffects.Add(newEffect);
         audioAgent.PlaySoundEffect("Dash");
-    }
 
-    /// <summary>
-    /// Create particle beam
-    /// </summary>
+        // Particles
+        GameObject gParticles = Instantiate(Resources.Load<GameObject>("VFX/DashVFXObject"), transform.position, Quaternion.identity);
+        gParticles.transform.up = transform.forward;
+        gParticles.transform.SetParent(gameObject.transform);
+
+        // Trail
+        //foreach (var gameObject in engine)
+        {
+            GameObject gTrail = Instantiate(Resources.Load<GameObject>("VFX/DashTrailVFX"), gameObject.transform.position, Quaternion.identity);
+            gTrail.transform.up = transform.forward;
+            gTrail.transform.SetParent(gameObject.transform);
+        }
+    }
+        /// <summary>
+        /// Create particle beam
+        /// </summary>
     public void AbilityParticleBeam()
     {
         // IMA FIORIN MAH LAHSOR
@@ -473,6 +490,9 @@ public class PlayerController : MonoBehaviour
             newEffect.duration = 1.05f;
             playerEffects.Add(newEffect);
             audioAgent.PlaySoundEffect("BeamCharge");
+
+            if (currentLaser.GetComponent<ParticleBeam>())
+                currentLaser.GetComponent<ParticleBeam>().playerID = (uint)ID;
         }
     }
 
@@ -487,6 +507,9 @@ public class PlayerController : MonoBehaviour
 
         gObject.transform.SetParent(gameObject.transform);
         audioAgent.PlaySoundEffect("EnergyWave2");
+
+        if (gObject.GetComponent<EnergyWave>())
+            gObject.GetComponent<EnergyWave>().playerID = (uint)ID;
     }
     /// <summary>
     /// Summon projectile which will summon blackhole after short period of time
@@ -518,6 +541,8 @@ public class PlayerController : MonoBehaviour
             currentDecoy.GetComponent<Rigidbody>().AddForce(transform.forward * 30.0f, ForceMode.Impulse);
 
             //audioAgent.PlaySoundEffect("BlackholeProj");
+            if (currentDecoy.GetComponent<Decoy>())
+                currentDecoy.GetComponent<Decoy>().playerID = (uint)ID;
         }
     }
 

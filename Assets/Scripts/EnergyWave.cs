@@ -8,6 +8,7 @@ public class EnergyWave : MonoBehaviour
     public float duration = 1.0f;
     public float heal = 50.0f;
     public float knockback = 20.0f;
+    public uint playerID = 0;
     private float lifetime = 1.0f;
 
     List<Collider> hitList = new List<Collider>();
@@ -36,7 +37,7 @@ public class EnergyWave : MonoBehaviour
        
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage);
+            other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage, playerID);
             other.gameObject.GetComponentInParent<EnemyAI>().StunTarget(duration);
             if (other.gameObject.GetComponentInParent<Rigidbody>())
             {

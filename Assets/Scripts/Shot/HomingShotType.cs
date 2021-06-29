@@ -14,6 +14,7 @@ public class HomingShotType : ShotType
     private Vector3 original;
     private float timer = 0.0f;
     private float startingLife;
+    public uint playerID = 0;
     protected override void Start()
     {
         //if(!IsLaser)
@@ -67,7 +68,7 @@ public class HomingShotType : ShotType
             {
                 if (Vector3.Distance(enemy.gameObject.transform.position, transform.position) < range)
                 {
-                    enemy.HurtEnemy(damage);
+                    enemy.HurtEnemy(damage, playerID);
                     Instantiate(Resources.Load<GameObject>("VFX/Detonate"), transform.position, Quaternion.identity);
                 }
             }
