@@ -46310,7 +46310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000089159, y: 140.4}
+  m_AnchoredPosition: {x: 0, y: 51.3}
   m_SizeDelta: {x: 282.5759, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1469276919
@@ -46332,9 +46332,24 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Keyboard Controls:\n\n[W] : Thrust\n[A/D] : Rotate\n[S] : Stop \n[Left
-    mouse] : Shoot 1\n[Right mouse] : Shoot 2\n[mouse position] : Rotation\n[Q] :
-    Rotate\n[E] : Stop \n"
+  m_text: 'Keyboard Controls:
+
+
+    [W/A/S/D] = Move
+
+    [Mouse] = Aim
+
+    [Left
+    Click] = Primary fire
+
+    [Right Click] = Alt Fire
+
+    [Q] = Ultimate Ability
+
+    [E]
+    = Utility Ability
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 570941ad79ffb8648a0d61b7d5d1da65, type: 2}
   m_sharedMaterial: {fileID: 2576045450501535743, guid: 570941ad79ffb8648a0d61b7d5d1da65,
@@ -52831,7 +52846,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00007958, y: -43.600014}
+  m_AnchoredPosition: {x: 0, y: -108.60004}
   m_SizeDelta: {x: 282.5759, y: 246.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694076227
@@ -52853,10 +52868,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gamepad Controls:\n\n[SOUTH] : Thrust\n[NORTH] : \n[EAST] : \n[WEST] :
-    \n[START] : Shoot\n[SELECT] : Shoot\n[LEFT TRIGGER] : Shoot\n[RIGHT TRIGGER]
-    : Shoot\n[LEFT SHOULDER] : Shoot\n[RIGHT SHOULDER] : Shoot\n[LEFT JOYSTICK] :
-    Shoot\n[RIGHT JOYSTICK] : Shoot\n[D-PAD] : Selection"
+  m_text: 'Gamepad Controls:
+
+
+    [Left stick] = MOVE
+
+    [Right Stick] = AIM
+
+    [RT]
+    = Primary fire
+
+    [RB] = Utility Ability
+
+    [LT] = Alt Fire
+
+    [LB]
+    = Ultimate Ability'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 570941ad79ffb8648a0d61b7d5d1da65, type: 2}
   m_sharedMaterial: {fileID: 2576045450501535743, guid: 570941ad79ffb8648a0d61b7d5d1da65,
