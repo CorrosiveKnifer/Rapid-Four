@@ -37,9 +37,10 @@ public class SpawnManager : MonoBehaviour
             isSpawning = true;
             StartCoroutine(SpawnWave(m_waves[currentWave++]));
         }
-        else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0)
+        else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && currentWave >= m_waves.Length)
         {
-            Debug.Log("Game Win");
+            FindObjectOfType<LevelLoader>().LoadNextLevel();
+            Destroy(this);
         }
     }
 
