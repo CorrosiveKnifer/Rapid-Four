@@ -10,6 +10,7 @@ public class Decoy : MonoBehaviour
     public float lifetime = 10.0f;
     public float explosionRange = 10.0f;
     public float damage = 100.0f;
+    public uint playerID = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,7 @@ public class Decoy : MonoBehaviour
         {
             if (Vector3.Distance(enemy.gameObject.transform.position, transform.position) < explosionRange)
             {
-                enemy.HurtEnemy(damage);
+                enemy.HurtEnemy(damage, playerID);
             }
         }
 

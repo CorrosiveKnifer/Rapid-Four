@@ -637,11 +637,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3323251681338391002, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4403006423330955011, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: overHeatOverlay
       value: 
       objectReference: {fileID: 2951376}
+    - target: {fileID: 5144674648228082285, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.7999878
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220056346809709692, guid: 491e71fcc61688944aa1752986940134,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7548617443576390204, guid: 491e71fcc61688944aa1752986940134,
         type: 3}
       propertyPath: m_RootOrder
@@ -1098,6 +1113,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5144674648650439834, guid: 5dd2d3ace6f2e39428969cec3e538499,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.7999878
+      objectReference: {fileID: 0}
     - target: {fileID: 5220056347467209355, guid: 5dd2d3ace6f2e39428969cec3e538499,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1596,10 +1616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93f66161652ce945841a8aeff74bd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 
   TotalScore: 0
   AsteroidDestroyScore: 10
-  GameTime: 0
   playerShipPrefabs: []
 --- !u!4 &2101230195
 Transform:

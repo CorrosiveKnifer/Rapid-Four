@@ -15,6 +15,9 @@ public class EnemyAI : MonoBehaviour
     public float m_maxAttackDelay = 3.0f; //Delay inbetween attacks.
     public GameObject m_healthBar;
     public float m_startingHealth = 100.0f;
+   
+    public Material m_deathMaterial;
+    private bool m_isDead = false;
 
     [Header("Enemy Prefabs")]
     public GameObject m_deathPrefab;
@@ -61,9 +64,15 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_isDead)
+        {
+            GetComponentInChildren<Animator>().SetBool("IsDead", true);
+            return;
+        }
+
         UpdateClosestTarget();
         GetComponent<EnemyAttackBehavour>().m_target = m_CurrentTarget;
-        GetComponent<EnemyAttackBehavour>().m_planetKiller = m_CurrentTarget.GetComponentInParent<Planet>() != null;
+        GetComponent<EnemyAttackBehavour>().m_planetKiller = GetTargetType(m_CurrentTarget) == 0;
         m_TargetRot = GetComponent<EnemyAttackBehavour>().IdealRotation();
 
         //transform.position = Vector3.Lerp(transform.position, targetPosition, moveLerp);
@@ -149,26 +158,39 @@ public class EnemyAI : MonoBehaviour
         float currDist = (m_CurrentTarget != null) ? Vector3.Distance(transform.position, m_CurrentTarget.transform.position) : 1000000;
         GameObject closestPlayer = null;
 
-        if (m_CurrentTarget != null 
-            && (m_CurrentTarget.GetComponentInParent<Planet>() != null 
-            || m_CurrentTarget.GetComponentInParent<PlayerController>().CheckAlive()
-            || m_CurrentTarget.GetComponentInParent<Decoy>()))
+        switch(GetTargetType(m_CurrentTarget))
         {
-            closestPlayer = m_CurrentTarget;
+            case 0: //Planet
+                closestPlayer = m_CurrentTarget;
+                break;
+            case 1: //Player
+                    closestPlayer = m_CurrentTarget;
+                break;
+            case 2: //Decoy
+                closestPlayer = m_CurrentTarget;
+                break;
+            default: //Null
+                break;
+        }
+
+        if (m_Targets.Count == 0)
+        {
+            return false;
         }
 
         //For each player in the scene
-        foreach (var target in m_Targets)
+        for(var i = m_Targets.Count - 1; i >= 0; i--)
         {
-            if (target == null)
+            if (m_Targets[i] == null)
             {
-                m_Targets.Remove(target);
+                m_Targets.RemoveAt(i);
             }
         }
 
         foreach (var player in m_Targets)
         {
-            if(player.GetComponentInParent<PlayerController>() != null && player.GetComponentInParent<PlayerController>().CheckAlive())
+            int type = GetTargetType(player);
+            if(type == -1)
             {
                 continue;
             }
@@ -190,12 +212,39 @@ public class EnemyAI : MonoBehaviour
         return oldTarget != m_CurrentTarget;
     }
 
+    public int GetTargetType(GameObject target)
+    {
+        if(target == null)
+        {
+            return -1;
+        }
+        if (target.GetComponentInParent<Planet>() != null)
+        {
+            return 0;
+        }
+        if (target.GetComponentInParent<PlayerController>() != null)
+        {
+            if (target.GetComponentInParent<PlayerController>().CheckAlive())
+                return 1;
+
+            return -1;
+        }
+        if (target.GetComponentInParent<Decoy>() != null)
+        {
+            return 2;
+        }
+        return -1;
+    }
+
     /// <summary>
     /// Hurt the enemy.
     /// </summary>
     /// <param name="damage"> Damage to deal to the enemy</param>
     public void HurtEnemy(float damage, uint playerID = 0)
     {
+        if (m_isDead)
+            return;
+
         m_CurrentHealth -= damage;
         if (m_CurrentHealth <= 0.0f)
         {
@@ -204,7 +253,10 @@ public class EnemyAI : MonoBehaviour
                 GameObject.Instantiate(m_deathPrefab, transform.position, Quaternion.identity);
             }
             GameManager.Score[playerID] += (int)m_startingHealth;
-            Destroy(gameObject);
+            m_isDead = true;
+            GetComponentInChildren<SkinnedMeshRenderer>().material = m_deathMaterial;
+            Destroy(gameObject, 0.5f);
         }
+        
     }
 }

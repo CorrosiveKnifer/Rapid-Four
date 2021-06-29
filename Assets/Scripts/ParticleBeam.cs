@@ -5,6 +5,7 @@ using UnityEngine;
 public class ParticleBeam : MonoBehaviour
 {
     public float damage = 100.0f;
+    public uint playerID = 0;
     private float lifetime = 1.5f;
 
     List<Collider> hitList = new List<Collider>();
@@ -19,7 +20,6 @@ public class ParticleBeam : MonoBehaviour
     void Update()
     {
         lifetime -= Time.deltaTime;
-        Debug.Log(lifetime);
         if (lifetime <= 0)
         {
             Destroy(gameObject);
@@ -35,7 +35,7 @@ public class ParticleBeam : MonoBehaviour
         {
             if (other.gameObject.tag == "Enemy" && !hitList.Contains(other) && other.gameObject.GetComponentInParent<EnemyAI>())
             {
-                other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage);
+                other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage, playerID);
             }
             if (other.gameObject != null)
                 hitList.Add(other);

@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DisolveShip2Blue
+  m_Name: DisolveSpider
   m_Shader: {fileID: -6465566751694194690, guid: bc71e602e9ce627439d56eb9739d75ec,
     type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -25,15 +25,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo:
-        m_Texture: {fileID: 2800000, guid: ab551a27f2a733048b497737ae7dc3af, type: 3}
+        m_Texture: {fileID: 2800000, guid: 99f1ef183e0d37d4eb0b233a49334072, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo_1:
-        m_Texture: {fileID: 2800000, guid: 9eb00ee5d4990c340a36ab84d75517e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: f6e6e3b1efb1ee546a6be8e1f6858195, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo_2:
-        m_Texture: {fileID: 2800000, guid: 4ad0f5bb4186cc548a26744fc64f1819, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5f3b92e38aa862c48be8a93f29905acb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - TextureAlbedo_3:
+        m_Texture: {fileID: 2800000, guid: 601554b96464d1e43bbeb6a4a77547b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -65,6 +69,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Fade: 1
     - NoiseScale: 40
     - Vector1_8BD5C34F: 0.02
     - _AlphaClip: 0
