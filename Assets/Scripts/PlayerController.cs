@@ -295,13 +295,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log(isPlayerMoving);
         if ((aim.x != 0 || aim.y != 0))
         {
-            Vector3 direct = new Vector3(aim.x, aim.y, 0.0f).normalized;
+            Vector3 direct = new Vector3(aim.x, aim.y, 0.0f);
             if (!isPlayerMoving) // Whiling idle and aiming
                 myCamera.SetTargetLoc(cameraPos + direct * 25.0f, false, 0.1f);
             else // While moving and aiming
                 myCamera.SetTargetLoc(cameraPos, false, 0.1f);
 
-            body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct, transform.up), rotationSpeed);
+            body.rotation = Quaternion.Slerp(body.rotation, Quaternion.LookRotation(direct.normalized, transform.up), rotationSpeed);
         }
         else
         {
@@ -652,7 +652,7 @@ public class PlayerController : MonoBehaviour
             Vector3 spawnPos = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
             if (spawnPos == new Vector3(0.0f, 0.0f, 0.0f))
                 spawnPos = new Vector3(0.0f, 1.0f, 0.0f);
-            spawnPos = spawnPos.normalized * 50.0f;
+            spawnPos = spawnPos.normalized * 75.0f;
             transform.position = spawnPos;
             //transform.rotation = Quaternion.Euler(0.0f, 0.0f, (transform.position.x < 0 ? 90.0f : -90.0f) + Mathf.Atan(spawnPos.y / spawnPos.x) * Mathf.Rad2Deg);
             body.velocity = Vector3.zero;

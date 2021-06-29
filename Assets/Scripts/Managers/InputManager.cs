@@ -942,6 +942,11 @@ public class InputManager : MonoBehaviour
             mousePos.z = playerCam.farClipPlane;
             Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
             Vector3 direct = worldPoint - new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, worldPoint.z);
+            
+            direct = direct / 800.0f;
+            if (direct.magnitude > 1.0f)
+                direct = direct.normalized * 1.0f;
+
             direct.z = 0;
             return direct.y;
         }
@@ -960,6 +965,11 @@ public class InputManager : MonoBehaviour
             mousePos.z = playerCam.farClipPlane;
             Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
             Vector3 direct = worldPoint - new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, worldPoint.z);
+
+            direct = direct / 800.0f;
+            if (direct.magnitude > 1.0f)
+                direct = direct.normalized * 1.0f;
+
             direct.z = 0;
             return direct.x;
         }
