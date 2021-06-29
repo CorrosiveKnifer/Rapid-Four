@@ -87,7 +87,6 @@ public class GameManager : MonoBehaviour
 
         Debug.LogWarning("Using default controllers");
         InputManager.GetInstance().DefaultAssignControllers();
-        SpawnPlayers();
     }
 
     // Update is called once per frame
