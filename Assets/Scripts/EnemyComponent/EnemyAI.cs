@@ -15,6 +15,9 @@ public class EnemyAI : MonoBehaviour
     public float m_maxAttackDelay = 3.0f; //Delay inbetween attacks.
     public GameObject m_healthBar;
     public float m_startingHealth = 100.0f;
+   
+    public Material m_deathMaterial;
+    private bool m_isDead = false;
 
     [Header("Enemy Prefabs")]
     public GameObject m_deathPrefab;
@@ -61,9 +64,15 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_isDead)
+        {
+            GetComponentInChildren<Animator>().SetBool("IsDead", true);
+            return;
+        }
+
         UpdateClosestTarget();
         GetComponent<EnemyAttackBehavour>().m_target = m_CurrentTarget;
-        GetComponent<EnemyAttackBehavour>().m_planetKiller = m_CurrentTarget.GetComponentInParent<Planet>() != null;
+        GetComponent<EnemyAttackBehavour>().m_planetKiller = GetTargetType(m_CurrentTarget) == 0;
         m_TargetRot = GetComponent<EnemyAttackBehavour>().IdealRotation();
 
         //transform.position = Vector3.Lerp(transform.position, targetPosition, moveLerp);
@@ -233,6 +242,9 @@ public class EnemyAI : MonoBehaviour
     /// <param name="damage"> Damage to deal to the enemy</param>
     public void HurtEnemy(float damage, uint playerID = 0)
     {
+        if (m_isDead)
+            return;
+
         m_CurrentHealth -= damage;
         if (m_CurrentHealth <= 0.0f)
         {
@@ -241,7 +253,10 @@ public class EnemyAI : MonoBehaviour
                 GameObject.Instantiate(m_deathPrefab, transform.position, Quaternion.identity);
             }
             GameManager.Score[playerID] += (int)m_startingHealth;
-            Destroy(gameObject);
+            m_isDead = true;
+            GetComponentInChildren<SkinnedMeshRenderer>().material = m_deathMaterial;
+            Destroy(gameObject, 0.5f);
         }
+        
     }
 }
