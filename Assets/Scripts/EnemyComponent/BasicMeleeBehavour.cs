@@ -18,6 +18,9 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     }
     public override bool IsWithinPreferedDistance()
     {
+        if (m_target == null)
+            return false;
+
         if(m_planetKiller)
         {
             return Vector3.Distance(transform.position, m_target.transform.position) <= 42.0f;

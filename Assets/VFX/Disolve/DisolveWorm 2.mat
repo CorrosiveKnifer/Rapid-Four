@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DisolveWorm
+  m_Name: DisolveWorm 2
   m_Shader: {fileID: -6465566751694194690, guid: bc71e602e9ce627439d56eb9739d75ec,
     type: 3}
   m_ShaderKeywords: 
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo:
-        m_Texture: {fileID: 2800000, guid: f21e5bb742c91c643ba4d4323c88d6cb, type: 3}
+        m_Texture: {fileID: 2800000, guid: afb42fb1b9612744081bda1ea86bdccf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo_1:
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TextureAlbedo_3:
-        m_Texture: {fileID: 2800000, guid: 007d114a80c4e6e4c8f3dd85bb3d2bea, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae4d6dc786f6e4c46a09d45199cd04ed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:

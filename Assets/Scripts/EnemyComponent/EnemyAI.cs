@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject m_healthBar;
     public float m_startingHealth = 100.0f;
    
-    public Material m_deathMaterial;
+    public Material m_material;
     private bool m_isDead = false;
 
     [Header("Enemy Prefabs")]
@@ -41,6 +41,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_material = GetComponentInChildren<SkinnedMeshRenderer>().material;
         m_TargetTag = GetComponent<EnemyAttackBehavour>().m_TargetTag;
         if (m_TargetTag.value == 0)
         {
@@ -64,6 +65,11 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_healthBar != null)
+        {
+            m_healthBar.transform.parent.gameObject.SetActive(m_CurrentHealth / m_startingHealth != 1);
+            m_healthBar.transform.localScale = new Vector3(m_CurrentHealth / m_startingHealth, 1, 1);
+        }
         if (m_isDead)
         {
             GetComponentInChildren<Animator>().SetBool("IsDead", true);
@@ -112,13 +118,6 @@ public class EnemyAI : MonoBehaviour
         {
            GetComponent<Rigidbody>().velocity = m_ForwardVector * GetComponent<EnemyAttackBehavour>().m_currentSpeed;
         }
-
-        if(m_healthBar != null)
-        {
-            m_healthBar.transform.parent.gameObject.SetActive(m_CurrentHealth / m_startingHealth != 1);
-            m_healthBar.transform.localScale = new Vector3(m_CurrentHealth / m_startingHealth, 1, 1);
-        }
-            
     }
 
     public void SetTarget(GameObject newTarget)
@@ -248,15 +247,37 @@ public class EnemyAI : MonoBehaviour
         m_CurrentHealth -= damage;
         if (m_CurrentHealth <= 0.0f)
         {
-            if(m_deathPrefab != null)
+            m_CurrentHealth = 0;
+            if (m_deathPrefab != null)
             {
                 GameObject.Instantiate(m_deathPrefab, transform.position, Quaternion.identity);
             }
             GameManager.Score[playerID] += (int)m_startingHealth;
-            m_isDead = true;
-            GetComponentInChildren<SkinnedMeshRenderer>().material = m_deathMaterial;
-            Destroy(gameObject, 0.5f);
+            StartCoroutine(Death(0.5f));
         }
         
+    }
+
+    public IEnumerator Death(float time)
+    {
+        if(m_isDead)
+            yield return null;
+
+        m_isDead = true;
+        foreach (var item in GetComponentsInChildren<Collider>())
+        {
+            Destroy(item);
+        }
+        float currTime = 0.0f;
+        while(currTime <= time)
+        {
+            m_material.SetFloat("Fade", 1.0f - (currTime/time));
+            yield return new WaitForEndOfFrame();
+            currTime += Time.deltaTime;
+        }
+
+
+        Destroy(gameObject);
+        yield return null;
     }
 }
