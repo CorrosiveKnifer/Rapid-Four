@@ -25115,7 +25115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &495611309
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38193,7 +38193,7 @@ MonoBehaviour:
   player1NonAvailable: {fileID: 640980834}
   player2NonAvailable: {fileID: 613718603}
   timer: {fileID: 1282557389}
-  allReady: {fileID: 1117351652}
+  allReady: {fileID: 495611308}
 --- !u!114 &573138218
 MonoBehaviour:
   m_ObjectHideFlags: 0
