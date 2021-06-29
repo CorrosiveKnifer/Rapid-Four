@@ -38582,6 +38582,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - {fileID: 8300000, guid: 51ae30b002a300a48a6d457a7fa5926d, type: 3}
+  - {fileID: 8300000, guid: f2651cdf945e7684ba7f7fd743535a40, type: 3}
+  - {fileID: 8300000, guid: ed3ee349af65ec043890d0636490e902, type: 3}
+  - {fileID: 8300000, guid: 6389a7f808dd5304cac6f977e518421a, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
   SoundRange: 50
