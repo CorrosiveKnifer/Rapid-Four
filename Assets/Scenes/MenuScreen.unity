@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -209,6 +209,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583483544088292434, guid: f7403eb4d134f354a9c0a0b57159bf51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4583483544088292435, guid: f7403eb4d134f354a9c0a0b57159bf51,
         type: 3}
@@ -620,10 +625,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Gamepad Controls:\n - [SOUTH] : Thrust\n - [NORTH] : \n - [EAST] : \n
-    - [WEST] : \n - [START] : Shoot\n - [SELECT] : Shoot\n - [LEFT TRIGGER] : Shoot\n
-    - [RIGHT TRIGGER] : Shoot\n - [LEFT SHOULDER] : Shoot\n - [RIGHT SHOULDER] :
-    Shoot\n - [LEFT JOYSTICK] : Shoot\n - [RIGHT JOYSTICK] : Shoot\n - D-PAD : selection"
+  m_Text: "Gamepad Controls:\n - [SOUTH] : Thrust\n - [NORTH] : \n - [EAST] : \n-
+    [WEST] : \n - [START] : Shoot\n - [SELECT] : Shoot\n - [LEFT TRIGGER] : Shoot\n-
+    [RIGHT TRIGGER] : Shoot\n - [LEFT SHOULDER] : Shoot\n - [RIGHT SHOULDER] : Shoot\n-
+    [LEFT JOYSTICK] : Shoot\n - [RIGHT JOYSTICK] : Shoot\n - D-PAD : selection"
 --- !u!222 &1328324462
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -964,9 +969,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Keyboard Controls:\n - [W] : Thrust\n - [A] : Rotate\n - [D] : Rotate\n
-    - [S] : Stop \n - [Space] : Shoot\n - [Tab] : Shoot\n - [right mouse] : Shoot\n
-    - [left mouse] : Shoot\n - [mouse position] : Rotation\n - [Q] : Rotate\n - [E]
+  m_Text: "Keyboard Controls:\n - [W] : Thrust\n - [A] : Rotate\n - [D] : Rotate\n-
+    [S] : Stop \n - [Space] : Shoot\n - [Tab] : Shoot\n - [right mouse] : Shoot\n-
+    [left mouse] : Shoot\n - [mouse position] : Rotation\n - [Q] : Rotate\n - [E]
     : Stop \n"
 --- !u!222 &1585693271
 CanvasRenderer:
@@ -1055,7 +1060,7 @@ PrefabInstance:
     - target: {fileID: 3121112447341866109, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121112447346002724, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
@@ -1101,7 +1106,7 @@ PrefabInstance:
     - target: {fileID: 3121112447531221742, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121112447551229086, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
@@ -1116,7 +1121,7 @@ PrefabInstance:
     - target: {fileID: 3121112447554064199, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121112447619163290, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
@@ -1237,7 +1242,7 @@ PrefabInstance:
     - target: {fileID: 3121112448792994321, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3121112448809540746, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
@@ -1453,7 +1458,7 @@ PrefabInstance:
     - target: {fileID: 3121112449061099058, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121112449061099069, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
@@ -1480,7 +1485,7 @@ PrefabInstance:
     - target: {fileID: 3121112449169421727, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121112449208725496, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
@@ -1495,7 +1500,7 @@ PrefabInstance:
     - target: {fileID: 3121112449234025145, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121112449274485406, guid: e8abeba2ad9635b4ab248a75c0e32950,
         type: 3}
