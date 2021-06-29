@@ -110,6 +110,7 @@ public class MainMenuScript : MonoBehaviour
 
             if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
             {
+                Debug.Log("press");
                 PlaySoundEffect();
                 Buttons[index].GetComponent<Button>().onClick.Invoke();
 
