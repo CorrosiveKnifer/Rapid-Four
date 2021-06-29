@@ -84,19 +84,21 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }
 
-    public void LoadLevelAsync(int levelIndex)
+    public void LoadLevelAsync(int levelIndex, float maxTime)
     {
-        StartCoroutine(OperationLoadLevelAsync(levelIndex));
+        StartCoroutine(OperationLoadLevelAsync(levelIndex, maxTime));
     }
 
-    IEnumerator OperationLoadLevelAsync(int levelIndex)
+    IEnumerator OperationLoadLevelAsync(int levelIndex, float maxTime)
     {
         AsyncOperation gameLoad = SceneManager.LoadSceneAsync(levelIndex);
         gameLoad.allowSceneActivation = false;
+        float time = 0.0f;
 
         while (!gameLoad.isDone)
         {
-            if(gameLoad.progress >= 0.9f)
+            time += Time.deltaTime;
+            if (gameLoad.progress >= 0.9f)
             {
                 CompleteLoadUI.SetActive(true);
 
@@ -105,6 +107,10 @@ public class LevelLoader : MonoBehaviour
                     gameLoad.allowSceneActivation = true;
                 }
                 if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, 1))
+                {
+                    gameLoad.allowSceneActivation = true;
+                }
+                if(time >= maxTime)
                 {
                     gameLoad.allowSceneActivation = true;
                 }
