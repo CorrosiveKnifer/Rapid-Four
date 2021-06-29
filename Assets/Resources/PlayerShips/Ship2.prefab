@@ -216,7 +216,7 @@ MonoBehaviour:
   myCamera: {fileID: 0}
   usingKeyboard: 0
   m_currentHeatLevel: 0
-  m_heatPerShot: 7
+  m_heatPerShot: 4
   m_cooloffRate: 20
   m_overheated: 0
   SecondaryFire:
