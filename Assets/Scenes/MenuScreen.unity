@@ -620,10 +620,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Gamepad Controls:\n - [SOUTH] : Thrust\n - [NORTH] : \n - [EAST] : \n-
-    [WEST] : \n - [START] : Shoot\n - [SELECT] : Shoot\n - [LEFT TRIGGER] : Shoot\n-
-    [RIGHT TRIGGER] : Shoot\n - [LEFT SHOULDER] : Shoot\n - [RIGHT SHOULDER] : Shoot\n
-    - [LEFT JOYSTICK] : Shoot\n - [RIGHT JOYSTICK] : Shoot\n - D-PAD : selection"
+  m_Text: "Gamepad Controls:\n - [SOUTH] : Thrust\n - [NORTH] : \n - [EAST] : \n
+    - [WEST] : \n - [START] : Shoot\n - [SELECT] : Shoot\n - [LEFT TRIGGER] : Shoot\n
+    - [RIGHT TRIGGER] : Shoot\n - [LEFT SHOULDER] : Shoot\n - [RIGHT SHOULDER] :
+    Shoot\n - [LEFT JOYSTICK] : Shoot\n - [RIGHT JOYSTICK] : Shoot\n - D-PAD : selection"
 --- !u!222 &1328324462
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -964,9 +964,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Keyboard Controls:\n - [W] : Thrust\n - [A] : Rotate\n - [D] : Rotate\n-
-    [S] : Stop \n - [Space] : Shoot\n - [Tab] : Shoot\n - [right mouse] : Shoot\n-
-    [left mouse] : Shoot\n - [mouse position] : Rotation\n - [Q] : Rotate\n - [E]
+  m_Text: "Keyboard Controls:\n - [W] : Thrust\n - [A] : Rotate\n - [D] : Rotate\n
+    - [S] : Stop \n - [Space] : Shoot\n - [Tab] : Shoot\n - [right mouse] : Shoot\n
+    - [left mouse] : Shoot\n - [mouse position] : Rotation\n - [Q] : Rotate\n - [E]
     : Stop \n"
 --- !u!222 &1585693271
 CanvasRenderer:

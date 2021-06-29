@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour
 {
-    public float lifetime = 0.3f;
+    public float lifetime = 0.6f;
     // Start is called before the first frame update
     void Start()
     {
