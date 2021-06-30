@@ -66,11 +66,10 @@ public class GameManager : MonoBehaviour
 
     public static double GameTime { get; set; } = 0.0;
 
-    public static uint[] Kills { get; set; } = new uint[2];
-    public static uint[] Deaths { get; set; } = new uint[2];
-    public static uint CurrentWave { get; set; } = 0;
-    public static float PlanetHp { get; set; } = 1.0f;
-    public static bool HasWon { get; set; } = false;
+    public static uint Player1Kills { get; set; } = 0;
+    public static uint Player2Kills { get; set; } = 0;
+    public static uint Player1Deaths { get; set; } = 0;
+    public static uint Player2Deaths { get; set; } = 0;
 
     [Header("Ship prefabs")]
     [ReadOnly]
@@ -88,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         Debug.LogWarning("Using default controllers");
         InputManager.GetInstance().DefaultAssignControllers();
+        SpawnPlayers();
     }
 
     // Update is called once per frame
@@ -97,23 +97,8 @@ public class GameManager : MonoBehaviour
         TotalScore = Score[0] + Score[1];
     }
 
-    private void RestartScores()
-    {
-        HasWon = false;
-        CurrentWave = 0;
-        PlanetHp = 1.0f;
-        for (int i = 0; i < 2; i++)
-        {
-            Score[i] = 0;
-            Kills[i] = 0;
-            Deaths[i] = 0;
-        }
-    }
-
     public void SpawnPlayers()
     {
-        RestartScores();
-
         Vector3 pos1 = new Vector3(-80, -3, 0);
         Vector3 pos2 = new Vector3(80, -3, 0);
 

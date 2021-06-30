@@ -11,7 +11,7 @@ public class Planet : MonoBehaviour
 
     public CameraAgent[] playerCamera;
 
-    float m_fMaxHealth = 10000.0f;
+    float m_fMaxHealth = 1000.0f;
     public float m_fHealth;
     public float m_fRotationSpeedMult = 1.0f;
     public GameObject minimapSprite;
@@ -20,31 +20,23 @@ public class Planet : MonoBehaviour
     Vector3 planetStartSize;
 
     private GameObject explode;
-    private float m_alertTimer = 0;
 
     private void Start()
     {
         m_fHealth = m_fMaxHealth;
         planetDeathTimer = planetDeathDuration;
         planetStartSize = transform.localScale;
-        GameManager.GetInstance().SpawnPlayers();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_alertTimer >= 0)
-        {
-            m_alertTimer -= Time.deltaTime;
-        }
 
-        HUDManager.instance.SetPlanetHPAnim(m_alertTimer > 0.0f);
-        GameManager.PlanetHp = Mathf.Clamp(m_fHealth / m_fMaxHealth, 0.0f, 1.0f);
         // Debug kaboom
         //if (Input.GetKeyDown(KeyCode.G))
-        // {
-        //  m_fHealth = 0;
-        // }
+       // {
+          //  m_fHealth = 0;
+       // }
 
         transform.Rotate(new Vector3(0.0f, m_fRotationSpeedMult * Time.deltaTime, 0.0f));
         HUDManager.instance.SetPlanetHP(m_fMaxHealth, m_fHealth);
@@ -79,7 +71,6 @@ public class Planet : MonoBehaviour
             if (scaleMult <= -3.0f)
             {
                 levelLoader.LoadNextLevel();
-                Destroy(this);
             }
         }
     }
@@ -87,12 +78,8 @@ public class Planet : MonoBehaviour
     public void DealDamage(float _damage)
     {
         m_fHealth -= _damage;
-        m_alertTimer = 1.0f;
-        if (GetComponent<AudioAgent>().IsAudioStopped("PlanetAttacked"))
-        {
-            GetComponent<AudioAgent>().PlaySoundEffect("PlanetAttacked");
-        }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Asteroid"))

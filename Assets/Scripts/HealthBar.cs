@@ -42,13 +42,9 @@ public class HealthBar : MonoBehaviour
         shieldBar.fillAmount = shieldCurrent / shieldMax;
 
         overHeatBar.fillAmount = overheatCurrent / overheatMax;
-        if (overheatCurrent < 50.0f)
-            overHeatBar.color = Color.Lerp(Color.gray, new Color(1, 120.0f/255.0f, 45.0f/255.0f), overHeatBar.fillAmount * 2.0f);
-        else
-            overHeatBar.color = Color.Lerp(new Color(1, 120.0f / 255.0f, 45.0f / 255.0f), Color.red, overHeatBar.fillAmount * 2.0f - 1.0f);
+        overHeatBar.color = Color.Lerp(Color.gray, new Color(1, 120.0f/255.0f, 45.0f/255.0f), overHeatBar.fillAmount);
 
-
-        float alpha = (overheatCurrent > 50.0f) ? (2 * Mathf.Pow(overheatCurrent / overheatMax, 2) - 0.5f) : 0.0f;
-        overHeatOverlay.color = new Color(1, 1, 1, Mathf.Lerp(overHeatOverlay.color.a, alpha, 0.05f));
+        
+        overHeatOverlay.color = new Color(1, 1, 1, (overheatCurrent / overheatMax));
     }
 }

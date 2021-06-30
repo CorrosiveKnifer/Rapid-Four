@@ -39,7 +39,6 @@ public class BasicRangeBehavour : EnemyAttackBehavour
     {
         if (m_delay > 0.0f)
         {
-            GetComponentInChildren<Animator>().SetBool("Attack", false);
             return;
         }
         if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
@@ -50,7 +49,7 @@ public class BasicRangeBehavour : EnemyAttackBehavour
             if(Physics.Raycast(transform.position, transform.forward, out hit, m_preferedAttackDistance))
             {
                 //It will hit? so shoot projectile:
-                if (hit.collider.tag == "Player" || hit.collider.tag == "Planet")
+                if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))
                 {
                     //Start Animation
                     GetComponentInChildren<Animator>().SetBool("Attack", true);

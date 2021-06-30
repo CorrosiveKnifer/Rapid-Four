@@ -41,17 +41,13 @@ public class HUDManager : MonoBehaviour
     public Text player1Ammo;
     public Text player2Ammo;
     public Image planetHealth;
-    public Animator planetAlert;
-
+    
     public RespawnTimer respawnTimer;
 
     public HealthBar[] playerBars;
 
     public Image[] player1Ability;
     public Image[] player2Ability;
-
-    private CooldownScript[] player1AbilityCooldown = new CooldownScript[3];
-    private CooldownScript[] player2AbilityCooldown = new CooldownScript[3];
 
     private PlayerController player1;
     private PlayerController player2;
@@ -71,17 +67,6 @@ public class HUDManager : MonoBehaviour
             {
                 player2 = player.GetComponentInParent<PlayerController>();
             }
-        }
-
-        int i = 0;
-        foreach (var item in player1Ability)
-        {
-            player1AbilityCooldown[i++] = item.gameObject.GetComponentInChildren<CooldownScript>();
-        }
-        i = 0;
-        foreach (var item in player2Ability)
-        {
-            player2AbilityCooldown[i++] = item.gameObject.GetComponentInChildren<CooldownScript>();
         }
 
         GetComponent<AudioAgent>().PlayBackground("InGameMusic", true, 10);
@@ -150,20 +135,5 @@ public class HUDManager : MonoBehaviour
     {
         planetHealth.fillAmount = m_current / m_max;
         planetHealth.color = Color.Lerp(Color.green, Color.red, 1.0f - m_current / m_max);
-    }
-    public void SetPlanetHPAnim(bool status)
-    {
-        planetAlert.SetBool("Active", status);
-    }
-    public void SetCooldown(int playerID, int abilityID, float current, float max)
-    {
-        if(playerID == 0)
-        {
-            player1AbilityCooldown[abilityID].SetCooldown(current, max);
-        }
-        else
-        {
-            player2AbilityCooldown[abilityID].SetCooldown(current, max);
-        }
     }
 }

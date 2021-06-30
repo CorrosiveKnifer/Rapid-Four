@@ -232,7 +232,6 @@ MonoBehaviour:
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 4655132576291732635}
   m_startingHealth: 100
-  m_deathMaterial: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -268,7 +267,6 @@ MonoBehaviour:
   m_TargetTag:
     serializedVersion: 2
     m_Bits: 4096
-  m_planetKiller: 0
   m_currentSpeed: 0
   m_delay: 0
   m_shotForce: 50
@@ -830,7 +828,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0aa68b924f21e254a84b41877536dd47, type: 2}
+      objectReference: {fileID: 2100000, guid: e15a9c99a97842341a9989bcba6bae83, type: 2}
     - target: {fileID: 8346484609636828909, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}
       propertyPath: m_Layer

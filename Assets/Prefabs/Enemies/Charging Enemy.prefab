@@ -390,7 +390,6 @@ MonoBehaviour:
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 8387448023770630736}
   m_startingHealth: 150
-  m_deathMaterial: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -426,7 +425,6 @@ MonoBehaviour:
   m_TargetTag:
     serializedVersion: 2
     m_Bits: 2048
-  m_planetKiller: 0
   m_currentSpeed: 0
   m_delay: 0
   m_attackDelay: 0.5
@@ -1768,7 +1766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5917666904766726446}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.7, z: -0.67}
+  m_LocalPosition: {x: 0, y: 5.15, z: -0.67}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 7714660308571423311}
@@ -1874,7 +1872,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 292b368d4956ecd419ae9e08ed749c92, type: 2}
+  - {fileID: 2100000, guid: d7e732592aa639944b834d5826c82902, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

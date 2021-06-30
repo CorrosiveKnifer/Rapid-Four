@@ -10404,6 +10404,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Push Wave
       objectReference: {fileID: 0}
+    - target: {fileID: 8628121836621700193, guid: 9fdab3d2419fb444fb94ac101f9e5b2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdab3d2419fb444fb94ac101f9e5b2b, type: 3}
 --- !u!1001 &1513228658320312477
@@ -11704,10 +11709,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1664816426004983554, guid: f6abf2e78550571479297d8971d08c55,
+        type: 3}
+      propertyPath: m_AllowRoll
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664816426004983554, guid: f6abf2e78550571479297d8971d08c55,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664816426004983554, guid: f6abf2e78550571479297d8971d08c55,
+        type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4941391103899106662, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_Name
       value: Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716736969734633250, guid: f6abf2e78550571479297d8971d08c55,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
@@ -11717,52 +11742,52 @@ PrefabInstance:
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.22
+      value: 15.23
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 42.58
+      value: 44.95
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.81
+      value: 0.8099966
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.49855793
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.49855787
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5014381
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.50143796
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 179.67
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 89.99999
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6abf2e78550571479297d8971d08c55, type: 3}
