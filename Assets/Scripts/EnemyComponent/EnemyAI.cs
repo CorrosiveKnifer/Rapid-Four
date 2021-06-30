@@ -253,6 +253,7 @@ public class EnemyAI : MonoBehaviour
                 GameObject.Instantiate(m_deathPrefab, transform.position, Quaternion.identity);
             }
             GameManager.Score[playerID] += (int)m_startingHealth;
+            GameManager.Kills[playerID]++;
             StartCoroutine(Death(0.5f));
         }
         

@@ -753,6 +753,7 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive)
         {
             isAlive = false;
+            GameManager.Deaths[ID]++;
             shieldObject.gameObject.SetActive(false);
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {
