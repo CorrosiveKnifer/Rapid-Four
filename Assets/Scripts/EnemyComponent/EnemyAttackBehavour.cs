@@ -61,6 +61,9 @@ public abstract class EnemyAttackBehavour : MonoBehaviour
 
     public virtual Quaternion IdealRotation()
     {
+        if (m_target == null)
+            return Quaternion.identity;
+
         if ((m_target.transform.position - transform.position).x > 0)
             return Quaternion.LookRotation(m_target.transform.position - transform.position, Vector3.up);
         else

@@ -182,7 +182,7 @@ public class InputManager : MonoBehaviour
     {
         foreach(Gamepad padAvail in Gamepad.all)
         {
-            if(padAvail == players[playerid].gamepad)
+            if (padAvail == players[playerid].gamepad)
             {
                 return true;
             }

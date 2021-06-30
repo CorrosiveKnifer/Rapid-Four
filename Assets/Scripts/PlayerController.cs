@@ -207,7 +207,12 @@ public class PlayerController : MonoBehaviour
 
         // Shield regeneration
         if (isAlive)
-        { 
+        {
+
+            HUDManager.instance.SetCooldown(ID, 0, m_fSecondaryFireTimer, m_fSecondaryFireCD);
+            HUDManager.instance.SetCooldown(ID, 1, m_fAbility1Timer, m_fAbility1CD);
+            HUDManager.instance.SetCooldown(ID, 2, m_fAbility2Timer, m_fAbility2CD);
+
             if (m_shieldRegenTimer <= 0.0f)
             {
                 if (m_shields < m_maxShields)
