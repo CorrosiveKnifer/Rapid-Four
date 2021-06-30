@@ -12,14 +12,26 @@ public class EndScreenScript : MonoBehaviour
     public Text Highscore;
     public Text Score;
 
+    public Text ResultText;
+
+    public Text HP_Planet;
+
+    public Text Wave;
+
     public Text GameTime;
+
+    public Text Player1Score;
+    public Text Player2Score;
 
     public Text Player1Kills;
     public Text Player2Kills;
+
     public Text Player1Deaths;
     public Text Player2Deaths;
 
     public GameObject GoBackButton;
+
+    bool victory = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +41,22 @@ public class EndScreenScript : MonoBehaviour
         Score.text = ScoreToDisplay.ToString();
         Highscore.text = GameManager.HighScore.ToString();
 
+        if(victory)
+        {
+            ResultText.text = "VICTORY";
+        }
+        else
+        {
+            ResultText.text = "GAMEOVER";
+        }
+        
+
+        HP_Planet.text = GameManager.GameTime.ToString();
+        Wave.text = GameManager.GameTime.ToString();
         GameTime.text = GameManager.GameTime.ToString();
+
+        Player1Score.text = GameManager.GameTime.ToString();
+        Player2Score.text = GameManager.GameTime.ToString();
         Player1Kills.text = GameManager.GameTime.ToString();
         Player2Kills.text = GameManager.GameTime.ToString();
         Player1Deaths.text = GameManager.GameTime.ToString();
@@ -69,5 +96,10 @@ public class EndScreenScript : MonoBehaviour
     public void PlaySoundEffect()
     {
         GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
+    }
+
+    public void GoBackToMenu()
+    {
+        GameObject.FindObjectOfType<LevelLoader>().LoadNextLevel();
     }
 }
