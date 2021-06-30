@@ -97,8 +97,23 @@ public class GameManager : MonoBehaviour
         TotalScore = Score[0] + Score[1];
     }
 
+    private void RestartScores()
+    {
+        HasWon = false;
+        CurrentWave = 0;
+        PlanetHp = 1.0f;
+        for (int i = 0; i < 2; i++)
+        {
+            Score[i] = 0;
+            Kills[i] = 0;
+            Deaths[i] = 0;
+        }
+    }
+
     public void SpawnPlayers()
     {
+        RestartScores();
+
         Vector3 pos1 = new Vector3(-80, -3, 0);
         Vector3 pos2 = new Vector3(80, -3, 0);
 
