@@ -46,7 +46,7 @@ public class EndScreenScript : MonoBehaviour
         }
 
         int HP = (int)(GameManager.PlanetHp * 100.0f);
-        HP_Planet.text = HP.ToString();
+        HP_Planet.text = HP.ToString() + "%";
         Wave.text = GameManager.CurrentWave.ToString();
         GameTime.text = GameManager.GameTime.ToString();
 
