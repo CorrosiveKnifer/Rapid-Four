@@ -9,9 +9,6 @@ public class EndScreenScript : MonoBehaviour
 {
     public static float ScoreToDisplay = 0f;
 
-    public Text Highscore;
-    public Text Score;
-
     public Text ResultText;
 
     public Text HP_Planet;
@@ -31,36 +28,34 @@ public class EndScreenScript : MonoBehaviour
 
     public GameObject GoBackButton;
 
-    bool victory = false;
-
     // Start is called before the first frame update
     void Start()
     {
         ApplicationManager.GetInstance();
-        GetComponent<AudioAgent>().PlayBackground("EndMusic", true, 10);
-        Score.text = ScoreToDisplay.ToString();
-        Highscore.text = GameManager.HighScore.ToString();
 
-        if(victory)
+
+        if (GameManager.HasWon)
         {
             ResultText.text = "VICTORY";
+            GetComponent<AudioAgent>().PlayBackground("Victory", true, 10);
         }
         else
         {
             ResultText.text = "GAMEOVER";
+            GetComponent<AudioAgent>().PlayBackground("GameOver", true, 10);
         }
-        
 
-        HP_Planet.text = GameManager.GameTime.ToString();
-        Wave.text = GameManager.GameTime.ToString();
+        int HP = (int)(GameManager.PlanetHp * 100.0f);
+        HP_Planet.text = HP.ToString();
+        Wave.text = GameManager.CurrentWave.ToString();
         GameTime.text = GameManager.GameTime.ToString();
 
-        Player1Score.text = GameManager.GameTime.ToString();
-        Player2Score.text = GameManager.GameTime.ToString();
-        Player1Kills.text = GameManager.GameTime.ToString();
-        Player2Kills.text = GameManager.GameTime.ToString();
-        Player1Deaths.text = GameManager.GameTime.ToString();
-        Player2Deaths.text = GameManager.GameTime.ToString();
+        Player1Score.text = GameManager.Score[0].ToString();
+        Player2Score.text = GameManager.Score[1].ToString();
+        Player1Kills.text = GameManager.Kills[0].ToString();
+        Player2Kills.text = GameManager.Kills[1].ToString();
+        Player1Deaths.text = GameManager.Deaths[0].ToString();
+        Player2Deaths.text = GameManager.Deaths[1].ToString();
 
     }
     void Update()

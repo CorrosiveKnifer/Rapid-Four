@@ -1952,14 +1952,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2903c39361c4f54fae1cdc002e8734c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Highscore: {fileID: 320062351}
-  Score: {fileID: 506767021}
-  ResultText: {fileID: 0}
-  HP_Planet: {fileID: 0}
-  Wave: {fileID: 0}
-  GameTime: {fileID: 0}
-  Player1Score: {fileID: 0}
-  Player2Score: {fileID: 0}
+  ResultText: {fileID: 261901447}
+  HP_Planet: {fileID: 1567993562}
+  Wave: {fileID: 147076839}
+  GameTime: {fileID: 422039659}
+  Player1Score: {fileID: 876640215}
+  Player2Score: {fileID: 1733639347}
   Player1Kills: {fileID: 1454982054}
   Player2Kills: {fileID: 872214849}
   Player1Deaths: {fileID: 904668520}
@@ -1978,7 +1976,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 27726c97c45c217439612dc4e34c85b0, type: 3}
+  - {fileID: 8300000, guid: cdf380394319d7d479fa61316ed8f0bb, type: 3}
+  - {fileID: 8300000, guid: be38fbc3b276a97429a3ff6a576a387b, type: 3}
   - {fileID: 8300000, guid: 51ae30b002a300a48a6d457a7fa5926d, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
