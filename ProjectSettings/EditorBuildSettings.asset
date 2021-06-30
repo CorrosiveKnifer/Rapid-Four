@@ -8,15 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MenuScreen.unity
     guid: 6e69c841d4310cd449edeb3c04771560
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/CinematicScene.unity
     guid: 4027390c0e24cc04e8c43b19b80f9875
   - enabled: 1
-    path: Assets/Scenes/LobbyScreen.unity
-    guid: e812f1e2c2c65714fb12c9c045571d10
-  - enabled: 1
     path: Assets/Scenes/MainScene.unity
-    guid: e45ec97ea372fdc4b84e24c39dfd9c7f
+    guid: 2a9fa5e6426360645aa7aacfab183edd
   - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 89e1e7923b0dbbb4499b25c605b71624

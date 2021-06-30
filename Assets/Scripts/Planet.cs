@@ -33,13 +33,13 @@ public class Planet : MonoBehaviour
     {
 
         // Debug kaboom
-        //if (Input.GetKeyDown(KeyCode.G))
-       // {
-          //  m_fHealth = 0;
-       // }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            m_fHealth = 0;
+        }
 
         transform.Rotate(new Vector3(0.0f, m_fRotationSpeedMult * Time.deltaTime, 0.0f));
-        HUDManager.instance.SetPlanetHP(m_fMaxHealth, m_fHealth);
+        GameManager.instance.SetPlanetHealthBar(m_fHealth / m_fMaxHealth);
         minimapSprite.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
         if (m_fHealth <= 0.0f)
