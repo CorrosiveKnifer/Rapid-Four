@@ -14,6 +14,7 @@ public class HealthBar : MonoBehaviour
     public Image shieldMaxBar;
     public Image overHeatBar;
 
+    public Image boundsOverlay;
     public Image overHeatOverlay;
 
     public uint playerID;
@@ -21,6 +22,7 @@ public class HealthBar : MonoBehaviour
     public float healthMax;
     public float shieldMax;
     public float overheatMax = 100;
+    public bool showBoundsOverlay = false;
 
     public float healthCurrent;
     public float shieldCurrent;
@@ -32,7 +34,7 @@ public class HealthBar : MonoBehaviour
         healthBar.fillAmount = healthCurrent / healthMax;
         shieldBar.fillAmount = shieldCurrent / shieldMax;
 
-        overHeatBar.fillAmount = overheatCurrent / overheatMax;
+        boundsOverlay.color = new Color(1, 1, 1, 0);
     }
 
     // Update is called once per frame
@@ -50,5 +52,11 @@ public class HealthBar : MonoBehaviour
 
         float alpha = (overheatCurrent > 50.0f) ? (2 * Mathf.Pow(overheatCurrent / overheatMax, 2) - 0.5f) : 0.0f;
         overHeatOverlay.color = new Color(1, 1, 1, Mathf.Lerp(overHeatOverlay.color.a, alpha, 0.05f));
+
+        
+        if (showBoundsOverlay)
+            boundsOverlay.color = new Color(1, 1, 1, Mathf.Clamp(boundsOverlay.color.a + Time.deltaTime, 0.0f, 1.0f));
+        else
+            boundsOverlay.color = new Color(1, 1, 1, Mathf.Clamp(boundsOverlay.color.a - Time.deltaTime, 0.0f, 1.0f));
     }
 }
