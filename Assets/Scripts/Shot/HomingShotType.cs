@@ -4,36 +4,25 @@ using UnityEngine;
 using PowerUp;
 
 /// <summary>
-/// Rachael Colaco, Michael Jordan, William de Beer
+/// Rachael Colaco, Michael Jordan
 /// </summary>
 public class HomingShotType : ShotType
 {
     public GameObject target;
     public GameObject[] enemies;
-    public float range = 10.0f;
     private Vector3 original;
     private float timer = 0.0f;
-    private float startingLife;
-    public uint playerID = 0;
     protected override void Start()
     {
-        //if(!IsLaser)
-        //    Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+        if(!IsLaser)
+            Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
 
         isQuitting = false;
-        startingLife = lifetime;
     }
 
     protected override void Update()
     {
-        if (lifetime < startingLife - 0.5f)
-            homingBullet();
-
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
-        {
-            Destroy(this);
-        }
+        homingBullet();
 
         if (timer > 0)
             timer -= Time.deltaTime;
@@ -46,38 +35,27 @@ public class HomingShotType : ShotType
             if (other.GetComponent<Astroid>().Endurance != 5)
                 other.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Acceleration);
 
-            ////spawning ammo
-            //if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
-            //{
-            //    GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
-            //    AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
-            //    AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
-            //    AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
-            //    timer = delay;
-            //}
+            //spawning ammo
+            if (Random.Range(0.0f, 100.0f) < probability && timer <= 0.0f)
+            {
+                GameObject AmmoBox = Instantiate(Resources.Load<GameObject>("Prefabs/PowerUpCube"), other.gameObject.transform.position, Quaternion.identity);
+                AmmoBox.GetComponent<PowerUpPickUp>().isAmmoDrop = true; //setting the ammodrop to true
+                AmmoBox.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * 5.0f, ForceMode.Acceleration);
+                AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
+                timer = delay;
+            }
         }
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Asteroid")
         {
-            EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
-
-            foreach (var enemy in enemies)
-            {
-                if (Vector3.Distance(enemy.gameObject.transform.position, transform.position) < range)
-                {
-                    enemy.HurtEnemy(damage, playerID);
-                    Instantiate(Resources.Load<GameObject>("VFX/Detonate"), transform.position, Quaternion.identity);
-                }
-            }
-
+            other.gameObject.GetComponent<Astroid>().DealDamage(damage);
 
             if (gameObject.GetComponentInParent<PlayerController>() == null)
             {
-                Instantiate(Resources.Load<GameObject>("VFX/Detonate"), transform.position, Quaternion.identity);
-                
+                Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }
@@ -86,7 +64,7 @@ public class HomingShotType : ShotType
     void homingBullet()
     {
         //finding all enemies constantly
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        enemies = GameObject.FindGameObjectsWithTag("Asteroid");
         TargetCloset();
         bulletUpdateMovement();
     }
@@ -124,7 +102,7 @@ public class HomingShotType : ShotType
         foreach (GameObject enemy in enemies)
         {
             //calculate distance
-            float enemydist = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+            float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
             //if its in tower range
             if (enemydist < tempRadius)
             {

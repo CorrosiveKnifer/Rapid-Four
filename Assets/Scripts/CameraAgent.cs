@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class CameraAgent : MonoBehaviour
 {
-    public List<GameObject> targets = new List<GameObject>();
+    public GameObject[] targets;
     public Vector2 size;
 
     private Vector3 targetLoc;
@@ -17,7 +17,6 @@ public class CameraAgent : MonoBehaviour
     private float shakeTotal;
     private Vector3 shakeVector;
     private float lerpToTargetVal = 0.005f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +34,7 @@ public class CameraAgent : MonoBehaviour
                 pos += target.transform.position;
             }
 
-            targetLoc = pos / targets.Count + new Vector3(0, 0, -45);
+            targetLoc = pos / targets.Length + new Vector3(0, 0, -45);
         }
 
         targetLoc += shakeVector;
@@ -98,10 +97,5 @@ public class CameraAgent : MonoBehaviour
         } while (shakeTime > 0);
 
         yield return null;
-    }
-
-    public void AddTarget(GameObject focusObject)
-    {
-        targets.Add(focusObject);
     }
 }

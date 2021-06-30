@@ -13,8 +13,6 @@ public class AudioAgent : MonoBehaviour
     public float AgentSEVolume = 1f;
     public float AgentBGVolume = 1f;
 
-    public float SoundRange = 50.0f;
-
     private float savedSEVolume = 1f;
     private float savedBGVolume = 1f;
 
@@ -22,7 +20,6 @@ public class AudioAgent : MonoBehaviour
     {
         public AudioPlayer(AudioSource _source) { isSoundEffect = false; source = _source; }
         public bool isSoundEffect { get; set; }
-        public bool is3DSound { get; set; } = false;
         public AudioSource source { get; private set; }
 
         public float volume = 1.0f; //Local volume to the player
@@ -47,15 +44,7 @@ public class AudioAgent : MonoBehaviour
         foreach (var item in AudioLibrary)
         {
             if (item.Value.isSoundEffect)
-            {
-                float ratio = 1.0f;
-                if (item.Value.is3DSound)
-                {
-                    float dist = GameManager.GetInstance().ClosestPlayerDistance(transform.position);
-                    ratio = Mathf.Clamp(1.0f - dist / SoundRange, 0.0f, 1.0f);
-                }
-                item.Value.source.volume = GetSoundEffectVolume() * item.Value.volume * AgentSEVolume * ratio;
-            }  
+                item.Value.source.volume = GetSoundEffectVolume() * item.Value.volume * AgentSEVolume;
             else
                 item.Value.source.volume = GetBackgroundVolume() * item.Value.volume * AgentBGVolume;
         }
@@ -78,7 +67,7 @@ public class AudioAgent : MonoBehaviour
         AudioLibrary.Add(title, new AudioPlayer(source));
     }
 
-    public bool PlaySoundEffect(string title, bool isLooping = false, int priority = 255, float pitch = 1.0f)
+    public bool PlaySoundEffect(string title, bool isLooping = false, int priority = 255)
     {
         AudioPlayer player;
         if (AudioLibrary.TryGetValue(title, out player))
@@ -86,40 +75,12 @@ public class AudioAgent : MonoBehaviour
             AudioLibrary[title].source.loop = isLooping;
             AudioLibrary[title].source.priority = priority;
             AudioLibrary[title].isSoundEffect = true;
-            AudioLibrary[title].source.pitch = pitch;
             AudioLibrary[title].source.Play();
             return true;
         }
         return false;
     }
 
-    public void PlayAudio(string title)
-    {
-        AudioPlayer player;
-        if (AudioLibrary.TryGetValue(title, out player))
-        {
-            AudioLibrary[title].source.loop = false;
-            AudioLibrary[title].source.priority = 255;
-            AudioLibrary[title].isSoundEffect = false;
-            AudioLibrary[title].source.Play();
-        }
-    }
-
-    public bool Play3DSoundEffect(string title, bool isLooping = false, int priority = 255, float pitch = 1.0f)
-    {
-        AudioPlayer player;
-        if (AudioLibrary.TryGetValue(title, out player))
-        {
-            AudioLibrary[title].source.loop = isLooping;
-            AudioLibrary[title].source.priority = priority;
-            AudioLibrary[title].isSoundEffect = true;
-            AudioLibrary[title].is3DSound = true;
-            AudioLibrary[title].source.pitch = pitch;
-            AudioLibrary[title].source.Play();
-            return true;
-        }
-        return false;
-    }
     public bool PlayBackground(string title, bool isLooping = false, int priority = 255)
     {
         AudioPlayer player;
