@@ -32,14 +32,16 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && m_waves.Length > currentWave + 1 && !isSpawning)
+        
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && m_waves.Length >= currentWave + 1 && !isSpawning)
         {
             isSpawning = true;
             StartCoroutine(SpawnWave(m_waves[currentWave++]));
         }
-        else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && currentWave >= m_waves.Length)
+        else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && currentWave == m_waves.Length && !isSpawning)
         {
-            FindObjectOfType<LevelLoader>().LoadNextLevel();
+            GameObject.FindObjectOfType<LevelLoader>().LoadNextLevel();
+            GameManager.HasWon = true;
             Destroy(this);
         }
     }
@@ -47,7 +49,7 @@ public class SpawnManager : MonoBehaviour
     public IEnumerator SpawnWave(Wave wave)
     {
         float time = 0.0f;
-
+        GameManager.CurrentWave = (uint)currentWave;
         while (time < 2.0f)
         {
             yield return new WaitForEndOfFrame();

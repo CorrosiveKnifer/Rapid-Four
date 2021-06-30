@@ -39,7 +39,7 @@ public class Planet : MonoBehaviour
         }
 
         HUDManager.instance.SetPlanetHPAnim(m_alertTimer > 0.0f);
-
+        GameManager.PlanetHp = Mathf.Clamp(m_fHealth / m_fMaxHealth, 0.0f, 1.0f);
         // Debug kaboom
         //if (Input.GetKeyDown(KeyCode.G))
         // {
