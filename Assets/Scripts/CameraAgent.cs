@@ -24,7 +24,7 @@ public class CameraAgent : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(isFollowingTarget)
         {
@@ -41,7 +41,8 @@ public class CameraAgent : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, targetLoc, (isFollowingTarget) ? 1.0f : lerpToTargetVal);
 
-        if(transform.position + new Vector3(0.05f, 0.05f, 0.05f) == targetLoc && transform.position == targetLoc + new Vector3(0.05f, 0.05f, 0.05f))
+        Vector3 lockBuffer = new Vector3(0.001f, 0.001f, 0.001f);
+        if (transform.position + lockBuffer == targetLoc && transform.position == targetLoc + lockBuffer)
         {
             transform.position = targetLoc;
         }

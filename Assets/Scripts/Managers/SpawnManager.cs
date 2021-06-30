@@ -5,118 +5,81 @@ using UnityEngine;
 /// <summary>
 /// William de Beer
 /// </summary>
+
+[System.Serializable]
+public class Wave
+{
+    public uint[] enemyInfo;
+}
+
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject[] asteroidPrefab;
-    GameObject bossteroid;
+    public GameObject[] m_enemyPrefab;
+    
+    public Wave[] m_waves;
 
-    public float m_fSpawnDistance = 160.0f;
+    public float spawnRadius = 200;
+    public int currentWave = 0;
 
-    public float m_fSpawnInterval = 10.0f;
-    float m_fSpawnTimer;
-
-    public float m_fSpawningGraceDuration = 50.0f;
-    float m_fSpawningGrace;
-    bool m_bSpawningGrace = false; 
-
-    public float m_fBossSpawnDuration = 120.0f;
-    float m_fBossSpawnTimer;
-    // bool m_bSpawningGrace = false;
-
-    Animator animDanger;
-
-    float m_fMaxInterval = 10.0f;
-    float m_fMinInterval = 0.3f;
-    float m_fChangeSpeed = 0.01f; 
+    public bool isSpawning = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_fSpawnTimer = 0.0f;
-        m_fSpawningGrace = 0.0f;
-        m_fBossSpawnTimer = 0.0f;
-        animDanger = GetComponentInChildren<Animator>();
+        transform.position = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_fSpawnTimer <= 0.0f && !m_bSpawningGrace && bossteroid == null)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && m_waves.Length > currentWave + 1 && !isSpawning)
         {
-            Vector3 spawnPosition = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
-            spawnPosition = spawnPosition.normalized * m_fSpawnDistance;
-
-            Instantiate(asteroidPrefab[Random.Range(0, asteroidPrefab.Length)], spawnPosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
-
-            m_fSpawnTimer = m_fSpawnInterval;
+            isSpawning = true;
+            StartCoroutine(SpawnWave(m_waves[currentWave++]));
         }
-        else
+        else if(GameObject.FindGameObjectsWithTag("Enemy").Length <= 0 && currentWave >= m_waves.Length)
         {
-            m_fSpawnTimer -= Time.deltaTime;
-        }
-
-        m_fSpawnInterval = (m_fMaxInterval / (1 + m_fChangeSpeed * GameManager.instance.TotalScore)) + m_fMinInterval;
-
-        BossSpawnUpdate();
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SpawnBossteroid();
+            FindObjectOfType<LevelLoader>().LoadNextLevel();
+            Destroy(this);
         }
     }
 
-    private void BossSpawnUpdate()
+    public IEnumerator SpawnWave(Wave wave)
     {
-        if (bossteroid == null)
+        float time = 0.0f;
+
+        while (time < 2.0f)
         {
-            m_fBossSpawnTimer += Time.deltaTime;
-        }
-        if (!m_bSpawningGrace && (m_fBossSpawnTimer > (m_fBossSpawnDuration - 20.0f)))
-        {
-            // Activate spawning grace (turns off spawning for the duration)
-            m_bSpawningGrace = true;
-            m_fSpawningGrace = 0.0f;
-            GameManager.instance.WarningText.SetActive(true);
-            animDanger.SetTrigger("Start");
-            GetComponent<AudioAgent>().PlaySoundEffect("Alarm", true);
-        }
-        if (m_fBossSpawnTimer >= m_fBossSpawnDuration)
-        {
-            m_fBossSpawnTimer = 0.0f;
-            SpawnBossteroid();
+            yield return new WaitForEndOfFrame();
+            time += Time.deltaTime;
         }
 
-        if (m_bSpawningGrace)
+        GetComponent<AudioAgent>().PlaySoundEffect("EnemyWaveStart");
+        uint shipCount = 0;
+        for (int i = 0; i < wave.enemyInfo.Length; i++)
         {
-            m_fSpawningGrace += Time.deltaTime;
-            if (m_fSpawningGrace > m_fSpawningGraceDuration)
-            {
-                m_bSpawningGrace = false;
-                m_fSpawningGrace = 0.0f;
-            }
+            shipCount += wave.enemyInfo[i];
+        }
 
-            if (bossteroid != null)
+        while(shipCount > 0)
+        {
+            for (int i = 0; i < wave.enemyInfo.Length; i++)
             {
-                GameManager.instance.WarningText.SetActive(false);
-                GetComponent<AudioAgent>().StopAudio("Alarm");
-                animDanger.SetTrigger("Reset");
+                if(wave.enemyInfo[i] > 0)
+                {
+                    Vector2 temp = new Vector2(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f)).normalized;
+                    Instantiate(m_enemyPrefab[i], temp * spawnRadius, Quaternion.identity);
+                    wave.enemyInfo[i]--;
+                    shipCount--;
+                }
             }
         }
+        isSpawning = false;
+        yield return null;
     }
-    private void SpawnBossteroid()
+
+    public void OnDrawGizmosSelected()
     {
-        if (bossteroid != null)
-            return;
-        
-        Vector3 spawnPosition = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
-        spawnPosition = spawnPosition.normalized * m_fSpawnDistance;
-
-        bossteroid = Instantiate(asteroidPrefab[Random.Range(0, asteroidPrefab.Length)], spawnPosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f)));
-
-        bossteroid.transform.localScale = new Vector3(3, 3, 3);
-        bossteroid.GetComponent<Rigidbody>().mass = Mathf.Pow(2.0f * transform.localScale.x, 3);
-
-        bossteroid.GetComponent<Astroid>().Endurance = 5;
-        bossteroid.GetComponent<Astroid>().maxSpeed = 2.0f;
+        Gizmos.DrawWireSphere(Vector3.zero, spawnRadius);
     }
 }
