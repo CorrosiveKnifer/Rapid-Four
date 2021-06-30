@@ -9,7 +9,6 @@ TagManager:
   - Planet
   - PowerUp
   - Camera
-  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -22,9 +21,9 @@ TagManager:
   - Asteroid
   - MiniMap
   - PowerUp
-  - Player
-  - Planet
-  - Enemy
+  - 
+  - 
+  - 
   - 
   - 
   - 

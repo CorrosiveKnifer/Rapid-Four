@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Endurance: 1
-  ChildNum: 2
+  ChildNum: 3
   Health: 0
   probability: 50
   isDestroyed: 0

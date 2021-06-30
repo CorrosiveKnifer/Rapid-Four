@@ -9,12 +9,11 @@ using PowerUp;
 public class BasicShotType : ShotType
 {
     private float timer = 0.0f;
-    public uint playerID = 0;
     //private GameObject pushVFX;
 
     protected override void Start()
     {
-        //Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
+        Instantiate(Resources.Load<GameObject>("VFX/Bullet"), transform);
         //if (gameObject.GetComponentInParent<PlayerController>() != null)
         //{
         //    pushVFX = Instantiate(Resources.Load<GameObject>("VFX/Push"), transform);
@@ -45,10 +44,40 @@ public class BasicShotType : ShotType
                 AmmoBox.transform.position = new Vector3(AmmoBox.transform.position.x, AmmoBox.transform.position.y, 0.0f);
                 timer = delay;
             }
+
+            RaycastHit hit;
+
+            //if(RayCastToFirst(out hit))
+            //{
+            //    pushVFX.transform.up = -1 * hit.normal;
+            //    pushVFX.transform.position = hit.point;
+            //    pushVFX.SetActive(true);
+            //}
+            //else
+            //{
+            //    pushVFX.SetActive(false);
+            //}
         }
     }
 
-
+    //private bool RayCastToFirst(out RaycastHit closest)
+    //{
+    //    RaycastHit[] hits = Physics.RaycastAll(transform.position + transform.up, transform.up, transform.localScale.y);
+    //    closest = hits[0];
+    //    if (hits.Length > 0)
+    //    {
+    //        foreach (var hit in hits)
+    //        {
+    //            if(closest.distance > hit.distance)
+    //            {
+    //                closest = hit;
+    //            }
+    //        }
+    //        return true;
+    //    }
+    //    
+    //    return false;
+    //}
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -61,13 +90,6 @@ public class BasicShotType : ShotType
                 Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }            
-        }
-        if(other.gameObject.tag == "Enemy")
-        {
-            Instantiate(Resources.Load<GameObject>("VFX/RockHit"), transform.position, Quaternion.identity);
-            other.gameObject.GetComponentInParent<EnemyAI>().StunTarget(0.16f);
-            other.gameObject.GetComponentInParent<EnemyAI>().HurtEnemy(damage, playerID);
-            Destroy(gameObject);
         }
     }
 }
