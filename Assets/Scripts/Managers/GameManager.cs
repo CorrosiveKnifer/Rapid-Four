@@ -3,21 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Michael Jordan, William de Beer
+/// Michael Jordan, William de Beer, Rachael Colaco
 /// </summary>
 public class GameManager : MonoBehaviour
 {
     #region Singleton
 
-    public static GameManager instance = null;
+    private static GameManager instance = null;
+
+    public static GameManager GetInstance()
+    {
+        if (instance == null)
+        {
+            GameObject loader = new GameObject();
+            instance = loader.AddComponent<GameManager>();
+            return loader.GetComponent<GameManager>();
+
+        }
+
+        return instance;
+    }
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -30,8 +46,6 @@ public class GameManager : MonoBehaviour
     {
         if (instance == this)
             instance = null;
-
-        EndScreenScript.ScoreToDisplay = TotalScore;
     }
 
     #endregion
@@ -45,91 +59,78 @@ public class GameManager : MonoBehaviour
     public static int player1Controls = 0;
     public static int player2Controls = 1;
 
-    public int[] Score; // Not used anyore
+    public static int[] Score { get; set; } = new int[2];
     public int TotalScore;
 
     public int AsteroidDestroyScore = 10;
 
-    public double GameTime = 0.0;
+    public static double GameTime { get; set; } = 0.0;
 
-    [Header("UI Objects")]
-    public GameObject WarningText;
-    public GameObject ObjectiveText;
-    float ObjectiveTextDecayTime = 10.0f;
+    public static uint Player1Kills { get; set; } = 0;
+    public static uint Player2Kills { get; set; } = 0;
+    public static uint Player1Deaths { get; set; } = 0;
+    public static uint Player2Deaths { get; set; } = 0;
 
-    public Text scoreText;
-    public Text player1Ammo;
-    public Text player2Ammo;
-    public Image planetHealth;
+    [Header("Ship prefabs")]
+    [ReadOnly]
+    public GameObject[] playerShipPrefabs;
 
-    public RespawnTimer respawnTimer;
-
-    private PlayerController player1;
-    private PlayerController player2;
+    private List<PlayerController> players;
+    public int GetCombinedScore()
+    {
+        return 0;
+    }
 
     private void Start()
     {
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Asteroid"), LayerMask.NameToLayer("PowerUp")); 
+        playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
 
-        Score = new int[2];
-        Score[0] = 0;
-        Score[1] = 0;
-
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players)
-        {
-            if (player.GetComponentInParent<PlayerController>()?.ID == 0)
-            {
-                player1 = player.GetComponentInParent<PlayerController>();
-            }
-            else if(player.GetComponentInParent<PlayerController>()?.ID == 1)
-            {
-                player2 = player.GetComponentInParent<PlayerController>();
-            }
-        }
-
-        GetComponent<AudioAgent>().PlayBackground("InGameMusic", true, 10);
+        Debug.LogWarning("Using default controllers");
+        InputManager.GetInstance().DefaultAssignControllers();
+        SpawnPlayers();
     }
 
     // Update is called once per frame
     void Update()
     {
         GameTime += Time.deltaTime;
-        //TotalScore = Score[0] + Score[1];
-
-        scoreText.text = TotalScore.ToString();
-
-        player1Ammo.text = player1.Ammo.ToString();
-        player2Ammo.text = player2.Ammo.ToString();
-
-        if(TotalScore > HighScore)
-        {
-            HighScore = TotalScore;
-            scoreText.color = new Color(255/255f * 0.8f,215/255f * 0.8f,0);
-        }
-
-        if (GameTime < ObjectiveTextDecayTime)
-        {
-            ObjectiveText.GetComponentInChildren<Image>().color = new Color(1, 1, 1, ((ObjectiveTextDecayTime - (float)GameTime) / ObjectiveTextDecayTime));
-            ObjectiveText.GetComponentInChildren<Text>().color = new Color(1, 1, 1, ((ObjectiveTextDecayTime - (float)GameTime) / ObjectiveTextDecayTime));
-        }
-        else
-        {
-            ObjectiveText.SetActive(false);
-        }
+        TotalScore = Score[0] + Score[1];
     }
+
+    public void SpawnPlayers()
+    {
+        Vector3 pos1 = new Vector3(-80, -3, 0);
+        Vector3 pos2 = new Vector3(80, -3, 0);
+
+        int shipId1 = InputManager.GetInstance().GetPlayerControl(0).shipID;
+        int shipId2 = InputManager.GetInstance().GetPlayerControl(1).shipID;
+
+        GameObject ship1 = Instantiate(playerShipPrefabs[shipId1], pos1, Quaternion.Euler(new Vector3(-90, 0, 0)));
+        CameraManager.instance.SetCameraFocus(0, ship1);
+        ship1.GetComponent<PlayerController>().ID = 0;
+
+        GameObject ship2 = Instantiate(playerShipPrefabs[shipId2], pos2, Quaternion.Euler(new Vector3(-90, 0, 0)));
+        CameraManager.instance.SetCameraFocus(1, ship2);
+        ship2.GetComponent<PlayerController>().ID = 1;
+
+        players = new List<PlayerController>();
+        players.Add(ship1.GetComponent<PlayerController>());
+        players.Add(ship2.GetComponent<PlayerController>());
+    }
+
     public void AddToScore(float _asteroidScale)
     {
         TotalScore += (int)(AsteroidDestroyScore * _asteroidScale);
     }
-    public void SetPlanetHealthBar(float _health)
-    {
-        planetHealth.fillAmount = _health;
-    }
 
-    public RespawnTimer GetRespawnTimer()
+    public float ClosestPlayerDistance(Vector3 testPosition)
     {
-        return respawnTimer;
+        float dist = 10000;
+        foreach (var player in players)
+        {
+            dist = Mathf.Min(Vector3.Distance(player.gameObject.transform.position, testPosition), dist);
+        }
+        return dist;
     }
 }
 
