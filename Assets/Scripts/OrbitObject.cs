@@ -27,6 +27,10 @@ public class OrbitObject : MonoBehaviour
             if (orbitobject != this)
                 OrbitGravity(orbitobject);
         }
+        if (transform.position.z != 0)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
     }
 
     void OrbitGravity(OrbitObject _other)
