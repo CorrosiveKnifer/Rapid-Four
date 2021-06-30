@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     public int AsteroidDestroyScore = 10;
 
+    public bool DefaultSettings = false;
+
     public static double GameTime { get; set; } = 0.0;
 
     public static uint[] Kills { get; set; } = new uint[2];
@@ -86,8 +88,11 @@ public class GameManager : MonoBehaviour
     {
         playerShipPrefabs = Resources.LoadAll("PlayerShips", typeof(GameObject)).Cast<GameObject>().ToArray();
 
-        Debug.LogWarning("Using default controllers");
-        InputManager.GetInstance().DefaultAssignControllers();
+        if(DefaultSettings)
+        {
+            Debug.LogWarning("Using settings: default controllers");
+            InputManager.GetInstance().DefaultAssignControllers();
+        }
     }
 
     // Update is called once per frame
