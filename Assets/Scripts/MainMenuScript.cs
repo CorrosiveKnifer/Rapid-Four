@@ -37,14 +37,14 @@ public class MainMenuScript : MonoBehaviour
 
         isIgnore = false;
         ShowTitle();
-        
+
         FadeToColor(Buttons[index].GetComponent<Button>().colors.highlightedColor, Buttons[index]);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<AudioAgent>().IsAudioStopped("StartScreen"))
+        if (GetComponent<AudioAgent>().IsAudioStopped("StartScreen"))
         {
             GetComponent<AudioAgent>().PlayBackground("StartScreen", true, 10);
         }
@@ -52,7 +52,7 @@ public class MainMenuScript : MonoBehaviour
 
         FadeToColor(Buttons[index].GetComponent<Button>().colors.highlightedColor, Buttons[index]);
         FadeToColor(GoBackButton.GetComponent<Button>().colors.highlightedColor, GoBackButton);
-        if(IsMenuScreen)
+        if (IsMenuScreen)
         {
             MenuMechanic();
         }
@@ -61,10 +61,10 @@ public class MainMenuScript : MonoBehaviour
             SettingMechanic();
         }
 
-       
 
-       // player1Controls[0].enabled = false;
-       // player1Controls[1].enabled = false;
+
+        // player1Controls[0].enabled = false;
+        // player1Controls[1].enabled = false;
         //player1Controls[player1Box.selected].enabled = true;
         //player2Controls[0].enabled = false;
         //player2Controls[1].enabled = false;
@@ -74,7 +74,7 @@ public class MainMenuScript : MonoBehaviour
         GameManager.BackGroundVolume = Music.value;
         GameManager.SoundEffectVolume = SoundEffects.value;
 
-       // GameManager.player1Controls = player1Box.selected;
+        // GameManager.player1Controls = player1Box.selected;
         //GameManager.player2Controls = player2Box.selected;
     }
     void FadeToColor(Color color, GameObject currentButton)
@@ -93,6 +93,7 @@ public class MainMenuScript : MonoBehaviour
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, i))
             {
                 Debug.Log("right");
+                PlayMoveSoundEffect();
                 FadeToColor(Buttons[index].GetComponent<Button>().colors.normalColor, Buttons[index]);
                 index = Mathf.Clamp(index + 1, 0, 2);
                 break;
@@ -101,7 +102,7 @@ public class MainMenuScript : MonoBehaviour
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, i))
             {
                 Debug.Log("left");
-
+                PlayMoveSoundEffect();
                 FadeToColor(Buttons[index].GetComponent<Button>().colors.normalColor, Buttons[index]);
                 index = Mathf.Clamp(index - 1, 0, 2);
                 break;
@@ -111,7 +112,7 @@ public class MainMenuScript : MonoBehaviour
             if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
             {
                 Debug.Log("press");
-                PlaySoundEffect();
+                PlaySelectSoundEffect();
                 Buttons[index].GetComponent<Button>().onClick.Invoke();
 
                 break;
@@ -125,7 +126,7 @@ public class MainMenuScript : MonoBehaviour
             if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
             {
                 Debug.Log("press");
-                PlaySoundEffect();
+                PlaySelectSoundEffect();
                 GoBackButton.GetComponent<Button>().onClick.Invoke();
 
                 break;
@@ -139,10 +140,37 @@ public class MainMenuScript : MonoBehaviour
     }
     public void PlaySoundEffect()
     {
-        if(!isIgnore)
+        if (!isIgnore)
         {
             if (GetComponent<AudioAgent>().IsAudioStopped("ShootPew"))
                 GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
+        }
+    }
+
+    public void PlayMoveSoundEffect()
+    {
+        if (!isIgnore)
+        {
+            if (GetComponent<AudioAgent>().IsAudioStopped("Move"))
+                GetComponent<AudioAgent>().PlaySoundEffect("Move");
+        }
+    }
+
+    public void PlaySelectSoundEffect()
+    {
+        if (!isIgnore)
+        {
+            if (GetComponent<AudioAgent>().IsAudioStopped("Select"))
+                GetComponent<AudioAgent>().PlaySoundEffect("Select");
+        }
+    }
+
+    public void PlayCancelSoundEffect()
+    {
+        if (!isIgnore)
+        {
+            if (GetComponent<AudioAgent>().IsAudioStopped("Cancel"))
+                GetComponent<AudioAgent>().PlaySoundEffect("Cancel");
         }
     }
 
