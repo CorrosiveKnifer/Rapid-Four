@@ -16,14 +16,35 @@ public class BasicRangeBehavour : EnemyAttackBehavour
         m_preferedAttackDistance = 50.0f;
     }
 
+    public override bool IsWithinPreferedDistance()
+    {
+        if (m_target == null)
+            return false;
+
+        if (m_planetKiller)
+        {
+            return Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance + 40.0f;
+        }
+        return Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance;
+    }
+
     //Inherited by EnemyAttackBehavour
     public override Vector3 GetTargetVector()
     {
         if (m_target == null)
             return Vector3.zero;
 
+        Vector3 targetLoc;
+        if (m_planetKiller)
+        {
+            targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * (m_preferedPersonalDistance + 40.0f);
+        }
+        else
+        {
+            targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
+        }
+
         //Move towards a close enough position.
-        Vector3 targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * m_preferedPersonalDistance;
         m_gizmosPosition = targetLoc; //For rendering in base class.
 
         float distanceToTarget = (targetLoc - transform.position).magnitude;
@@ -41,12 +62,13 @@ public class BasicRangeBehavour : EnemyAttackBehavour
         {
             return;
         }
-        if (Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance)
-        {
 
+        float distReq = (m_planetKiller) ? m_preferedAttackDistance  + 40.0f: m_preferedAttackDistance;
+        if (Vector3.Distance(transform.position, m_target.transform.position) <= distReq)
+        {
             //Raycast forward to predict if it will hit the target
             RaycastHit hit;
-            if(Physics.Raycast(transform.position, transform.forward, out hit, m_preferedAttackDistance))
+            if(Physics.Raycast(transform.position, transform.forward, out hit, distReq))
             {
                 //It will hit? so shoot projectile:
                 if (hit.collider.gameObject.layer == (int)Mathf.Log(m_TargetTag.value, 2))

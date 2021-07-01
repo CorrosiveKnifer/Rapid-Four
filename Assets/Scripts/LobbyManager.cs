@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Rachael Colaco
 /// </summary>
@@ -14,7 +15,7 @@ public class LobbyManager : MonoBehaviour
 
     public GameObject[] player1Option;
     public GameObject[] player2Option;
-    
+
     public GameObject player1AssignedPanel;
     public GameObject player2AssignedPanel;
 
@@ -41,7 +42,7 @@ public class LobbyManager : MonoBehaviour
 
     public LevelTimer timer;
 
-    int[] playerIndex = new int [2];
+    int[] playerIndex = new int[2];
 
     public GameObject allReady;
 
@@ -65,6 +66,7 @@ public class LobbyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        QuitLobby();
         if (Lobbydone)
         {
             //if player one is assigned with a controller
@@ -118,7 +120,7 @@ public class LobbyManager : MonoBehaviour
                     if (InputManager.GetInstance().GetPlayerControl(i).isKeyboard)
                     {
                         //press start for the keyboard
-                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, i))
+                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ENTER, i))
                         {
                             timer.StartAnim();
                             Destroy(this);
@@ -143,6 +145,36 @@ public class LobbyManager : MonoBehaviour
         }
 
 
+    }
+
+    /// <summary>
+    /// Applying the option to quit anytime
+    /// </summary>
+    void QuitLobby()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            //if assigned player spefically the keyboard
+            if (InputManager.GetInstance().GetPlayerControl(i).isKeyboard)
+            {
+                //press start for the keyboard
+                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, i))
+                {
+                    GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex - 1, 0.0f);
+                    return;
+                }
+            }
+            //if they arent assigned
+            else
+            {
+                //press start to gamepad or keyboard
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_NORTH, i) || InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, i))
+                {
+                    GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex - 1, 0.0f);
+                    return;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -302,19 +334,21 @@ public class LobbyManager : MonoBehaviour
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, playerID))
             {
                 Debug.Log("right");
-                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID]+1, 0, 1);
+                PlayMoveSoundEffect();
+                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID] + 1, 0, 1);
 
             }
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, playerID))
             {
                 Debug.Log("left");
-                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID]-1, 0, 1);
+                PlayMoveSoundEffect();
+                playerIndex[playerID] = Mathf.Clamp(playerIndex[playerID] - 1, 0, 1);
 
             }
         }
     }
 
-    
+
 
     /// <summary>
     /// Goes through the function to confirm the ship selected
@@ -332,36 +366,36 @@ public class LobbyManager : MonoBehaviour
                 //presing space
                 if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_SPACE, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
-                    PlaySoundEffect();
+                    PlaySelectSoundEffect();
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
                 }
-                
+
             }
             else //otherwise if its gamepad
             {
                 if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, playerID) && !InputManager.GetInstance().IsShipIdTaken(Shipindex))
                 {
-                    PlaySoundEffect();
+                    PlaySelectSoundEffect();
                     //Debug.Log("player" + playerID + " ship has been confirmed with selection " + Shipindex);
                     InputManager.GetInstance().SetShipToPlayer(playerID, Shipindex);
                     return;
 
                 }
-                
+
             }
-      
+
         }
         else //if they have a ship selected, get confirmation to cancel the ship
         {
             //if its a key controls
-            if(InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
+            if (InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
-                //pressing escape key
-                if(InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, playerID))
+                //pressing tab key
+                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_TAB, playerID))
                 {
-                    PlaySoundEffect();
+                    PlayCancelSoundEffect();
                     if (playerID == 0)
                     {
                         cancelp1ShipID = true; //confirm the cancelation
@@ -377,8 +411,8 @@ public class LobbyManager : MonoBehaviour
             //otherwise if its gamepad
             else if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_EAST, playerID))
             {
-                PlaySoundEffect();
-                if (playerID ==0)
+                PlayCancelSoundEffect();
+                if (playerID == 0)
                 {
                     cancelp1ShipID = true;
                 }
@@ -395,6 +429,27 @@ public class LobbyManager : MonoBehaviour
     public void PlaySoundEffect()
     {
         GetComponent<AudioAgent>().PlaySoundEffect("ShootPew");
+    }
+
+    public void PlayMoveSoundEffect()
+    {
+        if (GetComponent<AudioAgent>().IsAudioStopped("Move"))
+            GetComponent<AudioAgent>().PlaySoundEffect("Move");
+
+    }
+
+    public void PlaySelectSoundEffect()
+    {
+        if (GetComponent<AudioAgent>().IsAudioStopped("Select"))
+            GetComponent<AudioAgent>().PlaySoundEffect("Select");
+
+    }
+
+    public void PlayCancelSoundEffect()
+    {
+        if (GetComponent<AudioAgent>().IsAudioStopped("Cancel"))
+            GetComponent<AudioAgent>().PlaySoundEffect("Cancel");
+
     }
 
 

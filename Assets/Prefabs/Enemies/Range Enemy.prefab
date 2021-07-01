@@ -231,7 +231,8 @@ MonoBehaviour:
   m_AttackDist: 5
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 4655132576291732635}
-  m_startingHealth: 100
+  m_startingHealth: 150
+  m_material: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -267,11 +268,12 @@ MonoBehaviour:
   m_TargetTag:
     serializedVersion: 2
     m_Bits: 2048
+  m_planetKiller: 0
   m_currentSpeed: 0
   m_delay: 0
   m_shotForce: 50
   m_shotDelay: 3
-  m_shotDamage: 20
+  m_shotDamage: 40
   m_projPrefab: {fileID: 8657985447000331096, guid: d4a8895e73447f2499535614ebc7f55b,
     type: 3}
 --- !u!136 &5985464240304704971
@@ -1354,6 +1356,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 7732841945800251459, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61c80ca4a91d4bd4c8e295e71ae611b0, type: 2}
     - target: {fileID: 7811806786682446802, guid: 0ef42c2dd98f12a46b4e7e285e30ee5b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

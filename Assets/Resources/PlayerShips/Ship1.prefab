@@ -222,6 +222,7 @@ MonoBehaviour:
   m_shieldRegenDelay: 3
   maxDist: {x: 500, y: 500}
   minDist: {x: -500, y: -500}
+  hitVFX: {fileID: 2988561151626877354, guid: 0bb528097f4e3c44b9c7901a2675b40c, type: 3}
   projectileSpawnLoc:
   - {fileID: 8893165469106798060}
   - {fileID: 3406159294516305357}
