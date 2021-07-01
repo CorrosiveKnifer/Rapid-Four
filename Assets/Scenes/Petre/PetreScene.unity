@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -10404,11 +10404,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Push Wave
       objectReference: {fileID: 0}
-    - target: {fileID: 8628121836621700193, guid: 9fdab3d2419fb444fb94ac101f9e5b2b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdab3d2419fb444fb94ac101f9e5b2b, type: 3}
 --- !u!1001 &1513228658320312477
@@ -11717,7 +11712,7 @@ PrefabInstance:
     - target: {fileID: 1664816426004983554, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
       propertyPath: m_RenderMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1664816426004983554, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
@@ -11733,6 +11728,11 @@ PrefabInstance:
         type: 3}
       propertyPath: moveWithTransform
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716736969734633250, guid: f6abf2e78550571479297d8971d08c55,
+        type: 3}
+      propertyPath: ShapeModule.alignToDirection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8359002337363332783, guid: f6abf2e78550571479297d8971d08c55,
         type: 3}
