@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 maxDist;
     public Vector2 minDist;
+    public GameObject hitVFX;
 
     [Header("Attachments")]
     public GameObject[] projectileSpawnLoc;
@@ -709,7 +710,7 @@ public class PlayerController : MonoBehaviour
     ///  Deal damage to the player when the have been hit
     /// </summary>
     /// <param name="damage"></param>
-    public void DealDamage(float damage)
+    public void DealDamage(float damage, Vector3 pos = default(Vector3))
     {
         m_shieldRegenTimer = m_shieldRegenDelay;
         if (m_shields > 0.0f)
@@ -720,11 +721,23 @@ public class PlayerController : MonoBehaviour
                 // Move negative shields into health
                 m_health += m_shields;
                 m_shields = 0.0f;
-            }    
+                if (pos != default(Vector3))
+                {
+                    Vector3 direct = (pos - transform.position).normalized;
+                    GameObject hit = Instantiate(hitVFX, transform.position + direct * 1.5f, Quaternion.LookRotation(direct));
+                    hit.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                }
+            }
         }
         else 
         {
             m_health -= damage;
+            if (pos != default(Vector3))
+            {
+                Vector3 direct = (pos - transform.position).normalized;
+                GameObject hit = Instantiate(hitVFX, transform.position + direct * 1.5f, Quaternion.LookRotation(direct));
+                hit.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+            }
             if (m_health < 0.0f)
             {
                 // Kill player
@@ -732,6 +745,7 @@ public class PlayerController : MonoBehaviour
                 KillPlayer();
             }
         }
+        
     }
     /// <summary>
     /// Heal the player for an amount
@@ -753,6 +767,7 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible && isAlive)
         {
             isAlive = false;
+            GameManager.Deaths[ID]++;
             shieldObject.gameObject.SetActive(false);
             foreach (var item in GetComponentsInChildren<MeshRenderer>())
             {

@@ -384,13 +384,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8396219659b9fca47abcb193230d1ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RotationSlerp: 0.55
+  m_RotationSlerp: 0.75
   m_PrefDist: 6.5
   m_AttackDist: 5
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 8387448023770630736}
-  m_startingHealth: 150
-  m_deathMaterial: {fileID: 0}
+  m_startingHealth: 300
+  m_miniMap: {fileID: 4814451371119820820}
+  m_material: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -430,7 +431,7 @@ MonoBehaviour:
   m_currentSpeed: 0
   m_delay: 0
   m_attackDelay: 0.5
-  m_myDamage: 30
+  m_myDamage: 80
   m_chargePreferedEndDistance: 8
   chargeSpeedMultiplier: 4
 --- !u!136 &1691237171436032359
@@ -443,8 +444,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 9
-  m_Height: 30
+  m_Radius: 12
+  m_Height: 40
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5131475408402397069

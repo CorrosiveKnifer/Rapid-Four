@@ -206,6 +206,7 @@ MonoBehaviour:
   m_shieldRegenDelay: 3
   maxDist: {x: 500, y: 500}
   minDist: {x: -500, y: -500}
+  hitVFX: {fileID: 2988561151626877354, guid: 0bb528097f4e3c44b9c7901a2675b40c, type: 3}
   projectileSpawnLoc:
   - {fileID: 8893165469106798060}
   noseProjectileSpawnLoc: {fileID: 4626568034484531001}
@@ -5361,7 +5362,7 @@ PrefabInstance:
     - target: {fileID: 6429115918460268386, guid: 5dbb497c16136b948aea8efec53e51cf,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6429115918460268386, guid: 5dbb497c16136b948aea8efec53e51cf,
         type: 3}
@@ -5371,7 +5372,7 @@ PrefabInstance:
     - target: {fileID: 6429115918460268386, guid: 5dbb497c16136b948aea8efec53e51cf,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6429115918460268386, guid: 5dbb497c16136b948aea8efec53e51cf,
         type: 3}

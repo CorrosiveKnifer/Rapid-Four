@@ -58,6 +58,11 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     public override void DealDamage()
     {
         //Damage the player directly.
+        if(m_target == null)
+        {
+            return;
+        }
+
         float dist = Vector3.Distance(transform.position, m_target.transform.position);
         if (m_planetKiller && m_target.GetComponentInParent<Planet>() != null)
         {
@@ -69,7 +74,7 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
 
         if (m_target.GetComponentInParent<PlayerController>() != null)
         {
-            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage, transform.position);
         }
         GetComponent<AudioAgent>().Play3DSoundEffect("MeleeAttack", false, 255, Random.Range(0.75f, 1.25f));
         m_delay = m_attackDelay;

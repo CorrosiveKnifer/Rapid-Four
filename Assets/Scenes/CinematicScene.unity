@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5125,6 +5125,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc506abb0bab4bf4baf4d146434fae1b, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+  SoundRange: 50
 --- !u!114 &1317839389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5138,6 +5139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTime: 6.75
+  camera: {fileID: 0}
+  camera2: {fileID: 0}
+  UI: {fileID: 0}
 --- !u!1 &1342837607
 GameObject:
   m_ObjectHideFlags: 0

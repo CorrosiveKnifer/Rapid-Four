@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     public float m_maxAttackDelay = 3.0f; //Delay inbetween attacks.
     public GameObject m_healthBar;
     public float m_startingHealth = 100.0f;
-   
+    public GameObject m_miniMap;
     public Material m_material;
     private bool m_isDead = false;
 
@@ -67,12 +67,12 @@ public class EnemyAI : MonoBehaviour
     {
         if (m_healthBar != null)
         {
-            m_healthBar.transform.parent.gameObject.SetActive(m_CurrentHealth / m_startingHealth != 1);
+            m_healthBar.transform.parent.gameObject.SetActive(m_CurrentHealth / m_startingHealth != 1.0f && !m_isDead);
+            m_miniMap.SetActive(!m_isDead);
             m_healthBar.transform.localScale = new Vector3(m_CurrentHealth / m_startingHealth, 1, 1);
         }
         if (m_isDead)
         {
-            GetComponentInChildren<Animator>().SetBool("IsDead", true);
             return;
         }
 
@@ -253,7 +253,8 @@ public class EnemyAI : MonoBehaviour
                 GameObject.Instantiate(m_deathPrefab, transform.position, Quaternion.identity);
             }
             GameManager.Score[playerID] += (int)m_startingHealth;
-            StartCoroutine(Death(0.5f));
+            GameManager.Kills[playerID]++;
+            StartCoroutine(Death(2.0f));
         }
         
     }
@@ -262,6 +263,8 @@ public class EnemyAI : MonoBehaviour
     {
         if(m_isDead)
             yield return null;
+
+        GetComponentInChildren<Animator>().SetTrigger("IsDead");
 
         m_isDead = true;
         foreach (var item in GetComponentsInChildren<Collider>())

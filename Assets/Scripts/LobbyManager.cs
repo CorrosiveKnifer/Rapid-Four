@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Rachael Colaco
 /// </summary>
@@ -65,6 +66,7 @@ public class LobbyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        QuitLobby();
         if (Lobbydone)
         {
             //if player one is assigned with a controller
@@ -118,7 +120,7 @@ public class LobbyManager : MonoBehaviour
                     if (InputManager.GetInstance().GetPlayerControl(i).isKeyboard)
                     {
                         //press start for the keyboard
-                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_W, i))
+                        if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ENTER, i))
                         {
                             timer.StartAnim();
                             Destroy(this);
@@ -143,6 +145,36 @@ public class LobbyManager : MonoBehaviour
         }
 
 
+    }
+
+    /// <summary>
+    /// Applying the option to quit anytime
+    /// </summary>
+    void QuitLobby()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            //if assigned player spefically the keyboard
+            if (InputManager.GetInstance().GetPlayerControl(i).isKeyboard)
+            {
+                //press start for the keyboard
+                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, i))
+                {
+                    GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex - 1, 0.0f);
+                    return;
+                }
+            }
+            //if they arent assigned
+            else
+            {
+                //press start to gamepad or keyboard
+                if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_NORTH, i) || InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, i))
+                {
+                    GameObject.FindObjectOfType<LevelLoader>().LoadLevelAsync(SceneManager.GetActiveScene().buildIndex - 1, 0.0f);
+                    return;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -360,8 +392,8 @@ public class LobbyManager : MonoBehaviour
             //if its a key controls
             if (InputManager.GetInstance().GetPlayerControl(playerID).isKeyboard)
             {
-                //pressing escape key
-                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_ESC, playerID))
+                //pressing tab key
+                if (InputManager.GetInstance().GetKeyDown(InputManager.KeyType.KEY_TAB, playerID))
                 {
                     PlayCancelSoundEffect();
                     if (playerID == 0)

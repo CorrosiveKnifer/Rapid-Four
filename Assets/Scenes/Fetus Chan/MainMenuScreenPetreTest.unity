@@ -23457,7 +23457,7 @@ PrefabInstance:
     - target: {fileID: 4583483544088292434, guid: f7403eb4d134f354a9c0a0b57159bf51,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4583483544088292435, guid: f7403eb4d134f354a9c0a0b57159bf51,
         type: 3}
@@ -38196,7 +38196,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165000823}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
@@ -60358,6 +60358,18 @@ Transform:
   m_Father: {fileID: 1345454540}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1946770962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3769751947284958689, guid: f7403eb4d134f354a9c0a0b57159bf51,
+    type: 3}
+  m_PrefabInstance: {fileID: 628252834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421b9e0db30aacf42962c796c1d9d36b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1950907951
 GameObject:
   m_ObjectHideFlags: 0
@@ -62274,6 +62286,7 @@ GameObject:
   - component: {fileID: 2015205758}
   - component: {fileID: 2015205757}
   - component: {fileID: 2015205756}
+  - component: {fileID: 2015205760}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -62377,6 +62390,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &2015205760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015205755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 934fc5b11b02ebe4f9093ed7ee4c281e, type: 2}
 --- !u!1 &2015643774
 GameObject:
   m_ObjectHideFlags: 0
@@ -71311,6 +71341,8 @@ MonoBehaviour:
   AudioClips:
   - {fileID: 8300000, guid: 51ae30b002a300a48a6d457a7fa5926d, type: 3}
   - {fileID: 8300000, guid: d59edc1be576ed54dbfe9bbe380d89f5, type: 3}
+  - {fileID: 8300000, guid: f2651cdf945e7684ba7f7fd743535a40, type: 3}
+  - {fileID: 8300000, guid: ed3ee349af65ec043890d0636490e902, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
   SoundRange: 50
@@ -71720,7 +71752,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1946770962}
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
