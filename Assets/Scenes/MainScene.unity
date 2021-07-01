@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalScore: 0
   AsteroidDestroyScore: 10
-  DefaultSettings: 1
+  DefaultSettings: 0
   playerShipPrefabs:
   - {fileID: 4879110610021296452, guid: 4eb63db104932fd40baff2b7afb8f0b4, type: 3}
   - {fileID: 4879110610021296452, guid: 20bcbf512be808a4fae2df9a46bf66f8, type: 3}

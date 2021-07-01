@@ -93,7 +93,6 @@ public class MainMenuScript : MonoBehaviour
 
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.RIGHT, i))
             {
-                Debug.Log("right");
                 PlayMoveSoundEffect();
                 FadeToColor(Buttons[index].GetComponent<Button>().colors.normalColor, Buttons[index]);
                 index = Mathf.Clamp(index + 1, 0, 2);
@@ -102,7 +101,6 @@ public class MainMenuScript : MonoBehaviour
             }
             if (InputManager.GetInstance().GetStickDirection(InputManager.StickDirection.LEFT, i))
             {
-                Debug.Log("left");
                 PlayMoveSoundEffect();
                 FadeToColor(Buttons[index].GetComponent<Button>().colors.normalColor, Buttons[index]);
                 index = Mathf.Clamp(index - 1, 0, 2);
@@ -112,7 +110,6 @@ public class MainMenuScript : MonoBehaviour
 
             if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i) && playOnce)
             {
-                Debug.Log("press");
                 PlaySelectSoundEffect();
                 Buttons[index].GetComponent<Button>().onClick.Invoke();
                 if(index ==0)
