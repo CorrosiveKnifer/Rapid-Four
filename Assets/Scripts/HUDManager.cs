@@ -166,4 +166,9 @@ public class HUDManager : MonoBehaviour
             player2AbilityCooldown[abilityID].SetCooldown(current, max);
         }
     }
+
+    public void SetBoundsWarning(int ID, bool _active)
+    {
+        playerBars[ID].showBoundsOverlay = _active;
+    }
 }

@@ -11,7 +11,7 @@ public class Planet : MonoBehaviour
 
     public CameraAgent[] playerCamera;
 
-    float m_fMaxHealth = 10000.0f;
+    float m_fMaxHealth = 5000.0f;
     public float m_fHealth;
     public float m_fRotationSpeedMult = 1.0f;
     public GameObject minimapSprite;

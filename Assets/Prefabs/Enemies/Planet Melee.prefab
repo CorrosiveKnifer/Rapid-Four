@@ -136,8 +136,8 @@ MonoBehaviour:
   m_AttackDist: 5
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 5894757738715247227}
-  m_startingHealth: 100
-  m_deathMaterial: {fileID: 0}
+  m_startingHealth: 80
+  m_material: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -173,11 +173,11 @@ MonoBehaviour:
   m_TargetTag:
     serializedVersion: 2
     m_Bits: 4096
-  m_planetKiller: 1
+  m_planetKiller: 0
   m_currentSpeed: 0
   m_delay: 0
   m_attackDelay: 0.5
-  m_myDamage: 20
+  m_myDamage: 50
 --- !u!136 &1095602650324997437
 CapsuleCollider:
   m_ObjectHideFlags: 0

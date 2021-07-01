@@ -231,8 +231,8 @@ MonoBehaviour:
   m_AttackDist: 5
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 4655132576291732635}
-  m_startingHealth: 100
-  m_deathMaterial: {fileID: 0}
+  m_startingHealth: 150
+  m_material: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
   m_CurrentHealth: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_delay: 0
   m_shotForce: 50
   m_shotDelay: 3
-  m_shotDamage: 20
+  m_shotDamage: 40
   m_projPrefab: {fileID: 8657985447000331096, guid: d4a8895e73447f2499535614ebc7f55b,
     type: 3}
 --- !u!136 &5985464240304704971

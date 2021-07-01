@@ -44,8 +44,8 @@ public class StrafingRangedBehavour : BasicRangeBehavour
         if (m_projPrefab != null)
         {
             m_delay = m_shotDelay;
-
-            GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position, Quaternion.identity);
+            Vector3 direct = (transform.position - m_target.transform.position).normalized;
+            GameObject newProj = GameObject.Instantiate(m_projPrefab, transform.position + direct * 10.0f, Quaternion.identity);
             
             //Set inheritance velocity.
             newProj.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;

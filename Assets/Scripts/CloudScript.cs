@@ -33,6 +33,11 @@ public class CloudScript : MonoBehaviour
             if(distance >= trueRadius)
             {
                 player.DealDamage(Time.deltaTime * damage * Mathf.Pow(distance, 1.2f)/ trueRadius);
+                HUDManager.instance.SetBoundsWarning(player.ID, true);
+            }
+            else
+            {
+                HUDManager.instance.SetBoundsWarning(player.ID, false);
             }
         }
 
