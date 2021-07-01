@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -26231,7 +26231,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a469f82f4f5fca84dbbbc202e621f964, type: 3}
+    m_Font: {fileID: 12800000, guid: 0927ba1d98ee6c24dbea5bc0312d5cef, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -37974,7 +37974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165000823}
   m_LocalRotation: {x: -0.08682413, y: 0.0075961305, z: 0.08682413, w: 0.99240386}
-  m_LocalPosition: {x: 24037, y: 169, z: -29352.998}
+  m_LocalPosition: {x: 24037, y: 1096, z: -29352.998}
   m_LocalScale: {x: 20059.002, y: 20058.998, z: 20059.002}
   m_Children:
   - {fileID: 719247082}
@@ -40649,7 +40649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292705784}
   m_LocalRotation: {x: -0, y: -0.98930633, z: -0, w: 0.14585266}
-  m_LocalPosition: {x: -364, y: -2908, z: -36419}
+  m_LocalPosition: {x: -364, y: -1981, z: -36419}
   m_LocalScale: {x: 100.00003, y: 100, z: 100.00003}
   m_Children:
   - {fileID: 69199878}
