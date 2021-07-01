@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public bool DefaultSettings = false;
 
-    public static double GameTime { get; set; } = 0.0;
+    public static float GameTime { get; set; } = 0.0f;
 
     public static uint[] Kills { get; set; } = new uint[2];
     public static uint[] Deaths { get; set; } = new uint[2];
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     private List<PlayerController> players;
     public int GetCombinedScore()
     {
-        return 0;
+        return Score[0] + Score[1];
     }
 
     private void Start()

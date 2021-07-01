@@ -334,9 +334,9 @@ GameObject:
   - component: {fileID: 6725544723137782865}
   - component: {fileID: 7763163903277468199}
   - component: {fileID: 2250696300691908977}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StrafingEnemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -424,6 +424,7 @@ MonoBehaviour:
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 2059612428778102268}
   m_startingHealth: 500
+  m_miniMap: {fileID: 5860146027567276733}
   m_material: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}

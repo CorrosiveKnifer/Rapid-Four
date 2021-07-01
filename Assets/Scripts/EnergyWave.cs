@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyWave : MonoBehaviour
 {
     public float damage = 20.0f;
-    public float duration = 1.0f;
+    public float duration = 0.5f;
     public float heal = 50.0f;
     public float knockback = 20.0f;
     public uint playerID = 0;
@@ -31,7 +31,7 @@ public class EnergyWave : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (hitList.Contains(other) || lifetime > 0.5)
+        if (hitList.Contains(other))
             return;
 
        
