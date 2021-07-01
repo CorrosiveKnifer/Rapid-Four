@@ -57,6 +57,7 @@ public class InputManager : MonoBehaviour
         KEY_TAB,
         KEY_Q,
         KEY_E,
+        KEY_ENTER
 
     }
 
@@ -282,7 +283,7 @@ public class InputManager : MonoBehaviour
         //if its assigned to keys
         if (players[_index].isKeyboard)
         {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current.tabKey.wasPressedThisFrame)
             {
                 players[_index] = new Controller(false, 0, null, -1);
                 Debug.Log("deselect player " + _index.ToString() + " with keyboard");
@@ -438,6 +439,9 @@ public class InputManager : MonoBehaviour
 
             case KeyType.KEY_E:
                 return keyboard.eKey.wasPressedThisFrame;
+
+            case KeyType.KEY_ENTER:
+                return keyboard.enterKey.wasPressedThisFrame;
         }
     }
 
@@ -581,6 +585,9 @@ public class InputManager : MonoBehaviour
 
             case KeyType.KEY_E:
                 return keyboard.eKey.isPressed;
+
+            case KeyType.KEY_ENTER:
+                return keyboard.enterKey.isPressed;
         }
 
 

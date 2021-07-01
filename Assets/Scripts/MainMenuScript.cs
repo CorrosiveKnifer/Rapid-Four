@@ -25,6 +25,7 @@ public class MainMenuScript : MonoBehaviour
     public GameObject GoBackButton;
     private int index = 0;
     private bool IsMenuScreen = true;
+    private bool playOnce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -109,11 +110,15 @@ public class MainMenuScript : MonoBehaviour
 
             }
 
-            if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i))
+            if (InputManager.GetInstance().GetKeyDown(InputManager.ButtonType.BUTTON_SOUTH, i) && playOnce)
             {
                 Debug.Log("press");
                 PlaySelectSoundEffect();
                 Buttons[index].GetComponent<Button>().onClick.Invoke();
+                if(index ==0)
+                {
+                    playOnce = false;
+                }
 
                 break;
             }
