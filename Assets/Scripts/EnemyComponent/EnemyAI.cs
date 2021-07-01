@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     public float m_maxAttackDelay = 3.0f; //Delay inbetween attacks.
     public GameObject m_healthBar;
     public float m_startingHealth = 100.0f;
-   
+    public GameObject m_miniMap;
     public Material m_material;
     private bool m_isDead = false;
 
@@ -67,7 +67,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (m_healthBar != null)
         {
-            m_healthBar.transform.parent.gameObject.SetActive(m_CurrentHealth / m_startingHealth != 1 && !m_isDead);
+            m_healthBar.transform.parent.gameObject.SetActive(m_CurrentHealth / m_startingHealth != 1.0f && !m_isDead);
+            m_miniMap.SetActive(!m_isDead);
             m_healthBar.transform.localScale = new Vector3(m_CurrentHealth / m_startingHealth, 1, 1);
         }
         if (m_isDead)

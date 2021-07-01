@@ -390,6 +390,7 @@ MonoBehaviour:
   m_maxAttackDelay: 3
   m_healthBar: {fileID: 8387448023770630736}
   m_startingHealth: 300
+  m_miniMap: {fileID: 4814451371119820820}
   m_material: {fileID: 0}
   m_deathPrefab: {fileID: 0}
   m_CurrentTarget: {fileID: 0}
