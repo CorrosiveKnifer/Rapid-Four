@@ -74,7 +74,7 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
 
         if (m_target.GetComponentInParent<PlayerController>() != null)
         {
-            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage, transform.position);
         }
         GetComponent<AudioAgent>().Play3DSoundEffect("MeleeAttack", false, 255, Random.Range(0.75f, 1.25f));
         m_delay = m_attackDelay;

@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: 4:3 Aspect Ratio
-  productName: Cosmos Colliders
+  productName: Cata-Cosmic
   defaultCursor: {fileID: 2800000, guid: 86585f9fec6237447b2dd0f19d8f1d53, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -270,7 +270,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 858ac92e0dcafd341a65f21e19681b84, type: 3}
+      m_Icon: {fileID: 2800000, guid: 7c15e85cadf7dbc43a7fe73b0c114e6e, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

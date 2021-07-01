@@ -76,11 +76,11 @@ public class ChargingMeleeBehavour : BasicMeleeBehavour
 
         if (m_target.GetComponentInParent<PlayerController>() != null)
         {
-            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage, transform.position);
         }
         if (m_target.GetComponent<Planet>() != null)
         {
-            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage);
+            m_target.GetComponentInParent<PlayerController>().DealDamage(m_myDamage, transform.position);
         }
 
         m_delay = m_attackDelay;
