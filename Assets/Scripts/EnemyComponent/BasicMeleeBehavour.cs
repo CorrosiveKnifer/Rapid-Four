@@ -58,6 +58,11 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     public override void DealDamage()
     {
         //Damage the player directly.
+        if(m_target == null)
+        {
+            return;
+        }
+
         float dist = Vector3.Distance(transform.position, m_target.transform.position);
         if (m_planetKiller && m_target.GetComponentInParent<Planet>() != null)
         {

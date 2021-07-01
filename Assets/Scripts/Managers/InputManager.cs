@@ -87,7 +87,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Second Instance of InputManager was created, this instance was destroyed.");
+            Debug.LogWarning("Second Instance of InputManager was created, this instance was destroyed.");
             Destroy(this);
         }
     }
