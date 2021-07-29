@@ -183,7 +183,7 @@ public class InputManager : MonoBehaviour
     {
         foreach(Gamepad padAvail in Gamepad.all)
         {
-            if (padAvail == players[playerid].gamepad)
+            if(padAvail == players[playerid].gamepad)
             {
                 return true;
             }
@@ -946,16 +946,10 @@ public class InputManager : MonoBehaviour
         if (playerCam != null)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue();
-            mousePos.z = playerCam.farClipPlane;
+            mousePos.z = playerCam.farClipPlane * .5f;
             Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
-            Vector3 direct = worldPoint - new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, worldPoint.z);
-            
-            direct = direct / 800.0f;
-            if (direct.magnitude > 1.0f)
-                direct = direct.normalized * 1.0f;
 
-            direct.z = 0;
-            return direct.y;
+            return worldPoint.y;
         }
         return 0;
 
@@ -969,16 +963,10 @@ public class InputManager : MonoBehaviour
         if (playerCam != null)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue();
-            mousePos.z = playerCam.farClipPlane;
+            mousePos.z = playerCam.farClipPlane * .5f;
             Vector3 worldPoint = playerCam.ScreenToWorldPoint(mousePos);
-            Vector3 direct = worldPoint - new Vector3(playerCam.transform.position.x, playerCam.transform.position.y, worldPoint.z);
 
-            direct = direct / 800.0f;
-            if (direct.magnitude > 1.0f)
-                direct = direct.normalized * 1.0f;
-
-            direct.z = 0;
-            return direct.x;
+            return worldPoint.x;
         }
         return 0;
 

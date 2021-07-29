@@ -10,9 +10,7 @@ public class AudioAgent : MonoBehaviour
     public AudioClip[] AudioClips;
 
     //Agent's local volume
-    [Range(0.0f, 1.0f)]
     public float AgentSEVolume = 1f;
-    [Range(0.0f, 1.0f)]
     public float AgentBGVolume = 1f;
 
     public float SoundRange = 50.0f;

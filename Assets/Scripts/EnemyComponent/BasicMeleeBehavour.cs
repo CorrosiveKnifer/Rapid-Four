@@ -18,12 +18,9 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
     }
     public override bool IsWithinPreferedDistance()
     {
-        if (m_target == null)
-            return false;
-
         if(m_planetKiller)
         {
-            return Vector3.Distance(transform.position, m_target.transform.position) <= 43.0f;
+            return Vector3.Distance(transform.position, m_target.transform.position) <= 42.0f;
         }
         return Vector3.Distance(transform.position, m_target.transform.position) <= m_preferedAttackDistance;
     }
@@ -38,7 +35,7 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
 
         if(m_planetKiller)
         {
-            if (Vector3.Distance(transform.position, m_target.transform.position) <= 50.0f)
+            if (Vector3.Distance(transform.position, m_target.transform.position) <= 40.0f)
             {
                 //Start Animation
                 GetComponentInChildren<Animator>().SetBool("Attack", true);
@@ -90,7 +87,7 @@ public class BasicMeleeBehavour : EnemyAttackBehavour
         Vector3 targetLoc;
         if (m_planetKiller)
         {
-            targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * 40.0f;
+            targetLoc = m_target.transform.position + (transform.position - m_target.transform.position).normalized * 39.0f;
         }
         else
         {

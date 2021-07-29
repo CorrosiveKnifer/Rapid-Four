@@ -97,8 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 10
   explosionRange: 30
-  damage: 60
-  playerID: 0
+  damage: 100
 --- !u!54 &3183270045814576357
 Rigidbody:
   m_ObjectHideFlags: 0

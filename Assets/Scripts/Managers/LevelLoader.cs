@@ -133,13 +133,13 @@ public class LevelLoader : MonoBehaviour
 
         if (levelIndex == 0 || levelIndex == SceneManager.sceneCountInBuildSettings - 1) // Check if either in menu or end screen
         {
-            Cursor.lockState = CursorLockMode.None; // Make cursor usable.
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None; // Make cursor usable.
+            //Cursor.visible = true;
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Confined; // Make cursor unusable.
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Confined; // Make cursor unusable.
+            //Cursor.visible = false;
         }
 
         // Load Scene

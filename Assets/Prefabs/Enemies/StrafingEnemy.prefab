@@ -334,9 +334,9 @@ GameObject:
   - component: {fileID: 6725544723137782865}
   - component: {fileID: 7763163903277468199}
   - component: {fileID: 2250696300691908977}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StrafingEnemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
